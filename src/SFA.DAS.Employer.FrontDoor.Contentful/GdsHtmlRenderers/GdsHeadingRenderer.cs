@@ -38,9 +38,7 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.GdsHtmlRenderers
         /// <returns>Returns true if the content is a heading, otherwise false.</returns>
         public bool SupportsContent(IContent content)
         {
-            //            return content is Heading1 || content is Heading2 || content is Heading3 || content is Heading4 || content is Heading5 || content is Heading6;
             return content is Heading1 || content is Heading2 || content is Heading3 || content is Heading4;
-            //return content is Heading1 or Heading2 or Heading3 or Heading4;
         }
 
         /// <summary>
