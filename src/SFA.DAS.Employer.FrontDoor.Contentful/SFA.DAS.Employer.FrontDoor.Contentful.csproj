@@ -6,16 +6,8 @@
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
 	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <WarningsNotAsErrors>S125</WarningsNotAsErrors>
-    <NoWarn>S1135</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <WarningsNotAsErrors>S125</WarningsNotAsErrors>
-    <NoWarn>S1135</NoWarn>
+	<WarningsNotAsErrors>S125</WarningsNotAsErrors>
+	<NoWarn>S1135</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
