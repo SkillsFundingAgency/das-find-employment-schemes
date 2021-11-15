@@ -1,4 +1,5 @@
-﻿using Contentful.Core.Models;
+﻿using System.Linq;
+using Contentful.Core.Models;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,12 +46,15 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.GdsHtmlRenderers
             var link = content as Hyperlink;
             var sb = new StringBuilder();
 
-            //todo: if we need to support opening links in a new tab, does contentful support specifying that?
-            // If you need a link to open in a new tab - for example, to stop the user losing information they’ve entered into a form - then include the words ‘opens in new tab’ as part of the link. There’s no need to say ‘tab or window’, since opening in a new tab is the default behaviour for most browsers.
-            // Include rel="noreferrer noopener" along with target="_blank" to reduce the risk of reverse tabnabbing
+            // we assume we only get asked to render what we've said we support
+            sb.Append($"<a href=\"{link!.Data.Uri}\" title=\"{link.Data.Title}\" class=\"govuk-link\"");
 
-           // we assume we only get asked to render what we've said we support
-           sb.Append($"<a href=\"{link!.Data.Uri}\" title=\"{link.Data.Title} class=\"govuk-link\"\">");
+            // if the text content of the link is wrapped with "[]", then we make the link open in a new tab
+            string? firstTextValue = link.Content.OfType<Text>().FirstOrDefault()?.Value;
+            if (firstTextValue != null && firstTextValue.StartsWith('[') && firstTextValue.EndsWith(']'))
+                sb.Append(" rel=\"noreferrer noopener\" target=\"_blank\"");
+
+            sb.Append('>');
 
             // this common code could go in a base class
             foreach (var subContent in link.Content)
