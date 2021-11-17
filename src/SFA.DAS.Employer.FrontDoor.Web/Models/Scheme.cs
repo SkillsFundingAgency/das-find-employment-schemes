@@ -1,7 +1,8 @@
-﻿using Contentful.Core.Models;
+﻿using System.Reflection.Metadata;
 
-namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
+namespace SFA.DAS.Employer.FrontDoor.Web.Models
 {
+    //todo: won't end up living here
     public class Scheme
     {
         public string Name { get; set; }

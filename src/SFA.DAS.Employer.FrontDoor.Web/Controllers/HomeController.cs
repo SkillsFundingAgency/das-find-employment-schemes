@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
@@ -13,6 +14,11 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        private static readonly HomeModel HomeModel = new HomeModel {Schemes = new[]
+        {
+            new Scheme {Name = "Apprenticeships", Url = "apprenticeships"}
+        }};
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -20,12 +26,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(HomeModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

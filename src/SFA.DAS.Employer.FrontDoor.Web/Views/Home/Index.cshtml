@@ -1,8 +1,12 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model HomeModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1 class="govuk-heading-xl">Find training and employment schemes for your business</h1>
+
+@*todo: lead or normal?*@
+<p class="govuk-body">A range of government programmes, are available for employers who are considering hiring employees, offering work experience or upskilling existing staff. Some of which offer financial incentives. </p>
+
+@foreach (var scheme in Model.Schemes)
+{
+    @*todo: best form? accessibility, route, helper? etc.*@
+    <h2 class="govuk-heading-m"><a href="/schemes/@scheme.Url" class="govuk-link">@scheme.Name</a></h2>
+}

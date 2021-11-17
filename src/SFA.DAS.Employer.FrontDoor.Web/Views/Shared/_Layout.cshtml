@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template app-html-class">
 <head>
     <meta charset="utf-8">
-    <title>GOV.UK - Customised page template</title>
+    <title>GOV.UK - Find schemes for your business</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="blue">
     
@@ -31,12 +31,12 @@
     document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
 
 </script>
-  <div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on [name of service]">
+  <div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on Find schemes for your business">
     <div class="govuk-cookie-banner__message govuk-width-container">
 
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-          <h2 class="govuk-cookie-banner__heading govuk-heading-m">Cookies on [name of service]</h2>
+          <h2 class="govuk-cookie-banner__heading govuk-heading-m">Cookies on Find schemes for your business</h2>
 
           <div class="govuk-cookie-banner__content">
             <p>We use some essential cookies to make this service work.</p>
@@ -98,14 +98,12 @@
         </span>
       </p>
     </div>
-
-    <a href="#" class="govuk-back-link">Back</a>
-
+    
+      @*todo: render optional breadcrumb section*@
+      @*    <a href="#" class="govuk-back-link">Back</a>
+*@
     <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
-        <h1 class="govuk-heading-xl">Customised page template</h1>
-        
         @RenderBody()
-
     </main>
   </div>
 
