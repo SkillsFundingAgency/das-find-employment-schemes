@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en" class="govuk-template app-html-class">
+<html lang="en" class="govuk-template">
 <head>
     <meta charset="utf-8">
     <title>GOV.UK - Customised page template</title>
@@ -17,19 +17,11 @@
     <!--[if !IE 8]><!-->
     <link href="/css/main.css" rel="stylesheet"/>
     <!--<![endif]-->
-    <!--[if IE 8]>
-        <link href="/govuk-frontend/all-ie8.css" rel="stylesheet" />
-    <![endif]-->
-    <!--[if lt IE 9]>
-        <script src="/html5-shiv/html5shiv.js"></script>
-    <![endif]-->
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
 </head>
-<body class="govuk-template__body app-body-class" data-test="My value" data-other="report:details">
+<body class="govuk-template__body">
 <script>
-    //todo: check - does this get done in the initAll's at the bottom?
     document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-
 </script>
   <div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on [name of service]">
     <div class="govuk-cookie-banner__message govuk-width-container">
@@ -59,7 +51,7 @@
 
   <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
-  <header class="govuk-header " role="banner" data-module="govuk-header">
+  <header class="govuk-header" role="banner" data-module="govuk-header">
     <div class="govuk-header__container govuk-width-container">
       <div class="govuk-header__logo">
         <a href="#" class="govuk-header__link govuk-header__link--homepage">
@@ -82,12 +74,11 @@
         <a href="#" class="govuk-header__link govuk-header__link--service-name">
           Find schemes for your business
         </a>
-        <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide navigation menu">Menu</button>
       </div>
     </div>
   </header>
 
-  <div class="govuk-width-container app-width-container">
+  <div class="govuk-width-container">
     <div class="govuk-phase-banner">
       <p class="govuk-phase-banner__content">
         <strong class="govuk-tag govuk-phase-banner__content__tag">
@@ -101,7 +92,7 @@
 
     <a href="#" class="govuk-back-link">Back</a>
 
-    <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+    <main class="govuk-main-wrapper" id="main-content" role="main">
         <h1 class="govuk-heading-xl">Customised page template</h1>
         
         @RenderBody()
@@ -109,7 +100,7 @@
     </main>
   </div>
 
-<footer class="govuk-footer " role="contentinfo">
+<footer class="govuk-footer" role="contentinfo">
     <div class="govuk-width-container ">
         <div class="govuk-footer__meta">
             <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
