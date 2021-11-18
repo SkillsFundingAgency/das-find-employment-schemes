@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.Employer.FrontDoor.Web
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
