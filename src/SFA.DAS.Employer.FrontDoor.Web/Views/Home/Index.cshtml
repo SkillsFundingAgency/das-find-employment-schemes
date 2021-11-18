@@ -1,13 +1,34 @@
 ﻿@model HomeModel
 
-<h1 class="govuk-heading-xl">Find training and employment schemes for your business</h1>
-
-@*todo: lead or normal?*@
-<p class="govuk-body">A range of government programmes, are available for employers who are considering hiring employees, offering work experience or upskilling existing staff. Some of which offer financial incentives. </p>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Find training and employment schemes for your business</h1>
+        @*todo: lead or normal?*@
+        <p class="govuk-body">A range of government programmes, are available for employers who are considering hiring employees, offering work experience or upskilling existing staff. Some of which offer financial incentives. </p>
+    </div>
+</div>
 
 @foreach (var scheme in Model.Schemes)
 {
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     @*todo: best form? accessibility, route, helper? etc.*@
-    <h2 class="govuk-heading-m"><a href="/schemes/@scheme.Url" class="govuk-link">@scheme.Name</a></h2>
+    <h3 class="govuk-heading-m"><a href="/schemes/@scheme.Url" class="govuk-link">@scheme.Name</a></h3>
     <p class="govuk-body">@scheme.ShortDescription</p>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+            @*todo: gds shows govuk-heading-s on a h3 when xl in use, should it be h4?*@
+            @*todo: govuk-heading-s doesn't seem to exist, so e.g. transport font not used*@
+            <h3 govuk-heading-s>Cost</h3>
+            <p class="govuk-body">@scheme.ShortCost</p>
+        </div>
+        <div class="govuk-grid-column-one-third">
+            <h3 govuk-heading-s>Benefits</h3>
+            <p class="govuk-body">@scheme.ShortBenefits</p>
+        </div>
+        <div class="govuk-grid-column-one-third">
+            <h3 govuk-heading-s>Time</h3>
+            <p class="govuk-body">@scheme.ShortTime</p>
+        </div>
+    </div>
 }
