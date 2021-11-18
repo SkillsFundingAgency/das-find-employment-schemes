@@ -14,10 +14,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private static readonly HomeModel HomeModel = new HomeModel {Schemes = new[]
-        {
-            new Scheme {Name = "Apprenticeships", Url = "apprenticeships"}
-        }};
+        private static readonly HomeModel HomeModel = new HomeModel();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -32,7 +29,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel(Activity.Current?.Id ?? HttpContext.TraceIdentifier ));
         }
     }
 }
