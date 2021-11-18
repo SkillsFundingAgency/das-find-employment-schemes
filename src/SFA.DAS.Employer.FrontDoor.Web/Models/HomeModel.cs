@@ -11,7 +11,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Models
         {
             Schemes = new[]
             {
-                new Scheme("Apprenticeships", "apprenticeships", "")
+                new Scheme("Apprenticeships", "", "", "", "", "apprenticeships")
             };
         }
     }
