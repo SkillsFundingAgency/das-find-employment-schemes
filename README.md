@@ -30,6 +30,10 @@ The ServiceBus Support Utility is an Azure ServiceBus Queue management tool that
 
 ## How It Works
 
+![Architecture](docs/Front Door Arch Update Delay.drawio.png)
+
+[Local Store Strategy](docs/Local Store Strategy.md)
+
 _Add a description of how the project works technically, this should give new developers an insight into the how the project hangs together, the core concepts in-use and the high-level features that it provides_
 
 _For Example_
