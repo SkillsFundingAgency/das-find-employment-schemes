@@ -6,16 +6,22 @@
 /*todo: we'll check for IE and let them use the non-javascript enhanced version*/
 
 /*todo:use modules, remove globals! ts?*/
-/*todo: filter-schemes as id rather than class*/
-/*todo: ids and class names as constants?*/
 
 var fetchResults = true;
+const filterParamName = 'filter';
+const filterIdDataName = 'filterid';
+const schemeResultsSectionIdSelector = '#scheme-results';
+const throbberIdSelector = '#throbber';
+const numberOfSchemesAjaxIdSelector = '#number-of-schemes';
+const numberOfSchemesIdSelector = '#number-of-schemes';
+const filterSchemesCheckboxSelector = '.filter-schemes :checkbox';
 
 function initSearch(options) {
     setDefaultFilterIfRequired(options.defaultFilter);
     updateFiltersFromFragmentAndShowResults(options.resultsAjaxUrl);
 
-    $(window).hashchange(function () {
+    //todo: should we be using pushState instead?
+    $(window).on('hashchange', function () {
         updateFiltersFromFragmentAndShowResults(options.resultsAjaxUrl);
     });
     initEvents();
@@ -28,7 +34,7 @@ function setDefaultFilterIfRequired(defaultFilter) {
     const hashParams = getHashParams();
     const filters = getFilters(hashParams);
     if (filters.length === 0) {
-        hashParams['filter'] = defaultFilter;
+        hashParams[filterParamName] = defaultFilter;
         setHashParams(hashParams, true);
     }
 }
@@ -44,11 +50,11 @@ function updateFiltersFromFragmentAndShowResults(resultsAjaxUrl) {
 }
 
 function getFilters(hashParams) {
-    const filter = hashParams['filter'];
+    const filter = hashParams[filterParamName];
     if (filter == null)
         return [];
 
-    return hashParams['filter'].split(',');
+    return hashParams[filterParamName].split(',');
 }
 
 function submitFilters(resultsAjaxUrl) {
@@ -56,24 +62,24 @@ function submitFilters(resultsAjaxUrl) {
     showThrobber();
     $.ajax({
         url: resultsAjaxUrl,
-        dataType: "html",
+        dataType: 'html',
         type: 'GET',
         processData: false,
         data: filterData,
         success: function (htmlData) {
-            $('#scheme-results').html(htmlData);
-            updateNumberOfSchemes($("#number-of-schemes").val());
+            $(schemeResultsSectionIdSelector).html(htmlData);
+            updateNumberOfSchemes($(numberOfSchemesAjaxIdSelector).val());
             updateResults();
         }
     });
 }
 
 function getFilterAjaxData() {
-    return 'filter=' + getHashParams()['filter'];
+    return filterParamName + '=' + getHashParams()[filterParamName];
 }
 
 function updateNumberOfSchemes(numberOfSchemes) {
-    $("#number-of-schemes").html(numberOfSchemes);
+    $(numberOfSchemesIdSelector).html(numberOfSchemes);
 }
 
 function updateResults() {
@@ -82,7 +88,7 @@ function updateResults() {
 }
 
 function initEvents() {
-    $('.filter-schemes :checkbox').click(function () {
+    $(filterSchemesCheckboxSelector).click(function () {
         //todo: sync checkbox?
         updateFragmentFromCheckboxes();
     });
@@ -114,11 +120,11 @@ function updateFragmentFromCheckboxes() {
     // checkboxes
     var newFilter = [];
     var newFilterStr = '';
-    $('.filter-schemes :checkbox').each(function () {
+    $(filterSchemesCheckboxSelector).each(function () {
         const $this = $(this);
         var filterId;
         if ($this.prop('checked')) {
-            filterId = $this.data('filterid');
+            filterId = $this.data(filterIdDataName);
             if ($.inArray(filterId, newFilter) === -1) {
                 newFilter.push(filterId);
             }
@@ -130,7 +136,7 @@ function updateFragmentFromCheckboxes() {
     }
 
     const hashParams = getHashParams();
-    hashParams['filter'] = newFilterStr;
+    hashParams[filterParamName] = newFilterStr;
     setHashParams(hashParams, true);
 }
 
@@ -139,9 +145,9 @@ function updateCheckboxesFromFragment() {
     var filters = getFilters(hashParams);
 
     // checkboxes
-    $('.filter-schemes :checkbox').each(function () {
+    $(filterSchemesCheckboxSelector).each(function () {
         const $this = $(this);
-        $this.prop('checked', $.inArray($this.data('filterid'), filters) !== -1);
+        $this.prop('checked', $.inArray($this.data(filterIdDataName), filters) !== -1);
     });
 }
 
@@ -160,11 +166,11 @@ function setHashParams(hashParams, updateResults) {
 
 /*todo: use a skeleton screen instead? */
 function showThrobber() {
-    $("#throbber").show();
-    $("#scheme-results").hide();
+    $(throbberIdSelector).show();
+    $(schemeResultsSectionIdSelector).hide();
 }
 
 function hideThrobber() {
-    $("#throbber").hide();
-    $("#scheme-results").show();
+    $(throbberIdSelector).hide();
+    $(schemeResultsSectionIdSelector).show();
 }
