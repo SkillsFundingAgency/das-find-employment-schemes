@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Reflection.Metadata;
 
 namespace SFA.DAS.Employer.FrontDoor.Web.Models
 {
@@ -9,6 +8,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Models
 
         public HomeModel()
         {
+            // ensure we order by size desc, so we don't have to sort
             Schemes = new[]
             {
                 new Scheme("Apprenticeships",
@@ -16,7 +16,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Models
                     "Apprentice minimum wage and 5% training contribution depending on business size",
                     "You develop a motivated, skilled and qualified workforce",
                     "Minimum of 12 months employment",
-                    "apprenticeships")
+                    "apprenticeships", 1000)
             };
         }
     }
