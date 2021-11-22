@@ -1,0 +1,32 @@
+﻿@model HomeModel
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Find training and employment schemes for your business</h1>
+        @*todo: lead or normal?*@
+        <p class="govuk-body">A range of government programmes, are available for employers who are considering hiring employees, offering work experience or upskilling existing staff. Some of which offer financial incentives. </p>
+    </div>
+</div>
+
+@foreach (var scheme in Model.Schemes)
+{
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    @*todo: best form? accessibility, route, helper? etc.*@
+    <h3 class="govuk-heading-m"><a href="/schemes/@scheme.Url" class="govuk-link">@scheme.Name</a></h3>
+    <p class="govuk-body">@scheme.ShortDescription</p>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+            <h4 class="govuk-heading-s">Cost</h4>
+            <p class="govuk-body">@scheme.ShortCost</p>
+        </div>
+        <div class="govuk-grid-column-one-third">
+            <h4 class="govuk-heading-s">Benefits</h4>
+            <p class="govuk-body">@scheme.ShortBenefits</p>
+        </div>
+        <div class="govuk-grid-column-one-third">
+            <h4 class="govuk-heading-s">Time</h4>
+            <p class="govuk-body">@scheme.ShortTime</p>
+        </div>
+    </div>
+}
