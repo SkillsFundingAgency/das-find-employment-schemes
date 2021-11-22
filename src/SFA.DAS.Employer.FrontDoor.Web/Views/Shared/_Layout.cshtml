@@ -81,9 +81,7 @@
                </span>
             </p>
          </div>
-         @*todo: render optional breadcrumb section*@
-         @*    <a href="#" class="govuk-back-link">Back</a>
-         *@
+        @RenderSection("BreadCrumbs", required: false)
          <main class="govuk-main-wrapper" id="main-content" role="main">
             @RenderBody()
          </main>
@@ -119,9 +117,6 @@
             </div>
          </div>
       </footer>
-      @* 
-      @RenderSection("Scripts", required: false)
-      *@
       <script src="/libs/govuk-frontend/all.js"></script>
       <script src="/libs/jquery/jquery.min.js"></script>
       <script src="/js/das-all.js"></script>
