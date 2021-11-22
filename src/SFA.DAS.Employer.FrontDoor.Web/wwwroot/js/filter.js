@@ -6,8 +6,87 @@
 /*todo: we'll check for IE and let them use the non-javascript enhanced version*/
 
 /*todo:use modules, remove globals! ts?*/
+/*todo: filter-schemes as id rather than class*/
+/*todo: ids and class names as constants?*/
 
 var fetchResults = true;
+
+function initSearch(options) {
+    setDefaultFilterIfRequired(options.defaultFilter);
+    updateFiltersFromFragmentAndShowResults(options.resultsAjaxUrl);
+
+    $(window).hashchange(function () {
+        updateFiltersFromFragmentAndShowResults(options.resultsAjaxUrl);
+    });
+    initEvents();
+}
+
+function setDefaultFilterIfRequired(defaultFilter) {
+    if (window.location.hash.length > 0)
+        return;
+
+    const hashParams = getHashParams();
+    const filters = getFilters(hashParams);
+    if (filters.length === 0) {
+        hashParams['filter'] = defaultFilter;
+        setHashParams(hashParams, true);
+    }
+}
+
+function updateFiltersFromFragmentAndShowResults(resultsAjaxUrl) {
+    updateCheckboxesFromFragment();
+    if (fetchResults)
+        submitFilters(resultsAjaxUrl);
+    else {
+        updateResults();
+        fetchResults = true;
+    }
+}
+
+function getFilters(hashParams) {
+    const filter = hashParams['filter'];
+    if (filter == null)
+        return [];
+
+    return hashParams['filter'].split(',');
+}
+
+function submitFilters(resultsAjaxUrl) {
+    const filterData = getFilterAjaxData();
+    showThrobber();
+    $.ajax({
+        url: resultsAjaxUrl,
+        dataType: "html",
+        type: 'GET',
+        processData: false,
+        data: filterData,
+        success: function (htmlData) {
+            $('#scheme-results').html(htmlData);
+            updateNumberOfSchemes($("#number-of-schemes").val());
+            updateResults();
+        }
+    });
+}
+
+function getFilterAjaxData() {
+    return 'filter=' + getHashParams()['filter'];
+}
+
+function updateNumberOfSchemes(numberOfSchemes) {
+    $("#number-of-schemes").html(numberOfSchemes);
+}
+
+function updateResults() {
+    //todo: if results not already sorted, will have to sort them here
+    hideThrobber();
+}
+
+function initEvents() {
+    $('.filter-schemes :checkbox').click(function () {
+        //todo: sync checkbox?
+        updateFragmentFromCheckboxes();
+    });
+}
 
 // http://stackoverflow.com/questions/4197591/parsing-url-hash-fragment-identifier-with-javascript
 //function getHashParams() {
@@ -55,6 +134,17 @@ function updateFragmentFromCheckboxes() {
     setHashParams(hashParams, true);
 }
 
+function updateCheckboxesFromFragment() {
+    var hashParams = getHashParams();
+    var filters = getFilters(hashParams);
+
+    // checkboxes
+    $('.filter-schemes :checkbox').each(function () {
+        const $this = $(this);
+        $this.prop('checked', $.inArray($this.data('filterid'), filters) !== -1);
+    });
+}
+
 var fetchResults = true;
 function setHashParams(hashParams, updateResults) {
     var fragment = "";
@@ -66,4 +156,15 @@ function setHashParams(hashParams, updateResults) {
     fetchResults = updateResults;
     //todo: check fragment.length === 0
     window.location.hash = fragment.substr(0, fragment.length - 1);
+}
+
+/*todo: use a skeleton screen instead? */
+function showThrobber() {
+    $("#throbber").show();
+    $("#scheme-results").hide();
+}
+
+function hideThrobber() {
+    $("#throbber").hide();
+    $("#scheme-results").show();
 }

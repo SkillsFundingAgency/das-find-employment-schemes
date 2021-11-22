@@ -6,3 +6,5 @@
         public string Description { get; set; }
     }
 }
+
+//todo: class will create filterid from guaranteed unique Name (replace spaces)

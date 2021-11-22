@@ -21,6 +21,8 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Models
         public string? CaseStudies { get; set; }
         public string? OfferHeader { get; set; }
         public string? Offer { get; set; }
+        // when we display the matching schemes on the filter page, we'll sort largest to smallest
+        public int Size { get; set; }
 
         public Scheme(string name, string shortDescription, string shortCost, string shortBenefits, string shortTime, string url,
             string? detailsPageOverride = null,
