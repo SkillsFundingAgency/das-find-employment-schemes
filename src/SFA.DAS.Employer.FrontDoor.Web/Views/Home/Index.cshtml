@@ -12,20 +12,19 @@
 {
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     @*todo: best form? accessibility, route, helper? etc.*@
-    <h3 class="govuk-heading-m"><a href="/schemes/@scheme.Url" class="govuk-link">@scheme.Name</a></h3>
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-3"><a href="/schemes/@scheme.Url" class="govuk-link">@scheme.Name</a></h2>
     <p class="govuk-body">@scheme.ShortDescription</p>
-
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
-            <h4 class="govuk-heading-s">Cost</h4>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Cost</h3>
             <p class="govuk-body">@scheme.ShortCost</p>
         </div>
         <div class="govuk-grid-column-one-third">
-            <h4 class="govuk-heading-s">Benefits</h4>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Benefits</h3>
             <p class="govuk-body">@scheme.ShortBenefits</p>
         </div>
         <div class="govuk-grid-column-one-third">
-            <h4 class="govuk-heading-s">Time</h4>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Time</h3>
             <p class="govuk-body">@scheme.ShortTime</p>
         </div>
     </div>
