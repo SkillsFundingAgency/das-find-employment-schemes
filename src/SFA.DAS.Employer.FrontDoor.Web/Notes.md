@@ -1,4 +1,8 @@
-﻿#Pipeline Variables
+﻿#todo
+
+add id's to elements for automation tests
+
+#Pipeline Variables
 
 CdnBaseUrl
 
