@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Html;
 using SFA.DAS.Employer.FrontDoor.Web.Models;
 
 namespace SFA.DAS.Employer.FrontDoor.Web.Content
@@ -14,7 +15,68 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Content
                     "Apprentice minimum wage and 5% training contribution depending on business size",
                     "You develop a motivated, skilled and qualified workforce",
                     "Minimum of 12 months employment",
-                    "apprenticeships", 1000),
+                    "apprenticeships", 1000, "",
+                    new HtmlString(@"<p class=""govuk-body"">
+			Applies to England
+		</p>
+		<p class=""govuk-body"">
+			<a href=""https://www.apprenticeships.gov.uk/employers"" class=""govuk-link"">Apprenticeships</a> are for those aged 16 or over and combine working with studying to gain skills and knowledge in a job role.
+		</p>
+		<p class=""govuk-body"">
+			<a href=""https://www.gov.uk/apprenticeships-guide"" class=""govuk-link""> Apprentices</a> can be new or current employees. 
+		</p>
+		<p class=""govuk-body"">
+			Your apprentice must: 
+		</p>
+		<ul class=""govuk-list govuk-list--bullet"">
+			<li>work with experienced staff</li>
+			<li>learn skills relevant to your organisation</li>
+			<li>get time for training or study during their working week (at least 20% of their normal working hours)</li>
+		</ul>"),
+                new HtmlString(@"<p class=""govuk-body"">
+            You must pay apprentices <a href=""https://www.gov.uk/national-minimum-wage-rates"" class=""govuk-link"">the minimum wage</a>.
+		</p>
+		<p class=""govuk-body"">
+            You may have to contribute 5% of the apprentice’s training and assessment costs – depending on the size of your business and the age of your apprentice.
+		</p>"),
+                new HtmlString(@"<p class=""govuk-body"">
+			Employers must provide:
+		</p>
+		<p class=""govuk-body"">
+		</p>
+		<ul class=""govuk-list govuk-list--bullet"">
+			<li>a safe work environment</li>
+			<li>an induction which includes explaining relevant policies and procedures</li>
+			<li>opportunities for the student to develop their technical skills within your industry</li>
+			<li>20% ‘Off-the-job’ training delivered by a training provider during your apprentice's normal working hours</li>
+			<li>‘On-the-job’ training and additional support to ensure your apprentice’s success</li>
+		</ul>
+		<p class=""govuk-body"">
+			Employers must also have:
+		</p>
+		<p class=""govuk-body"">
+		</p>
+		<ul class=""govuk-list govuk-list--bullet"">
+			<li>a signed apprenticeship agreement and apprenticeship commitment statement from the learner and training provider</li>
+		</ul>"),
+                    new HtmlString(@"<p class=""govuk-body"">
+			Find out <a href=""https://www.apprenticeships.gov.uk/"" class=""govuk-link"">how apprenticeships can benefit your business</a>.
+		</p>"),
+                    new HtmlString(@"<p class=""govuk-body"">
+			Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-making-the-most-of-apprenticeship-incentives"" class=""govuk-link"">how businesses are using incentive payments to hire apprentices</a>.
+		</p>"),
+                    "Offer an apprenticeship",
+                    //todo: we won't be able to add "govuk-!-margin-bottom-0" on the last <p> from contentful
+                    // so we'll have to replace das-highlight with a cx-cta-box or similar with different bottom padding
+                    new HtmlString(@"<p class=""govuk-body"">
+				Get started with offering an apprenticeship.
+			</p>
+			<p class=""govuk-body"">
+				<a href=""https://www.apprenticeships.gov.uk/employers"" class=""govuk-link""> Hire an apprentice </a>
+			</p>
+            <p class=""govuk-body"">
+				Or call <a href=""tel:08000150400"" class=""govuk-link"">08000 150 400</a>
+            </p>")),
                 new Scheme("T Levels: industry placements",
                     "Provide a 45 day (315 hours) industry placement for 16 to 19 year-olds, which gives you early access to the brightest entering the market and the opportunity to develop your workforce of the future.",
                     "Free government scheme but you may have your own business costs",
