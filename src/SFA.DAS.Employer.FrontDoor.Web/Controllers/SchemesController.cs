@@ -16,7 +16,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
 
         private static readonly IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels = BuildSchemeDetailsModelsDictionary();
 
-        static ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
+        private static ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
         {
             var schemeDetailsModels = new Dictionary<string, SchemeDetailsModel>();
 
