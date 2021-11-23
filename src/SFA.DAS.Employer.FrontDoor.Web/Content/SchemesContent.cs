@@ -82,7 +82,24 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Content
                     "Free government scheme but you may have your own business costs",
                     "Industry placements can save on many of the costs associated with recruitment",
                     "Short term 45-day industry placement",
-                    "t-levels", 900),
+                    "t-levels", 900, "",
+                    new HtmlString(@"<p class=""govuk-body"">
+				        <a href=""https://www.tlevels.gov.uk/employers"" class=""govuk-link"">T Levels</a> are qualifications for students aged 16 to 19 who have finished GCSEs. They are a 2-year qualification and the equivalent to 3 A levels.
+                    </p>
+                    <p class=""govuk-body"">
+                        They have been designed with employers, to give them the skilled workforce they need by helping young people develop their knowledge, attitude and practical skills to thrive in the workplace.
+                    </p>"),
+                    new HtmlString(@"<p class=""govuk-body"">
+                    Free government scheme but you may have your own business costs.
+                    </p>
+                    <p class=""govuk-body"">
+                    Some employers may choose to pay wages and cover expenses such as travel and living costs.
+                    </p>"),
+                    new HtmlString(@""),
+                    new HtmlString(@""),
+                    new HtmlString(@""),
+                    "",
+                    new HtmlString(@"")),
                 new Scheme("Traineeships",
                     "A 6-week to 12 months skills development programme that includes an unpaid work placement to help 16- to 24-year-olds prepare for an apprenticeship or employment.",
                     "Free government scheme but you may have your own business costs",
