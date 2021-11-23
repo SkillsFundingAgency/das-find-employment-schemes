@@ -1,15 +1,17 @@
+@model Scheme
+
 @{
     ViewData["Title"] = "Apprenticeships";
 }
 
 @section BreadCrumbs {
-    <a asp-controller="Home" asp-action="Index" class="govuk-back-link">Back</a>
+    <a href="/" class="govuk-back-link">Back</a>
 }
 
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-two-thirds">
 		<h1 class="govuk-heading-l">
-			Apprenticeships
+			@Model.Name
 		</h1>
 		<p class="govuk-body">
 			Applies to England

@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.Employer.FrontDoor.Web.Models;
@@ -8,6 +9,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
     {
         private readonly ILogger<SchemesController> _logger;
 
+        //todo: rename
         private static readonly HomeModel HomeModel = new HomeModel();
 
         public SchemesController(ILogger<SchemesController> logger)
@@ -22,7 +24,11 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
 
         public IActionResult Details(string schemeUrl)
         {
-            return View();
+            var scheme = HomeModel.Schemes.FirstOrDefault(s => s.Url == schemeUrl);
+            if (scheme == null)
+                return NotFound();
+
+            return View(scheme);
         }
     }
 }
