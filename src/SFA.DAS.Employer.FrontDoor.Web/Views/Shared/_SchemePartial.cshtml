@@ -3,7 +3,7 @@
 @*todo: wrap in section?*@
 <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 @*todo: best form? accessibility, route, helper? etc.*@
-<h2 class="govuk-heading-m govuk-!-margin-bottom-3"><a href="/schemes/@Model.Url" class="govuk-link">@Model.Name</a></h2>
+<h2 class="govuk-heading-m govuk-!-margin-bottom-3"><a asp-route="schemes" asp-route-schemeUrl="@Model.Url" class="govuk-link">@Model.Name</a></h2>
 <p class="govuk-body">@Model.ShortDescription</p>
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third">

@@ -52,6 +52,11 @@ namespace SFA.DAS.Employer.FrontDoor.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "schemes",
+                    pattern: "schemes/{schemeUrl}",
+                    defaults: new { controller = "Schemes", action = "Details" });
             });
         }
     }
