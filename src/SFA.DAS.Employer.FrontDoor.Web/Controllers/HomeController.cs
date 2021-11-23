@@ -31,5 +31,15 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
         {
             return View(new ErrorViewModel(Activity.Current?.Id ?? HttpContext.TraceIdentifier ));
         }
+
+        public IActionResult Cookies()
+        {
+            return View(HomeModel);
+        }
+
+        public IActionResult AccessibilityStatement()
+        {
+            return View(HomeModel);
+        }
     }
 }
