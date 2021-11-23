@@ -1,6 +1,4 @@
 ﻿
-using System;
-
 namespace SFA.DAS.Employer.FrontDoor.Web.Models
 {
     //todo: won't end up living here
