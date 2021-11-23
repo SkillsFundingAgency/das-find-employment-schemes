@@ -99,7 +99,11 @@
 	</div>
 	<div class="govuk-grid-column-one-third">
 		<h3 class="govuk-heading-m">Other schemes</h3>
-		<ul class="govuk-list">
-		</ul>
+        <ul class="govuk-list">
+            @foreach (var scheme in Model.OtherSchemes)
+            {
+                <li><a asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a></li>
+			}
+        </ul>
 	</div>
 </div>
