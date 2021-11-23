@@ -8,24 +8,114 @@
     </div>
 </div>
 
-@foreach (var scheme in Model.Schemes)
-{
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-    @*todo: best form? accessibility, route, helper? etc.*@
-    <h2 class="govuk-heading-m govuk-!-margin-bottom-3"><a href="/schemes/@scheme.Url" class="govuk-link">@scheme.Name</a></h2>
-    <p class="govuk-body">@scheme.ShortDescription</p>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-third">
-            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Cost</h3>
-            <p class="govuk-body">@scheme.ShortCost</p>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+       
+        <div class="das-filter app-filter" id="scheme-filter" tabindex="0">
+            <div class="das-filter__header app-filter__header">
+                <h2 class="das-filter__heading">Filter schemes to fit your business</h2>
+            </div>
+            <div class="das-filter__body" id="scheme-filter-options">
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                            Your motivations?
+                        </legend>
+                        <div class="govuk-checkboxes govuk-checkboxes--small">
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="motivation-train" name="motivation" type="checkbox" value="train">
+                                <label class="govuk-label govuk-checkboxes__label" for="motivation-train">
+                                    To help train someone up into a full-time role
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="motivation-placement" name="motivation" type="checkbox" value="placement">
+                                <label class="govuk-label govuk-checkboxes__label" for="motivation-placement">
+                                    To offer someone an unpaid work placement opportunity
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="motivation-diversify" name="motivation" type="checkbox" value="diversify">
+                                <label class="govuk-label govuk-checkboxes__label" for="motivation-diversify">
+                                    To diversify our workforce or for corporate and social responsibility
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div> 
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                            Length of scheme?
+                        </legend>
+                        <div class="govuk-checkboxes govuk-checkboxes--small">
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="length-up-to-4-months" name="length" type="checkbox" value="up-to-4-months">
+                                <label class="govuk-label govuk-checkboxes__label" for="length-up-to-4-months">
+                                    Up to 4 months
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="length-4-12-months" name="length" type="checkbox" value="4-12-months">
+                                <label class="govuk-label govuk-checkboxes__label" for="length-4-12-months">
+                                    4 months to 12 months
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="length-year-or-more" name="length" type="checkbox" value="year-or-more">
+                                <label class="govuk-label govuk-checkboxes__label" for="length-year-or-more">
+                                    A year or more
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                            Can you pay them?
+                        </legend>
+                        <div class="govuk-checkboxes govuk-checkboxes--small">
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="pay-paid" name="pay" type="checkbox" value="paid">
+                                <label class="govuk-label govuk-checkboxes__label" for="pay-paid">
+                                    I can pay at least national minimum wage
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="pay-unpaid" name="pay" type="checkbox" value="unpaid">
+                                <label class="govuk-label govuk-checkboxes__label" for="pay-unpaid">
+                                    I can offer unpaid placements
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>                       
+            </div>
         </div>
-        <div class="govuk-grid-column-one-third">
-            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Benefits</h3>
-            <p class="govuk-body">@scheme.ShortBenefits</p>
-        </div>
-        <div class="govuk-grid-column-one-third">
-            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Time</h3>
-            <p class="govuk-body">@scheme.ShortTime</p>
-        </div>
+        
     </div>
-}
+    <div class="govuk-grid-column-two-thirds">
+        @foreach (var scheme in Model.Schemes)
+        {
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+            @*todo: best form? accessibility, route, helper? etc.*@
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-3"><a href="/schemes/@scheme.Url" class="govuk-link">@scheme.Name</a></h2>
+            <p class="govuk-body">@scheme.ShortDescription</p>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-third">
+                    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Cost</h3>
+                    <p class="govuk-body">@scheme.ShortCost</p>
+                </div>
+                <div class="govuk-grid-column-one-third">
+                    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Benefits</h3>
+                    <p class="govuk-body">@scheme.ShortBenefits</p>
+                </div>
+                <div class="govuk-grid-column-one-third">
+                    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Time</h3>
+                    <p class="govuk-body">@scheme.ShortTime</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
