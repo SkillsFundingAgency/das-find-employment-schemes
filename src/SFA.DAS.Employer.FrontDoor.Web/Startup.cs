@@ -22,6 +22,8 @@ namespace SFA.DAS.Employer.FrontDoor.Web
             services.AddNLog();
 #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+#else
+            services.AddControllersWithViews();
 #endif
         }
 

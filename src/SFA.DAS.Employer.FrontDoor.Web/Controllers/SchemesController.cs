@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
 {
     [Route("schemes")]
@@ -11,6 +10,5 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
         {
             return View();
         }
-
     }
 }
