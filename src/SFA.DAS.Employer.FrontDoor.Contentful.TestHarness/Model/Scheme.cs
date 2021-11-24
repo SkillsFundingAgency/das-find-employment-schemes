@@ -5,10 +5,10 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
     public class Scheme
     {
         public string Name { get; set; }
-        public string ShortDescription { get; set; }
-        public string ShortCost { get; set; }
-        public string ShortBenefits { get; set; }
-        public string ShortTime { get; set; }
+        public Document ShortDescription { get; set; }
+        public Document ShortCost { get; set; }
+        public Document ShortBenefits { get; set; }
+        public Document ShortTime { get; set; }
         public string Url { get; set; }
         public Document? DetailsPageOverride { get; set; }
         public Document? Description { get; set; }
