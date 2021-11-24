@@ -8,12 +8,12 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Models
     public class Scheme
     {
         public string Name { get; set; }
-        public string ShortDescription { get; set; }
-        public string ShortCost { get; set; }
-        public string ShortBenefits { get; set; }
-        public string ShortTime { get; set; }
+        public IHtmlContent ShortDescription { get; set; }
+        public IHtmlContent ShortCost { get; set; }
+        public IHtmlContent ShortBenefits { get; set; }
+        public IHtmlContent ShortTime { get; set; }
         public string Url { get; set; }
-        public string? DetailsPageOverride { get; set; }
+        public IHtmlContent? DetailsPageOverride { get; set; }
         public IHtmlContent? Description { get; set; }
         public IHtmlContent? Cost { get; set; }
         public IHtmlContent? Responsibility { get; set; }
@@ -24,8 +24,9 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Models
         // when we display the matching schemes on the filter page, we'll sort largest to smallest
         public int Size { get; set; }
 
-        public Scheme(string name, string shortDescription, string shortCost, string shortBenefits, string shortTime, string url, int size,
-            string? detailsPageOverride = null,
+        public Scheme(string name, IHtmlContent shortDescription, IHtmlContent shortCost, IHtmlContent shortBenefits, IHtmlContent shortTime,
+            string url, int size,
+            IHtmlContent? detailsPageOverride = null,
             IHtmlContent? description = null, IHtmlContent? cost = null, IHtmlContent? responsibility = null, IHtmlContent? benefits = null,
             IHtmlContent? caseStudies = null, string? offerHeader = null, IHtmlContent? offer = null)
         {
