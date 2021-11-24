@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +23,11 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
 
             //var entry = await client.GetEntry<Scheme>("6YMOVJcUS66vdhyP4q9CAs");
 
-
             var builder = QueryBuilder<Scheme>.New.ContentTypeIs("scheme");
 
-            var entries = await client.GetEntries<Scheme>(builder);
+            var schemes = await client.GetEntries<Scheme>(builder);
+
+            var schemesBiggestFirst = schemes.OrderByDescending(s => s.Size);
 
             var htmlRenderer = new HtmlRenderer();
             htmlRenderer.AddRenderer(new GdsCtaContentRenderer(htmlRenderer.Renderers));
@@ -34,33 +36,42 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
             htmlRenderer.AddRenderer(new GdsHyperlinkContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsListContentRenderer(htmlRenderer.Renderers));
 
-            var content = new StringBuilder();
-            foreach (Scheme entry in entries)
+            //var content = new StringBuilder();
+            foreach (Scheme scheme in schemesBiggestFirst)
             {
-                content.AppendLine($"new Scheme(\"{entry.Name}\",");
-                content.AppendLine($"\"{await AsHtmlString(entry.ShortDescription, htmlRenderer)}\",");
-                content.AppendLine($"\"{await AsHtmlString(entry.ShortCost, htmlRenderer)}\",");
-                content.AppendLine($"\"{await AsHtmlString(entry.ShortBenefits, htmlRenderer)}\",");
-                content.AppendLine($"\"{await AsHtmlString(entry.ShortTime, htmlRenderer)}\",");
-                content.AppendLine($"\"{entry.Url}\", 0, \"{await AsHtmlString(entry.DetailsPageOverride, htmlRenderer)}\"");
-                content.AppendLine($"\"{await AsHtmlString(entry.Description, htmlRenderer)}\",");
-                content.AppendLine($"\"{await AsHtmlString(entry.Cost, htmlRenderer)}\",");
-                content.AppendLine($"\"{await AsHtmlString(entry.Responsibility, htmlRenderer)}\",");
-                content.AppendLine($"\"{await AsHtmlString(entry.Benefits, htmlRenderer)}\",");
-                content.AppendLine($"\"{await AsHtmlString(entry.CaseStudies, htmlRenderer)}\",");
-                content.AppendLine($"\"{entry.OfferHeader}\",");
-                content.AppendLine($"\"{await AsHtmlString(entry.Offer, htmlRenderer)}\"),");
+                Console.WriteLine($"new Scheme(\"{scheme.Name}\",");
+                Console.WriteLine($"{await AsHtmlString(scheme.ShortDescription, htmlRenderer)},");
+                Console.WriteLine($"{await AsHtmlString(scheme.ShortCost, htmlRenderer)},");
+                Console.WriteLine($"{await AsHtmlString(scheme.ShortBenefits, htmlRenderer)},");
+                Console.WriteLine($"{await AsHtmlString(scheme.ShortTime, htmlRenderer)},");
+                Console.WriteLine($"\"{scheme.Url}\", {scheme.Size}, {await AsHtmlString(scheme.DetailsPageOverride, htmlRenderer)},");
+                Console.WriteLine($"{await AsHtmlString(scheme.Description, htmlRenderer)},");
+                Console.WriteLine($"{await AsHtmlString(scheme.Cost, htmlRenderer)},");
+                Console.WriteLine($"{await AsHtmlString(scheme.Responsibility, htmlRenderer)},");
+                Console.WriteLine($"{await AsHtmlString(scheme.Benefits, htmlRenderer)},");
+                Console.WriteLine($"{await AsHtmlString(scheme.CaseStudies, htmlRenderer)},");
+                Console.WriteLine($"\"{scheme.OfferHeader}\",");
+                //work around .net bug, see https://github.com/dotnet/roslyn/issues/55461
+                Console.Write(await AsHtmlString(scheme.Offer, htmlRenderer));
+                Console.WriteLine("),");
+                //Console.WriteLine($"{await AsHtmlString(scheme.Offer, htmlRenderer)}),");
             }
 
-            Console.WriteLine(content.ToString());
+            //Console.WriteLine(content.ToString());
         }
-
+        
+        
         private static async Task<string> AsHtmlString(Document? document, HtmlRenderer htmlRenderer)
         {
             if (document == null)
                 return "new HtmlString(\"\")";
 
-            return $"new HtmlString(@\"{(await htmlRenderer.ToHtml(document)).Replace("\"", "\"\"")}\")";
+            string unescapedHtml = await htmlRenderer.ToHtml(document);
+            string html = unescapedHtml.Replace("\"", "\"\"");
+            // sometimes contentful uses a \r and sometimes a \r\n - nice!
+            html = html.Replace("\r", "\r\n");
+
+            return $"new HtmlString(@\"{html}\")";
         }
     }
 }

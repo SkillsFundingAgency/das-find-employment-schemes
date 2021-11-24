@@ -1,7 +1,9 @@
 ﻿using Contentful.Core.Models;
+using System.Diagnostics;
 
 namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
 {
+    [DebuggerDisplay("{Name}")]
     public class Scheme
     {
         public string Name { get; set; }
@@ -18,7 +20,6 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
         public Document? CaseStudies { get; set; }
         public string? OfferHeader { get; set; }
         public Document? Offer { get; set; }
-        //todo: add size to contentful
-        //public int Size { get; set; }
+        public int Size { get; set; }
     }
 }
