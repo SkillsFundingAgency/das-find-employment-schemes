@@ -22,9 +22,7 @@ new HtmlString(@"<p>Employers must provide:</p><ul class =""govuk-list govuk-lis
 new HtmlString(@"<p>Find out <a href=""https://www.apprenticeships.gov.uk/"" title="""" class=""govuk-link"">how apprenticeships can benefit your business</a>.</p>"),
 new HtmlString(@"<p>Read about <a href=""https://www.apprenticeships.gov.uk/employers/real-stories-employers"" title="""" class=""govuk-link"">how businesses are using incentive payments to hire apprentices</a>.</p>"),
 "Offer an apprenticeship",
-new HtmlString(@"<p>Get started with offering an apprenticeship.
-<a href=""https://www.apprenticeships.gov.uk/employers/hiring-an-apprentice"" title="""" class=""govuk-link"">Hire an apprentice</a>
-Or call <a href=""tel:08000150400"" title="""" class=""govuk-link"">08000 150 400</a></p>")),
+new HtmlString(@"<p>Get started with offering an apprenticeship.</p><p><a href=""https://www.apprenticeships.gov.uk/employers/hiring-an-apprentice"" title="""" class=""govuk-link"">Hire an apprentice</a></p><p>Or call <a href=""tel:08000150400"" title="""" class=""govuk-link"">08000 150 400</a></p>")),
 new Scheme("T Levels: industry placements",
 new HtmlString(@"<p>Provide a 45 day (315 hours) industry placement for 16 to 19 year-olds, which gives you early access to the brightest entering the market and the opportunity to develop your workforce of the future.</p>"),
 new HtmlString(@"<p>Free government scheme but you may have your own business costs</p>"),

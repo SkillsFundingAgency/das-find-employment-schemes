@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Contentful.Core;
 using Contentful.Core.Models;
@@ -36,7 +35,6 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
             htmlRenderer.AddRenderer(new GdsHyperlinkContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsListContentRenderer(htmlRenderer.Renderers));
 
-            //var content = new StringBuilder();
             foreach (Scheme scheme in schemesBiggestFirst)
             {
                 Console.WriteLine($"new Scheme(\"{scheme.Name}\",");
@@ -51,15 +49,9 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
                 Console.WriteLine($"{await AsHtmlString(scheme.Benefits, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.CaseStudies, htmlRenderer)},");
                 Console.WriteLine($"\"{scheme.OfferHeader}\",");
-                //work around .net bug, see https://github.com/dotnet/roslyn/issues/55461
-                Console.Write(await AsHtmlString(scheme.Offer, htmlRenderer));
-                Console.WriteLine("),");
-                //Console.WriteLine($"{await AsHtmlString(scheme.Offer, htmlRenderer)}),");
+                Console.WriteLine($"{await AsHtmlString(scheme.Offer, htmlRenderer)}),");
             }
-
-            //Console.WriteLine(content.ToString());
         }
-        
         
         private static async Task<string> AsHtmlString(Document? document, HtmlRenderer htmlRenderer)
         {
