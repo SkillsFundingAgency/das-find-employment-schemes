@@ -52,11 +52,12 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
                 Console.WriteLine($"{await AsHtmlString(scheme.Offer, htmlRenderer)}),");
             }
         }
+        //todo: empty strings as nulls?
         
         private static async Task<string> AsHtmlString(Document? document, HtmlRenderer htmlRenderer)
         {
             if (document == null)
-                return "new HtmlString(\"\")";
+                return "null";
 
             string unescapedHtml = await htmlRenderer.ToHtml(document);
             string html = unescapedHtml.Replace("\"", "\"\"");
