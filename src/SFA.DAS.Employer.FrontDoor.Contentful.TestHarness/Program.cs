@@ -62,6 +62,7 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
             string unescapedHtml = await htmlRenderer.ToHtml(document);
             string html = unescapedHtml.Replace("\"", "\"\"");
             // sometimes contentful uses a \r and sometimes a \r\n - nice!
+            html = html.Replace("\r\n", "\r");
             html = html.Replace("\r", "\r\n");
 
             return $"new HtmlString(@\"{html}\")";
