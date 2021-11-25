@@ -26,6 +26,7 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
 
             var schemes = await client.GetEntries<Scheme>(builder);
 
+            // ensure we order by size desc, so we don't have to sort at run time
             var schemesBiggestFirst = schemes.OrderByDescending(s => s.Size);
 
             var htmlRenderer = new HtmlRenderer();

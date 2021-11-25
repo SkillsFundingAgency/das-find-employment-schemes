@@ -32,10 +32,7 @@
                 <h2 class="govuk-heading-m">Case studies</h2>
                 @Model.Scheme.CaseStudies
             }
-            @*todo: we won't be able to add "govuk-!-margin-bottom-0" on the last <p> from contentful
-            so we'll have to replace das-highlight with a cx-cta-box or similar with different bottom padding
-            if we only have a class or 2 could just add a style section to the layout to save a file fetch*@
-            <section class="das-highlight govuk-!-margin-top-7">
+            <section class="cx-cta-box">
                 <h2 class="govuk-heading-m">@Model.Scheme.OfferHeader</h2>
                 @Model.Scheme.Offer
             </section>
