@@ -1,1 +1,30 @@
-﻿
+﻿/* cx-cta-box is based on .das-highlight
+
+ideally, we should either set up design system & sass, or get it added to das-frontend
+
+.das-highlight {
+    background: govuk-colour(light-grey);
+    @include govuk-responsive-padding(4);
+    @include govuk-responsive-padding(5, "bottom");
+    @include govuk-responsive-margin(4, "top");
+    @include govuk-responsive-margin(4, "bottom");
+}*/
+
+.cx-cta-box {
+    background: #f3f2f1;
+    padding: 15px;
+    padding-bottom: 15px;
+    /*margin-top: 15px;*/
+    margin-top: 25px; /* govuk-!-margin-top-7 */
+    margin-bottom: 15px;
+}
+
+@media (min-width: 40.0625em) {
+    .cx-cta-box {
+        margin-bottom: 20px;
+        /*margin-top: 20px;*/
+        margin-top: 40px; /* govuk-!-margin-top-7 */
+        padding-bottom: 25px;
+        padding: 20px;
+    }
+}
