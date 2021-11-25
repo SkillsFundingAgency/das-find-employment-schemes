@@ -1,11 +1,6 @@
 ﻿@model HomeModel
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">Find training and employment schemes for your business</h1>
-        <p class="govuk-body">A range of government programmes, are available for employers who are considering hiring employees, offering work experience or upskilling existing staff. Some of which offer financial incentives. </p>
-    </div>
-</div>
+@await Html.PartialAsync("_FindSchemesHeaderPartial")
 
 @foreach (var scheme in Model.Schemes)
 {
