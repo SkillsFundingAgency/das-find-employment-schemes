@@ -6,6 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
       <meta name="theme-color" content="blue">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <script src="~/js/google_analytics.js" async no-cdn></script>
       <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="/assets/images/favicon.ico" type="image/x-icon"/>
       <link rel="mask-icon" href="/assets/images/govuk-mask-icon.svg" color="#0b0c0c"/>
       <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/govuk-apple-touch-icon-180x180.png"/>
@@ -19,11 +20,17 @@
       <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
    </head>
    <body class="govuk-template__body">
+
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLHRMLT"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+
       <script>
          document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
       </script>
       <div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on Find schemes for your business">
-         <div class="govuk-cookie-banner__message govuk-width-container">
+         <div id="cookie-message" class="govuk-cookie-banner__message govuk-width-container">
             <div class="govuk-grid-row">
                <div class="govuk-grid-column-two-thirds">
                   <h2 class="govuk-cookie-banner__heading govuk-heading-m">Cookies on Find schemes for your business</h2>
@@ -34,16 +41,51 @@
                </div>
             </div>
             <div class="govuk-button-group">
-               <button value="accept" type="button" name="cookies" class="govuk-button" data-module="govuk-button">
+               <button value="accept" type="button" name="cookies" class="govuk-button cookie-consent-button cookies-accept" data-module="govuk-button">
                Accept analytics cookies
                </button>
-               <button value="reject" type="button" name="cookies" class="govuk-button" data-module="govuk-button">
+               <button value="reject" type="button" name="cookies" class="govuk-button cookie-consent-button cookies-reject" data-module="govuk-button">
                Reject analytics cookies
                </button>
                <a class="govuk-link" href="#">View cookies</a>
             </div>
          </div>
+
+         <div id="cookie-accept-message" class="govuk-cookie-banner__message govuk-width-container" role="alert" hidden>
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-two-thirds">
+
+                <div class="govuk-cookie-banner__content">
+                  <p class="govuk-body">You’ve accepted analytics cookies. You can <a class="govuk-link" href="#">change your cookie settings</a> at any time.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="govuk-button-group">
+              <button class="govuk-button cookies-close" data-module="govuk-button">
+                Hide this message
+              </button>
+            </div>
+        </div>
+
+        <div id="cookie-reject-message" class="govuk-cookie-banner__message govuk-width-container" role="alert" hidden>
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-two-thirds">
+
+                <div class="govuk-cookie-banner__content">
+                  <p class="govuk-body">You’ve rejected analytics cookies. You can <a class="govuk-link" href="#">change your cookie settings</a> at any time.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="govuk-button-group">
+              <button class="govuk-button cookies-close" data-module="govuk-button">
+                Hide this message
+              </button>
+            </div>
+        </div>
       </div>
+
       <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
       <header class="govuk-header" role="banner" data-module="govuk-header">
          <div class="govuk-header__container govuk-width-container">
@@ -126,5 +168,6 @@
          window.GOVUKFrontend.initAll();
          window.DASFrontend.initAll();
       </script>
+      <script src="~/js/cookie_consent.js" no-cdn></script>
    </body>
 </html>
