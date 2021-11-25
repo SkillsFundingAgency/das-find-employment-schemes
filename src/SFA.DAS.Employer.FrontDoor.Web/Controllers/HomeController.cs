@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,16 +16,9 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private static readonly HomeModel HomeModel = new HomeModel();
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View(HomeModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -36,12 +29,12 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
 
         public IActionResult Cookies()
         {
-            return View(HomeModel);
+            return View();
         }
 
         public IActionResult AccessibilityStatement()
         {
-            return View(HomeModel);
+            return View();
         }
     }
 }

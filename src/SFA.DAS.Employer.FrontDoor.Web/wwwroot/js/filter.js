@@ -7,6 +7,10 @@
 
 /*todo:use modules, remove globals! ts?*/
 
+/*todo:just filter in the front end according to data attributes on scheme sections - no ajax!*/
+
+/*can we safely change query params, or will we need qp/hash dual scheme?*/
+
 var fetchResults = true;
 const filterParamName = 'filter';
 const filterIdDataName = 'filterid';

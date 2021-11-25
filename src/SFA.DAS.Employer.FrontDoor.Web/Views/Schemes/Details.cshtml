@@ -1,0 +1,49 @@
+@model SchemeDetailsModel
+
+@{
+    ViewData["Title"] = "Apprenticeships";
+}
+
+@section BreadCrumbs {
+    <a href="/" class="govuk-back-link">Back</a>
+}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">
+            @Model.Scheme.Name
+        </h1>
+        @if (Model.Scheme.DetailsPageOverride != null)
+        {
+            @Model.Scheme.DetailsPageOverride
+        }
+        else
+        {
+		    @Model.Scheme.Description
+            <h2 class="govuk-heading-m"> Employer costs </h2>
+		        @Model.Scheme.Cost  
+		    <h2 class="govuk-heading-m"> Employer responsibility </h2>
+		        @Model.Scheme.Responsibility
+            <h2 class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
+                @Model.Scheme.Benefits
+            @if (@Model.Scheme.CaseStudies != null)
+            {
+                <h2 class="govuk-heading-m">Case studies</h2>
+                @Model.Scheme.CaseStudies
+            }
+            <section class="cx-cta-box">
+                <h2 class="govuk-heading-m">@Model.Scheme.OfferHeader</h2>
+                @Model.Scheme.Offer
+            </section>
+        }
+	</div>
+	<div class="govuk-grid-column-one-third">
+		<h3 class="govuk-heading-m">Other schemes</h3>
+        <ul class="govuk-list">
+            @foreach (var scheme in Model.OtherSchemes)
+            {
+                <li><a asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a></li>
+			}
+        </ul>
+	</div>
+</div>
