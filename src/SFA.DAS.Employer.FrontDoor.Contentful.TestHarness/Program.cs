@@ -20,8 +20,6 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
                 "",
                 "0liyzri8haz6");
 
-            //var entry = await client.GetEntry<Scheme>("6YMOVJcUS66vdhyP4q9CAs");
-
             var builder = QueryBuilder<Scheme>.New.ContentTypeIs("scheme");
 
             var schemes = await client.GetEntries<Scheme>(builder);
@@ -29,7 +27,14 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
             // ensure we order by size desc, so we don't have to sort at run time
             var schemesBiggestFirst = schemes.OrderByDescending(s => s.Size);
 
-            var htmlRenderer = new HtmlRenderer();
+            var htmlRendererOptions = new HtmlRendererOptions
+            {
+                ListItemOptions =
+                {
+                    OmitParagraphTagsInsideListItems = true
+                }
+            };
+            var htmlRenderer = new HtmlRenderer(htmlRendererOptions);
             htmlRenderer.AddRenderer(new GdsCtaContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsHeadingRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsHorizontalRulerContentRenderer());
@@ -63,6 +68,7 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
             string unescapedHtml = await htmlRenderer.ToHtml(document);
             string html = unescapedHtml.Replace("\"", "\"\"");
             // sometimes contentful uses a \r and sometimes a \r\n - nice!
+            // we could strip these out instead
             html = html.Replace("\r\n", "\r");
             html = html.Replace("\r", "\r\n");
 

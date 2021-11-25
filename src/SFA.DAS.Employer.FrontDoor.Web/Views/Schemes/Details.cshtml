@@ -15,14 +15,13 @@
         </h1>
         @if (Model.Scheme.DetailsPageOverride != null)
         {
-            @*todo: ctabox*@
             @Model.Scheme.DetailsPageOverride
         }
         else
         {
 		    @Model.Scheme.Description
             <h2 class="govuk-heading-m"> Employer costs </h2>
-		        @Model.Scheme.Cost
+		        @Model.Scheme.Cost  
 		    <h2 class="govuk-heading-m"> Employer responsibility </h2>
 		        @Model.Scheme.Responsibility
             <h2 class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>

@@ -37,8 +37,6 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.GdsHtmlRenderers
 
             var sb = new StringBuilder();
 
-            //todo: the cta box is not part of gds (i believe)
-            // so we need to create a class called cx-cta-box, with the styles: padding: 15px 15px 1px 15px; background: #f3f2f1;
             sb.Append("<div class=\"cx-cta-box\">");
 
             foreach (var subContent in quote!.Content)

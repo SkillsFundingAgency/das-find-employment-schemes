@@ -4,8 +4,6 @@ We shouldn't need a GdsTextRenderer, as only bold is supported in GDS (italics a
 
 # todo
 
-contentful wrapps li's in <p> - so we'll have to strip them out
-
 contentful's <p> handling is inconsistent - is there a way to switch the rich text box to show the underlying html, like orchard core supports?
 
 contentful adds a bonus empty <p> at the end of every rich text box for some reason (https://github.com/contentful/rich-text/issues/101)
