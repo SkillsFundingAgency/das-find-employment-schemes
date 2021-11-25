@@ -55,6 +55,11 @@ namespace SFA.DAS.Employer.FrontDoor.Web
                     defaults: new { controller = "Schemes", action = "Home" });
 
                 endpoints.MapControllerRoute(
+                    name: "filter",
+                    pattern: "filter",
+                    defaults: new { controller = "Schemes", action = "Filter" });
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 

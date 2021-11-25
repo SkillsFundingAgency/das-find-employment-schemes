@@ -13,7 +13,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
         private readonly ILogger<SchemesController> _logger;
 
         private static readonly HomeModel HomeModel = new HomeModel(SchemesContent.Schemes);
-
+        private static readonly FilterModel FilterModel = new FilterModel(SchemesContent.Schemes);
         private static readonly IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels = BuildSchemeDetailsModelsDictionary();
 
         private static ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
@@ -44,6 +44,11 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
                 return NotFound();
 
             return View(schemeDetailsModel);
+        }
+
+        public IActionResult Filter()
+        {
+            return View(FilterModel);
         }
     }
 }
