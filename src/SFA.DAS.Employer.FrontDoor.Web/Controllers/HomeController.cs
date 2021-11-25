@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SFA.DAS.Employer.FrontDoor.Web.Models;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using SFA.DAS.Employer.FrontDoor.Web.Models;
+
 
 namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
 {
@@ -23,10 +25,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
 
         public IActionResult Index()
         {
-            int aaa = 1;
-            int bbb = 0;
-            int ccc = aaa / bbb;
-            return View(ccc.ToString(), HomeModel);
+            return View(HomeModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
