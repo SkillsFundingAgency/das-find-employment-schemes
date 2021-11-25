@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SFA.DAS.Employer.FrontDoor.Web.Extensions;
 
+
 namespace SFA.DAS.Employer.FrontDoor.Web
 {
     public class Startup
@@ -21,7 +22,8 @@ namespace SFA.DAS.Employer.FrontDoor.Web
         {
             services.AddNLog();
 #if DEBUG
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews()
+                    .AddRazorRuntimeCompilation();
 #endif
         }
 
@@ -34,15 +36,33 @@ namespace SFA.DAS.Employer.FrontDoor.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/error/500");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            app.Use(async (context, next) =>
+            {
+                if (context.Response.Headers.ContainsKey("X-Frame-Options"))
+                    context.Response.Headers.Remove("X-Frame-Options");
+                context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
 
+                await next();
+
+                if (context.Response.StatusCode == 404 && !context.Response.HasStarted)
+                {
+                    //Re-execute the request so the user gets the error page
+                    var originalPath = context.Request.Path.Value;
+                    context.Items["originalPath"] = originalPath;
+                    context.Request.Path = "/error/404";
+                    await next();
+                }
+            });
+
+            app.UseRouting();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

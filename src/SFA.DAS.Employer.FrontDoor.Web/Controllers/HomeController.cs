@@ -23,7 +23,10 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
 
         public IActionResult Index()
         {
-            return View(HomeModel);
+            int aaa = 1;
+            int bbb = 0;
+            int ccc = aaa / bbb;
+            return View(ccc.ToString(), HomeModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
