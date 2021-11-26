@@ -9,7 +9,7 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third">
     
-        <div class="das-filter app-filter" id="scheme-filter" tabindex="0">
+        <div class="das-filter app-filter" id="scheme-filter" tabindex="0" data-module="app-show-hide">
             <div class="das-filter__header app-filter__header">
                 <h2 class="das-filter__heading">Filter schemes to fit your business</h2>
             </div>
@@ -98,7 +98,7 @@
     </div>
     <div class="govuk-grid-column-two-thirds">
         <div class="govuk-button-group">
-            <button class="govuk-button govuk-button--secondary das-js-show--inline">Filter schemes</button>
+            <a class="govuk-button govuk-button--secondary das-js-show--inline" href="#scheme-filter" data-text-show="Filter schemes"  data-text-hide="Hide filter">Filter schemes</a>
         </div>
         @foreach (var scheme in Model.Schemes)
         {

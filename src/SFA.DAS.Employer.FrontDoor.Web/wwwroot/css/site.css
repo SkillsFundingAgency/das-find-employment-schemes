@@ -1,3 +1,11 @@
-﻿.app-filter__header {
+﻿.app-show-hide {
+    display: none;
+}
+
+.app-show-hide__section--show {
+    display: block;
+}
+
+.app-filter__header {
     background: #b1b4b6;
 }
