@@ -22,6 +22,8 @@ namespace SFA.DAS.Employer.FrontDoor.Web
             services.AddNLog();
 #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+#else
+            services.AddControllersWithViews();
 #endif
         }
 
@@ -48,8 +50,18 @@ namespace SFA.DAS.Employer.FrontDoor.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "home",
+                    pattern: "",
+                    defaults: new { controller = "Schemes", action = "Home" });
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "schemes",
+                    pattern: "schemes/{schemeUrl}",
+                    defaults: new { controller = "Schemes", action = "Details" });
             });
         }
     }
