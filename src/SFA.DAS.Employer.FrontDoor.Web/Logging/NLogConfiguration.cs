@@ -63,7 +63,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Logging
 
         private static void AddAppInsights(LoggingConfiguration config, LogLevel minimumLogLevel)
         {
-            const string appInsightsLogTargetName = "RedisLog";
+            const string appInsightsLogTargetName = "AppInsightsLog";
 
             var target = new ApplicationInsightsTarget
             {
