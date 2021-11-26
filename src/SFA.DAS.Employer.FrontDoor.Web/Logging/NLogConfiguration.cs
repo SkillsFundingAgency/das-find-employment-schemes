@@ -1,17 +1,17 @@
-﻿using NLog;
+﻿using System;
+using System.IO;
+using Microsoft.ApplicationInsights.NLogTarget;
+using NLog;
 using NLog.Common;
 using NLog.Config;
 using NLog.Targets;
 using SFA.DAS.NLog.Targets.Redis.DotNetCore;
-using System;
-using System.IO;
-using Microsoft.ApplicationInsights.NLogTarget;
 
 namespace SFA.DAS.Employer.FrontDoor.Web.Logging
 {
     public class NLogConfiguration
     {
-        public void ConfigureNLog()
+        public void ConfigureNLog(string minimumLogLevel)
         {
             const string appName = "das-employer-front-door";
             string? env = Environment.GetEnvironmentVariable("EnvironmentName");
@@ -19,18 +19,18 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Logging
 
             if (string.IsNullOrEmpty(env) || env.Equals("LOCAL", StringComparison.CurrentCultureIgnoreCase))
             {
-                AddLocalTarget(config, appName);
+                AddLocalTarget(config, appName, LogLevel.FromString(minimumLogLevel));
             }
             else
             {
-                AddRedisTarget(config, appName);
-                AddAppInsights(config);
+                AddRedisTarget(config, appName, LogLevel.FromString(minimumLogLevel));
+                AddAppInsights(config, LogLevel.FromString(minimumLogLevel));
             }
 
             LogManager.Configuration = config;
         }
 
-        private static void AddLocalTarget(LoggingConfiguration config, string appName)
+        private static void AddLocalTarget(LoggingConfiguration config, string appName, LogLevel minimumLogLevel)
         {
             InternalLogger.LogFile = Path.Combine(Directory.GetCurrentDirectory(), $"logs\\nlog-internal.{appName}.log");
             var fileTarget = new FileTarget("Disk")
@@ -40,14 +40,16 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Logging
             };
             config.AddTarget(fileTarget);
 
-            config.AddRule(GetMinLogLevel(), LogLevel.Fatal, "Disk");
+            config.AddRule(minimumLogLevel, LogLevel.Fatal, "Disk");
         }
 
-        private static void AddRedisTarget(LoggingConfiguration config, string appName)
+        private static void AddRedisTarget(LoggingConfiguration config, string appName, LogLevel minimumLogLevel)
         {
+            const string redisLogTargetName = "RedisLog";
+
             var target = new RedisTarget
             {
-                Name = "RedisLog",
+                Name = redisLogTargetName,
                 AppName = appName,
                 EnvironmentKeyName = "EnvironmentName",
                 ConnectionStringName = "LoggingRedisConnectionString",
@@ -56,20 +58,20 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Logging
             };
 
             config.AddTarget(target);
-            config.AddRule(GetMinLogLevel(), LogLevel.Fatal, "RedisLog");
+            config.AddRule(minimumLogLevel, LogLevel.Fatal, redisLogTargetName);
         }
 
-        private static void AddAppInsights(LoggingConfiguration config)
+        private static void AddAppInsights(LoggingConfiguration config, LogLevel minimumLogLevel)
         {
+            const string appInsightsLogTargetName = "RedisLog";
+
             var target = new ApplicationInsightsTarget
             {
-                Name = "AppInsightsLog"
+                Name = appInsightsLogTargetName
             };
 
             config.AddTarget(target);
-            config.AddRule(GetMinLogLevel(), LogLevel.Fatal, "AppInsightsLog");
+            config.AddRule(minimumLogLevel, LogLevel.Fatal, appInsightsLogTargetName);
         }
-
-        private static LogLevel GetMinLogLevel() => LogLevel.FromString("Info");
     }
-}
+} 

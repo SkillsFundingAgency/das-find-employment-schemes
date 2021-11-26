@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SFA.DAS.Employer.FrontDoor.Web.Extensions;
+using SFA.DAS.Configuration.AzureTableStorage;
 
 namespace SFA.DAS.Employer.FrontDoor.Web
 {
@@ -11,7 +12,16 @@ namespace SFA.DAS.Employer.FrontDoor.Web
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = new ConfigurationBuilder()
+                .AddConfiguration(configuration)
+                .AddAzureTableStorage(options =>
+                {
+                    options.ConfigurationKeys = configuration["ConfigNames"].Split(",");
+                    options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
+                    options.EnvironmentName = configuration["EnvironmentName"];
+                    options.PreFixConfigurationKeys = false;
+                })
+                .Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -19,7 +29,8 @@ namespace SFA.DAS.Employer.FrontDoor.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddNLog();
+            services.AddNLog(Configuration);
+            //services.AddApplicationInsightsTelemetry();
 #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 #else
