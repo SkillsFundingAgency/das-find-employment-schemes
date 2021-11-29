@@ -11,6 +11,7 @@ function nodeListForEach(nodes, callback) {
 function ShowHideElement (module) {
     this.module = module
     this.id = this.module.id
+    this.bodyExpandedClass = 'app-filter-layout--show'
     this.sectionExpandedClass = 'app-show-hide__section--show'
 }
 
@@ -39,10 +40,14 @@ ShowHideElement.prototype.init = function () {
 
 ShowHideElement.prototype.showHideTarget = function (e) {
     var sectionExpanded = this.isExpanded()
+    var body = document.getElementsByTagName('body')[0]
+
     if (sectionExpanded) {
         this.module.classList.remove(this.sectionExpandedClass)
+        body.classList.remove(this.bodyExpandedClass)
     } else {
         this.module.classList.add(this.sectionExpandedClass)
+        body.classList.add(this.bodyExpandedClass)
         this.module.focus()
     }
     nodeListForEach(this.showHideLinks, function (showHideLink) {

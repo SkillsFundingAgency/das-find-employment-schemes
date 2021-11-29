@@ -6,9 +6,62 @@
     display: block;
 }
 
+.app-filter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background: #fff;
+    overflow: auto;
+    margin: 0;
+}
+
+@media (min-width: 40.0625em) {
+    .app-filter {
+        position: relative;
+    }
+}
+
+.app-filter:focus {
+    outline: 2px solid #fd0;
+}
+
 .app-filter__header {
     background: #b1b4b6;
 }
+
+.app-filter__header-link {
+    color: #000;
+    display: inline-block;
+    text-align: right;
+}
+
+@media (min-width: 40.0625em) {
+    .js-enabled .das-js-show--inline.app-filter__header-link {
+        display: none;
+    }
+}
+
+.app-filter__header-link:visited {
+    color: black;
+}
+
+.app-filter-layout__content {
+    width: 100%;
+}
+
+@media (min-width: 40.0625em) {
+    .app-filter-layout--show .app-filter-layout__filter {
+        width: 40%;
+    }
+
+    .app-filter-layout--show .app-filter-layout__content {
+        width: 60%;
+    }
+}
+
 
 .cx-cta-box {
     background: #f3f2f1;
