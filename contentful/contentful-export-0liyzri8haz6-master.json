@@ -1236,7 +1236,7 @@
         "id": "6YMOVJcUS66vdhyP4q9CAs",
         "type": "Entry",
         "createdAt": "2021-11-03T13:48:05.564Z",
-        "updatedAt": "2021-11-24T12:48:01.024Z",
+        "updatedAt": "2021-11-29T10:29:57.255Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -1244,8 +1244,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 181,
-        "publishedAt": "2021-11-24T12:48:01.024Z",
+        "publishedVersion": 183,
+        "publishedAt": "2021-11-29T10:29:57.255Z",
         "firstPublishedAt": "2021-11-03T13:52:36.659Z",
         "createdBy": {
           "sys": {
@@ -1261,8 +1261,8 @@
             "id": "2nC0sAwD93sdWhJxIAVkEr"
           }
         },
-        "publishedCounter": 15,
-        "version": 182,
+        "publishedCounter": 16,
+        "version": 184,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -1968,7 +1968,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Or call ",
+                    "value": "Alternatively, call ",
                     "nodeType": "text"
                   },
                   {
@@ -2539,7 +2539,7 @@
         "id": "qJ5WXof1ShSTOqhPdwSou",
         "type": "Entry",
         "createdAt": "2021-11-12T12:35:56.163Z",
-        "updatedAt": "2021-11-12T12:36:09.088Z",
+        "updatedAt": "2021-11-26T15:58:39.036Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -2561,11 +2561,11 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "2nC0sAwD93sdWhJxIAVkEr"
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
           }
         },
         "publishedCounter": 1,
-        "version": 3,
+        "version": 5,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -2606,7 +2606,7 @@
         "id": "6pHHPXKaSNyGmGNGWqOB26",
         "type": "Entry",
         "createdAt": "2021-11-24T10:47:06.707Z",
-        "updatedAt": "2021-11-24T12:11:49.079Z",
+        "updatedAt": "2021-11-29T10:30:48.512Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -2614,8 +2614,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 35,
-        "publishedAt": "2021-11-24T12:11:49.079Z",
+        "publishedVersion": 37,
+        "publishedAt": "2021-11-29T10:30:48.512Z",
         "firstPublishedAt": "2021-11-24T10:52:13.655Z",
         "createdBy": {
           "sys": {
@@ -2631,8 +2631,8 @@
             "id": "2nC0sAwD93sdWhJxIAVkEr"
           }
         },
-        "publishedCounter": 3,
-        "version": 36,
+        "publishedCounter": 4,
+        "version": 38,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -3318,7 +3318,7 @@
                 "content": [
                   {
                     "nodeType": "text",
-                    "value": "Or call ",
+                    "value": "Alternatively, call ",
                     "marks": [
                     ],
                     "data": {
@@ -3376,7 +3376,7 @@
         "id": "1KC8dVK5fYMNvb7vPqaUYP",
         "type": "Entry",
         "createdAt": "2021-11-24T10:54:22.146Z",
-        "updatedAt": "2021-11-24T12:27:42.037Z",
+        "updatedAt": "2021-11-29T10:27:56.354Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -3384,8 +3384,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 48,
-        "publishedAt": "2021-11-24T12:27:42.037Z",
+        "publishedVersion": 56,
+        "publishedAt": "2021-11-29T10:27:56.354Z",
         "firstPublishedAt": "2021-11-24T10:59:41.778Z",
         "createdBy": {
           "sys": {
@@ -3401,8 +3401,8 @@
             "id": "2nC0sAwD93sdWhJxIAVkEr"
           }
         },
-        "publishedCounter": 6,
-        "version": 49,
+        "publishedCounter": 7,
+        "version": 57,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -3508,7 +3508,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "6-week to 12 months",
+                    "value": "70 to 240 hours work placement",
                     "nodeType": "text"
                   }
                 ],
@@ -3523,159 +3523,174 @@
         },
         "description": {
           "en-US": {
-            "nodeType": "document",
             "data": {
             },
             "content": [
               {
-                "nodeType": "paragraph",
+                "data": {
+                },
                 "content": [
                   {
-                    "nodeType": "text",
+                    "data": {
+                    },
+                    "marks": [
+                    ],
                     "value": "A traineeship is a skills development programme that includes a work placement.",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
+                    "nodeType": "text"
                   }
                 ],
-                "data": {
-                }
+                "nodeType": "paragraph"
               },
               {
-                "nodeType": "paragraph",
+                "data": {
+                },
                 "content": [
                   {
-                    "nodeType": "text",
-                    "value": "The full programme can last from 6 weeks up to 1 year, though most traineeships last for less than 6 months.",
+                    "data": {
+                    },
                     "marks": [
                     ],
-                    "data": {
-                    }
+                    "value": "The full programme can last from 6 weeks up to 1 year, though most traineeships last for between 6-weeks and 12-weeks.",
+                    "nodeType": "text"
                   }
                 ],
-                "data": {
-                }
+                "nodeType": "paragraph"
               },
               {
-                "nodeType": "paragraph",
+                "data": {
+                },
                 "content": [
                   {
-                    "nodeType": "text",
-                    "value": "Your business needs to be able to offer at least 70 hours of a safe, meaningful, and high-quality work experience. You will work with a training provider to design the programme.",
+                    "data": {
+                    },
                     "marks": [
                     ],
-                    "data": {
-                    }
+                    "value": "Your business needs to be able to offer a safe, meaningful and high-quality work experience placement of at least 70 hours to 240 hours.",
+                    "nodeType": "text"
                   }
                 ],
-                "data": {
-                }
+                "nodeType": "paragraph"
               },
               {
-                "nodeType": "paragraph",
+                "data": {
+                },
                 "content": [
                   {
-                    "nodeType": "text",
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "You will work with a training provider to design what is included in the programme.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
                     "value": "The trainee will gain English, maths, digital and work-related qualifications which can lead them on to:",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
+                    "nodeType": "text"
                   }
                 ],
-                "data": {
-                }
+                "nodeType": "paragraph"
               },
               {
-                "nodeType": "unordered-list",
+                "data": {
+                },
                 "content": [
                   {
-                    "nodeType": "list-item",
+                    "data": {
+                    },
                     "content": [
                       {
-                        "nodeType": "paragraph",
+                        "data": {
+                        },
                         "content": [
                           {
-                            "nodeType": "text",
+                            "data": {
+                            },
+                            "marks": [
+                            ],
                             "value": "an apprenticeship",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
+                            "nodeType": "text"
                           }
                         ],
-                        "data": {
-                        }
+                        "nodeType": "paragraph"
                       }
                     ],
-                    "data": {
-                    }
+                    "nodeType": "list-item"
                   },
                   {
-                    "nodeType": "list-item",
+                    "data": {
+                    },
                     "content": [
                       {
-                        "nodeType": "paragraph",
+                        "data": {
+                        },
                         "content": [
                           {
-                            "nodeType": "text",
+                            "data": {
+                            },
+                            "marks": [
+                            ],
                             "value": "work",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
+                            "nodeType": "text"
                           }
                         ],
-                        "data": {
-                        }
+                        "nodeType": "paragraph"
                       }
                     ],
-                    "data": {
-                    }
+                    "nodeType": "list-item"
                   },
                   {
-                    "nodeType": "list-item",
+                    "data": {
+                    },
                     "content": [
                       {
-                        "nodeType": "paragraph",
+                        "data": {
+                        },
                         "content": [
                           {
-                            "nodeType": "text",
-                            "value": "further education",
+                            "data": {
+                            },
                             "marks": [
                             ],
-                            "data": {
-                            }
+                            "value": "further education",
+                            "nodeType": "text"
                           }
                         ],
-                        "data": {
-                        }
+                        "nodeType": "paragraph"
                       }
                     ],
-                    "data": {
-                    }
+                    "nodeType": "list-item"
                   }
                 ],
-                "data": {
-                }
+                "nodeType": "unordered-list"
               },
               {
-                "nodeType": "paragraph",
+                "data": {
+                },
                 "content": [
                   {
-                    "nodeType": "text",
-                    "value": "",
+                    "data": {
+                    },
                     "marks": [
                     ],
-                    "data": {
-                    }
+                    "value": "",
+                    "nodeType": "text"
                   }
                 ],
-                "data": {
-                }
+                "nodeType": "paragraph"
               }
-            ]
+            ],
+            "nodeType": "document"
           }
         },
         "cost": {
@@ -3989,104 +4004,104 @@
         },
         "offer": {
           "en-US": {
+            "nodeType": "document",
             "data": {
             },
             "content": [
               {
-                "data": {
-                },
+                "nodeType": "paragraph",
                 "content": [
                   {
-                    "data": {
-                    },
+                    "nodeType": "text",
+                    "value": "Get started with offering a traineeship.",
                     "marks": [
                     ],
-                    "value": "Get started with offering a traineeship.",
-                    "nodeType": "text"
+                    "data": {
+                    }
                   }
                 ],
-                "nodeType": "paragraph"
+                "data": {
+                }
               },
               {
-                "data": {
-                },
+                "nodeType": "paragraph",
                 "content": [
                   {
-                    "data": {
-                    },
+                    "nodeType": "text",
+                    "value": "",
                     "marks": [
                     ],
-                    "value": "",
-                    "nodeType": "text"
+                    "data": {
+                    }
                   },
                   {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "Contact the National Apprenticeship Service",
+                        "marks": [
+                        ],
+                        "data": {
+                        }
+                      }
+                    ],
                     "data": {
                       "uri": "https://www.gov.uk/guidance/traineeship-information-for-employers#get-started"
-                    },
-                    "content": [
-                      {
-                        "data": {
-                        },
-                        "marks": [
-                        ],
-                        "value": "Contact the National Apprenticeship Service",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
+                    }
                   },
                   {
-                    "data": {
-                    },
+                    "nodeType": "text",
+                    "value": "",
                     "marks": [
                     ],
-                    "value": "",
-                    "nodeType": "text"
+                    "data": {
+                    }
                   }
                 ],
-                "nodeType": "paragraph"
+                "data": {
+                }
               },
               {
-                "data": {
-                },
+                "nodeType": "paragraph",
                 "content": [
                   {
-                    "data": {
-                    },
+                    "nodeType": "text",
+                    "value": "Alternatively, call ",
                     "marks": [
                     ],
-                    "value": "Or call ",
-                    "nodeType": "text"
+                    "data": {
+                    }
                   },
                   {
-                    "data": {
-                      "uri": "tel:08000150600"
-                    },
+                    "nodeType": "hyperlink",
                     "content": [
                       {
-                        "data": {
-                        },
+                        "nodeType": "text",
+                        "value": "08000 150 600",
                         "marks": [
                         ],
-                        "value": "08000 150 600",
-                        "nodeType": "text"
+                        "data": {
+                        }
                       }
                     ],
-                    "nodeType": "hyperlink"
+                    "data": {
+                      "uri": "tel:08000150600"
+                    }
                   },
                   {
-                    "data": {
-                    },
+                    "nodeType": "text",
+                    "value": "",
                     "marks": [
                     ],
-                    "value": "",
-                    "nodeType": "text"
+                    "data": {
+                    }
                   }
                 ],
-                "nodeType": "paragraph"
+                "data": {
+                }
               }
-            ],
-            "nodeType": "document"
+            ]
           }
         },
         "size": {
