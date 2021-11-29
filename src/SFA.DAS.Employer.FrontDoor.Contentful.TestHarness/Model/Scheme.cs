@@ -23,8 +23,8 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
         public Document? Offer { get; set; }
         public int Size { get; set; }
 
-        public List<MotivationsFilter> MotivationsFilters { get; set; }
-        public List<PayFilter> PayFilters { get; set; }
-        public List<SchemeLengthFilter> SchemeLengthFilters { get; set; }
+        public List<MotivationsFilter> MotivationsFilterAspects { get; set; }
+        public List<PayFilter> PayFilterAspects { get; set; }
+        public List<SchemeLengthFilter> SchemeLengthFilterAspects { get; set; }
     }
 }
