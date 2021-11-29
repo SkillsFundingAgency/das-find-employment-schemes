@@ -40,7 +40,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Content
                     @"<p>Read about <a href=""https://www.apprenticeships.gov.uk/employers/real-stories-employers"" title="""" class=""govuk-link"">how businesses are using incentive payments to hire apprentices</a>.</p>"),
                 "Offer an apprenticeship",
                 new HtmlString(
-                    @"<p>Get started with offering an apprenticeship.</p><p><a href=""https://www.apprenticeships.gov.uk/employers/hiring-an-apprentice"" title="""" class=""govuk-link"">Hire an apprentice</a></p><p>Or call <a href=""tel:08000150400"" title="""" class=""govuk-link"">08000 150 400</a></p>")),
+                    @"<p>Get started with offering an apprenticeship.</p><p><a href=""https://www.apprenticeships.gov.uk/employers/hiring-an-apprentice"" title="""" class=""govuk-link"">Hire an apprentice</a></p><p>Alternatively, call <a href=""tel:08000150400"" title="""" class=""govuk-link"">08000 150 400</a></p>")),
             new Scheme("T Levels: industry placements",
                 new HtmlString(
                     @"<p>Provide a 45 day (315 hours) industry placement for 16 to 19 year-olds, which gives you early access to the brightest entering the market and the opportunity to develop your workforce of the future.</p>"),
@@ -62,7 +62,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Content
                     @"<p>Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-t-level-industry-placements"" title="""" class=""govuk-link"">how businesses are using T Levels industry placements</a>.</p>"),
                 "Offer an industry placement",
                 new HtmlString(
-                    @"<p>Get started with offering an industry placement.</p><p><a href=""https://employers.tlevels.gov.uk/hc/en-gb/requests/new"" title="""" class=""govuk-link"">Take the next steps with T Levels</a></p><p>Or call <a href=""tel:08000150600"" title="""" class=""govuk-link"">08000 150 600</a> (choose option 4)</p>")),
+                    @"<p>Get started with offering an industry placement.</p><p><a href=""https://employers.tlevels.gov.uk/hc/en-gb/requests/new"" title="""" class=""govuk-link"">Take the next steps with T Levels</a></p><p>Alternatively, call <a href=""tel:08000150600"" title="""" class=""govuk-link"">08000 150 600</a> (choose option 4)</p>")),
             new Scheme("Sector-based Work Academy Programme (SWAP)",
                 new HtmlString(
                     @"<p>Up to 6-week placement for benefit claimants aged 18+ designed to help you recruit a workforce with the right skills to sustain and grow your business.</p>"),
@@ -108,10 +108,10 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Content
                 new HtmlString(@"<p>Free government scheme but you may have your own business costs</p>"),
                 new HtmlString(
                     @"<p>Helps you increase your capacity and productivity whilst developing a loyal and talented workforce</p>"),
-                new HtmlString(@"<p>6-week to 12 months</p>"),
+                new HtmlString(@"<p>70 to 240 hours work placement</p>"),
                 "traineeships", 43000, null,
                 new HtmlString(
-                    @"<p>A traineeship is a skills development programme that includes a work placement.</p><p>The full programme can last from 6 weeks up to 1 year, though most traineeships last for less than 6 months.</p><p>Your business needs to be able to offer at least 70 hours of a safe, meaningful, and high-quality work experience. You will work with a training provider to design the programme.</p><p>The trainee will gain English, maths, digital and work-related qualifications which can lead them on to:</p><ul class =""govuk-list govuk-list--bullet""><li>an apprenticeship</li><li>work</li><li>further education</li></ul><p></p>"),
+                    @"<p>A traineeship is a skills development programme that includes a work placement.</p><p>The full programme can last from 6 weeks up to 1 year, though most traineeships last for between 6-weeks and 12-weeks.</p><p>Your business needs to be able to offer a safe, meaningful and high-quality work experience placement of at least 70 hours to 240 hours.</p><p>You will work with a training provider to design what is included in the programme.</p><p>The trainee will gain English, maths, digital and work-related qualifications which can lead them on to:</p><ul class =""govuk-list govuk-list--bullet""><li>an apprenticeship</li><li>work</li><li>further education</li></ul><p></p>"),
                 new HtmlString(
                     @"<p>Free government scheme but you may have your own business costs.</p><p>Some employers may choose to pay the wages and any payments for expenses such as travel and living costs.
 </p>"),
@@ -123,7 +123,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Content
                     @"<p>Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-traineeships"" title="""" class=""govuk-link"">how businesses are using traineeships</a>.</p>"),
                 "Offer a traineeship",
                 new HtmlString(
-                    @"<p>Get started with offering a traineeship.</p><p><a href=""https://www.gov.uk/guidance/traineeship-information-for-employers#get-started"" title="""" class=""govuk-link"">Contact the National Apprenticeship Service</a></p><p>Or call <a href=""tel:08000150600"" title="""" class=""govuk-link"">08000 150 600</a></p>")),
+                    @"<p>Get started with offering a traineeship.</p><p><a href=""https://www.gov.uk/guidance/traineeship-information-for-employers#get-started"" title="""" class=""govuk-link"">Contact the National Apprenticeship Service</a></p><p>Alternatively, call <a href=""tel:08000150600"" title="""" class=""govuk-link"">08000 150 600</a></p>")),
             new Scheme("Supported Internships for learners with an education, health and care plan",
                 new HtmlString(
                     @"<p>An unpaid 6 to 12-month work placement for 16 to 24-year-olds with additional needs supported by a qualified job coach.</p>"),
