@@ -3,7 +3,7 @@
 namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
 {
     [DebuggerDisplay("{Name}")]
-    public class MotivationsFilter
+    public class MotivationsFilter : IFilter
     {
         public string Name { get; set; }
         public string Description { get; set; }
