@@ -6,14 +6,16 @@ jobs:
 - job: CodeBuild
   pool:
     name: DAS - Continuous Integration Agents
-    workspace:
-      clean: all
+    demands: LATEST_DOTNET_VERSION -equals 3.1
   variables:
   - group: BUILD Management Resources
   steps:
   - template: azure-pipelines-templates/build/step/gitversion.yml@das-platform-building-blocks
 
   - template: azure-pipelines-templates/build/step/app-build.yml@das-platform-building-blocks
+    parameters:
+      SonarCloud: true
+      SonarCloudProjectKey: SkillsFundingAgency_das-employers-front-door
 
   - template: azure-pipelines-templates/build/step/dependency-check.yml@das-platform-building-blocks
 
@@ -39,4 +41,4 @@ jobs:
     displayName: Publish Artifact drop
     inputs:
       targetPath: $(build.artifactstagingdirectory)/publish
-      artifactName: drop
+      artifactName: EmployersFrontDoor
