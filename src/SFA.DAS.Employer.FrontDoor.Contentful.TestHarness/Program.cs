@@ -31,7 +31,7 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
 
         private static async Task GenerateSchemesContent(ContentfulClient client, HtmlRenderer htmlRenderer)
         {
-            var builder = QueryBuilder<Scheme>.New.ContentTypeIs("scheme");
+            var builder = QueryBuilder<Scheme>.New.ContentTypeIs("scheme").Include(1);
 
             var schemes = await client.GetEntries<Scheme>(builder);
 
@@ -45,15 +45,44 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
                 Console.WriteLine($"{await AsHtmlString(scheme.ShortCost, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.ShortBenefits, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.ShortTime, htmlRenderer)},");
-                Console.WriteLine(
-                    $"\"{scheme.Url}\", {scheme.Size}, {await AsHtmlString(scheme.DetailsPageOverride, htmlRenderer)},");
+                Console.WriteLine($"\"{scheme.Url}\", {scheme.Size},");
+
+                Console.Write("new string[] {");
+                if (scheme.PayFilterAspects != null)
+                {
+                    foreach (var payFilter in scheme.PayFilterAspects)
+                    {
+                        Console.WriteLine($"\"{Slugify(payFilter.Name)}\",");
+                    }
+                }
+
+                if (scheme.MotivationsFilterAspects != null)
+                {
+                    foreach (var motivationsFilter in scheme.MotivationsFilterAspects)
+                    {
+                        Console.WriteLine($"\"{Slugify(motivationsFilter.Name)}\",");
+                    }
+                }
+
+                if (scheme.SchemeLengthFilterAspects != null)
+                {
+                    foreach (var schemeLengthFilter in scheme.SchemeLengthFilterAspects)
+                    {
+                        Console.WriteLine($"\"{Slugify(schemeLengthFilter.Name)}\",");
+                    }
+                }
+
+                Console.WriteLine("},");
+
+                Console.WriteLine($"{await AsHtmlString(scheme.DetailsPageOverride, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.Description, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.Cost, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.Responsibility, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.Benefits, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.CaseStudies, htmlRenderer)},");
                 Console.WriteLine($"\"{scheme.OfferHeader}\",");
-                Console.WriteLine($"{await AsHtmlString(scheme.Offer, htmlRenderer)}),");
+                Console.WriteLine($"{await AsHtmlString(scheme.Offer, htmlRenderer)}");
+                Console.WriteLine("),");
             }
         }
 
@@ -88,11 +117,16 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
 
             foreach (T filter in filters)
             {
-                Console.WriteLine($"new {typeof(T).Name}(\"{filter.Name.ToLower().Replace(' ', '-')}\",");
+                Console.WriteLine($"new {typeof(T).Name}(\"{Slugify(filter.Name)}\",");
                 Console.WriteLine($"\"{filter.Description}\",");
                 //Console.WriteLine($"\"{filter.Order}\"");
                 Console.WriteLine("),");
             }
+        }
+
+        private static string Slugify(string name)
+        {
+            return name.ToLower().Replace(' ', '-');
         }
 
         //todo: empty strings as nulls?
