@@ -1,4 +1,5 @@
-﻿using Contentful.Core.Models;
+﻿using System.Collections.Generic;
+using Contentful.Core.Models;
 using System.Diagnostics;
 
 namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
@@ -21,5 +22,9 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
         public string? OfferHeader { get; set; }
         public Document? Offer { get; set; }
         public int Size { get; set; }
+
+        public List<MotivationsFilter> MotivationsFilters { get; set; }
+        public List<PayFilter> PayFilters { get; set; }
+        public List<SchemeLengthFilter> SchemeLengthFilters { get; set; }
     }
 }
