@@ -23,9 +23,11 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Models
         public IHtmlContent? Offer { get; set; }
         // when we display the matching schemes on the filter page, we'll sort largest to smallest
         public int Size { get; set; }
+        public string[] FilterAspects { get; set; }
 
         public Scheme(string name, IHtmlContent shortDescription, IHtmlContent shortCost, IHtmlContent shortBenefits, IHtmlContent shortTime,
             string url, int size,
+            string[] filterAspects,
             IHtmlContent? detailsPageOverride = null,
             IHtmlContent? description = null, IHtmlContent? cost = null, IHtmlContent? responsibility = null, IHtmlContent? benefits = null,
             IHtmlContent? caseStudies = null, string? offerHeader = null, IHtmlContent? offer = null)
@@ -37,6 +39,7 @@ namespace SFA.DAS.Employer.FrontDoor.Web.Models
             ShortTime = shortTime;
             Url = url;
             Size = size;
+            FilterAspects = filterAspects;
             DetailsPageOverride = detailsPageOverride;
             Description = description;
             Cost = cost;

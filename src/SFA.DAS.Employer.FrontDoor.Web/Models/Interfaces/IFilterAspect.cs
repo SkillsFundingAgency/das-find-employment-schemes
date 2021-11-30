@@ -7,4 +7,4 @@
     }
 }
 
-//todo: class will create filterid from guaranteed unique Name (replace spaces)
+//todo: class will create filterid from guaranteed unique Id (replace spaces)
