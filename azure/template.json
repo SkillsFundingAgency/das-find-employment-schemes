@@ -64,8 +64,8 @@
         "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/",
         "resourceNamePrefix": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
         "resourceGroupName": "[concat(variables('resourceNamePrefix'), '-rg')]",
-        "appServiceName": "[concat(variables('resourceNamePrefix'), '-as')]",
-        "configNames": "SFA.DAS.EmployersFrontDoor.Web"
+        "appServiceName": "[concat(variables('resourceNamePrefix'), 'ui-as')]",
+        "configNames": "SFA.DAS.FindEmploymentSchemes.Web"
     },
     "resources": [
         {
@@ -78,7 +78,7 @@
         },
         {
             "apiVersion": "2021-04-01",
-            "name": "das-employer-front-door-app-service-certificate",
+            "name": "das-find-employment-schemes-app-service-certificate",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
             "properties": {
@@ -105,7 +105,7 @@
         },
         {
             "apiVersion": "2021-04-01",
-            "name": "das-employer-front-door-application-insights",
+            "name": "das-find-employment-schemes-application-insights",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[variables('resourceGroupName')]",
             "properties": {
@@ -129,7 +129,7 @@
         },
         {
             "apiVersion": "2021-04-01",
-            "name": "das-employer-front-door-app-service",
+            "name": "das-find-employment-schemes-app-service",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[variables('resourceGroupName')]",
             "properties": {
@@ -172,7 +172,7 @@
                                 },
                                 {
                                     "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                                    "value": "[reference('das-employer-front-door-application-insights').outputs.InstrumentationKey.value]"
+                                    "value": "[reference('das-find-employment-schemes-application-insights').outputs.InstrumentationKey.value]"
                                 },
                                 {
                                     "name": "LoggingRedisConnectionString",
@@ -193,7 +193,7 @@
                         "value": "[parameters('customHostname')]"
                     },
                     "certificateThumbprint": {
-                        "value": "[reference('das-employer-front-door-app-service-certificate').outputs.certificateThumbprint.value]"
+                        "value": "[reference('das-find-employment-schemes-app-service-certificate').outputs.certificateThumbprint.value]"
                     },
                     "ipSecurityRestrictions": {
                         "value": "[parameters('frontEndAccessRestrictions')]"
