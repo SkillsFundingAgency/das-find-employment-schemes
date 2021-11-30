@@ -6,7 +6,7 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
 {
     public interface IFilter
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
     }
 }

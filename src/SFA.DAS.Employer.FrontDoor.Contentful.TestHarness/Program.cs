@@ -26,9 +26,9 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
 
             await GenerateSchemesContent(client, htmlRenderer);
 
-            await GenerateFilterContent<MotivationsFilter>(client, htmlRenderer, "motivationsFilter");
-            await GenerateFilterContent<PayFilter>(client, htmlRenderer, "motivationsFilter");
-            await GenerateFilterContent<SchemeLengthFilter>(client, htmlRenderer, "motivationsFilter");
+            await GenerateFilterContent<MotivationsFilter>(client, "motivationsFilter");
+            await GenerateFilterContent<PayFilter>(client, "motivationsFilter");
+            await GenerateFilterContent<SchemeLengthFilter>(client, "motivationsFilter");
 
             Console.WriteLine(Closing());
         }
@@ -126,8 +126,7 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
             return htmlRenderer;
         }
 
-        private static async Task GenerateFilterContent<T>(ContentfulClient client,
-            HtmlRenderer htmlRenderer, string filterContentfulTypeName)
+        private static async Task GenerateFilterContent<T>(ContentfulClient client, string filterContentfulTypeName)
         where T : IFilter
         {
             var builder = QueryBuilder<T>.New.ContentTypeIs(filterContentfulTypeName);
@@ -154,8 +153,11 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
             Console.WriteLine("        };");
         }
 
-        private static string Slugify(string name)
+        private static string Slugify(string? name)
         {
+            if (name == null)
+                throw new ArgumentNullException(nameof(name));
+
             return name.ToLower().Replace(' ', '-');
         }
 
