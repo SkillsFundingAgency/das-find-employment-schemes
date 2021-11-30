@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SFA.DAS.Employer.FrontDoor.Web.Models
+namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {
     public class SchemeDetailsModel
     {

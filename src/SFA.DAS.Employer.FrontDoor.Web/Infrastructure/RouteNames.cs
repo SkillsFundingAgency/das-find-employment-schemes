@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.Employer.FrontDoor.Web.Infrastructure
+﻿namespace SFA.DAS.FindEmploymentSchemes.Web.Infrastructure
 {
     public static class RouteNames
     {

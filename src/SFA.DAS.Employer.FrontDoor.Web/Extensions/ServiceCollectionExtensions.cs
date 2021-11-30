@@ -2,9 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
-using SFA.DAS.Employer.FrontDoor.Web.Logging;
+using SFA.DAS.FindEmploymentSchemes.Web.Logging;
 
-namespace SFA.DAS.Employer.FrontDoor.Web.Extensions
+namespace SFA.DAS.FindEmploymentSchemes.Web.Extensions
 {
     public static class ServiceCollectionExtensions
     {

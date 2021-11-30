@@ -7,13 +7,13 @@ using NLog.Config;
 using NLog.Targets;
 using SFA.DAS.NLog.Targets.Redis.DotNetCore;
 
-namespace SFA.DAS.Employer.FrontDoor.Web.Logging
+namespace SFA.DAS.FindEmploymentSchemes.Web.Logging
 {
     public class NLogConfiguration
     {
         public void ConfigureNLog(string minimumLogLevel)
         {
-            const string appName = "das-employer-front-door";
+            const string appName = "das-find-employment-schemes";
             string? env = Environment.GetEnvironmentVariable("EnvironmentName");
             var config = new LoggingConfiguration();
 

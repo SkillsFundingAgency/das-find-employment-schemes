@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Contentful.Core.Models;
 using System.Diagnostics;
+using Contentful.Core.Models;
 
-namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.Model
 {
     [DebuggerDisplay("{Name}")]
     public class Scheme

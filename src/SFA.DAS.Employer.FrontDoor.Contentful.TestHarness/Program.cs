@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
-using SFA.DAS.Employer.FrontDoor.Contentful.GdsHtmlRenderers;
-using SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model;
+using SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.Model;
+using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
 
-namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
     internal class Program
     {

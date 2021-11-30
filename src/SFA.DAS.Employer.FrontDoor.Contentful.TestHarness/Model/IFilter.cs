@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
+﻿namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.Model
 {
     public interface IFilter
     {

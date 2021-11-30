@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.Employer.FrontDoor.Web.Models.Interfaces
+﻿namespace SFA.DAS.FindEmploymentSchemes.Web.Models.Interfaces
 {
     public interface IFilterAspect
     {

@@ -1,12 +1,9 @@
-﻿
-using System;
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.Employer.FrontDoor.Web.Infrastructure;
+using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
 
-
-namespace SFA.DAS.FAT.Web.Controllers
+namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     [Route("error")]
     public class ErrorController : Controller

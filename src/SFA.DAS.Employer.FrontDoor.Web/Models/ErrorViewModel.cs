@@ -1,6 +1,4 @@
-using System;
-
-namespace SFA.DAS.Employer.FrontDoor.Web.Models
+namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {
     public class ErrorViewModel
     {

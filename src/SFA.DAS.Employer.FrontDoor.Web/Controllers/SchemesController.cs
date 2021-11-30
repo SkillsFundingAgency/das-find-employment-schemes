@@ -3,10 +3,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.Employer.FrontDoor.Web.Content;
-using SFA.DAS.Employer.FrontDoor.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Web.Content;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
 
-namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
+namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class SchemesController : Controller
     {

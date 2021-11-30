@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Html;
 
-namespace SFA.DAS.Employer.FrontDoor.Web.Models
+namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {
     //todo: won't end up living here
     //todo: revisit for c#9

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness.Model
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.Model
 {
     [DebuggerDisplay("{Name}")]
     public class SchemeLengthFilter : IFilter

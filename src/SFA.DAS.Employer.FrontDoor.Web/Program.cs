@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace SFA.DAS.Employer.FrontDoor.Web
+namespace SFA.DAS.FindEmploymentSchemes.Web
 {
     public static class Program
     {

@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SFA.DAS.Employer.FrontDoor.Web.Extensions;
 using SFA.DAS.Configuration.AzureTableStorage;
+using SFA.DAS.FindEmploymentSchemes.Web.Extensions;
 
-
-namespace SFA.DAS.Employer.FrontDoor.Web
+namespace SFA.DAS.FindEmploymentSchemes.Web
 {
     public class Startup
     {

@@ -1,8 +1,8 @@
-﻿using Contentful.Core.Models;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
+using Contentful.Core.Models;
 
-namespace SFA.DAS.Employer.FrontDoor.Contentful.GdsHtmlRenderers
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 {
     /// <summary>
     /// A renderer for a call to action box.

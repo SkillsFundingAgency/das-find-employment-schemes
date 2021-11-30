@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace SFA.DAS.Employer.FrontDoor.Web.Models
+namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {
     [DebuggerDisplay("{Id}")]
     public class MotivationsFilter : IFilter

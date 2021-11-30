@@ -1,7 +1,7 @@
-﻿using Contentful.Core.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Contentful.Core.Models;
 
-namespace SFA.DAS.Employer.FrontDoor.Contentful.GdsHtmlRenderers
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 {
     /// <summary>
     /// A content renderer that renders a GDS horizontal ruler.

@@ -1,16 +1,9 @@
-
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.Employer.FrontDoor.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
 
-
-namespace SFA.DAS.Employer.FrontDoor.Web.Controllers
+namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class HomeController : Controller
     {
