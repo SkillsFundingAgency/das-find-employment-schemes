@@ -12,7 +12,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
     {
         private readonly ILogger<SchemesController> _logger;
 
-        private static readonly HomeModel HomeModel = new HomeModel(SchemesContent.Schemes);
+        private static readonly FilterGroupModel[] FilterGroupModels = new FilterGroupModel[]
+        {
+            new FilterGroupModel("motivations", "I want to", SchemesContent.MotivationsFilters),
+            new FilterGroupModel("scheme-length", "Length of scheme?", SchemesContent.SchemeLengthFilters),
+            new FilterGroupModel("pay", "I can offer", SchemesContent.PayFilters)
+        };
+
+        private static readonly HomeModel HomeModel = new HomeModel(SchemesContent.Schemes, FilterGroupModels);
 
         private static readonly IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels = BuildSchemeDetailsModelsDictionary();
 

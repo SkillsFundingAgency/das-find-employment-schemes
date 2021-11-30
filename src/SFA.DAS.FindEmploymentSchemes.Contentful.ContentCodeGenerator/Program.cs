@@ -33,8 +33,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             await GenerateSchemesContent(client, htmlRenderer);
 
             await GenerateFilterContent<MotivationsFilter>(client, "motivationsFilter", motivationsFilterPrefix);
-            await GenerateFilterContent<PayFilter>(client, "motivationsFilter", payFilterPrefix);
-            await GenerateFilterContent<SchemeLengthFilter>(client, "motivationsFilter", schemeLengthFilterPrefix);
+            await GenerateFilterContent<PayFilter>(client, "payFilter", payFilterPrefix);
+            await GenerateFilterContent<SchemeLengthFilter>(client, "schemeLengthFilter", schemeLengthFilterPrefix);
 
             Console.WriteLine(Closing());
         }

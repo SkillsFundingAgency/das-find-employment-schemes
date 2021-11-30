@@ -275,28 +275,25 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
         public static readonly IEnumerable<PayFilter> PayFilters = new PayFilter[]
         {
 
-            new PayFilter("pay-diversity-or-responsibility",
-                "To diversify our workforce or for corporate and social responsibility"
+            new PayFilter("pay-unpaid",
+                "I can offer unpaid placements"
             ),
-            new PayFilter("pay-unpaid-placement",
-                "To offer someone an unpaid work placement opportunity"
-            ),
-            new PayFilter("pay-full-time-role",
-                "To help train someone up into a full-time role"
+            new PayFilter("pay-minimum-wage",
+                "I can pay at least national minimum wage"
             ),
         };
 
         public static readonly IEnumerable<SchemeLengthFilter> SchemeLengthFilters = new SchemeLengthFilter[]
         {
 
-            new SchemeLengthFilter("scheme-length-diversity-or-responsibility",
-                "To diversify our workforce or for corporate and social responsibility"
+            new SchemeLengthFilter("scheme-length-a-year-or-more",
+                "A year or more"
             ),
-            new SchemeLengthFilter("scheme-length-unpaid-placement",
-                "To offer someone an unpaid work placement opportunity"
+            new SchemeLengthFilter("scheme-length-4-months-to-12-months",
+                "4 months to 12 months"
             ),
-            new SchemeLengthFilter("scheme-length-full-time-role",
-                "To help train someone up into a full-time role"
+            new SchemeLengthFilter("scheme-length-up-to-4-months",
+                "Up to 4 months"
             ),
         };
     }

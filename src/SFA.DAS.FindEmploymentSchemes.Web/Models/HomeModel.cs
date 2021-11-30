@@ -6,9 +6,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
     {
         public IEnumerable<Scheme> Schemes { get; set; }
 
-        public HomeModel(IEnumerable<Scheme> schemes)
+        public IEnumerable<FilterGroupModel> FilterGroupModels { get; set; }
+
+        public HomeModel(IEnumerable<Scheme> schemes, IEnumerable<FilterGroupModel> filterGroupModels)
         {
             Schemes = schemes;
+            FilterGroupModels = filterGroupModels;
         }
     }
 }
