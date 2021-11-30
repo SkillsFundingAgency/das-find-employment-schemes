@@ -97,7 +97,7 @@ AppSettings.Development.json file
 
 Azure Table Storage config
 
-Row Key: SFA.DAS.Employer.FrontDoor.Web_1.0
+Row Key: SFA.DAS.FindEmploymentSchemes.Web_1.0
 
 Partition Key: LOCAL
 

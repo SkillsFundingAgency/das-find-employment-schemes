@@ -164,9 +164,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
         {
             return @"using System.Collections.Generic;
 using Microsoft.AspNetCore.Html;
-using SFA.DAS.Employer.FrontDoor.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
 
-namespace SFA.DAS.Employer.FrontDoor.Web.Content
+namespace SFA.DAS.FindEmploymentSchemes.Web.Content
 {
     public static class SchemesContent
     {";
