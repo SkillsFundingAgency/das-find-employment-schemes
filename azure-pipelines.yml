@@ -6,13 +6,15 @@ trigger:
 
 variables:
 - name: SolutionBaseName
-  value: SFA.DAS.Employer.FrontDoor.Web
+  value: SFA.DAS.FindEmploymentSchemes.Web
 - name: BuildConfiguration
   value: release
 - name: BuildPlatform
   value: any cpu
 - group: RELEASE Management Resources
-- group: RELEASE das-employers-front-door
+- group: RELEASE das-find-employment-schemes
+- name: Deploy
+  value: $[or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['Build.Reason'], 'Manual'))]
 
 resources:
   repositories:
@@ -44,6 +46,7 @@ stages:
 - stage: Deploy_AT
   dependsOn: Build
   displayName: Deploy to AT
+  condition: and(succeeded(), eq(variables.Deploy, 'true'))
   variables:
   - group: DevTest Management Resources
   - group: AT DevTest Shared Resources
