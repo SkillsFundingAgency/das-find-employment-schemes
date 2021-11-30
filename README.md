@@ -1,6 +1,6 @@
 ## ⛔Never push sensitive information such as client id's, secrets or keys into repositories including in the README file⛔
 
-# _Project Name_
+# _Employers Front Door_
 
 <img src="https://avatars.githubusercontent.com/u/9841374?s=200&v=4" align="right" alt="UK Government logo">
 
@@ -64,6 +64,8 @@ _Add details of the configuration required to successfully run the project. Addi
 
 > _If you do add config directly to the README you will be required to keep it up-to-date with any changes made to it in the [das-employer-config repository](https://github.com/SkillsFundingAgency/das-employer-config), for this reason it is suggested that you also provide links to the config in that respoitory so that the latest changes are always available_
 
+todo: add link once merged
+
 _For Example_
 ```
 This utility uses the standard Apprenticeship Service configuration. All configuration can be found in the [das-employer-config repository](https://github.com/SkillsFundingAgency/das-employer-config).
@@ -95,7 +97,7 @@ AppSettings.Development.json file
 
 Azure Table Storage config
 
-Row Key: SFA.DAS.Tools.Servicebus.Support_1.0
+Row Key: SFA.DAS.Employer.FrontDoor.Web_1.0
 
 Partition Key: LOCAL
 
@@ -103,31 +105,11 @@ Data:
 
 ```json
 {
-  "BaseUrl": "localhost:5001",
-  "UserIdentitySettings":{
-    "RequiredRole": "Servicebus Admin", 
-    "UserSessionExpiryHours": 24,
-    "UserRefreshSessionIntervalMinutes": 5,
-    "NameClaim": "name"
+  "ConnectionStrings": {
+    "Redis": "localhost:6379"
   },
-  "ServiceBusSettings":{
-    "ServiceBusConnectionString": "",
-    "QueueSelectionRegex": "[-,_]+error",
-    "PeekMessageBatchSize": 10,
-    "MaxRetrievalSize": 250,
-    "ErrorQueueRegex": "[-,_]error[s]*$",
-    "RedactPatterns": [
-      "(.*SharedAccessKey=)([\\s\\S]+=)(.*)"
-    ]
-  },
-  "CosmosDbSettings":{
-    "Url": "",
-    "AuthKey": "",
-    "DatabaseName": "QueueExplorer",
-    "CollectionName": "Session",
-    "Throughput": 400,
-    "DefaultCosmosOperationTimeout": 55,
-    "DefaultCosmosInterimRequestTimeout": 2
+  "NLog": {
+    "LogLevel": "Info"
   }
 }
 ```

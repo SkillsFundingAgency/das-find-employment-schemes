@@ -7,9 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39cd19f9-cd1b-4653-91ba-90a120e9448e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SFA.DAS.Employer.FrontDoor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SFA.DAS.Employer.FrontDoor/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFA.DAS.Employer.FrontDoor.Web/Models/Scheme.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SFA.DAS.Employer.FrontDoor.Web/Models/Scheme.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFA.DAS.Employer.FrontDoor.Web/Views/Schemes/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SFA.DAS.Employer.FrontDoor.Web/Views/Schemes/Details.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFA.DAS.Employer.FrontDoor.Contentful.TestHarness/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SFA.DAS.Employer.FrontDoor.Contentful.TestHarness/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +95,7 @@
       <updated>1636731970535</updated>
       <workItem from="1636731977609" duration="804000" />
       <workItem from="1637675455448" duration="3248000" />
+      <workItem from="1637943753038" duration="645000" />
     </task>
     <servers />
   </component>
