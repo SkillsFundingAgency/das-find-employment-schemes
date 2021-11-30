@@ -1,0 +1,32 @@
+﻿@model FilterGroupModel
+
+<div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            @Model.Description
+        </legend>
+        <div class="govuk-checkboxes govuk-checkboxes--small">
+            @foreach (var filter in Model.Filters)
+            {
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="@filter.Id" name="motivation" type="checkbox" value="train">
+                    <label class="govuk-label govuk-checkboxes__label" for="@filter.Id">
+                        @filter.Description
+                    </label>
+                </div>
+            }
+@*            <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="motivation-placement" name="motivation" type="checkbox" value="placement">
+                <label class="govuk-label govuk-checkboxes__label" for="motivation-placement">
+                    To offer someone an unpaid work placement opportunity
+                </label>
+            </div>
+            <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="motivation-diversify" name="motivation" type="checkbox" value="diversify">
+                <label class="govuk-label govuk-checkboxes__label" for="motivation-diversify">
+                    To diversify our workforce or for corporate and social responsibility
+                </label>
+            </div>*@
+        </div>
+    </fieldset>
+</div> 
