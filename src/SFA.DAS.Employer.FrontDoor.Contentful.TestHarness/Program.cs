@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Contentful.Core;
 using Contentful.Core.Models;
@@ -12,13 +14,17 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
 {
     internal class Program
     {
+        private const string payFilterPrefix = "pay";
+        private const string motivationsFilterPrefix = "motivations";
+        private const string schemeLengthFilterPrefix = "scheme-length";
+
         static async Task Main(string[] args)
         {
             var httpClient = new HttpClient();
             var client = new ContentfulClient(httpClient,
                 "",
                 "",
-                "0liyzri8haz6");
+                "082i50qdtar9");
 
             var htmlRenderer = CreateHtmlRenderer();
 
@@ -26,9 +32,9 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
 
             await GenerateSchemesContent(client, htmlRenderer);
 
-            await GenerateFilterContent<MotivationsFilter>(client, "motivationsFilter");
-            await GenerateFilterContent<PayFilter>(client, "motivationsFilter");
-            await GenerateFilterContent<SchemeLengthFilter>(client, "motivationsFilter");
+            await GenerateFilterContent<MotivationsFilter>(client, "motivationsFilter", motivationsFilterPrefix);
+            await GenerateFilterContent<PayFilter>(client, "motivationsFilter", payFilterPrefix);
+            await GenerateFilterContent<SchemeLengthFilter>(client, "motivationsFilter", schemeLengthFilterPrefix);
 
             Console.WriteLine(Closing());
         }
@@ -68,30 +74,9 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
                 Console.WriteLine($"\"{scheme.Url}\", {scheme.Size},");
 
                 Console.Write("new string[] {");
-                if (scheme.PayFilterAspects != null)
-                {
-                    foreach (var payFilter in scheme.PayFilterAspects)
-                    {
-                        Console.WriteLine($"\"{Slugify(payFilter.Name)}\",");
-                    }
-                }
-
-                if (scheme.MotivationsFilterAspects != null)
-                {
-                    foreach (var motivationsFilter in scheme.MotivationsFilterAspects)
-                    {
-                        Console.WriteLine($"\"{Slugify(motivationsFilter.Name)}\",");
-                    }
-                }
-
-                if (scheme.SchemeLengthFilterAspects != null)
-                {
-                    foreach (var schemeLengthFilter in scheme.SchemeLengthFilterAspects)
-                    {
-                        Console.WriteLine($"\"{Slugify(schemeLengthFilter.Name)}\",");
-                    }
-                }
-
+                Console.Write(GenerateFilterIds(scheme.PayFilterAspects, payFilterPrefix));
+                Console.Write(GenerateFilterIds(scheme.MotivationsFilterAspects, motivationsFilterPrefix));
+                Console.Write(GenerateFilterIds(scheme.SchemeLengthFilterAspects, schemeLengthFilterPrefix));
                 Console.WriteLine("},");
 
                 Console.WriteLine($"{await AsHtmlString(scheme.DetailsPageOverride, htmlRenderer)},");
@@ -126,7 +111,21 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
             return htmlRenderer;
         }
 
-        private static async Task GenerateFilterContent<T>(ContentfulClient client, string filterContentfulTypeName)
+        private static string GenerateFilterIds(IEnumerable<IFilter>? filters, string filterPrefix)
+        {
+            if (filters == null)
+                return "";
+
+            var filterIds = new StringBuilder();
+            foreach (var payFilter in filters)
+            {
+                filterIds.Append($"\"{filterPrefix}-{Slugify(payFilter.Name)}\", ");
+            }
+
+            return filterIds.ToString();
+        }
+
+        private static async Task GenerateFilterContent<T>(ContentfulClient client, string filterContentfulTypeName, string filterPrefix)
         where T : IFilter
         {
             var builder = QueryBuilder<T>.New.ContentTypeIs(filterContentfulTypeName);
@@ -144,7 +143,7 @@ namespace SFA.DAS.Employer.FrontDoor.Contentful.TestHarness
 
             foreach (T filter in filters)
             {
-                Console.WriteLine($"new {typeof(T).Name}(\"{Slugify(filter.Name)}\",");
+                Console.WriteLine($"new {typeof(T).Name}(\"{filterPrefix}-{Slugify(filter.Name)}\",");
                 Console.WriteLine($"\"{filter.Description}\"");
                 //Console.WriteLine($"\"{filter.Order}\"");
                 Console.WriteLine("),");
