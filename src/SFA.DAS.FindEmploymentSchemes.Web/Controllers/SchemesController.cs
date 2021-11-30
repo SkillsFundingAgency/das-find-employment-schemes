@@ -14,9 +14,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         private static readonly FilterGroupModel[] FilterGroupModels = new FilterGroupModel[]
         {
-            new FilterGroupModel("I want to", SchemesContent.MotivationsFilters),
-            new FilterGroupModel("Length of scheme?", SchemesContent.SchemeLengthFilters),
-            new FilterGroupModel("I can offer", SchemesContent.PayFilters)
+            new FilterGroupModel("motivations", "I want to", SchemesContent.MotivationsFilters),
+            new FilterGroupModel("scheme-length", "Length of scheme?", SchemesContent.SchemeLengthFilters),
+            new FilterGroupModel("pay", "I can offer", SchemesContent.PayFilters)
         };
 
         private static readonly HomeModel HomeModel = new HomeModel(SchemesContent.Schemes, FilterGroupModels);
