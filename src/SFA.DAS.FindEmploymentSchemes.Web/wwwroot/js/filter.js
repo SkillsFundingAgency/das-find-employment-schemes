@@ -19,14 +19,64 @@ const filterParamName = 'filter';
 
 function initFiltering(options) {
     //setDefaultFilterIfRequired(options.defaultFilter);
-    //updateFiltersFromFragmentAndShowResults(options.resultsAjaxUrl);
+    updateFiltersFromFragmentAndShowResults();
 
     //todo: should we be using pushState instead?
     //$(window).on('hashchange', function () {
     //    updateFiltersFromFragmentAndShowResults(options.resultsAjaxUrl);
     //});
+
+    window.addEventListener('hashchange', function () {
+        updateFiltersFromFragmentAndShowResults();
+    });
+
     initEvents();
 }
+
+function updateFiltersFromFragmentAndShowResults() {
+    var hashParams = getHashParams();
+    var filters = getFilters(hashParams);
+
+    updateCheckboxesFromFragment(filters);
+    //todo:
+    //if (fetchResults)
+    //    submitFilters(resultsAjaxUrl);
+    //else {
+    //    updateResults();
+    //    fetchResults = true;
+    //}
+    showHideSchemes(filters);
+}
+
+function updateCheckboxesFromFragment(filters) {
+    //var hashParams = getHashParams();
+    //var filters = getFilters(hashParams);
+
+    // checkboxes
+    $(filterSchemesCheckboxSelector).each(function () {
+        const $this = $(this);
+        $this.prop('checked', $.inArray($this.val(), filters) !== -1);
+    });
+}
+
+function getFilters(hashParams) {
+    const filter = hashParams[filterParamName];
+    if (filter == null)
+        return [];
+
+    return hashParams[filterParamName].split(',');
+}
+
+
+function showHideSchemes(filters) {
+
+    var showSchemeSelector = filters.map(function (param) {
+        return '[data-filter-' + param + ']';
+    }).join('');
+
+    $('[data-scheme]').hide().filter(showSchemeSelector).show();
+}
+
 
 function initEvents() {
     $(filterSchemesCheckboxSelector).click(function () {
