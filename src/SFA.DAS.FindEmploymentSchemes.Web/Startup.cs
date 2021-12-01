@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +32,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddNLog(Configuration);
-            //services.AddApplicationInsightsTelemetry();
+            services.AddHealthChecks();
+            //.AddApplicationInsightsTelemetry();
 #if DEBUG
             services.AddControllersWithViews()
                     .AddRazorRuntimeCompilation();
@@ -76,6 +79,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             app.UseRouting();
             app.UseAuthorization();
+
+            app.UseHealthChecks("/ping", new HealthCheckOptions
+            {
+                //By returning false to the Predicate option we ensure that none of the health checks registered in ConfigureServices are ran for this endpoint
+                Predicate = (_) => false,
+                ResponseWriter = (context, report) =>
+                {
+                    context.Response.ContentType = "application/json";
+                    return context.Response.WriteAsync("whiff-whaff");
+                }
+            });
 
             app.UseEndpoints(endpoints =>
             {
