@@ -91,6 +91,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                 }
             });
 
+            app.UseHealthChecks("/health");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
