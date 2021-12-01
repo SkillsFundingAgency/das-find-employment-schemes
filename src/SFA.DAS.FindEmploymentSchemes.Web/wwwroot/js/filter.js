@@ -7,24 +7,14 @@
 
 /*todo:use modules, remove globals! ts?*/
 
-/*todo:just filter in the front end according to data attributes on scheme sections - no ajax!*/
-
 /*can we safely change query params, or will we need qp/hash dual scheme?*/
 
 const filterSchemesCheckboxSelector = '#scheme-filter-options :checkbox';
+const numberOfSchemesSelector = '#number-of-schemes';
 const filterParamName = 'filter';
 
-//todo: create filter from checkbox val array
-//$('[data-scheme]').hide().filter('[data-filter-pay-unpaid][data-filter-scheme-length-a-year-or-more]').show();
-
 function initFiltering(options) {
-    //setDefaultFilterIfRequired(options.defaultFilter);
     updateFiltersFromFragmentAndShowResults();
-
-    //todo: should we be using pushState instead?
-    //$(window).on('hashchange', function () {
-    //    updateFiltersFromFragmentAndShowResults(options.resultsAjaxUrl);
-    //});
 
     window.addEventListener('hashchange', function () {
         updateFiltersFromFragmentAndShowResults();
@@ -46,13 +36,11 @@ function updateFiltersFromFragmentAndShowResults() {
     //    fetchResults = true;
     //}
     showHideSchemes(filters);
+    updateNumberOfSchemes();
 }
 
 function updateCheckboxesFromFragment(filters) {
-    //var hashParams = getHashParams();
-    //var filters = getFilters(hashParams);
 
-    // checkboxes
     $(filterSchemesCheckboxSelector).each(function () {
         const $this = $(this);
         $this.prop('checked', $.inArray($this.val(), filters) !== -1);
@@ -66,7 +54,6 @@ function getFilters(hashParams) {
 
     return hashParams[filterParamName].split(',');
 }
-
 
 function showHideSchemes(filters) {
 
@@ -145,6 +132,10 @@ function setHashParams(hashParams, updateResults) {
     fetchResults = updateResults;
     //todo: check fragment.length === 0
     window.location.hash = fragment.substr(0, fragment.length - 1);
+}
+
+function updateNumberOfSchemes() {
+    $(numberOfSchemesSelector).html($('[data-scheme]:visible').length);
 }
 
 
