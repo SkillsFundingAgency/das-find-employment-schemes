@@ -70,7 +70,7 @@ function getFilters(hashParams) {
 
 function showHideSchemes(filters) {
 
-    if (filters.length === 0) {
+    if (filters.length === 0 || filters.length === 1 && filters[0] === '') {
         $('[data-scheme]').show();
         return;
     }
