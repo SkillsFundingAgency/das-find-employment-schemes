@@ -56,7 +56,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(@"<p>Industry placements can save on many of the costs associated with recruitment</p>"),
                 new HtmlString(@"<p>Short term 45-day industry placement</p>"),
                 "t-levels-industry-placements", 72000,
-                new string[] { },
+                new string[]
+                {
+                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
+                    "motivations-unpaid-placement", "scheme-length-up-to-4-months",
+                },
                 null,
                 new HtmlString(
                     @"<p>T Levels are qualifications for students aged 16 to 19 who have finished GCSEs. They are a 2-year qualification and the equivalent to 3 A levels.</p><p>They have been designed with employers, to give them the skilled workforce they need by helping young people develop their knowledge, attitude and practical skills to thrive in the workplace.</p>"),
@@ -81,7 +85,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(@"<p>Helps you recruit or train staff through fully-funded pre-employment training</p>"),
                 new HtmlString(@"<p>Up to 6-weeks</p>"),
                 "sector-based-work-academy-programme-swap", 70000,
-                new string[] { },
+                new string[]
+                {
+                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
+                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-up-to-4-months",
+                },
                 null,
                 new HtmlString(
                     @"<p>Sector-based Work Academy Programmes (SWAPs) help prepare those receiving unemployment benefits to apply for jobs in a different area of work.</p><p>Placements run up to 6 weeks and are designed to help you recruit a workforce with the right skills to sustain and grow your business.</p><p>They are tailored to meet your recruitment needs, including pre-employment training, a work experience placement, and your guarantee of a job interview for participants.</p><p>Jobcentre Plus manages SWAPs in England and Scotland.</p>"),
@@ -104,7 +112,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     @"<p>Helps future-proof your business in a rapidly changing labour market and recruit staff with the right training and skills from the outset</p>"),
                 new HtmlString(@"<p>12 to 16-weeks</p>"),
                 "skills-bootcamps", 68000,
-                new string[] { },
+                new string[]
+                {
+                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
+                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-4-months-to-12-months",
+                    "scheme-length-up-to-4-months",
+                },
                 null,
                 new HtmlString(
                     @"<p>Skills Bootcamps offer free, flexible courses of up to 16 weeks for adults aged 19 or over and who are either in work, self-employed, recently unemployed or returning to work after a break.</p><p>They give people the opportunity to build up valuable sector-specific skills based on local employer demand in areas including digital, construction and green skills.</p><p>They provide a direct path to a job on completion.</p>"),
@@ -127,7 +140,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     @"<p>Helps you increase your capacity and productivity whilst developing a loyal and talented workforce</p>"),
                 new HtmlString(@"<p>70 to 240 hours work placement</p>"),
                 "traineeships", 43000,
-                new string[] { },
+                new string[]
+                {
+                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
+                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-4-months-to-12-months",
+                    "scheme-length-up-to-4-months",
+                },
                 null,
                 new HtmlString(
                     @"<p>A traineeship is a skills development programme that includes a work placement.</p><p>The full programme can last from 6 weeks up to 1 year, though most traineeships last for between 6-weeks and 12-weeks.</p><p>Your business needs to be able to offer a safe, meaningful and high-quality work experience placement of at least 70 hours to 240 hours.</p><p>You will work with a training provider to design what is included in the programme.</p><p>The trainee will gain English, maths, digital and work-related qualifications which can lead them on to:</p><ul class =""govuk-list govuk-list--bullet""><li>an apprenticeship</li><li>work</li><li>further education</li></ul><p></p>"),
@@ -152,7 +170,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     @"<p>Allows you to shape a job role that suits your business and the needs of the supported intern and increases your confidence of employing individuals with additional needs</p>"),
                 new HtmlString(@"<p>6 to 12-months</p>"),
                 "supported-internships-for-learners-with-an-education-health-and-care-plan", 20000,
-                new string[] { },
+                new string[]
+                {
+                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
+                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-4-months-to-12-months",
+                },
                 null,
                 new HtmlString(
                     @"<p>Supported internships are a work-based study programme for young people aged 16 to 24 with Special Educational Needs and Disabilities (SEND), who have an <a href=""https://www.gov.uk/children-with-special-educational-needs/extra-SEN-help"" title="""" class=""govuk-link"">education health and care (EHC) plan</a>.</p><p>Supported internships equip young people with the skills they need to secure and sustain employment through learning in the workplace, with support from a qualified job coach. They last between 6 to 12 months.</p><p>Supported interns are enrolled with and supported by a learning provider, but spend most of their learning time - typically around 70% in the workplace.</p><p>Alongside their time with the employer, supported interns complete a personalised study programme delivered by the school/college, which includes the chance to study for relevant qualifications, if appropriate, and English and maths at an appropriate level.</p>"),
@@ -176,7 +198,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     @"<p>Helping care-leavers to move to independent living and bring their life skills to enrich your business</p>"),
                 new HtmlString(@"<p>Length of time can vary</p>"),
                 "care-leaver-covenant", 2000,
-                new string[] { },
+                new string[]
+                {
+                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
+                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-a-year-or-more",
+                    "scheme-length-4-months-to-12-months", "scheme-length-up-to-4-months",
+                },
                 null,
                 new HtmlString(
                     @"<p>The Care-leaver Covenant is a way companies can support 16 to 25-year-olds leaving care to become independent.</p><p>Organisations can pledge support including apprenticeships, work experience or free or discounted goods or services. About the CLC - Care Leaver Covenant (mycovenant.org.uk)</p>"),
@@ -198,7 +225,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(@"<p>Helping prisoners and prison leavers find employment</p>"),
                 new HtmlString(@"<p>Variable depending on employer and prisoner and prison leaver</p>"),
                 "employing-prisoners-and-prison-leavers", 1000,
-                new string[] { },
+                new string[]
+                {
+                    "pay-minimum-wage", "motivations-diversity-or-responsibility", "motivations-full-time-role",
+                    "scheme-length-a-year-or-more", "scheme-length-4-months-to-12-months",
+                    "scheme-length-up-to-4-months",
+                },
                 null,
                 new HtmlString(
                     @"<p>New Futures Network (NFN) arranges partnerships between prisons and employers in England and Wales. These partnerships help you:</p><ul class =""govuk-list govuk-list--bullet""><li>fill skills gaps in your business</li><li>reduce recruitment costs</li><li>increase staff retention</li><li>transform prison leavers lives</li></ul><p></p>"),
@@ -222,7 +254,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     @"<p>Developed by employers to upskill existing employees, provide a different recruitment pool to hire new talent and help your company succeed</p>"),
                 new HtmlString(@"<p>1 to 2 years</p>"),
                 "higher-technical-qualifications", -500,
-                new string[] { },
+                new string[] {"pay-minimum-wage", "motivations-full-time-role", "scheme-length-a-year-or-more",},
                 null,
                 new HtmlString(
                     @"<p>Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships and degrees.</p><p>They are:</p><ul class =""govuk-list govuk-list--bullet""><li>new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)</li><li>approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards</li></ul><p>The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.</p><p>Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.</p>"),
@@ -245,7 +277,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     @"<p>Help improve productivity, and develop a loyal and talented workforce in a rapidly changing labour market</p>"),
                 new HtmlString(@"<p>Length of time can vary</p>"),
                 "training-outside-of-employment", -1000,
-                new string[] { },
+                new string[]
+                {
+                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
+                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-a-year-or-more",
+                    "scheme-length-4-months-to-12-months", "scheme-length-up-to-4-months",
+                },
                 new HtmlString(
                     @"<p>Career advice, free level 3 qualifications, and financial support for level 4 and 5 qualifications are all available through Government initiatives for your workforce.</p><h2 class=""govuk-heading-l"">Free qualifications for adults</h2><p><a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free level 3 qualifications</a> are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.</p><p>A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p>Without needing to fund the training yourself, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>progress your current employees into higher skilled roles</li></ul><p>The <a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free Courses for jobs</a> offer and the qualification list has been developed with industry, and will be regularly reviewed. </p><h3 class=""govuk-heading-m"">Benefits of free level 3 qualifications</h3><p>Read the <a href=""https://learning.linkedin.com/content/dam/me/business/en-us/amp/learning-solutions/images/workplace-learning-report-2019/pdf/workplace-learning-report-2019.pdf"" title="""" class=""govuk-link"">LinkedIn Workplace Learning</a> report 2019 for information on developing a loyal and talented workforce.</p><div class=""cx-cta-box""><p>Offer free qualifications to adults</p><p>Upskill your workforce by helping your employees <a href=""https://www.gov.uk/government/publications/find-a-free-level-3-qualification"" title="""" class=""govuk-link"">find a free level 3 qualification</a>.</p></div><h2 class=""govuk-heading-l"">National Careers Service</h2><p>The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>explore work and skills opportunities for your workforce including those offered as part of the skills recovery package.</li><li>carry out skills needs analysis for your business to understand gaps and find solutions.</li><li>find skilled people to fill current vacancies in your organisation.</li></ul><h3 class=""govuk-heading-m"">Employer costs</h3><p>The National Careers Service is free to use.</p><h3 class=""govuk-heading-m"">Benefits of National Careers Service</h3><p>The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>futureproof your business for the future labour market</li><li>help to develop your current workforce and supplement with talented individuals who have the skills you need</li><li>increase your resilience and productivity</li><li>take part in national virtual jobs fairs</li></ul><div class=""cx-cta-box""><p>Use the National Careers Service to support your workforce</p><p>Find out more about the <a href=""https://nationalcareers.service.gov.uk/"" title="""" class=""govuk-link"">National Careers Service and how to contact them</a>.</p></div><p></p>"),
                 null,
@@ -261,39 +298,39 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
         public static readonly IEnumerable<MotivationsFilter> MotivationsFilters = new MotivationsFilter[]
         {
 
-            new MotivationsFilter("motivations-diversity-or-responsibility",
-                "To diversify our workforce or for corporate and social responsibility"
+            new MotivationsFilter("motivations-full-time-role",
+                "help train someone up into a full-time role"
             ),
             new MotivationsFilter("motivations-unpaid-placement",
-                "To offer someone an unpaid work placement opportunity"
+                "offer someone an unpaid work placement opportunity"
             ),
-            new MotivationsFilter("motivations-full-time-role",
-                "To help train someone up into a full-time role"
+            new MotivationsFilter("motivations-diversity-or-responsibility",
+                "diversify our workforce or for corporate and social responsibility"
             ),
         };
 
         public static readonly IEnumerable<PayFilter> PayFilters = new PayFilter[]
         {
 
-            new PayFilter("pay-unpaid",
-                "I can offer unpaid placements"
-            ),
             new PayFilter("pay-minimum-wage",
-                "I can pay at least national minimum wage"
+                "at least national minimum wage"
+            ),
+            new PayFilter("pay-unpaid",
+                "unpaid placements"
             ),
         };
 
         public static readonly IEnumerable<SchemeLengthFilter> SchemeLengthFilters = new SchemeLengthFilter[]
         {
 
-            new SchemeLengthFilter("scheme-length-a-year-or-more",
-                "A year or more"
+            new SchemeLengthFilter("scheme-length-up-to-4-months",
+                "Up to 4 months"
             ),
             new SchemeLengthFilter("scheme-length-4-months-to-12-months",
                 "4 months to 12 months"
             ),
-            new SchemeLengthFilter("scheme-length-up-to-4-months",
-                "Up to 4 months"
+            new SchemeLengthFilter("scheme-length-a-year-or-more",
+                "A year or more"
             ),
         };
     }

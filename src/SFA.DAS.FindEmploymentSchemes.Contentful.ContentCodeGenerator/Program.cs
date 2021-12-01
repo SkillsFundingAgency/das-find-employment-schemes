@@ -132,8 +132,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             var filters = await client.GetEntries<T>(builder);
 
-            //todo: add order to content
-            //var orderedFilters = filters.OrderBy(s => s.Order);
+            var orderedFilters = filters.OrderBy(f => f.Order);
 
             string filterTypeName = typeof(T).Name;
 
@@ -141,11 +140,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             {{
                 ");
 
-            foreach (T filter in filters)
+            foreach (T filter in orderedFilters)
             {
                 Console.WriteLine($"new {typeof(T).Name}(\"{filterPrefix}-{Slugify(filter.Name)}\",");
                 Console.WriteLine($"\"{filter.Description}\"");
-                //Console.WriteLine($"\"{filter.Order}\"");
                 Console.WriteLine("),");
             }
 
