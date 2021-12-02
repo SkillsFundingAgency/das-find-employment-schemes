@@ -15,11 +15,6 @@ const filterParamName = 'filter';
 
 function initFiltering(options) {
     updateFiltersFromFragmentAndShowResults();
-
-    window.addEventListener('hashchange', function () {
-        updateFiltersFromFragmentAndShowResults();
-    });
-
     initEvents();
 }
 
@@ -64,6 +59,10 @@ function showHideSchemes(filters) {
 
 
 function initEvents() {
+    window.addEventListener('hashchange', function () {
+        updateFiltersFromFragmentAndShowResults();
+    });
+
     $(filterSchemesCheckboxSelector).click(function () {
         //todo: sync checkbox?
         updateFragmentFromCheckboxes();
