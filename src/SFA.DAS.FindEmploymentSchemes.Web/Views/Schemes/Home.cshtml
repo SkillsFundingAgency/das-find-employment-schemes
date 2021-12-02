@@ -15,6 +15,9 @@
                 <a href="#scheme-filter" class="govuk-link app-filter__header-link das-js-show--inline" data-text-hide="Close">Close</a>
             </div>
             <div class="das-filter__body" id="scheme-filter-options">
+                <div id="number-of-schemes-box">
+                    <h3 id="number-of-schemes-heading" class="govuk-heading-s">Number of Schemes: <span id="number-of-schemes"></span></h3>
+                </div>
                 <form action="#" method="post">
                     <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 das-js-hide">Apply filters</button>
 
@@ -22,7 +25,10 @@
                     {
                         @await Html.PartialAsync("_FilterGroupPartial", filterGroupModel)
                     }
-                </form>                    
+                </form>
+                
+                @*todo: when non-js don't close the filters box*@
+                <a id="clear-filters" class="govuk-link" href="/">Clear filters</a>
             </div>
         </div>
     </div>
@@ -36,3 +42,9 @@
         }
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        initFiltering();
+    });
+</script>
