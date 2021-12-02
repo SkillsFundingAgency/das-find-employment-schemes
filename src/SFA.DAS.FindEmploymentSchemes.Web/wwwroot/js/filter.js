@@ -13,19 +13,15 @@ function initFiltering(options) {
     // we need to ensure that when the page is displayed:
     //  * from a bookmark/copy & pasted link
     //  * traversing through history
-    // that the correct filters are ticked and the schemes are filtered correctly
+    // that the correct filters are ticked, the schemes are filtered correctly, and the filter panel is displayed if any filters are selected
     const filters = updateFiltersFromFragmentAndShowResults();
     initEvents();
 
     // if the scheme's are filtered, then ensure the filter panel is displayed
     if (!NoFilters(filters)) {
         $('#scheme-filter').removeClass('app-show-hide__section--show');
-        //todo: store by id - we don't want to toggle all
-        nodeListForEach(showHideEls,
-            function (showHideElement) {
-                //warning: calls preventDefault()
-                showHideElement.showHideTarget(showHideElement);
-            });
+        const schemeFilterShowHide = showHideEls['scheme-filter'];
+        schemeFilterShowHide.showHideTarget(schemeFilterShowHide);
     }
 }
 

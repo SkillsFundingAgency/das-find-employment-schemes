@@ -9,10 +9,13 @@ function nodeListForEach(nodes, callback) {
 
 var showHideElements = document.querySelectorAll('[data-module="app-show-hide"]')
 
-var showHideEls = [];
+var showHideEls = {};
 
 nodeListForEach(showHideElements, function (showHideElement) {
     var showHideEl = new ShowHideElement(showHideElement);
     showHideEl.init();
-    showHideEls.push(showHideEl);
+
+    if (showHideElement.hasAttribute('id')) {
+        showHideEls[showHideElement.id] = showHideEl;
+    }
 })
