@@ -11,15 +11,11 @@ const filterParamName = 'filter';
 
 function initFiltering(options) {
     // we need to ensure that when the page is displayed:
-    //  * from a bookmark
+    //  * from a bookmark/copy & pasted link
     //  * traversing through history
     // that the correct filters are ticked and the schemes are filtered correctly
-    updateFiltersFromFragmentAndShowResults();
+    const filters = updateFiltersFromFragmentAndShowResults();
     initEvents();
-
-    //todo: return filters from above
-    const hashParams = getHashParams();
-    const filters = getFilters(hashParams);
 
     // if the scheme's are filtered, then ensure the filter panel is displayed
     if (!NoFilters(filters)) {
@@ -40,6 +36,8 @@ function updateFiltersFromFragmentAndShowResults() {
     updateCheckboxesFromFragment(filters);
     showHideSchemes(filters);
     updateNumberOfSchemes();
+
+    return filters;
 }
 
 function NoFilters(filters) {
