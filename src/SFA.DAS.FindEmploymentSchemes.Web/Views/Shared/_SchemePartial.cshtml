@@ -1,22 +1,22 @@
 ﻿@model Scheme
 
-<section @{ RenderFilterIds(Model.FilterAspects); }>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+<section id="scheme-section" @{ RenderFilterIds(Model.FilterAspects); }>
+    <hr id="scheme-hr" class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     @*todo: best form? accessibility, route, helper? etc.*@
-    <h2 class="govuk-heading-m govuk-!-margin-bottom-3"><a asp-route="schemes" asp-route-schemeUrl="@Model.Url" class="govuk-link">@Model.Name</a></h2>
-    <p class="govuk-body">@Model.ShortDescription</p>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-third">
-            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Cost</h3>
-            <p class="govuk-body">@Model.ShortCost</p>
+    <h2 id="scheme-header" class="govuk-heading-m govuk-!-margin-bottom-3"><a asp-route="schemes" asp-route-schemeUrl="@Model.Url" class="govuk-link">@Model.Name</a></h2>
+    <p id="scheme-para" class="govuk-body">@Model.ShortDescription</p>
+    <div id="scheme-grid-row" class="govuk-grid-row">
+        <div id="scheme-short-cost-container" class="govuk-grid-column-one-third">
+            <h3 id="scheme-short-cost-header" class="govuk-heading-s govuk-!-margin-bottom-2">Cost</h3>
+            <p id="scheme-short-cost-para" class="govuk-body">@Model.ShortCost</p>
         </div>
-        <div class="govuk-grid-column-one-third">
-            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Benefits</h3>
-            <p class="govuk-body">@Model.ShortBenefits</p>
+        <div id="scheme-benefits-container" class="govuk-grid-column-one-third">
+            <h3 id="scheme-benefits-header" class="govuk-heading-s govuk-!-margin-bottom-2">Benefits</h3>
+            <p id="scheme-benefits-para" class="govuk-body">@Model.ShortBenefits</p>
         </div>
-        <div class="govuk-grid-column-one-third">
-            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Time</h3>
-            <p class="govuk-body">@Model.ShortTime</p>
+        <div id="scheme-short-time-container" class="govuk-grid-column-one-third">
+            <h3 id="scheme-short-time-header" class="govuk-heading-s govuk-!-margin-bottom-2">Time</h3>
+            <p id="scheme-short-time-para" class="govuk-body">@Model.ShortTime</p>
         </div>
     </div>
 </section>

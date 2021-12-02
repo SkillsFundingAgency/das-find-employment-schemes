@@ -1,22 +1,22 @@
 ﻿@model HomeModel
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">Find training and employment schemes for your business</h1>
-        <p class="govuk-body">A range of government programmes, are available for employers who are considering hiring employees, offering work experience or upskilling existing staff. Some of which offer financial incentives. </p>
+<div id="scheme-home-outer-two-thirds" class="govuk-grid-row">
+    <div id="scheme-home-inner-two-thirds" class="govuk-grid-column-two-thirds">
+        <h1 id="scheme-home-inner-two-thirds-h1" class="govuk-heading-xl">Find training and employment schemes for your business</h1>
+        <p id="scheme-home-inner-two-thirds-body" class="govuk-body">A range of government programmes, are available for employers who are considering hiring employees, offering work experience or upskilling existing staff. Some of which offer financial incentives. </p>
     </div>
 </div>
 
-<div class="govuk-grid-row app-filter-layout">
-    <div class="govuk-grid-column-one-third app-filter-layout__filter">
-        <div class="das-filter app-filter" id="scheme-filter" tabindex="0" data-module="app-show-hide">
-            <div class="das-filter__header app-filter__header">
-                <h2 class="das-filter__heading">Filter schemes to fit your business</h2>
-                <a href="#scheme-filter" class="govuk-link app-filter__header-link das-js-show--inline" data-text-hide="Close">Close</a>
+<div id="scheme-home-filter-outer" class="govuk-grid-row app-filter-layout">
+    <div id="scheme-home-filter-inner" class="govuk-grid-column-one-third app-filter-layout__filter">
+        <div id="scheme-filter" class="das-filter app-filter" tabindex="0" data-module="app-show-hide">
+            <div id="scheme-home-filter-header-container" class="das-filter__header app-filter__header">
+                <h2 id="scheme-home-filter-header" class="das-filter__heading">Filter schemes to fit your business</h2>
+                <a id="scheme-home-filter-header-link" href="#scheme-filter" class="govuk-link app-filter__header-link das-js-show--inline" data-text-hide="Close">Close</a>
             </div>
-            <div class="das-filter__body" id="scheme-filter-options">
-                <form action="#" method="post">
-                    <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 das-js-hide">Apply filters</button>
+            <div id="scheme-filter-options" class="das-filter__body">
+                <form id="scheme-home-filter-form" action="#" method="post">
+                    <button id="scheme-home-filter-form-button" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 das-js-hide">Apply filters</button>
 
                     @foreach (var filterGroupModel in Model.FilterGroupModels)
                     {
@@ -26,9 +26,9 @@
             </div>
         </div>
     </div>
-    <div class="govuk-grid-column-two-thirds app-filter-layout__content">
-        <div class="govuk-button-group">
-            <a class="govuk-button govuk-button--secondary das-js-show--inline" href="#scheme-filter" data-text-show="Filter schemes"  data-text-hide="Hide filter">Filter schemes</a>
+    <div id="scheme-home-schemes-container" class="govuk-grid-column-two-thirds app-filter-layout__content">
+        <div id="scheme-home-schemes-container-inner" class="govuk-button-group">
+            <a id="scheme-home-schemes-link" class="govuk-button govuk-button--secondary das-js-show--inline" href="#scheme-filter" data-text-show="Filter schemes" data-text-hide="Hide filter">Filter schemes</a>
         </div>
         @foreach (var scheme in Model.Schemes)
         {

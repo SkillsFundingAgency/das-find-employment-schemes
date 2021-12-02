@@ -5,12 +5,12 @@
 }
 
 @section BreadCrumbs {
-    <a href="/" class="govuk-back-link">Back</a>
+    <a id="scheme-details-breadcrumb-back-link" href="/" class="govuk-back-link">Back</a>
 }
 
-<div class="govuk-grid-row">
-	<div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">
+<div id="scheme-details-outer" class="govuk-grid-row">
+	<div id="scheme-details-inner-two-thirds" class="govuk-grid-column-two-thirds">
+        <h1 id="scheme-details-h1" class="govuk-heading-l">
             @Model.Scheme.Name
         </h1>
         @if (Model.Scheme.DetailsPageOverride != null)
@@ -20,29 +20,31 @@
         else
         {
 		    @Model.Scheme.Description
-            <h2 class="govuk-heading-m"> Employer costs </h2>
+            <h2 id="scheme-details-h2-cost" class="govuk-heading-m"> Employer costs </h2>
 		        @Model.Scheme.Cost  
-		    <h2 class="govuk-heading-m"> Employer responsibility </h2>
+		    <h2 id="scheme-details-h2-responsibility" class="govuk-heading-m"> Employer responsibility </h2>
 		        @Model.Scheme.Responsibility
-            <h2 class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
+            <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
                 @Model.Scheme.Benefits
             @if (@Model.Scheme.CaseStudies != null)
             {
-                <h2 class="govuk-heading-m">Case studies</h2>
+                <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
                 @Model.Scheme.CaseStudies
             }
-            <section class="cx-cta-box">
-                <h2 class="govuk-heading-m">@Model.Scheme.OfferHeader</h2>
+            <section id="scheme-details-section-offer-header" class="cx-cta-box">
+                <h2 id="scheme-details-h2-offer-header" class="govuk-heading-m">@Model.Scheme.OfferHeader</h2>
                 @Model.Scheme.Offer
             </section>
         }
 	</div>
-	<div class="govuk-grid-column-one-third">
-		<h3 class="govuk-heading-m">Other schemes</h3>
-        <ul class="govuk-list">
+	<div id="scheme-details-inner-one-third" class="govuk-grid-column-one-third">
+		<h3 id="scheme-details-inner-h3" class="govuk-heading-m">Other schemes</h3>
+        <ul id="scheme-details-inner-ul" class="govuk-list">
             @foreach (var scheme in Model.OtherSchemes)
             {
-                <li><a asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a></li>
+                <li id="scheme-details-inner-li">
+                    <a id="scheme-details-inner-link" asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                </li>
 			}
         </ul>
 	</div>
