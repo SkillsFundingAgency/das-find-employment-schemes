@@ -128,7 +128,6 @@ function setHashParams(hashParams, updateResults) {
     });
 
     //todo: only need to update if changed
-    //fetchResults = updateResults;
     //todo: check fragment.length === 0
     window.location.hash = fragment.substr(0, fragment.length - 1);
 }
