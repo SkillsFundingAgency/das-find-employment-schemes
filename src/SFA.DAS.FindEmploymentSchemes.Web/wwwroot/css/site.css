@@ -62,6 +62,15 @@
     }
 }
 
+#number-of-schemes-box {
+    background: #f3f2f1;
+    padding: 15px;
+    margin-bottom: 25px;
+}
+
+#number-of-schemes-heading {
+    margin-bottom: 0;
+}
 
 .cx-cta-box {
     background: #f3f2f1;

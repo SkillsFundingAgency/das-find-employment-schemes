@@ -1,6 +1,6 @@
 ﻿@model Scheme
 
-<section id="scheme-section-@Model.Name" @{ RenderFilterIds(Model.FilterAspects); }>
+<section id="scheme-section-@Model.Name" data-scheme @{ RenderFilterIds(Model.FilterAspects); }>
     <hr id="scheme-hr-@Model.Name" class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     @*todo: best form? accessibility, route, helper? etc.*@
     <h2 id="scheme-header-@Model.Name" class="govuk-heading-m govuk-!-margin-bottom-3">
