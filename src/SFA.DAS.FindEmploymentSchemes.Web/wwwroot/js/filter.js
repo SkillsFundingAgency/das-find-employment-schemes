@@ -3,8 +3,6 @@
 
 /*browsers we need to support: https://www.gov.uk/service-manual/technology/designing-for-different-browsers-and-devices*/
 
-/*todo: we'll check for IE and let them use the non-javascript enhanced version*/
-
 /*todo:use modules, remove globals! ts?*/
 
 /*can we safely change query params, or will we need qp/hash dual scheme?*/
@@ -101,11 +99,7 @@ function updateFragmentFromCheckboxes() {
     setHashParams(hashParams, true);
 }
 
-//function getHashParams() {
-//    return new URLSearchParams(window.location.hash.substr(1)); // skip the first char (#)
-//}
-
- http://stackoverflow.com/questions/4197591/parsing-url-hash-fragment-identifier-with-javascript
+// http://stackoverflow.com/questions/4197591/parsing-url-hash-fragment-identifier-with-javascript
 function getHashParams() {
 
     var hashParams = {};
