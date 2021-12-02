@@ -10,8 +10,27 @@ const numberOfSchemesSelector = '#number-of-schemes';
 const filterParamName = 'filter';
 
 function initFiltering(options) {
+    // we need to ensure that when the page is displayed:
+    //  * from a bookmark
+    //  * traversing through history
+    // that the correct filters are ticked and the schemes are filtered correctly
     updateFiltersFromFragmentAndShowResults();
     initEvents();
+
+    //todo: return filters from above
+    const hashParams = getHashParams();
+    const filters = getFilters(hashParams);
+
+    // if the scheme's are filtered, then ensure the filter panel is displayed
+    if (!NoFilters(filters)) {
+        $('#scheme-filter').removeClass('app-show-hide__section--show');
+        //todo: store by id - we don't want to toggle all
+        nodeListForEach(showHideEls,
+            function (showHideElement) {
+                //warning: calls preventDefault()
+                showHideElement.showHideTarget(showHideElement);
+            });
+    }
 }
 
 function updateFiltersFromFragmentAndShowResults() {
@@ -21,6 +40,10 @@ function updateFiltersFromFragmentAndShowResults() {
     updateCheckboxesFromFragment(filters);
     showHideSchemes(filters);
     updateNumberOfSchemes();
+}
+
+function NoFilters(filters) {
+    return (filters.length === 0 || filters.length === 1 && filters[0] === '');
 }
 
 function updateCheckboxesFromFragment(filters) {
@@ -41,7 +64,7 @@ function getFilters(hashParams) {
 
 function showHideSchemes(filters) {
 
-    if (filters.length === 0 || filters.length === 1 && filters[0] === '') {
+    if (NoFilters(filters)) {
         $('[data-scheme]').show();
         return;
     }
