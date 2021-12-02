@@ -67,8 +67,16 @@ function initEvents() {
         //todo: sync checkbox?
         updateFragmentFromCheckboxes();
     });
+
+    $('#clear-filters').click(function() {
+        clearFilters();
+        return false;
+    });
 }
 
+function clearFilters() {
+    setHashParams([]);
+}
 
 function updateFragmentFromCheckboxes() {
     var newFilter = [];
