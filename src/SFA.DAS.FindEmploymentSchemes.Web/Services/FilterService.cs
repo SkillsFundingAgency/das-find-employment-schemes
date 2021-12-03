@@ -53,13 +53,35 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         public HomeModel ApplyFilter(SchemeFilterViewModel filters)
         {
-            IEnumerable<Scheme> filteredSchemes = from Scheme s in SchemesContent.Schemes
-                                                  from string f in filters.allFilters
-                                                  where s.FilterAspects.Contains(f)
-                                                  select s;
-            filteredSchemes = filteredSchemes.Distinct();
-            if (!filters.allFilters.Any())
-                filteredSchemes = SchemesContent.Schemes;
+            IEnumerable<Scheme> motivationSchemes =   filters.motivations.Any() ?
+                                                            from Scheme s in SchemesContent.Schemes
+                                                            from string m in filters.motivations
+                                                            where s.FilterAspects.Contains(m)
+                                                            select s :
+                                                      SchemesContent.Schemes;
+            IEnumerable<Scheme> schemeLengthSchemes = filters.schemeLength.Any() ?
+                                                            from Scheme s in SchemesContent.Schemes
+                                                            from string l in filters.schemeLength
+                                                            where s.FilterAspects.Contains(l)
+                                                            select s :
+                                                      SchemesContent.Schemes;
+            IEnumerable<Scheme> paySchemes =          filters.pay.Any() ?
+                                                            from Scheme s in SchemesContent.Schemes
+                                                            from string p in filters.pay
+                                                            where s.FilterAspects.Contains(p)
+                                                            select s :
+                                                      SchemesContent.Schemes;
+            IEnumerable<Scheme> filteredSchemes = (filters.allFilters.Any() ?
+                                                      (from Scheme s in SchemesContent.Schemes
+                                                       join Scheme m in motivationSchemes
+                                                       on s equals m
+                                                       join Scheme l in schemeLengthSchemes
+                                                       on s equals l
+                                                       join Scheme p in paySchemes
+                                                       on s equals p
+                                                       select s
+                                                      ).Distinct() :
+                                                      SchemesContent.Schemes);
 
             List<FilterGroupModel> filterGroupModels = new List<FilterGroupModel> { };
             filterGroupModels.Add(new FilterGroupModel(MOTIVATION_NAME, MOTIVATION_DESCRIPTION,
