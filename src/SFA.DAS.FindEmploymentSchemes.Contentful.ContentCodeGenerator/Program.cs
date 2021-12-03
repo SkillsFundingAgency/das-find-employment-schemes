@@ -14,9 +14,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
     internal class Program
     {
-        private const string payFilterPrefix = "pay";
-        private const string motivationsFilterPrefix = "motivations";
-        private const string schemeLengthFilterPrefix = "scheme-length";
+        private const string PayFilterPrefix = "pay";
+        private const string MotivationsFilterPrefix = "motivations";
+        private const string SchemeLengthFilterPrefix = "scheme-length";
 
         static async Task Main(string[] args)
         {
@@ -32,9 +32,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             await GenerateSchemesContent(client, htmlRenderer);
 
-            await GenerateFilterContent<MotivationsFilter>(client, "motivationsFilter", motivationsFilterPrefix);
-            await GenerateFilterContent<PayFilter>(client, "payFilter", payFilterPrefix);
-            await GenerateFilterContent<SchemeLengthFilter>(client, "schemeLengthFilter", schemeLengthFilterPrefix);
+            await GenerateFilterContent<MotivationsFilter>(client, "motivationsFilter", MotivationsFilterPrefix);
+            await GenerateFilterContent<PayFilter>(client, "payFilter", PayFilterPrefix);
+            await GenerateFilterContent<SchemeLengthFilter>(client, "schemeLengthFilter", SchemeLengthFilterPrefix);
 
             Console.WriteLine(Closing());
         }
@@ -74,9 +74,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 Console.WriteLine($"\"{scheme.Url}\", {scheme.Size},");
 
                 Console.Write("new string[] {");
-                Console.Write(GenerateFilterIds(scheme.PayFilterAspects, payFilterPrefix));
-                Console.Write(GenerateFilterIds(scheme.MotivationsFilterAspects, motivationsFilterPrefix));
-                Console.Write(GenerateFilterIds(scheme.SchemeLengthFilterAspects, schemeLengthFilterPrefix));
+                Console.Write(GenerateFilterIds(scheme.PayFilterAspects, PayFilterPrefix));
+                Console.Write(GenerateFilterIds(scheme.MotivationsFilterAspects, MotivationsFilterPrefix));
+                Console.Write(GenerateFilterIds(scheme.SchemeLengthFilterAspects, SchemeLengthFilterPrefix));
                 Console.WriteLine("},");
 
                 Console.WriteLine($"{await AsHtmlString(scheme.DetailsPageOverride, htmlRenderer)},");
@@ -119,7 +119,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             var filterIds = new StringBuilder();
             foreach (var payFilter in filters)
             {
-                filterIds.Append($"\"{filterPrefix}-{Slugify(payFilter.Name)}\", ");
+                filterIds.Append($"\"{filterPrefix}--{Slugify(payFilter.Name)}\", ");
             }
 
             return filterIds.ToString();
@@ -142,7 +142,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             foreach (T filter in orderedFilters)
             {
-                Console.WriteLine($"new {typeof(T).Name}(\"{filterPrefix}-{Slugify(filter.Name)}\",");
+                Console.WriteLine($"new {typeof(T).Name}(\"{filterPrefix}--{Slugify(filter.Name)}\",");
                 Console.WriteLine($"\"{filter.Description}\"");
                 Console.WriteLine("),");
             }

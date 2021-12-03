@@ -1,31 +1,27 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
     public class FilterService : IFilterService
     {
-        private const string MOTIVATION_NAME = "motivations";
-        private const string MOTIVATION_DESCRIPTION = "I want to";
-        private const string SCHEME_LENGTH_NAME = "schemeLength";
-        private const string SCHEME_LENGTH_DESCRIPTION = "Length of scheme?";
-        private const string PAY_NAME = "pay";
-        private const string PAY_DESCRIPTION = "I can offer";
+        private const string MotivationName = "motivations";
+        private const string MotivationDescription = "I want to";
+        private const string SchemeLengthName = "schemeLength";
+        private const string SchemeLengthDescription = "Length of scheme?";
+        private const string PayName = "pay";
+        private const string PayDescription = "I can offer";
 
         public FilterGroupModel[] FilterGroupModels()
         {
-            return new FilterGroupModel[] {
-                new FilterGroupModel(MOTIVATION_NAME, MOTIVATION_DESCRIPTION, SchemesContent.MotivationsFilters),
-                new FilterGroupModel(SCHEME_LENGTH_NAME, SCHEME_LENGTH_DESCRIPTION, SchemesContent.SchemeLengthFilters),
-                new FilterGroupModel(PAY_NAME, PAY_DESCRIPTION, SchemesContent.PayFilters)
+            return new[] {
+                new FilterGroupModel(MotivationName, MotivationDescription, SchemesContent.MotivationsFilters),
+                new FilterGroupModel(SchemeLengthName, SchemeLengthDescription, SchemesContent.SchemeLengthFilters),
+                new FilterGroupModel(PayName, PayDescription, SchemesContent.PayFilters)
             };
         }
 
@@ -62,11 +58,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 filteredSchemes = SchemesContent.Schemes;
 
             List<FilterGroupModel> filterGroupModels = new List<FilterGroupModel> { };
-            filterGroupModels.Add(new FilterGroupModel(MOTIVATION_NAME, MOTIVATION_DESCRIPTION,
+            filterGroupModels.Add(new FilterGroupModel(MotivationName, MotivationDescription,
                                   SchemesContent.MotivationsFilters.Select(x => new MotivationsFilter(x.Id, x.Description, filters.motivations.Contains(x.Id)))));
-            filterGroupModels.Add(new FilterGroupModel(SCHEME_LENGTH_NAME, SCHEME_LENGTH_DESCRIPTION,
+            filterGroupModels.Add(new FilterGroupModel(SchemeLengthName, SchemeLengthDescription,
                                   SchemesContent.SchemeLengthFilters.Select(x => new SchemeLengthFilter(x.Id, x.Description, filters.schemeLength.Contains(x.Id)))));
-            filterGroupModels.Add(new FilterGroupModel(PAY_NAME, PAY_DESCRIPTION,
+            filterGroupModels.Add(new FilterGroupModel(PayName, PayDescription,
                                   SchemesContent.PayFilters.Select(x => new PayFilter(x.Id, x.Description, filters.pay.Contains(x.Id)))));
 
             return new HomeModel(filteredSchemes, filterGroupModels);

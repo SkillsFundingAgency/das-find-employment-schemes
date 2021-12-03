@@ -3,19 +3,24 @@
 
 /*browsers we need to support: https://www.gov.uk/service-manual/technology/designing-for-different-browsers-and-devices*/
 
-/*todo: we'll check for IE and let them use the non-javascript enhanced version*/
-
-/*todo:use modules, remove globals! ts?*/
-
-/*can we safely change query params, or will we need qp/hash dual scheme?*/
-
 const filterSchemesCheckboxSelector = '#scheme-filter-options :checkbox';
 const numberOfSchemesSelector = '#number-of-schemes';
 const filterParamName = 'filter';
 
 function initFiltering(options) {
-    updateFiltersFromFragmentAndShowResults();
+    // we need to ensure that when the page is displayed:
+    //  * from a bookmark/copy & pasted link
+    //  * traversing through history
+    // that the correct filters are ticked, the schemes are filtered correctly, and the filter panel is displayed if any filters are selected
+    const filters = updateFiltersFromFragmentAndShowResults();
     initEvents();
+
+    // if the scheme's are filtered, then ensure the filter panel is displayed
+    if (!NoFilters(filters)) {
+        $('#scheme-filter').removeClass('app-show-hide__section--show');
+        const schemeFilterShowHide = showHideEls['scheme-filter'];
+        schemeFilterShowHide.showHideTarget(schemeFilterShowHide);
+    }
 }
 
 function updateFiltersFromFragmentAndShowResults() {
@@ -25,6 +30,12 @@ function updateFiltersFromFragmentAndShowResults() {
     updateCheckboxesFromFragment(filters);
     showHideSchemes(filters);
     updateNumberOfSchemes();
+
+    return filters;
+}
+
+function NoFilters(filters) {
+    return (filters.length === 0 || filters.length === 1 && filters[0] === '');
 }
 
 function updateCheckboxesFromFragment(filters) {
@@ -45,18 +56,36 @@ function getFilters(hashParams) {
 
 function showHideSchemes(filters) {
 
-    if (filters.length === 0 || filters.length === 1 && filters[0] === '') {
+    if (NoFilters(filters)) {
         $('[data-scheme]').show();
         return;
     }
 
-    const showSchemeSelector = filters.map(function (param) {
-        return '[data-filter-' + param + ']';
-    }).join('');
+    const filterGroups = filters.reduce((result, filter) => {
+            const filterGroup = filter.substr(0, filter.indexOf('--'));
 
-    $('[data-scheme]').hide().filter(showSchemeSelector).show();
+            result[filterGroup] = result[filterGroup] || [];
+
+            result[filterGroup].push(filter);
+
+            return result;
+        },
+        {});
+
+    var schemes = $('[data-scheme]').hide();
+
+    // we _could_ just create a single selector rather than calling filter repeatedly
+    Object.keys(filterGroups).forEach(function (filterGroupName) {
+
+        const showSchemeSelector = filterGroups[filterGroupName].map(function (filter) {
+            return '[data-filter-' + filter + ']';
+        }).join(',');
+
+        schemes = schemes.filter(showSchemeSelector);
+    });
+
+    schemes.show();
 }
-
 
 function initEvents() {
     window.addEventListener('hashchange', function () {
@@ -64,7 +93,6 @@ function initEvents() {
     });
 
     $(filterSchemesCheckboxSelector).click(function () {
-        //todo: sync checkbox?
         updateFragmentFromCheckboxes();
     });
 
@@ -86,9 +114,7 @@ function updateFragmentFromCheckboxes() {
         var filterId;
         if ($this.prop('checked')) {
             filterId = $this.val();
-            //if ($.inArray(filterId, newFilter) === -1) {
-                newFilter.push(filterId);
-            //}
+            newFilter.push(filterId);
         }
     });
 
@@ -101,11 +127,7 @@ function updateFragmentFromCheckboxes() {
     setHashParams(hashParams, true);
 }
 
-//function getHashParams() {
-//    return new URLSearchParams(window.location.hash.substr(1)); // skip the first char (#)
-//}
-
- http://stackoverflow.com/questions/4197591/parsing-url-hash-fragment-identifier-with-javascript
+// http://stackoverflow.com/questions/4197591/parsing-url-hash-fragment-identifier-with-javascript
 function getHashParams() {
 
     var hashParams = {};
@@ -127,8 +149,6 @@ function setHashParams(hashParams, updateResults) {
         fragment += key + '=' + value + '&';
     });
 
-    //todo: only need to update if changed
-    //todo: check fragment.length === 0
     window.location.hash = fragment.substr(0, fragment.length - 1);
 }
 
