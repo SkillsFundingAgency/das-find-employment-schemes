@@ -63,13 +63,32 @@ function showHideSchemes(filters) {
         return;
     }
 
-    const showSchemeSelector = filters.map(function (param) {
-        return '[data-filter-' + param + ']';
-    }).join('');
+    //todo: check in ie
+    const filterGroups = filters.reduce((result, filter) => {
+            const filterGroup = filter.substr(0, filter.indexOf('--'));
 
-    $('[data-scheme]').hide().filter(showSchemeSelector).show();
+            result[filterGroup] = result[filterGroup] || [];
+
+            result[filterGroup].push(filter);
+
+            return result;
+        },
+        {});
+
+    var schemes = $('[data-scheme]').hide();
+
+    // we _could_ just create a single selector rather than calling filter repeatedly
+    Object.keys(filterGroups).forEach(function (filterGroupName) {
+
+        const showSchemeSelector = filterGroups[filterGroupName].map(function (filter) {
+            return '[data-filter-' + filter + ']';
+        }).join(',');
+
+        schemes = schemes.filter(showSchemeSelector);
+    });
+
+    schemes.show();
 }
-
 
 function initEvents() {
     window.addEventListener('hashchange', function () {
