@@ -61,7 +61,6 @@ function showHideSchemes(filters) {
         return;
     }
 
-    //todo: check in ie
     const filterGroups = filters.reduce((result, filter) => {
             const filterGroup = filter.substr(0, filter.indexOf('--'));
 
