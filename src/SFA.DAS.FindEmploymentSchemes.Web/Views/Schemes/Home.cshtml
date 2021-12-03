@@ -19,8 +19,10 @@
                     <h3 id="number-of-schemes-heading" class="govuk-heading-s">Number of Schemes: <span id="number-of-schemes"></span></h3>
                 </div>
                 <form action="#" method="post">
-                    <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 das-js-hide">Apply filters</button>
-
+                    <div class="govuk-button-group">
+                        <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 das-js-hide">Apply filters</button>
+                    </div>
+                    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
                     @foreach (var filterGroupModel in Model.FilterGroupModels)
                     {
                         @await Html.PartialAsync("_FilterGroupPartial", filterGroupModel)

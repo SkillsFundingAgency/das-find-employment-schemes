@@ -9,7 +9,12 @@
             @foreach (var filter in Model.Filters)
             {
                 <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="@filter.Id" name="@Model.Name" type="checkbox" value="@filter.Id">
+                    <input class="govuk-checkboxes__input" id="@filter.Id" name="@Model.Name" type="checkbox" value="@filter.Id"
+                            @if (filter.Selected)
+                            {
+                                @:checked
+                            }
+                    >
                     <label class="govuk-label govuk-checkboxes__label" for="@filter.Id">
                         @filter.Description
                     </label>
