@@ -22,7 +22,7 @@
                     <div class="govuk-button-group">
                         <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 das-js-hide">Apply filters</button>
                     </div>
-                    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible das-js-hide">
                     @foreach (var filterGroupModel in Model.FilterGroupModels)
                     {
                         @await Html.PartialAsync("_FilterGroupPartial", filterGroupModel)
