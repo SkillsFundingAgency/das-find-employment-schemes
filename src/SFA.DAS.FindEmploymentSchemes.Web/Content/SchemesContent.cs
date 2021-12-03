@@ -31,8 +31,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 "apprenticeships", 403000,
                 new string[]
                 {
-                    "pay-minimum-wage", "motivations-full-time-role", "motivations-diversity-or-responsibility",
-                    "scheme-length-4-months-to-12-months", "scheme-length-a-year-or-more",
+                    "pay--minimum-wage", "motivations--full-time-role", "motivations--diversity-or-responsibility",
+                    "scheme-length--4-months-to-12-months", "scheme-length--a-year-or-more",
                 },
                 null,
                 new HtmlString(
@@ -58,8 +58,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 "t-levels-industry-placements", 72000,
                 new string[]
                 {
-                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
-                    "motivations-unpaid-placement", "scheme-length-up-to-4-months",
+                    "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
+                    "motivations--unpaid-placement", "scheme-length--up-to-4-months",
                 },
                 null,
                 new HtmlString(
@@ -87,8 +87,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 "sector-based-work-academy-programme-swap", 70000,
                 new string[]
                 {
-                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
-                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-up-to-4-months",
+                    "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
+                    "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--up-to-4-months",
                 },
                 null,
                 new HtmlString(
@@ -114,9 +114,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 "skills-bootcamps", 68000,
                 new string[]
                 {
-                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
-                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-4-months-to-12-months",
-                    "scheme-length-up-to-4-months",
+                    "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
+                    "motivations--unpaid-placement", "motivations--full-time-role",
+                    "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
                 null,
                 new HtmlString(
@@ -142,9 +142,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 "traineeships", 43000,
                 new string[]
                 {
-                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
-                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-4-months-to-12-months",
-                    "scheme-length-up-to-4-months",
+                    "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
+                    "motivations--unpaid-placement", "motivations--full-time-role",
+                    "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
                 null,
                 new HtmlString(
@@ -172,8 +172,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 "supported-internships-for-learners-with-an-education-health-and-care-plan", 20000,
                 new string[]
                 {
-                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
-                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-4-months-to-12-months",
+                    "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
+                    "motivations--unpaid-placement", "motivations--full-time-role",
+                    "scheme-length--4-months-to-12-months",
                 },
                 null,
                 new HtmlString(
@@ -200,9 +201,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 "care-leaver-covenant", 2000,
                 new string[]
                 {
-                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
-                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-a-year-or-more",
-                    "scheme-length-4-months-to-12-months", "scheme-length-up-to-4-months",
+                    "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
+                    "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more",
+                    "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
                 null,
                 new HtmlString(
@@ -227,9 +228,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 "employing-prisoners-and-prison-leavers", 1000,
                 new string[]
                 {
-                    "pay-minimum-wage", "motivations-diversity-or-responsibility", "motivations-full-time-role",
-                    "scheme-length-a-year-or-more", "scheme-length-4-months-to-12-months",
-                    "scheme-length-up-to-4-months",
+                    "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--full-time-role",
+                    "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months",
+                    "scheme-length--up-to-4-months",
                 },
                 null,
                 new HtmlString(
@@ -254,7 +255,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     @"<p>Developed by employers to upskill existing employees, provide a different recruitment pool to hire new talent and help your company succeed</p>"),
                 new HtmlString(@"<p>1 to 2 years</p>"),
                 "higher-technical-qualifications", -500,
-                new string[] {"pay-minimum-wage", "motivations-full-time-role", "scheme-length-a-year-or-more",},
+                new string[] {"pay--minimum-wage", "motivations--full-time-role", "scheme-length--a-year-or-more",},
                 null,
                 new HtmlString(
                     @"<p>Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships and degrees.</p><p>They are:</p><ul class =""govuk-list govuk-list--bullet""><li>new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)</li><li>approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards</li></ul><p>The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.</p><p>Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.</p>"),
@@ -279,9 +280,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 "training-outside-of-employment", -1000,
                 new string[]
                 {
-                    "pay-unpaid", "pay-minimum-wage", "motivations-diversity-or-responsibility",
-                    "motivations-unpaid-placement", "motivations-full-time-role", "scheme-length-a-year-or-more",
-                    "scheme-length-4-months-to-12-months", "scheme-length-up-to-4-months",
+                    "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
+                    "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more",
+                    "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
                 new HtmlString(
                     @"<p>Career advice, free level 3 qualifications, and financial support for level 4 and 5 qualifications are all available through Government initiatives for your workforce.</p><h2 class=""govuk-heading-l"">Free qualifications for adults</h2><p><a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free level 3 qualifications</a> are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.</p><p>A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p>Without needing to fund the training yourself, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>progress your current employees into higher skilled roles</li></ul><p>The <a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free Courses for jobs</a> offer and the qualification list has been developed with industry, and will be regularly reviewed. </p><h3 class=""govuk-heading-m"">Benefits of free level 3 qualifications</h3><p>Read the <a href=""https://learning.linkedin.com/content/dam/me/business/en-us/amp/learning-solutions/images/workplace-learning-report-2019/pdf/workplace-learning-report-2019.pdf"" title="""" class=""govuk-link"">LinkedIn Workplace Learning</a> report 2019 for information on developing a loyal and talented workforce.</p><div class=""cx-cta-box""><p>Offer free qualifications to adults</p><p>Upskill your workforce by helping your employees <a href=""https://www.gov.uk/government/publications/find-a-free-level-3-qualification"" title="""" class=""govuk-link"">find a free level 3 qualification</a>.</p></div><h2 class=""govuk-heading-l"">National Careers Service</h2><p>The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>explore work and skills opportunities for your workforce including those offered as part of the skills recovery package.</li><li>carry out skills needs analysis for your business to understand gaps and find solutions.</li><li>find skilled people to fill current vacancies in your organisation.</li></ul><h3 class=""govuk-heading-m"">Employer costs</h3><p>The National Careers Service is free to use.</p><h3 class=""govuk-heading-m"">Benefits of National Careers Service</h3><p>The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>futureproof your business for the future labour market</li><li>help to develop your current workforce and supplement with talented individuals who have the skills you need</li><li>increase your resilience and productivity</li><li>take part in national virtual jobs fairs</li></ul><div class=""cx-cta-box""><p>Use the National Careers Service to support your workforce</p><p>Find out more about the <a href=""https://nationalcareers.service.gov.uk/"" title="""" class=""govuk-link"">National Careers Service and how to contact them</a>.</p></div><p></p>"),
@@ -298,13 +299,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
         public static readonly IEnumerable<MotivationsFilter> MotivationsFilters = new MotivationsFilter[]
         {
 
-            new MotivationsFilter("motivations-full-time-role",
+            new MotivationsFilter("motivations--full-time-role",
                 "help train someone up into a full-time role"
             ),
-            new MotivationsFilter("motivations-unpaid-placement",
+            new MotivationsFilter("motivations--unpaid-placement",
                 "offer someone an unpaid work placement opportunity"
             ),
-            new MotivationsFilter("motivations-diversity-or-responsibility",
+            new MotivationsFilter("motivations--diversity-or-responsibility",
                 "diversify our workforce or for corporate and social responsibility"
             ),
         };
@@ -312,10 +313,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
         public static readonly IEnumerable<PayFilter> PayFilters = new PayFilter[]
         {
 
-            new PayFilter("pay-minimum-wage",
+            new PayFilter("pay--minimum-wage",
                 "at least national minimum wage"
             ),
-            new PayFilter("pay-unpaid",
+            new PayFilter("pay--unpaid",
                 "unpaid placements"
             ),
         };
@@ -323,13 +324,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
         public static readonly IEnumerable<SchemeLengthFilter> SchemeLengthFilters = new SchemeLengthFilter[]
         {
 
-            new SchemeLengthFilter("scheme-length-up-to-4-months",
+            new SchemeLengthFilter("scheme-length--up-to-4-months",
                 "Up to 4 months"
             ),
-            new SchemeLengthFilter("scheme-length-4-months-to-12-months",
+            new SchemeLengthFilter("scheme-length--4-months-to-12-months",
                 "4 months to 12 months"
             ),
-            new SchemeLengthFilter("scheme-length-a-year-or-more",
+            new SchemeLengthFilter("scheme-length--a-year-or-more",
                 "A year or more"
             ),
         };

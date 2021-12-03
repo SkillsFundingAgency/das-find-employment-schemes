@@ -114,6 +114,16 @@
          </div>
       </header>
       <div id="layout-main-content-container" class="govuk-width-container">
+       <div id="layout-main-content-banner" class="govuk-phase-banner">
+           <p id="layout-main-content-banner-p" class="govuk-phase-banner__content">
+               <strong class="govuk-tag govuk-phase-banner__content__tag">
+                   beta
+               </strong>
+               <span id="layout-main-content-banner-span" class="govuk-phase-banner__text">
+                   This is a new service – your <a id="layout-main-content-banner-link" class="govuk-link" href="https://forms.office.com/r/JChsG8Ducg">feedback</a> will help us to improve it.
+               </span>
+           </p>
+       </div>
         @RenderSection("BreadCrumbs", required: false)
          <main class="govuk-main-wrapper" id="main-content" role="main">
             @RenderBody()
@@ -121,7 +131,7 @@
       </div>
       <footer id="layout-footer-container" class="govuk-footer" role="contentinfo">
          <div id="layout-footer-outer" class="govuk-width-container ">
-            <div id="layout-footer-inner" "class="govuk-footer__meta">
+            <div id="layout-footer-inner" class="govuk-footer__meta">
                <div id="layout-footer-inner-meta" class="govuk-footer__meta-item govuk-footer__meta-item--grow">
                   <h2 id="layout-footer-header" class="govuk-visually-hidden">Support links</h2>
                   <ul id="layout-footer-ul" class="govuk-footer__inline-list">
