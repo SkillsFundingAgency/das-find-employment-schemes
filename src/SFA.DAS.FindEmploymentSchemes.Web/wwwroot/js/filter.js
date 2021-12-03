@@ -3,8 +3,6 @@
 
 /*browsers we need to support: https://www.gov.uk/service-manual/technology/designing-for-different-browsers-and-devices*/
 
-/*can we safely change query params, or will we need qp/hash dual scheme?*/
-
 const filterSchemesCheckboxSelector = '#scheme-filter-options :checkbox';
 const numberOfSchemesSelector = '#number-of-schemes';
 const filterParamName = 'filter';

@@ -47,6 +47,12 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        initFiltering();
+        if (window.document.documentMode) {
+            // if the user agent is ie, fall back to non-js based filtering
+            $('.das-js-hide').show();
+        }
+        else {
+            initFiltering();
+        }
     });
 </script>
