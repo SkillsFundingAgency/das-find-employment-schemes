@@ -93,7 +93,6 @@ function initEvents() {
     });
 
     $(filterSchemesCheckboxSelector).click(function () {
-        //todo: sync checkbox?
         updateFragmentFromCheckboxes();
     });
 
@@ -115,9 +114,7 @@ function updateFragmentFromCheckboxes() {
         var filterId;
         if ($this.prop('checked')) {
             filterId = $this.val();
-            //if ($.inArray(filterId, newFilter) === -1) {
-                newFilter.push(filterId);
-            //}
+            newFilter.push(filterId);
         }
     });
 
@@ -152,8 +149,6 @@ function setHashParams(hashParams, updateResults) {
         fragment += key + '=' + value + '&';
     });
 
-    //todo: only need to update if changed
-    //todo: check fragment.length === 0
     window.location.hash = fragment.substr(0, fragment.length - 1);
 }
 
