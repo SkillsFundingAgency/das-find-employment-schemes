@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -5,49 +6,41 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Web.Services;
+using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
+
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class SchemesController : Controller
     {
         private readonly ILogger<SchemesController> _logger;
+        private readonly IFilterService _filterService;
 
-        private static readonly FilterGroupModel[] FilterGroupModels = new FilterGroupModel[]
-        {
-            new FilterGroupModel("motivations", "I want to", SchemesContent.MotivationsFilters),
-            new FilterGroupModel("scheme-length", "Length of scheme?", SchemesContent.SchemeLengthFilters),
-            new FilterGroupModel("pay", "I can offer", SchemesContent.PayFilters)
-        };
+        private readonly HomeModel? _homeModel = null;
 
-        private static readonly HomeModel HomeModel = new HomeModel(SchemesContent.Schemes, FilterGroupModels);
 
-        private static readonly IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels = BuildSchemeDetailsModelsDictionary();
-
-        private static ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
-        {
-            var schemeDetailsModels = new Dictionary<string, SchemeDetailsModel>();
-
-            foreach (string schemeUrl in SchemesContent.Schemes.Select(s => s.Url))
-            {
-                schemeDetailsModels.Add(schemeUrl, new SchemeDetailsModel(schemeUrl, SchemesContent.Schemes));
-            }
-
-            return new ReadOnlyDictionary<string, SchemeDetailsModel>(schemeDetailsModels);
-        }
-
-        public SchemesController(ILogger<SchemesController> logger)
+        public SchemesController(ILogger<SchemesController> logger, IFilterService filterService)
         {
             _logger = logger;
+            _filterService = filterService;
+            _homeModel = new HomeModel(SchemesContent.Schemes, _filterService.FilterGroupModels());
         }
 
         public IActionResult Home()
         {
-            return View(HomeModel);
+            return View(_filterService.HomeModel());
+        }
+
+        [HttpPost]
+        public IActionResult Home(SchemeFilterViewModel filters)
+        {
+            return View(_filterService.ApplyFilter(filters));
         }
 
         public IActionResult Details(string schemeUrl)
         {
-            if (!SchemeDetailsModels.TryGetValue(schemeUrl, out SchemeDetailsModel? schemeDetailsModel))
+            if (!_filterService.SchemeDetailsModels().TryGetValue(schemeUrl, out SchemeDetailsModel? schemeDetailsModel))
                 return NotFound();
 
             return View(schemeDetailsModel);
