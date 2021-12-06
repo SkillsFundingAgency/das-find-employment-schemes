@@ -1,12 +1,19 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class PagesController : Controller
     {
+        private readonly ILogger<PagesController> _log;
+
+        public PagesController(ILogger<PagesController> logger)
+        {
+            _log = logger;
+        }
+
         public IActionResult Page(string pageUrl)
         {
             pageUrl = pageUrl.ToLowerInvariant();
