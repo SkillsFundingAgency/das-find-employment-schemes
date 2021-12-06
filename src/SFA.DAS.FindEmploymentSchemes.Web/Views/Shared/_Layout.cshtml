@@ -136,13 +136,18 @@
                <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
                   <h2 class="govuk-visually-hidden">Support links</h2>
                   <ul class="govuk-footer__inline-list">
+                      <li class="govuk-footer__inline-list-item">
+                          <a class="govuk-footer__link" asp-route="page" asp-route-pageUrl="privacy-notice">
+                              Privacy
+                          </a>
+                      </li>
                      <li class="govuk-footer__inline-list-item">
-                        <a class="govuk-footer__link" asp-controller="Home" asp-action="Cookies">
+                        <a class="govuk-footer__link" asp-route="page" asp-route-pageUrl="cookies">
                         Cookies
                         </a>
                      </li>
                      <li class="govuk-footer__inline-list-item">
-                        <a class="govuk-footer__link" asp-controller="Home" asp-action="AccessibilityStatement">
+                        <a class="govuk-footer__link" asp-route="page" asp-route-pageUrl="accessibility-statement">
                         Accessibility statement
                         </a>
                      </li>

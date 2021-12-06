@@ -14,20 +14,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             _logger = logger;
         }
 
+        //todo:
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel(Activity.Current?.Id ?? HttpContext.TraceIdentifier ));
-        }
-
-        public IActionResult Cookies()
-        {
-            return View();
-        }
-
-        public IActionResult AccessibilityStatement()
-        {
-            return View();
         }
     }
 }
