@@ -113,6 +113,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     pattern: "schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "Details" });
             });
+
+            app.UseSecurityHeaders(Configuration);
         }
     }
 }
