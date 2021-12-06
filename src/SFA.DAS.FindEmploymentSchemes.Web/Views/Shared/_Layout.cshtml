@@ -137,12 +137,12 @@
                   <h2 id="layout-footer-header" class="govuk-visually-hidden">Support links</h2>
                   <ul id="layout-footer-ul" class="govuk-footer__inline-list">
                      <li id="layout-footer-cookies-li" class="govuk-footer__inline-list-item">
-                        <a id="layout-footer-cookies-link" class="govuk-footer__link" asp-controller="Home" asp-action="Cookies">
+                        <a id="layout-footer-cookies-link" class="govuk-footer__link" asp-route="page" asp-route-pageUrl="cookies">
                         Cookies
                         </a>
                      </li>
                      <li id="layout-footer-accessibility-li" class="govuk-footer__inline-list-item">
-                        <a id="layout-footer-accessibility-link" class="govuk-footer__link" asp-controller="Home" asp-action="AccessibilityStatement">
+                        <a id="layout-footer-accessibility-link" class="govuk-footer__link" asp-route="page" asp-route-pageUrl="accessibility-statement">
                         Accessibility statement
                         </a>
                      </li>
@@ -171,12 +171,17 @@
       <script src="/js/das-all.js"></script>
       <script src="/js/app.min.js"></script>
       <script>
-         window.GOVUKFrontend.initAll();
-         window.DASFrontend.initAll();
+        window.GOVUKFrontend.initAll();
+        window.DASFrontend.initAll();
       </script>
-      <script src="/js/cookie_consent.js" no-cdn></script>
-      <script src="/js/show_hide.js" no-cdn></script>
-      <script src="/js/app.js" no-cdn></script>
-      <script src="/js/filter.js" no-cdn></script>
-   </body>
+        <environment include="Development">
+           <script src="/js/cookie_consent.js" no-cdn></script>
+           <script src="/js/show_hide.js" no-cdn></script>
+           <script src="/js/app.js" no-cdn></script>
+           <script src="/js/filter.js" no-cdn></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="/js/site.js" no-cdn></script>
+        </environment>
+    </body>
 </html>

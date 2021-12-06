@@ -36,7 +36,29 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             await GenerateFilterContent<PayFilter>(client, "payFilter", PayFilterPrefix);
             await GenerateFilterContent<SchemeLengthFilter>(client, "schemeLengthFilter", SchemeLengthFilterPrefix);
 
+            await GeneratePagesContent(client, htmlRenderer);
+
             Console.WriteLine(Closing());
+        }
+
+        private static async Task GeneratePagesContent(ContentfulClient client, HtmlRenderer htmlRenderer)
+        {
+            var builder = QueryBuilder<Page>.New.ContentTypeIs("page");
+
+            var pages = await client.GetEntries<Page>(builder);
+
+            Console.WriteLine(@"        public static readonly IEnumerable<Page> Pages = new[]
+        {");
+
+            foreach (Page page in pages)
+            {
+                Console.WriteLine($"new Page(\"{page.Title}\",");
+                Console.WriteLine($"\"{page.Url}\",");
+                Console.WriteLine($"{await AsHtmlString(page.Content, htmlRenderer)}");
+                Console.WriteLine("),");
+            }
+
+            Console.WriteLine(@"        };");
         }
 
         private static async Task GenerateSchemesContent(ContentfulClient client, HtmlRenderer htmlRenderer)

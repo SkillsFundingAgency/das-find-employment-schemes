@@ -1,0 +1,15 @@
+﻿@model SFA.DAS.FindEmploymentSchemes.Web.Models.Page
+
+@{
+    ViewData["Title"] = $"GOV.UK - {Model.Title}";
+}
+
+@section BreadCrumbs {
+    <a href="/" class="govuk-back-link">Back</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        @Model.Content
+    </div>
+</div>
