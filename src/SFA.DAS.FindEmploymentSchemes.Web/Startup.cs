@@ -15,8 +15,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _currentEnvironment;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
+            _currentEnvironment = env;
+
             Configuration = new ConfigurationBuilder()
                 .AddConfiguration(configuration)
                 .AddAzureTableStorage(options =>
@@ -43,6 +47,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 #else
             services.AddControllersWithViews();
 #endif
+            services.AddWebOptimizer(assetPipeline =>
+            {
+                if (!_currentEnvironment.IsDevelopment())
+                {
+                    assetPipeline.AddJavaScriptBundle("/js/site.js",
+                        "/js/cookie_consent.js", "/js/show_hide.js", "/js/app.js", "/js/filter.js");
+                    assetPipeline.AddCssBundle("/css/site.css", "/css/site.css");
+                }
+            });
             services.AddScoped<IFilterService, FilterService>();
         }
 
@@ -61,6 +74,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             }
 
             app.UseHttpsRedirection();
+            app.UseWebOptimizer();
             app.UseStaticFiles();
 
             app.Use(async (context, next) =>
