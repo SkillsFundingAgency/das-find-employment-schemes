@@ -1,21 +1,21 @@
 ﻿@model FilterGroupModel
 
-<div class="govuk-form-group">
-    <fieldset class="govuk-fieldset">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+<div id="filter-group-@Model.Name" class="govuk-form-group">
+    <fieldset id="filter-group-fieldset-@Model.Name" class="govuk-fieldset">
+        <legend id="filter-group-legend-@Model.Name" class="govuk-fieldset__legend govuk-fieldset__legend--m">
             @Model.Description
         </legend>
-        <div class="govuk-checkboxes govuk-checkboxes--small">
+        <div id="filter-group-checkboxes-container-outer-@Model.Name" class="govuk-checkboxes govuk-checkboxes--small">
             @foreach (var filter in Model.Filters)
             {
-                <div class="govuk-checkboxes__item">
+                <div id="filter-group-checkboxe-container-inner-@filter.Id" class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="@filter.Id" name="@Model.Name" type="checkbox" value="@filter.Id"
                             @if (filter.Selected)
                             {
                                 @:checked
                             }
                     >
-                    <label class="govuk-label govuk-checkboxes__label" for="@filter.Id">
+                    <label id="filter-group-checkbox-label-@filter.Id" class="govuk-label govuk-checkboxes__label" for="@filter.Id">
                         @filter.Description
                     </label>
                 </div>
