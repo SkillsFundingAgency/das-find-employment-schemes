@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.FindEmploymentSchemes.Web.Models
+﻿namespace SFA.DAS.FindEmploymentSchemes.Web.Models.Interfaces
 {
     public interface IFilter
     {

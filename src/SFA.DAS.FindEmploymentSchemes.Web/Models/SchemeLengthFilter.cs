@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using SFA.DAS.FindEmploymentSchemes.Web.Models.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {

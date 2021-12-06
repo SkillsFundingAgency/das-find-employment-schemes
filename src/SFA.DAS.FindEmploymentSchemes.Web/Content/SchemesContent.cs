@@ -334,5 +334,29 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 "A year or more"
             ),
         };
+
+        public static readonly IEnumerable<Page> Pages = new[]
+        {
+            new Page("Privacy Notice",
+                "privacy-notice",
+                new HtmlString(
+                    @"<h1 class=""govuk-heading-xl"">Privacy notice</h1><h2 class=""govuk-heading-l"">Who we are</h2><p>This website is provided by the Education and Skills Funding Agency
+(ESFA) which is a part of the Department for Education (DfE). For the
+purpose of data protection legislation, the DfE is the data controller
+for the personal data processed as part of this website.</p><p>We collect certain information or data about you when you use of this website if you
+agree to it. This includes your IP address, details of which version of web browser
+you used, information on you use the site, using cookies and page tagging
+techniques to help us improve the website.</p><p>This helps us to improve the site by monitoring how you use it. We can't personally
+identify you using your data.</p><h2 class=""govuk-heading-l"">Keeping your data secure</h2><p>We won't share your information with any other organisations for marketing, market
+research or commercial purposes, and we don't pass on your details to other
+websites.</p><h2 class=""govuk-heading-l"">Disclosing your information</h2><p>We may pass on your information if we have a legal obligation to do so, or if we have
+to enforce or apply our terms of use and other agreements. This includes exchanging
+information with other government departments for legal reasons.</p><h2 class=""govuk-heading-l"">Links to other websites</h2><p>This website contains links to other websites. This privacy policy only applies to this
+website. If you go to another website from this one, read the privacy policy on that
+website to find out what it does with your information.</p><h2 class=""govuk-heading-l"">Following a link to this website from another website</h2><p>If you come to this website from another website, we may receive personal
+information about you from the other website. You should read the privacy policy of
+the website you came from to find out more about this.</p>")
+            ),
+        };
     }
 }
