@@ -7,7 +7,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
     public interface IFilterService
     {
-        FilterGroupModel[] FilterGroupModels();
         HomeModel HomeModel();
         IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels();
         ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary();
