@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
@@ -25,6 +26,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
                     return View("Cookies");
                 case "accessibility-statement":
                     return View("AccessibilityStatement");
+                case "error-check":
+                    throw new NotImplementedException("DEADBEEF-DEAD-BEEF-DEAD-BAAAAAAAAAAD");
             }
 
             var page = SchemesContent.Pages.FirstOrDefault(p => p.Url == pageUrl);
