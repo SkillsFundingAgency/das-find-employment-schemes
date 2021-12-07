@@ -20,7 +20,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Home()
         {
-            return View(_filterService.HomeModel());
+            return View(_filterService.HomeModel);
         }
 
         // if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled
@@ -33,7 +33,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Details(string schemeUrl)
         {
-            if (!_filterService.SchemeDetailsModels().TryGetValue(schemeUrl, out SchemeDetailsModel? schemeDetailsModel))
+            if (!_filterService.SchemeDetailsModels.TryGetValue(schemeUrl, out SchemeDetailsModel? schemeDetailsModel))
                 return NotFound();
 
             return View(schemeDetailsModel);

@@ -22,18 +22,12 @@ new[] {
                 new FilterGroupModel(SchemeLengthName, SchemeLengthDescription, SchemesContent.SchemeLengthFilters),
                 new FilterGroupModel(PayName, PayDescription, SchemesContent.PayFilters)
             });
+        private static readonly ReadOnlyDictionary<string, SchemeDetailsModel> StaticSchemeDetailsModels = BuildSchemeDetailsModelsDictionary();
 
-        public HomeModel HomeModel()
-        {
-            return StaticHomeModel;
-        }
+        public HomeModel HomeModel => StaticHomeModel;
+        public IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels => StaticSchemeDetailsModels;
 
-        public IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels()
-        {
-            return BuildSchemeDetailsModelsDictionary();
-        }
-
-        public ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
+        private static ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
         {
             var schemeDetailsModels = new Dictionary<string, SchemeDetailsModel>();
 
