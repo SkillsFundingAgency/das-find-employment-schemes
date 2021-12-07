@@ -16,26 +16,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private const string PayName = "pay";
         private const string PayDescription = "I can offer";
 
-        public FilterGroupModel[] FilterGroupModels()
-        {
-            return new[] {
+        private static readonly HomeModel StaticHomeModel = new HomeModel(SchemesContent.Schemes,
+new[] {
                 new FilterGroupModel(MotivationName, MotivationDescription, SchemesContent.MotivationsFilters),
                 new FilterGroupModel(SchemeLengthName, SchemeLengthDescription, SchemesContent.SchemeLengthFilters),
                 new FilterGroupModel(PayName, PayDescription, SchemesContent.PayFilters)
-            };
-        }
+            });
+        private static readonly ReadOnlyDictionary<string, SchemeDetailsModel> StaticSchemeDetailsModels = BuildSchemeDetailsModelsDictionary();
 
-        public HomeModel HomeModel()
-        {
-            return new HomeModel(SchemesContent.Schemes, FilterGroupModels());
-        }
+        public HomeModel HomeModel => StaticHomeModel;
+        public IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels => StaticSchemeDetailsModels;
 
-        public IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels()
-        {
-            return BuildSchemeDetailsModelsDictionary();
-        }
-
-        public ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
+        private static ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
         {
             var schemeDetailsModels = new Dictionary<string, SchemeDetailsModel>();
 
@@ -79,13 +71,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                                                       ).Distinct() :
                                                       SchemesContent.Schemes);
 
-            List<FilterGroupModel> filterGroupModels = new List<FilterGroupModel> { };
-            filterGroupModels.Add(new FilterGroupModel(MotivationName, MotivationDescription,
-                                  SchemesContent.MotivationsFilters.Select(x => new MotivationsFilter(x.Id, x.Description, filters.motivations.Contains(x.Id)))));
-            filterGroupModels.Add(new FilterGroupModel(SchemeLengthName, SchemeLengthDescription,
-                                  SchemesContent.SchemeLengthFilters.Select(x => new SchemeLengthFilter(x.Id, x.Description, filters.schemeLength.Contains(x.Id)))));
-            filterGroupModels.Add(new FilterGroupModel(PayName, PayDescription,
-                                  SchemesContent.PayFilters.Select(x => new PayFilter(x.Id, x.Description, filters.pay.Contains(x.Id)))));
+            var filterGroupModels = new List<FilterGroupModel>
+            {
+                new FilterGroupModel(MotivationName, MotivationDescription,
+                    SchemesContent.MotivationsFilters.Select(x =>
+                        new MotivationsFilter(x.Id, x.Description, filters.motivations.Contains(x.Id)))),
+                new FilterGroupModel(SchemeLengthName, SchemeLengthDescription,
+                    SchemesContent.SchemeLengthFilters.Select(x => new SchemeLengthFilter(x.Id, x.Description, filters.schemeLength.Contains(x.Id)))),
+                new FilterGroupModel(PayName, PayDescription,
+                    SchemesContent.PayFilters.Select(x => new PayFilter(x.Id, x.Description, filters.pay.Contains(x.Id))))
+            };
 
             return new HomeModel(filteredSchemes, filterGroupModels);
         }

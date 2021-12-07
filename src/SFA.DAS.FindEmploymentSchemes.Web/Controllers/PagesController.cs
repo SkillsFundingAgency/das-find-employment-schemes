@@ -15,6 +15,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             _log = logger;
         }
 
+        // we _could_ add cache control parameters to the page content type
+        [ResponseCache(Duration = 60*60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Page(string pageUrl)
         {
             pageUrl = pageUrl.ToLowerInvariant();
