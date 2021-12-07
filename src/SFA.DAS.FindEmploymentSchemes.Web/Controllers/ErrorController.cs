@@ -16,12 +16,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         }
 
         [Route("404", Name = RouteNames.Error404)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult PageNotFound()
         {            
             return View();
         }
 
         [Route("500", Name = RouteNames.Error500)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult ApplicationError()
         {
             IExceptionHandlerPathFeature? feature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();

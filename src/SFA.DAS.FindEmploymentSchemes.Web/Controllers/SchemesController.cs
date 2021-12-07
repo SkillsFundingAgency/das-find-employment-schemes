@@ -23,7 +23,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             return View(_filterService.HomeModel());
         }
 
-        //todo: if params are in query, can vary by them
+        // if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled
         [HttpPost]
         public IActionResult Home(SchemeFilterViewModel filters)
         {
