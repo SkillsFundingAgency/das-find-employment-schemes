@@ -48,8 +48,10 @@
     color: black;
 }
 
-.app-filter-layout__content {
-    width: 100%;
+@media (max-width: 40.0600em) {
+    .app-filter-layout__content {
+        width: 100%;
+    }
 }
 
 @media (min-width: 40.0625em) {
