@@ -27,6 +27,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         public HomeModel HomeModel()
         {
+            //todo: don't memory churn
             return new HomeModel(SchemesContent.Schemes, FilterGroupModels());
         }
 
