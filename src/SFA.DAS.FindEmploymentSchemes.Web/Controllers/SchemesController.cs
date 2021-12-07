@@ -23,13 +23,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             return View(_filterService.HomeModel());
         }
 
+        //todo: if params are in query, can vary by them
         [HttpPost]
         public IActionResult Home(SchemeFilterViewModel filters)
         {
             return View(_filterService.ApplyFilter(filters));
         }
 
-        //todo: if params are in query, can vary by them
+        [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Details(string schemeUrl)
         {
             if (!_filterService.SchemeDetailsModels().TryGetValue(schemeUrl, out SchemeDetailsModel? schemeDetailsModel))
