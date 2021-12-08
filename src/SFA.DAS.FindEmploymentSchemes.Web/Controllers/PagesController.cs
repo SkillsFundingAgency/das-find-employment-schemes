@@ -20,17 +20,20 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         public IActionResult Page(string pageUrl)
         {
             pageUrl = pageUrl.ToLowerInvariant();
+            var page = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == pageUrl);
+
             switch (pageUrl)
             {
                 case "cookies":
-                    return View("Cookies");
+                    return (page == null ? NotFound() : (IActionResult)View("Cookies", page));
+
                 case "accessibility-statement":
                     return View("AccessibilityStatement");
+
                 case "error-check":
                     throw new NotImplementedException("DEADBEEF-DEAD-BEEF-DEAD-BAAAAAAAAAAD");
             }
 
-            var page = SchemesContent.Pages.FirstOrDefault(p => p.Url == pageUrl);
             if (page == null)
                 return NotFound();
 
