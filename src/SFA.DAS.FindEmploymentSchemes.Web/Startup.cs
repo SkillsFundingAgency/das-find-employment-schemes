@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.FindEmploymentSchemes.Web.Extensions;
+using SFA.DAS.FindEmploymentSchemes.Web.Security;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web
@@ -58,8 +59,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration)
         {
+            app.UseAppSecurityHeaders(env, configuration);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -77,10 +80,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             app.Use(async (context, next) =>
             {
-                if (context.Response.Headers.ContainsKey("X-Frame-Options"))
-                    context.Response.Headers.Remove("X-Frame-Options");
-                context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
-
                 await next();
 
                 if (context.Response.StatusCode == 404 && !context.Response.HasStarted)
