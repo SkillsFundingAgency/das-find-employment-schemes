@@ -20,6 +20,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
         /// https://content-security-policy.com/examples/jquery/
         /// das ga
         /// https://skillsfundingagency.atlassian.net/wiki/spaces/DAS/pages/3249700873/Adding+Google+Analytics
+        ///
+        /// Note: we _may_ need the other google domains from the das ga doc,
+        /// but there were no violations reported without them, so we leave them out for now 
         /// </summary>
         public static IApplicationBuilder UseAppSecurityHeaders(
             this IApplicationBuilder app,
@@ -34,7 +37,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                     .AddContentSecurityPolicy(builder =>
                     {
                         builder.AddUpgradeInsecureRequests();
-                        builder.AddBlockAllMixedContent();
 
                         var defaultSrc = builder.AddDefaultSrc()
                             .Self()
