@@ -51,8 +51,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         builder.AddFontSrc()
                             .Self()
-                            .From(new[] { cdnUrl, "https://fonts.gstatic.com"})
-                            .Data();
+                            .From(new[] { cdnUrl, "https://fonts.gstatic.com"});
 
                         builder.AddObjectSrc()
                             .None();
@@ -90,8 +89,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                         builder.AddBaseUri()
                             .Self();
 
-                        //builder.AddFrameSrc()
-                        //    .From("http://testUrl.com");
+                        builder.AddFrameSrc()
+                            .From("https://www.googletagmanager.com");
 
                         if (env.IsDevelopment())
                         {

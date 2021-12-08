@@ -56,7 +56,9 @@ ShowHideElement.prototype.showHideTarget = function (e) {
         showHideLink.innerHTML = (sectionExpanded ? showText : hideText)
         showHideLink.setAttribute('aria-expanded', !sectionExpanded)
     })
-    e.preventDefault()
+    if (typeof e.preventDefault === 'function') {
+        e.preventDefault()
+    }
 }
 
 ShowHideElement.prototype.isExpanded = function () {
