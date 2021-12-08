@@ -337,6 +337,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
 
         public static readonly IEnumerable<Page> Pages = new[]
         {
+            new Page("Cookies",
+                "cookies",
+                new HtmlString(
+                    @"<h1 class=""govuk-heading-xl"">Details about our cookies</h1><p>This service website puts small files (known as &#39;cookies&#39;) onto your computer. These cookies are used to:</p><ul class =""govuk-list govuk-list--bullet""><li>help us understand how you use the website, so we can make improvements</li><li>remember what notifications you&#39;ve seen so you&#39;re not shown them more than once</li><li>temporarily store the selections you make</li></ul><p>Find out more about&#160;<a href=""https://ico.org.uk/your-data-matters/online/cookies/"" title="""" class=""govuk-link"">how to manage cookies</a>.</p><h2 class=""govuk-heading-l"">Cookies that measure website usage</h2><p>We use Google Analytics software (Universal Analytics) to collect anonymised information about how you use the service. We do this to help make sure the site is meeting the needs of its users and to help us make improvements. We do not allow Google to use or share the data about how you use this site. Google Analytics stores information about:</p><ul class =""govuk-list govuk-list--bullet""><li>how you got to the site</li><li>the pages you visit on this service and how long you spend on them</li><li>what you click on while you&#39;re visiting the site</li></ul><p>We may also set our own cookies to understand how people move through the site.</p><p></p>")
+            ),
             new Page("Privacy Notice",
                 "privacy-notice",
                 new HtmlString(
@@ -356,7 +361,7 @@ website. If you go to another website from this one, read the privacy policy on 
 website to find out what it does with your information.</p><h2 class=""govuk-heading-l"">Following a link to this website from another website</h2><p>If you come to this website from another website, we may receive personal
 information about you from the other website. You should read the privacy policy of
 the website you came from to find out more about this.</p>")
-            ),
+),
         };
     }
 }
