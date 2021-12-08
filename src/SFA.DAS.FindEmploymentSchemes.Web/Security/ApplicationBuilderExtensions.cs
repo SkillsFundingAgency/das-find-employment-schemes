@@ -31,8 +31,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 #pragma warning disable S1075
             app.UseSecurityHeaders(policies =>
                 policies.AddDefaultSecurityHeaders()
-                    //todo: don't leave as report only!
-                    .AddContentSecurityPolicyReportOnly(builder =>
+                    .AddContentSecurityPolicy(builder =>
                     {
                         builder.AddUpgradeInsecureRequests();
                         builder.AddBlockAllMixedContent();
@@ -64,13 +63,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .Self()
                             .From(new[] {cdnUrl, "https://ssl.gstatic.com", "https://www.gstatic.com"});
 
-                        var scriptSrc =builder.AddScriptSrc()
+                        var scriptSrc = builder.AddScriptSrc()
                             .Self()
                             .From(new[] {cdnUrl, "https://tagmanager.google.com"})
-                            .UnsafeInline()
-                            // think we need this for ga tm
+                            // this is needed for gtm
                             .UnsafeEval()
-                            .ReportSample()
                             .WithNonce();
 
                         var styleSrc = builder.AddStyleSrc()
@@ -80,9 +77,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         builder.AddMediaSrc()
                             .None();
-                        //.OverHttps();
 
-                        // required for ga?
                         builder.AddFrameAncestors()
                             .None();
 
