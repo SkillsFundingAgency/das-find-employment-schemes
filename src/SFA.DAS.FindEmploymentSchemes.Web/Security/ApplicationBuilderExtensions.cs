@@ -38,11 +38,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .From(cdnUrl);
 
                         builder.AddConnectSrc()
-                            .Self();
+                            .Self()
+                            .From(new []
+                            {
+                                "https://www.google-analytics.com",
+                                /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track"
+                            });
 
                         builder.AddFontSrc()
                             .Self()
-                            .From("https://fonts.gstatic.com")
+                            .From(new[] { cdnUrl, "https://fonts.gstatic.com"})
                             .Data();
 
                         builder.AddObjectSrc()
@@ -67,7 +72,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         builder.AddStyleSrc()
                             .Self()
-                            .From(new[] {"https://tagmanager.google.com", "https://fonts.googleapis.com"})
+                            .From(new[] { cdnUrl, "https://tagmanager.google.com", "https://fonts.googleapis.com"})
                             .StrictDynamic();
 
                         builder.AddMediaSrc()
