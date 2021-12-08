@@ -7,8 +7,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 {
     public static class ApplicationBuilderExtensions
     {
-        //todo: see if we need the other google domains from the das ga doc
-
         /// <summary>
         /// nuget documentation
         /// https://github.com/andrewlock/NetEscapades.AspNetCore.SecurityHeaders
