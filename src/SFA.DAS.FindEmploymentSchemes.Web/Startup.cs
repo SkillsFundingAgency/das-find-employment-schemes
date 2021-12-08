@@ -80,10 +80,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             app.Use(async (context, next) =>
             {
-                if (context.Response.Headers.ContainsKey("X-Frame-Options"))
-                    context.Response.Headers.Remove("X-Frame-Options");
-                context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
-
                 await next();
 
                 if (context.Response.StatusCode == 404 && !context.Response.HasStarted)
