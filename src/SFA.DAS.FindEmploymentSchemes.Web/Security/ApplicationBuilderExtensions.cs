@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 {
@@ -19,7 +21,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
         /// das ga
         /// https://skillsfundingagency.atlassian.net/wiki/spaces/DAS/pages/3249700873/Adding+Google+Analytics
         /// </summary>
-        public static IApplicationBuilder UseAppSecurityHeaders(this IApplicationBuilder app,
+        public static IApplicationBuilder UseAppSecurityHeaders(
+            this IApplicationBuilder app,
+            IWebHostEnvironment env,
             IConfiguration configuration)
         {
             string cdnUrl = configuration["cdn:url"];
@@ -33,11 +37,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                         builder.AddUpgradeInsecureRequests();
                         builder.AddBlockAllMixedContent();
 
-                        builder.AddDefaultSrc()
+                        var defaultSrc = builder.AddDefaultSrc()
                             .Self()
                             .From(cdnUrl);
 
-                        builder.AddConnectSrc()
+                        var connectSrc = builder.AddConnectSrc()
                             .Self()
                             .From(new []
                             {
@@ -61,7 +65,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .Self()
                             .From(new[] {cdnUrl, "https://ssl.gstatic.com", "https://www.gstatic.com"});
 
-                        builder.AddScriptSrc()
+                        var scriptSrc =builder.AddScriptSrc()
                             .Self()
                             .From(new[] {cdnUrl, "https://tagmanager.google.com"})
                             .UnsafeInline()
@@ -70,7 +74,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .ReportSample()
                             .WithNonce();
 
-                        builder.AddStyleSrc()
+                        var styleSrc = builder.AddStyleSrc()
                             .Self()
                             .From(new[] { cdnUrl, "https://tagmanager.google.com", "https://fonts.googleapis.com"})
                             .StrictDynamic();
@@ -89,6 +93,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                         //builder.AddFrameSrc()
                         //    .From("http://testUrl.com");
 
+                        if (env.IsDevelopment())
+                        {
+                            // open up for browserlink
+                            defaultSrc.From(new[] {"http://localhost:*", "ws://localhost:*"});
+
+                            scriptSrc.From("http://localhost:*");
+
+                            styleSrc.UnsafeInline();
+
+                            connectSrc.From(new [] { "https://localhost:*", "ws://localhost:*", "wss://localhost:*"});
+                        }
                     }));
 #pragma warning restore S1075
 

@@ -61,7 +61,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration)
         {
-            app.UseAppSecurityHeaders(configuration);
+            app.UseAppSecurityHeaders(env, configuration);
 
             if (env.IsDevelopment())
             {
