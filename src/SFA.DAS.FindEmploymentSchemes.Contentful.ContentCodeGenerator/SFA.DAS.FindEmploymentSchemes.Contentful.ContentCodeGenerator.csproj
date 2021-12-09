@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="contentful.csharp" Version="6.0.16" />
+    <PackageReference Include="contentful.csharp" Version="6.0.18" />
   </ItemGroup>
 
   <ItemGroup>
