@@ -23,12 +23,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             return View(_filterService.HomeModel);
         }
 
-        // if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled
+#pragma warning disable SCS0016
+        /// <remarks>
+        /// * if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled.
+        /// * we disable the CSRF security warning, as this post doesn't affect any state changes (there is also no site authentication).
+        ///   if the above changes, then we'd have to enable core's antiforgery.
+        /// </remarks>>
         [HttpPost]
         public IActionResult Home(SchemeFilterViewModel filters)
         {
             return View(_filterService.ApplyFilter(filters));
         }
+#pragma warning restore SCS0016
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Details(string schemeUrl)
