@@ -73,7 +73,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                         var styleSrc = builder.AddStyleSrc()
                             .Self()
                             .From(new[] { cdnUrl, "https://tagmanager.google.com", "https://fonts.googleapis.com"})
-                            .StrictDynamic();
+                            .StrictDynamic()
+                            .UnsafeInline();
 
                         builder.AddMediaSrc()
                             .None();
