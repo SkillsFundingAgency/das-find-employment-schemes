@@ -24,6 +24,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         }
 
 #pragma warning disable SCS0016
+        /// <summary>
+        /// Filtering post back for when Javascript is disabled
+        /// </summary>
         /// <remarks>
         /// * if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled.
         /// * we disable the CSRF security warning, as this post doesn't affect any state changes (there is also no site authentication).
