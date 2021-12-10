@@ -70,7 +70,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .UnsafeEval()
                             .WithNonce();
 
-                        var styleSrc = builder.AddStyleSrc()
+                        builder.AddStyleSrc()
                             .Self()
                             .From(new[] { cdnUrl, "https://tagmanager.google.com", "https://fonts.googleapis.com"})
                             .StrictDynamic()
@@ -94,8 +94,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             defaultSrc.From(new[] {"http://localhost:*", "ws://localhost:*"});
 
                             scriptSrc.From("http://localhost:*");
-
-                            styleSrc.UnsafeInline();
 
                             connectSrc.From(new [] { "https://localhost:*", "ws://localhost:*", "wss://localhost:*"});
                         }
