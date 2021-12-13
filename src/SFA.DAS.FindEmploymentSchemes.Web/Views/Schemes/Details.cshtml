@@ -42,8 +42,8 @@
         <ul id="scheme-details-inner-ul" class="govuk-list">
             @foreach (var scheme in Model.OtherSchemes)
             {
-                <li id="scheme-details-inner-li-@scheme.Name">
-                    <a id="scheme-details-inner-link-@scheme.Name" asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                <li id="scheme-details-inner-li-@scheme.HtmlId">
+                    <a id="scheme-details-inner-link-@scheme.HtmlId" asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
                 </li>
 			}
         </ul>
