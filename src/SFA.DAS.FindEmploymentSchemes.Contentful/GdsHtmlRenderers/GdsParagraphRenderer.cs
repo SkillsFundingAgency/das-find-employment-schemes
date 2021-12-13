@@ -1,0 +1,69 @@
+﻿using Contentful.Core.Models;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
+{
+    /// <summary>
+    /// A renderer for a GDS paragraph.
+    /// </summary>
+    public class GdsParagraphRenderer : IContentRenderer
+    {
+        private readonly ContentRendererCollection _rendererCollection;
+
+        /// <summary>
+        /// Initializes a new GdsParagraphRenderer
+        /// </summary>
+        /// <param name="rendererCollection">The collection of renderer to use for sub-content.</param>
+        public GdsParagraphRenderer(ContentRendererCollection rendererCollection)
+        {
+            _rendererCollection = rendererCollection;
+        }
+
+        /// <summary>
+        /// The order of this renderer in the collection.
+        /// </summary>
+        public int Order { get; set; } = 50;
+
+        /// <summary>
+        /// Whether or not this renderer supports the provided content.
+        /// </summary>
+        /// <param name="content">The content to evaluate.</param>
+        /// <returns>Returns true if the content is a paragraph, otherwise false.</returns>
+        public bool SupportsContent(IContent content)
+        {
+            return content is Paragraph;
+        }
+
+        /// <summary>
+        /// Renders the content to an html p-tag.
+        /// </summary>
+        /// <param name="content">The content to render.</param>
+        /// <returns>The p-tag as a string.</returns>
+        public string Render(IContent content)
+        {
+            var paragraph = content as Paragraph;
+            var sb = new StringBuilder();
+            sb.Append("<p class=\"govuk-body\">");
+
+            foreach (var subContent in paragraph!.Content)
+            {
+                var renderer = _rendererCollection.GetRendererForContent(subContent);
+                sb.Append(renderer.Render(subContent));
+            }
+
+            sb.Append("</p>");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Renders the content asynchronously.
+        /// </summary>
+        /// <param name="content">The content to render.</param>
+        /// <returns>The rendered string.</returns>
+        public Task<string> RenderAsync(IContent content)
+        {
+            return Task.FromResult(Render(content));
+        }
+    }
+}
