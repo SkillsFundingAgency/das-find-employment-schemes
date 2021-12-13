@@ -1,5 +1,6 @@
-﻿
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
+using System.Text.RegularExpressions;
+using System;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {
@@ -49,7 +50,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             CaseStudies = caseStudies;
             OfferHeader = offerHeader;
             Offer = offer;
-            HtmlId = Name;
+
+            // only run at startup, so we don't compile
+            HtmlId = Regex.Replace(Name, @"[^a-zA-Z0-9-_:\.]", "",
+                RegexOptions.None, TimeSpan.FromSeconds(1.5));
         }
     }
 }
