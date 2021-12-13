@@ -7,23 +7,24 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
     //todo: revisit for c#9
     public class Scheme
     {
-        public string Name { get; set; }
-        public IHtmlContent ShortDescription { get; set; }
-        public IHtmlContent ShortCost { get; set; }
-        public IHtmlContent ShortBenefits { get; set; }
-        public IHtmlContent ShortTime { get; set; }
-        public string Url { get; set; }
-        public IHtmlContent? DetailsPageOverride { get; set; }
-        public IHtmlContent? Description { get; set; }
-        public IHtmlContent? Cost { get; set; }
-        public IHtmlContent? Responsibility { get; set; }
-        public IHtmlContent? Benefits { get; set; }
-        public IHtmlContent? CaseStudies { get; set; }
-        public string? OfferHeader { get; set; }
-        public IHtmlContent? Offer { get; set; }
+        public string Name { get; }
+        public IHtmlContent ShortDescription { get; }
+        public IHtmlContent ShortCost { get; }
+        public IHtmlContent ShortBenefits { get; }
+        public IHtmlContent ShortTime { get; }
+        public string Url { get; }
+        public IHtmlContent? DetailsPageOverride { get; }
+        public IHtmlContent? Description { get; }
+        public IHtmlContent? Cost { get; }
+        public IHtmlContent? Responsibility { get; }
+        public IHtmlContent? Benefits { get; }
+        public IHtmlContent? CaseStudies { get; }
+        public string? OfferHeader { get; }
+        public IHtmlContent? Offer { get; }
         // when we display the matching schemes on the filter page, we'll sort largest to smallest
-        public int Size { get; set; }
-        public string[] FilterAspects { get; set; }
+        public int Size { get; }
+        public string[] FilterAspects { get; }
+        public string HtmlId { get; }
 
         public Scheme(string name, IHtmlContent shortDescription, IHtmlContent shortCost, IHtmlContent shortBenefits, IHtmlContent shortTime,
             string url, int size,
@@ -48,6 +49,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             CaseStudies = caseStudies;
             OfferHeader = offerHeader;
             Offer = offer;
+            HtmlId = Name;
         }
     }
 }
