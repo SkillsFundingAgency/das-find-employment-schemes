@@ -16,23 +16,23 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
         [InlineData("a.", "a.")]
         [InlineData("a", "a!\"£$%^&*()+=")]
         [InlineData("a-_:.", "-_:.!\"£$%^&*()+=a-_:.")]
-        public void Constructor_HtmlId(string stringExpectedHtmlId, string name)
+        public void Constructor_HtmlId(string stringExpectedHtmlId, string url)
         {
-            var scheme = TestScheme(name);
+            var scheme = TestScheme(url);
 
             Assert.Equal(stringExpectedHtmlId, scheme.HtmlId);
         }
 
-        private static Scheme TestScheme(string name)
+        private static Scheme TestScheme(string url)
         {
-            return new Scheme(name,
+            return new Scheme("Apprenticeships",
                 new HtmlString(
                     @"<p>Paid employment for over 16s, combining work and study in a job allowing you to develop your workforce and business.</p>"),
                 new HtmlString(
                     @"<p>Apprentice minimum wage and 5% training contribution depending on business size</p>"),
                 new HtmlString(@"<p>You develop a motivated, skilled, and qualified workforce</p>"),
                 new HtmlString(@"<p>Minimum of 12 months employment</p>"),
-                "apprenticeships", 403000,
+                url, 403000,
                 new string[]
                 {
                     "pay--minimum-wage", "motivations--full-time-role", "motivations--diversity-or-responsibility",

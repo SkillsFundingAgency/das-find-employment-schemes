@@ -51,9 +51,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             OfferHeader = offerHeader;
             Offer = offer;
 
-            HtmlId = SanitizeHtmlId(name);
+            HtmlId = SanitizeHtmlId(url);
             if (HtmlId == "")
-                throw new ArgumentException("Must sanitize to a valid HTML id", nameof(name));
+                throw new ArgumentException("Must sanitize to a valid HTML id", nameof(url));
         }
 
         private string SanitizeHtmlId(string unsanitizedId)
