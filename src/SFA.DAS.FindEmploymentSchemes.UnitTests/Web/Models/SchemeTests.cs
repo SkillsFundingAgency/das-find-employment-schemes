@@ -9,12 +9,13 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
         [Theory]
         [InlineData("az", "az")]
         [InlineData("AZ", "AZ")]
-        [InlineData("10", "10")]
+        [InlineData("a10", "a10")]
         [InlineData("a-", "a-")]
         [InlineData("a_", "a_")]
         [InlineData("a:", "a:")]
         [InlineData("a.", "a.")]
         [InlineData("a", "a!\"£$%^&*()+=")]
+        [InlineData("a-_:.", "-_:.!\"£$%^&*()+=a-_:.")]
         public void Constructor_HtmlId(string stringExpectedHtmlId, string name)
         {
             var scheme = TestScheme(name);

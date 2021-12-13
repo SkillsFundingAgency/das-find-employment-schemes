@@ -51,9 +51,20 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             OfferHeader = offerHeader;
             Offer = offer;
 
+            HtmlId = SanitizeHtmlId(name);
+            if (HtmlId == "")
+                throw new ArgumentException("Must sanitize to a valid HTML id", nameof(name));
+        }
+
+        private string SanitizeHtmlId(string unsanitizedId)
+        {
             // only run at startup, so we don't compile
-            HtmlId = Regex.Replace(Name, @"[^a-zA-Z0-9-_:\.]", "",
-                RegexOptions.None, TimeSpan.FromSeconds(1.5));
+
+            // strip invalid chars
+            string sanitizedHtmlId = Regex.Replace(unsanitizedId, @"[^a-zA-Z0-9-_:\.]", "");
+
+            // ensure starts with a letter
+            return Regex.Replace(sanitizedHtmlId, @"^[^a-zA-Z]*", "");
         }
     }
 }
