@@ -169,7 +169,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(
                     @"<p>Allows you to shape a job role that suits your business and the needs of the supported intern and increases your confidence of employing individuals with additional needs</p>"),
                 new HtmlString(@"<p>6 to 12-months</p>"),
-                "supported-internships-for-learners-with-an-education-health-and-care-plan", 20000,
+                "supported-internships", 20000,
                 new string[]
                 {
                     "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
@@ -361,7 +361,7 @@ website. If you go to another website from this one, read the privacy policy on 
 website to find out what it does with your information.</p><h2 class=""govuk-heading-l"">Following a link to this website from another website</h2><p>If you come to this website from another website, we may receive personal
 information about you from the other website. You should read the privacy policy of
 the website you came from to find out more about this.</p>")
-),
+            ),
         };
     }
 }
