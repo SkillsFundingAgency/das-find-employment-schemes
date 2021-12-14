@@ -1,7 +1,7 @@
 ﻿@model SFA.DAS.FindEmploymentSchemes.Web.Models.Page
 
 @{
-    ViewData["Title"] = $"GOV.UK - {Model.Title}";
+    ViewData["Title"] = Model.Title.Substring(0, 64);;
 }
 
 @section BreadCrumbs {
