@@ -1,7 +1,7 @@
 @model SchemeDetailsModel
 
 @{
-    ViewData["Title"] = Model.Scheme.Name.Substring(0, 64);
+    ViewData["Title"] = Model.Scheme.Name.Substring(0, Math.Min(Model.Scheme.Name.Length, 64));
 }
 
 @section BreadCrumbs {
