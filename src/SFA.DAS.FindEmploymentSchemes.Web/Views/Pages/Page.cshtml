@@ -1,7 +1,7 @@
 ﻿@model SFA.DAS.FindEmploymentSchemes.Web.Models.Page
 
 @{
-    ViewData["Title"] = Model.Title.Substring(0, 64);;
+    ViewData["Title"] = Model.Title.Substring(0, Math.Min(Model.Title.Length, 64));;
 }
 
 @section BreadCrumbs {
