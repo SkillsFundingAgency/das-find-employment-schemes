@@ -33,8 +33,10 @@
 }
 
 .app-filter__header-link {
-    display: inline-block;
-    text-align: right;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: inherit;
 }
 
 @media (min-width: 40.0625em) {
