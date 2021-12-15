@@ -27,9 +27,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
                 case "cookies":
                     return (page == null ? NotFound() : (IActionResult)View("Cookies", page));
 
-                case "accessibility-statement":
-                    return View("AccessibilityStatement");
-
                 case "error-check":
                     throw new NotImplementedException("DEADBEEF-DEAD-BEEF-DEAD-BAAAAAAAAAAD");
             }
