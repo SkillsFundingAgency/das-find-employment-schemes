@@ -32,7 +32,14 @@
     background: #b1b4b6;
 }
 
-.app-filter__header-link {
+@media (max-width: 40.0600em) {
+    #scheme-home-filter-header {
+        /* stop heading from overlapping close button */
+        margin-right: 3em;
+    }
+}
+
+#scheme-home-filter-header-link {
     position: absolute;
     right: 0;
     top: 0;
@@ -40,7 +47,7 @@
 }
 
 @media (min-width: 40.0625em) {
-    .js-enabled .das-js-show--inline.app-filter__header-link {
+    #scheme-home-filter-header-link {
         display: none;
     }
 }
@@ -69,6 +76,10 @@
 
 #number-of-schemes-heading {
     margin-bottom: 0;
+}
+
+#scheme-home-filter-form-button-group {
+    margin-top: 15px;
 }
 
 .cx-cta-box {
