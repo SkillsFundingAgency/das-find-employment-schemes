@@ -116,6 +116,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     defaults: new { controller = "Schemes", action = "Home" });
 
                 endpoints.MapControllerRoute(
+                    name: "hideFilters",
+                    pattern: "HideFilters",
+                    defaults: new { controller = "Schemes", action = "HideFilters" });
+
+                endpoints.MapControllerRoute(
                     name: "page",
                     pattern: "page/{pageUrl}",
                     defaults: new { controller = "Pages", action = "Page" });

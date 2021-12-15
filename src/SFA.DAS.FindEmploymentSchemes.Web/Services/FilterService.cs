@@ -17,11 +17,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private const string PayDescription = "I can offer";
 
         private static readonly HomeModel StaticHomeModel = new HomeModel(SchemesContent.Schemes,
-new[] {
+            new[] {
                 new FilterGroupModel(MotivationName, MotivationDescription, SchemesContent.MotivationsFilters),
                 new FilterGroupModel(SchemeLengthName, SchemeLengthDescription, SchemesContent.SchemeLengthFilters),
                 new FilterGroupModel(PayName, PayDescription, SchemesContent.PayFilters)
-            });
+            }, true);
         private static readonly ReadOnlyDictionary<string, SchemeDetailsModel> StaticSchemeDetailsModels = BuildSchemeDetailsModelsDictionary();
 
         public HomeModel HomeModel => StaticHomeModel;
@@ -74,8 +74,7 @@ new[] {
             var filterGroupModels = new List<FilterGroupModel>
             {
                 new FilterGroupModel(MotivationName, MotivationDescription,
-                    SchemesContent.MotivationsFilters.Select(x =>
-                        new MotivationsFilter(x.Id, x.Description, filters.motivations.Contains(x.Id)))),
+                    SchemesContent.MotivationsFilters.Select(x => new MotivationsFilter(x.Id, x.Description, filters.motivations.Contains(x.Id)))),
                 new FilterGroupModel(SchemeLengthName, SchemeLengthDescription,
                     SchemesContent.SchemeLengthFilters.Select(x => new SchemeLengthFilter(x.Id, x.Description, filters.schemeLength.Contains(x.Id)))),
                 new FilterGroupModel(PayName, PayDescription,

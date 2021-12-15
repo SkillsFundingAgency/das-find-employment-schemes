@@ -1,8 +1,10 @@
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
+
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
@@ -27,7 +29,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [HttpPost]
         public IActionResult Home(SchemeFilterViewModel filters)
         {
-            return View(_filterService.ApplyFilter(filters));
+            HomeModel hm = _filterService.ApplyFilter(filters);
+            hm.ShowFilters = true;
+            return View(hm);
+        }
+
+        [HttpPost]
+        public IActionResult HideFilters(SchemeFilterViewModel filters)
+        {
+            HomeModel hm = _filterService.ApplyFilter(filters);
+            hm.ShowFilters = false;
+            return View("Home", hm);
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]

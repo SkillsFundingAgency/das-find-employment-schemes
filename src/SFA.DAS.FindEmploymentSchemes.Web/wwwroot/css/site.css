@@ -85,3 +85,11 @@
         padding: 20px;
     }
 }
+
+input#scheme-home-filter-header-link {
+    background: none;
+    border: none;
+    color: #0b0c0c;
+    text-decoration: underline;
+    cursor: pointer;
+}
