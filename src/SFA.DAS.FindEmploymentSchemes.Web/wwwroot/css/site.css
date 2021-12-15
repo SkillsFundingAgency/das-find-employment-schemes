@@ -39,7 +39,7 @@
     }
 }
 
-#scheme-home-filter-header-link {
+#close-filter {
     position: absolute;
     right: 0;
     top: 0;
@@ -47,7 +47,7 @@
 }
 
 @media (min-width: 40.0625em) {
-    #scheme-home-filter-header-link {
+    #close-filter {
         display: none;
     }
 }
