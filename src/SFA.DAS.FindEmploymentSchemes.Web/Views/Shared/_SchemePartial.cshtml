@@ -5,7 +5,11 @@
     <h2 id="scheme-header-@Model.HtmlId" class="govuk-heading-m govuk-!-margin-bottom-3">
         <a id="scheme-header-link-@Model.HtmlId" asp-route="schemes" asp-route-schemeUrl="@Model.Url" class="govuk-link">@Model.Name</a>
     </h2>
-    @Model.ShortDescription
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            @Model.ShortDescription
+        </div>
+    </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
             <h3 id="scheme-short-cost-header-@Model.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Cost</h3>

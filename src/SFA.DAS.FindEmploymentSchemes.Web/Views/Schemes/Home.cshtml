@@ -12,25 +12,25 @@
         <div id="scheme-filter" class="das-filter app-filter" tabindex="0" data-module="app-show-hide">
             <div id="scheme-home-filter-header-container" class="das-filter__header app-filter__header">
                 <h2 id="scheme-home-filter-header" class="das-filter__heading">Filter schemes to fit your business</h2>
-                <a id="scheme-home-filter-header-link" href="#scheme-filter" class="govuk-link app-filter__header-link das-js-show--inline" data-text-hide="Close">Close</a>
+                <a id="close-filter" href="#scheme-filter" class="govuk-link" data-text-hide="Close">Close</a>
             </div>
             <div id="scheme-filter-options" class="das-filter__body">
                 <div id="number-of-schemes-box">
                     <h3 id="number-of-schemes-heading" class="govuk-heading-s">Number of Schemes: <span id="number-of-schemes">@Model.Schemes.Count()</span></h3>
                 </div>
                 <form id="scheme-home-filter-form" action="#" method="post">
-                    <div id="scheme-home-filter-form-button-group" class="govuk-button-group">
-                      <button id="scheme-home-filter-form-button" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 das-js-hide">Apply filters</button>
-                    </div>
-                    <hr id="scheme-home-filter-form-hr" class="govuk-section-break govuk-section-break--m govuk-section-break--visible das-js-hide">
                     @foreach (var filterGroupModel in Model.FilterGroupModels)
                     {
                         @await Html.PartialAsync("_FilterGroupPartial", filterGroupModel)
                     }
-                </form>
+                    
+                    @*todo: when non-js don't close the filters box*@
+                    <a id="clear-filters" class="govuk-link" href="/">Clear filters</a>
                 
-                @*todo: when non-js don't close the filters box*@
-                <a id="clear-filters" class="govuk-link" href="/">Clear filters</a>
+                    <div id="scheme-home-filter-form-button-group" class="govuk-button-group das-js-hide">
+                        <button id="scheme-home-filter-form-button" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0">Filter schemes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
