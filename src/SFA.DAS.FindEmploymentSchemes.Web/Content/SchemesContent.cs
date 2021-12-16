@@ -27,7 +27,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(
                     @"<p class=""govuk-body"">Apprentice minimum wage and 5% training contribution depending on business size</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">You develop a motivated, skilled, and qualified workforce</p>"),
+                    @"<p class=""govuk-body"">You develop a motivated, skilled, and qualified workforce</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Minimum of 12 months employment</p>"),
                 "apprenticeships", 403000,
                 new string[]
@@ -43,7 +43,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(
                     @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>opportunities for the student to develop their technical skills within your industry</li><li>20% 'Off-the-job' training delivered by a training provider during your apprentice&#39;s normal working hours</li><li>'On-the-job' training and additional support to ensure your apprentice's success</li></ul><p class=""govuk-body"">Employers must also have:</p><ul class =""govuk-list govuk-list--bullet""><li>a signed apprenticeship agreement and apprenticeship commitment statement from the learner and training provider</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Find out <a href=""https://www.apprenticeships.gov.uk/"" title="""" class=""govuk-link"">how apprenticeships can benefit your business</a>.</p>"),
+                    @"<p class=""govuk-body"">Incentive payments are available for each apprentice a business takes on as a new employee.
+</p><p class=""govuk-body"">Find out <a href=""https://www.apprenticeships.gov.uk/"" title="""" class=""govuk-link"">how apprenticeships can benefit your business</a>.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Read about <a href=""https://www.apprenticeships.gov.uk/employers/real-stories-employers"" title="""" class=""govuk-link"">how businesses are using incentive payments to hire apprentices</a>.</p>"),
                 "Offer an apprenticeship",
@@ -72,7 +73,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(
                     @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>opportunities for the student to develop their technical skills within your industry</li><li>a line manager to support, supervise and mentor the student</li><li>an induction which includes explaining relevant policies and procedures</li><li>formal feedback on the student's progress against the agreed learning goals at the end of the placement</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">T Levels are available in more than 20 courses, covering 11 skill areas.</p><p class=""govuk-body"">T Levels can support:</p><ul class =""govuk-list govuk-list--bullet""><li>you to build a pipeline of entry-level positions</li><li>the next generation of workers entering your industry to succeed</li><li>you with recruitment, improve innovation and increase your organisation's productivity</li><li>you to fill skills shortages&#160;</li><li>your local community and improve diversity</li><li>your existing staff gain management and mentoring skills</li></ul><p class=""govuk-body"">Find out <a href=""https://www.tlevels.gov.uk/employers"" title="""" class=""govuk-link"">how T Levels can benefit your business</a>.
+                    @"<p class=""govuk-body"">T Levels are available in more than 20 courses, covering 11 skill areas.</p><p class=""govuk-body"">Incentive payments are available for every T Level student a business hosts on a high-quality industry placement.</p><p class=""govuk-body"">T Levels can support:</p><ul class =""govuk-list govuk-list--bullet""><li>you to build a pipeline of entry-level positions</li><li>the next generation of workers entering your industry to succeed</li><li>you with recruitment, improve innovation and increase your organisation's productivity</li><li>you to fill skills shortages&#160;</li><li>your local community and improve diversity</li><li>your existing staff gain management and mentoring skills</li></ul><p class=""govuk-body"">Find out <a href=""https://www.tlevels.gov.uk/employers"" title="""" class=""govuk-link"">how T Levels can benefit your business</a>.
 
 </p>"),
                 new HtmlString(
@@ -162,7 +163,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(
                     @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe, meaningful and high-quality work experience placement</li><li>a minimum of 70 hours of work experience placement over the duration of the traineeship (if the trainee claims benefits, the placement cannot last longer than 240 hours)</li><li>constructive feedback and advice to the trainee</li><li>an interview for an apprenticeship or job in their organisation at the end of the traineeship if one is available</li><li>an exit interview at the end of the traineeship with meaningful written feedback if no job is available</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Traineeships have seen big increases as businesses recover from the pandemic and are expected to double to around 40,000 per year.</p><p class=""govuk-body"">Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-employers"" title="""" class=""govuk-link"">how traineeships can benefit your business</a>.</p>"),
+                    @"<p class=""govuk-body"">Traineeships have seen big increases as businesses recover from the pandemic and are expected to double to around 40,000 per year.</p><p class=""govuk-body"">
+Incentive payments are available for businesses offering traineeship work placements.
+
+Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-employers"" title="""" class=""govuk-link"">how traineeships can benefit your business</a>.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-traineeships"" title="""" class=""govuk-link"">how businesses are using traineeships</a>.</p>"),
                 "Offer a traineeship",
@@ -349,6 +353,50 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
 
         public static readonly IEnumerable<Page> Pages = new[]
         {
+            new Page("Accessibility statement",
+                "accessibility-statement",
+                new HtmlString(
+                    @"<h1 class=""govuk-heading-xl"">Accessibility statement</h1><p class=""govuk-body"">This accessibility statement applies to ""Find training and employment schemes for your business.""
+
+This website is run by the Education and Skills Funding Agency. We want as many people as possible to be able to use this website. For example, that means you should be able to:
+
+change colours, contrast levels and fonts
+zoom in up to 300% without the text spilling off the screen
+navigate most of the website using just a keyboard
+navigate most of the website using speech recognition software
+listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
+
+We've also made the website text as simple as possible to understand.
+<a href=""https://mcmw.abilitynet.org.uk/"" title="""" class=""govuk-link"">AbilityNet</a> has advice on making your device easier to use if you have a disability.
+
+</p><h2 class=""govuk-heading-l"">
+Feedback and contact information</h2><h2 class=""govuk-heading-l""></h2><p class=""govuk-body"">
+If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille, email:
+<a href=""ESFA.GOVUK-ENQUIRIES@education.gov.uk "" title="""" class=""govuk-link"">ESFA.GOVUK-ENQUIRIES@education.gov.uk </a>
+
+We'll consider your request and get back to you in 5 working days.
+</p><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Reporting accessibility problems with this website</h2><p class=""govuk-body""></p><p class=""govuk-body"">
+We're always looking to improve the accessibility of this website.
+
+If you find any problems not listed on this page or think we're not meeting accessibility requirements, contact: <a href=""ESFA.GOVUK-ENQUIRIES@education.gov.uk "" title="""" class=""govuk-link"">ESFA.GOVUK-ENQUIRIES@education.gov.uk</a>.
+Enforcement procedure
+The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations').
+</p><p class=""govuk-body"">If you're not happy with how we respond to your complaint, <a href=""https://www.equalityadvisoryservice.com/"" title="""" class=""govuk-link"">contact the Equality Advisory and Support Service (EASS)</a>.
+
+</p><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Technical information about this website's accessibility</h2><p class=""govuk-body""></p><p class=""govuk-body"">
+Education and Skills Funding Agency is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
+
+</p><h2 class=""govuk-heading-l"">Compliance status</h2><p class=""govuk-body"">
+
+This website is fully compliant with the <a href=""https://www.w3.org/TR/WCAG21/"" title="""" class=""govuk-link"">Web Content Accessibility Guidelines version 2.1 AA standard</a>.
+
+We know some of the content is above the reading age of 9. We will work to improve this
+
+Preparation of this accessibility statement
+This statement was prepared on [date when it was first published]. It was last reviewed on [date when it was last reviewed].
+
+This website was last tested on 13 December 2021. The test was carried out by the Education and Skills Funding Agency (ESFA) development team who built the website.</p><p class=""govuk-body""></p>")
+            ),
             new Page("Cookies",
                 "cookies",
                 new HtmlString(

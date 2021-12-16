@@ -208,6 +208,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
 
             string unescapedHtml = await htmlRenderer.ToHtml(document);
             string html = unescapedHtml.Replace("\"", "\"\"");
+            html = html.Replace("“", "\"\"");
+            html = html.Replace("”", "\"\"");
             // sometimes contentful uses a \r and sometimes a \r\n - nice!
             // we could strip these out instead
             html = html.Replace("\r\n", "\r");
