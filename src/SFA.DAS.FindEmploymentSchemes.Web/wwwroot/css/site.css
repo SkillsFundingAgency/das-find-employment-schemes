@@ -50,6 +50,10 @@
     right: 0;
     top: 0;
     padding: inherit;
+    width: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 @media (min-width: 40.0625em) {
