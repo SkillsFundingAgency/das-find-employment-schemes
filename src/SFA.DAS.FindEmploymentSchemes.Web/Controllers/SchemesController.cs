@@ -6,6 +6,10 @@ using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
+    //todo: show new postback filter button when js in mobile, with query param?
+    //todo: in mobile when js enabled, want filter schemes button
+    //todo: remove number of schemes count when non-javascript??
+
     public class SchemesController : Controller
     {
         private readonly ILogger<SchemesController> _logger;

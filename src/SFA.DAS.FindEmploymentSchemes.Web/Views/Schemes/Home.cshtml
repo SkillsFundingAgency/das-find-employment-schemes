@@ -14,8 +14,6 @@
             <form id="scheme-home-filter-form" action="#" method="post">
                 <div id="scheme-home-filter-header-container" class="das-filter__header app-filter__header">
                     <h2 id="scheme-home-filter-header" class="das-filter__heading">Filter schemes to fit your business</h2>
-                    @*                <a id="close-filter" href="#scheme-filter" class="govuk-link" data-text-hide="Close">Close</a>*@
-                    @*todo: need to make this look right*@
                     <button id="close-filter" class="govuk-button govuk-button--secondary">Close</button>
                 </div>
                 <div id="scheme-filter-options" class="das-filter__body">
@@ -49,7 +47,19 @@
 </div>
 
 <script asp-add-nonce>
+    /*todo: add home.js and include here for js only initialization??*/
     document.addEventListener("DOMContentLoaded", function() {
+        $("#close-filter").click(function(e) {
+
+            //todo: move this into a function
+            //todo: ensure showHideEls is there (where we use it elsewhere?)
+            $('#scheme-filter').addClass('app-show-hide__section--show');
+            const schemeFilterShowHide = showHideEls['scheme-filter'];
+            schemeFilterShowHide.showHideTarget(schemeFilterShowHide);
+
+            e.preventDefault();
+        });
+
         if (window.document.documentMode) {
             /* if the user agent is ie, fall back to non-js based filtering */
             $('.das-js-hide').show();
@@ -58,4 +68,5 @@
             initFiltering();
         }
     });
+
 </script>
