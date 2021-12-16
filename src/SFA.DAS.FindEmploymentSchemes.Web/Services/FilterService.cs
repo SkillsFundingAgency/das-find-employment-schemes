@@ -82,8 +82,7 @@ new[] {
                     SchemesContent.PayFilters.Select(x => new PayFilter(x.Id, x.Description, filters.pay.Contains(x.Id))))
             };
 
-            return new HomeModel(filteredSchemes, filterGroupModels);
+            return new HomeModel(filteredSchemes, filterGroupModels, true);
         }
-
     }
 }
