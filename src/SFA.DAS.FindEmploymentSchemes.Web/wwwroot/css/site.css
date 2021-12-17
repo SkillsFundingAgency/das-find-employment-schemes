@@ -38,12 +38,6 @@
     }
 }
 
-/* use combo along with das-js-show/hide? */
-/*do we need this one?*/
-.app-show-on-mobile-no-js {
-    display: block;
-}
-
 body.js-enabled .app-show-on-mobile-no-js {
     display: none;
 }
