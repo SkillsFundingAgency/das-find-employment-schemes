@@ -39,12 +39,10 @@
         <div id="scheme-home-schemes-container-inner" class="govuk-button-group">
             @if (Model.ShowSchemesOnMobileNoJavascript)
             {
-                @*do it this way, or have a single a, and overrider submit in js, similar to the close?*@
-                <form method="post" action="/?show=filter">
+                <form id="mobile-no-js-filter-form" method="post" action="/?show=filter">
                     <button id="scheme-home-schemes-link" class="govuk-button govuk-button--secondary app-show-on-mobile-no-js">Filter schemes</button>
                 </form>
-
-            } @*else?*@
+            }
             <a id="scheme-home-schemes-link" class="govuk-button govuk-button--secondary das-js-show--inline" href="#scheme-filter" data-text-show="Filter schemes" data-text-hide="Hide filter">Filter schemes</a>
         </div>
         @foreach (var scheme in Model.Schemes)

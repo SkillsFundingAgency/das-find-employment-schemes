@@ -9,7 +9,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
     //todo: show new postback filter button when js in mobile, with query param?
     //todo: in mobile when js enabled, want filter schemes button
     //todo: remove number of schemes count when non-javascript??
-    //todo: move filter schemes button to left
 
     public class SchemesController : Controller
     {

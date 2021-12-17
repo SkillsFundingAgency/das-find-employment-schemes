@@ -104,6 +104,11 @@ body.js-enabled .app-show-on-mobile-no-js {
     margin-bottom: 0;
 }
 
+#mobile-no-js-filter-form {
+    width: 100%;
+    margin-top: 15px;
+}
+
 #scheme-home-filter-form-button-group {
     margin-top: 15px;
 }
