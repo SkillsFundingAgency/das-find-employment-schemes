@@ -24,8 +24,16 @@
     }
 }
 
+/*todo: consistent naming of these*/
+
 @media (max-width: 40.0600em) {
     body:not(.js-enabled) .app-hide-on-mobile-no-js {
+        display: none;
+    }
+}
+
+@media (min-width: 40.0625em) {
+    body.js-enabled .app-js-desktop-hide {
         display: none;
     }
 }
