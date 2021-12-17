@@ -17,10 +17,33 @@ function initFiltering(options) {
 
     // if the scheme's are filtered, then ensure the filter panel is displayed
     if (!NoFilters(filters)) {
-        $('#scheme-filter').removeClass('app-show-hide__section--show');
-        const schemeFilterShowHide = showHideEls['scheme-filter'];
-        schemeFilterShowHide.showHideTarget(schemeFilterShowHide);
+        showFilterBox();
     }
+}
+
+const Visibility = {
+    Show: true,
+    Hide: false
+};
+
+function showFilterBox() {
+    showHideFilterBox(Visibility.Show);
+}
+
+function hideFilterBox() {
+    showHideFilterBox(Visibility.Hide);
+}
+
+// only call after showHideEls has been created
+function showHideFilterBox(visibility) {
+    var schemeFilter = $('#scheme-filter');
+    if (visibility === Visibility.Show) {
+        schemeFilter.removeClass('app-show-hide__section--show');
+    } else {
+        schemeFilter.addClass('app-show-hide__section--show');
+    }
+    const schemeFilterShowHide = showHideEls['scheme-filter'];
+    schemeFilterShowHide.showHideTarget(schemeFilterShowHide);
 }
 
 function updateFiltersFromFragmentAndShowResults() {
