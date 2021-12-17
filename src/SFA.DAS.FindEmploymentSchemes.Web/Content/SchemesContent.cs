@@ -354,14 +354,12 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
                 new HtmlString(
                     @"<h1 class=""govuk-heading-xl"">Accessibility statement</h1><p class=""govuk-body"">This accessibility statement applies to ""Find training and employment schemes for your business.""
 
-This website is run by the Education and Skills Funding Agency. We want as many people as possible to be able to use this website. For example, that means you should be able to:
-
+This website is run by the Education and Skills Funding Agency. We want as many people as possible to be able to use this website. For example, that means you should be able to:</p><ul class =""govuk-list govuk-list--bullet""><li>
 change colours, contrast levels and fonts
-zoom in up to 300% without the text spilling off the screen
-navigate most of the website using just a keyboard
-navigate most of the website using speech recognition software
-listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
-
+</li><li>zoom in up to 300% without the text spilling off the screen
+</li><li>navigate most of the website using just a keyboard
+</li><li>navigate most of the website using speech recognition software
+</li><li>listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)</li></ul><p class=""govuk-body"">
 We've also made the website text as simple as possible to understand.
 <a href=""https://mcmw.abilitynet.org.uk/"" title="""" class=""govuk-link"">AbilityNet</a> has advice on making your device easier to use if you have a disability.
 
@@ -371,28 +369,27 @@ If you need information on this website in a different format like accessible PD
 <a href=""ESFA.GOVUK-ENQUIRIES@education.gov.uk "" title="""" class=""govuk-link"">ESFA.GOVUK-ENQUIRIES@education.gov.uk </a>
 
 We'll consider your request and get back to you in 5 working days.
-</p><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Reporting accessibility problems with this website</h2><p class=""govuk-body""></p><p class=""govuk-body"">
+</p><h2 class=""govuk-heading-l"">Reporting accessibility problems with this website</h2><p class=""govuk-body""></p><p class=""govuk-body"">
 We're always looking to improve the accessibility of this website.
 
 If you find any problems not listed on this page or think we're not meeting accessibility requirements, contact: <a href=""ESFA.GOVUK-ENQUIRIES@education.gov.uk "" title="""" class=""govuk-link"">ESFA.GOVUK-ENQUIRIES@education.gov.uk</a>.
 Enforcement procedure
-The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations').
+</p><p class=""govuk-body"">The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations').
 </p><p class=""govuk-body"">If you're not happy with how we respond to your complaint, <a href=""https://www.equalityadvisoryservice.com/"" title="""" class=""govuk-link"">contact the Equality Advisory and Support Service (EASS)</a>.
 
-</p><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Technical information about this website's accessibility</h2><p class=""govuk-body""></p><p class=""govuk-body"">
-Education and Skills Funding Agency is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
+</p><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Technical information about this website's accessibility</h2><p class=""govuk-body""></p><p class=""govuk-body"">Education and Skills Funding Agency is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
 
 </p><h2 class=""govuk-heading-l"">Compliance status</h2><p class=""govuk-body"">
 
 This website is fully compliant with the <a href=""https://www.w3.org/TR/WCAG21/"" title="""" class=""govuk-link"">Web Content Accessibility Guidelines version 2.1 AA standard</a>.
 
-We know some of the content is above the reading age of 9. We will work to improve this
+We know some of the content is above the reading age of 9. We will work to improve this.</p><p class=""govuk-body"">
 
-Preparation of this accessibility statement
-This statement was prepared on [date when it was first published]. It was last reviewed on [date when it was last reviewed].
+</p><h2 class=""govuk-heading-l"">Preparation of this accessibility statement
+</h2><p class=""govuk-body"">This statement was prepared on 22 December 2021. </p><p class=""govuk-body"">
 
 This website was last tested on 13 December 2021. The test was carried out by the Education and Skills Funding Agency (ESFA) development team who built the website.</p><p class=""govuk-body""></p>")
-            ),
+),
             new Page("Cookies",
                 "cookies",
                 new HtmlString(
