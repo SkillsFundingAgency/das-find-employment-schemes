@@ -11,6 +11,7 @@
     <div id="scheme-home-filter-inner" class="govuk-grid-column-one-third app-filter-layout__filter">
         <div id="scheme-filter" class="das-filter app-filter @(Model.ShowSchemesOnMobileNoJavascript?"app-hide-on-mobile-no-js":"")" tabindex="0" data-module="app-show-hide">
             @*todo: need the show/hide filter buttons to work without js, otherwise after user filters/closes on mobile without js, they can't bring the filters back*@
+            @*todo: remove #?*@
             <form id="scheme-home-filter-form" action="#" method="post">
                 <div id="scheme-home-filter-header-container" class="das-filter__header app-filter__header">
                     <h2 id="scheme-home-filter-header" class="das-filter__heading">Filter schemes to fit your business</h2>
@@ -37,6 +38,14 @@
     </div>
     <div id="scheme-home-schemes-container" class="govuk-grid-column-two-thirds app-filter-layout__content">
         <div id="scheme-home-schemes-container-inner" class="govuk-button-group">
+            @if (Model.ShowSchemesOnMobileNoJavascript)
+            {
+                @*do it this way, or have a single a, and overrider submit in js, similar to the close?*@
+                <form method="post" action="/?show=filter">
+                    <button id="scheme-home-schemes-link" class="govuk-button govuk-button--secondary app-show-on-mobile-no-js">Filter schemes</button>
+                </form>
+
+            } @*else?*@
             <a id="scheme-home-schemes-link" class="govuk-button govuk-button--secondary das-js-show--inline" href="#scheme-filter" data-text-show="Filter schemes" data-text-hide="Hide filter">Filter schemes</a>
         </div>
         @foreach (var scheme in Model.Schemes)
