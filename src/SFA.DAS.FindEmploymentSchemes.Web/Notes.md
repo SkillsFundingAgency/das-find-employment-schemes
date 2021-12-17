@@ -8,3 +8,5 @@ getting sassy looks easy..
 https://github.com/ligershark/WebOptimizer.sass
 
 put filter box open/closed into url fragment, so doesn't change on refresh / bookmarks etc
+
+remove number of schemes count when non-javascript??
