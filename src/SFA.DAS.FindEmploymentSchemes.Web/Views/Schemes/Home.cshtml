@@ -57,6 +57,10 @@
     document.addEventListener("DOMContentLoaded", function() {
         $("#close-filter,#filter-box-filter-schemes").click(function(e) {
 
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#scheme-home-filter-outer").offset().top
+            }, 0);
+
             //todo: move this into a function
             //todo: ensure showHideEls is there (where we use it elsewhere?)
             $('#scheme-filter').addClass('app-show-hide__section--show');
