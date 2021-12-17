@@ -9,7 +9,7 @@
 
 <div id="scheme-home-filter-outer" class="govuk-grid-row app-filter-layout">
     <div id="scheme-home-filter-inner" class="govuk-grid-column-one-third app-filter-layout__filter">
-        <div id="scheme-filter" class="das-filter app-filter @(Model.ShowSchemesOnMobileNoJavascript?"app-hide-on-mobile-no-js":"")" tabindex="0" data-module="app-show-hide">
+        <div id="scheme-filter" class="das-filter app-filter @(Model.EnsureSchemesAreVisible?"app-hide-on-mobile-no-js":"")" tabindex="0" data-module="app-show-hide">
             <form id="scheme-home-filter-form" action="/" method="post">
                 <div id="scheme-home-filter-header-container" class="das-filter__header app-filter__header">
                     <h2 id="scheme-home-filter-header" class="das-filter__heading">Filter schemes to fit your business</h2>
@@ -35,7 +35,7 @@
     </div>
     <div id="scheme-home-schemes-container" class="govuk-grid-column-two-thirds app-filter-layout__content">
         <div id="scheme-home-schemes-container-inner" class="govuk-button-group">
-            @if (Model.ShowSchemesOnMobileNoJavascript)
+            @if (Model.EnsureSchemesAreVisible)
             {
                 <form id="mobile-no-js-filter-form" method="post" action="/?show=filter">
                     <button class="govuk-button govuk-button--secondary app-show-on-mobile-no-js">Filter schemes</button>
