@@ -27,7 +27,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(
                     @"<p class=""govuk-body"">Apprentice minimum wage and 5% training contribution depending on business size</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">You develop a motivated, skilled, and qualified workforce</p>"),
+                    @"<p class=""govuk-body"">You develop a motivated, skilled and qualified workforce</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Minimum of 12 months employment</p>"),
                 "apprenticeships", 403000,
                 new string[]
@@ -146,8 +146,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Helps you increase your capacity and productivity whilst developing a loyal and talented workforce</p>"),
-                new HtmlString(@"<p class=""govuk-body"">70 to 240 hours work placement</p>"),
-                "traineeships", 43000,
+                new HtmlString(
+                    @"<p class=""govuk-body"">70 to 240 hours work placement</p>"), "traineeships", 43000,
                 new string[]
                 {
                     "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
@@ -156,10 +156,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 },
                 null,
                 new HtmlString(
-                    @"<p class=""govuk-body"">A traineeship is a skills development programme that includes a work placement.</p><p class=""govuk-body"">The full programme can last from 6 weeks up to 1 year, though most traineeships last for between 6-weeks and 12-weeks.</p><p class=""govuk-body"">Your business needs to be able to offer a safe, meaningful and high-quality work experience placement of at least 70 hours to 240 hours.</p><p class=""govuk-body"">You will work with a training provider to design what is included in the programme.</p><p class=""govuk-body"">The trainee will gain English, maths, digital and work-related qualifications which can lead them on to:</p><ul class =""govuk-list govuk-list--bullet""><li>an apprenticeship</li><li>work</li><li>further education</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">A traineeship is a work based skills development programme that includes a work placement.</p><p class=""govuk-body"">The full programme can last from 6 weeks up to 1 year, though most traineeships last for between 6-weeks and 12-weeks.</p><p class=""govuk-body"">Your business needs to be able to offer a safe, meaningful and high-quality work experience placement of at least 70 hours to 240 hours.</p><p class=""govuk-body"">You will work with a training provider to design what is included in the programme.</p><p class=""govuk-body"">Trainees can gain English, maths, digital and work-related qualifications which can lead them on to:</p><ul class =""govuk-list govuk-list--bullet""><li>an apprenticeship</li><li>work</li><li>further education</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay the wages and any payments for expenses such as travel and living costs.
-</p>"),
+                    @"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay the wages and any payments for expenses such as travel and living costs.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe, meaningful and high-quality work experience placement</li><li>a minimum of 70 hours of work experience placement over the duration of the traineeship (if the trainee claims benefits, the placement cannot last longer than 240 hours)</li><li>constructive feedback and advice to the trainee</li><li>an interview for an apprenticeship or job in their organisation at the end of the traineeship if one is available</li><li>an exit interview at the end of the traineeship with meaningful written feedback if no job is available</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
@@ -169,7 +168,7 @@ Incentive payments are available for businesses offering traineeship work placem
 Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-employers"" title="""" class=""govuk-link"">how traineeships can benefit your business</a>.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-traineeships"" title="""" class=""govuk-link"">how businesses are using traineeships</a>.</p>"),
-                "Offer a traineeship",
+"Offer a traineeship",
                 new HtmlString(
                     @"<p class=""govuk-body"">Get started with offering a traineeship.</p><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/traineeship-information-for-employers#get-started"" title="""" class=""govuk-link"">Contact the National Apprenticeship Service</a></p><p class=""govuk-body"">Alternatively, call <a href=""tel:08000150600"" title="""" class=""govuk-link"">08000 150 600</a></p>")
             ),
@@ -209,26 +208,26 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs related to the practical offer you make to care leavers</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Helping care-leavers to move to independent living and bring their life skills to enrich your business</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Length of time can vary</p>"),
-                "care-leaver-covenant", 2000,
+                new HtmlString(
+                    @"<p class=""govuk-body"">Length of time can vary</p>"), "care-leaver-covenant", 2000,
                 new string[]
                 {
                     "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
                     "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more",
                     "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
-                null,
+                    null,
                 new HtmlString(
-                    @"<p class=""govuk-body"">The Care-leaver Covenant is a way companies can support 16 to 25-year-olds leaving care to become independent.</p><p class=""govuk-body"">Organisations can pledge support including apprenticeships, work experience or free or discounted goods or services. About the CLC - Care Leaver Covenant (mycovenant.org.uk)</p>"),
+                    @"<p class=""govuk-body"">The Care-leaver Covenant is a way companies can support 16 to 25-year-olds leaving care to become independent.</p><p class=""govuk-body"">Organisations can pledge support including apprenticeships, work experience or free or discounted goods or services.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">You may have your own business costs related to the practical offer your business makes to care leavers.</p>"),
+                    @"<p class=""govuk-body"">Free government scheme but you may have your own business costs related to the practical offer your business makes to care leavers.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>practical help that makes a difference to the life of a care leaver</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">You create and support a diverse and loyal workforce for your business.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Read how <a href=""https://mycovenant.org.uk/covenant-stories/"" title="""" class=""govuk-link"">companies have been making a difference to the lives of care leavers</a></p>"),
-                "Offer a Care Leavers Covenant",
+                    "Offer a Care Leavers Covenant",
                 new HtmlString(
                     @"<p class=""govuk-body""><a href=""https://mycovenant.org.uk/support-the-covenant/organisation-sign-up/"" title="""" class=""govuk-link"">Find out how to join the Care Leavers Covenant</a> and tailor what opportunities your business would like to offer to care leavers.</p><p class=""govuk-body"">Alternatively, contact the Care Leavers Covenant via telephone on <a href=""tel:08000773557"" title="""" class=""govuk-link"">0800 077 3557</a>.</p>")
             ),
@@ -314,7 +313,6 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
 
         public static readonly IEnumerable<MotivationsFilter> MotivationsFilters = new MotivationsFilter[]
         {
-
             new MotivationsFilter("motivations--full-time-role",
                 "help train someone up into a full-time role"
             ),
@@ -328,7 +326,6 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
 
         public static readonly IEnumerable<PayFilter> PayFilters = new PayFilter[]
         {
-
             new PayFilter("pay--minimum-wage",
                 "at least national minimum wage"
             ),
@@ -339,7 +336,6 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
 
         public static readonly IEnumerable<SchemeLengthFilter> SchemeLengthFilters = new SchemeLengthFilter[]
         {
-
             new SchemeLengthFilter("scheme-length--up-to-4-months",
                 "Up to 4 months"
             ),
