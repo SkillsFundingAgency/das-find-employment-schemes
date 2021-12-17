@@ -11,8 +11,7 @@
     <div id="scheme-home-filter-inner" class="govuk-grid-column-one-third app-filter-layout__filter">
         <div id="scheme-filter" class="das-filter app-filter @(Model.ShowSchemesOnMobileNoJavascript?"app-hide-on-mobile-no-js":"")" tabindex="0" data-module="app-show-hide">
             @*todo: need the show/hide filter buttons to work without js, otherwise after user filters/closes on mobile without js, they can't bring the filters back*@
-            @*todo: remove #?*@
-            <form id="scheme-home-filter-form" action="#" method="post">
+            <form id="scheme-home-filter-form" action="/" method="post">
                 <div id="scheme-home-filter-header-container" class="das-filter__header app-filter__header">
                     <h2 id="scheme-home-filter-header" class="das-filter__heading">Filter schemes to fit your business</h2>
                     <button id="close-filter" class="govuk-button govuk-button--secondary">Close</button>
