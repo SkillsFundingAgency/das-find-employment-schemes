@@ -3,9 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
@@ -17,7 +15,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
     public class FilterServiceTests
     {
-        private readonly IServiceProvider _services = GetServices();
+        private readonly IServiceProvider _services = Program.GetServices();
         private IFilterService _service;
 
         [Theory]
@@ -29,20 +27,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             HashSet<Scheme> expected = new HashSet<Scheme>(expectedSchemes);
             HashSet<Scheme> applied = new HashSet<Scheme>(_service.ApplyFilter(filters).Schemes);
             Assert.True(expected.SetEquals(applied));
-        }
-
-        public static IServiceProvider GetServices()
-        {
-            return new HostBuilder()
-                .ConfigureAppConfiguration((hostingContext, config) => {
-                    config.AddJsonFile("appsettings.json", optional: true);
-                })
-                .ConfigureServices((hostContext, services) => {
-                    services.AddOptions();
-                    services.AddSingleton<IFilterService, FilterService>();
-                })
-                .Build()
-                .Services;
         }
 
         public class FilterServiceTestData : IEnumerable<object[]>
