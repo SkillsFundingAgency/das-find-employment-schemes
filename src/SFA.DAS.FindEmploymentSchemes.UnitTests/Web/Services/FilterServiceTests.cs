@@ -3,9 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Xunit;
-using SFA.DAS.FindEmploymentSchemes.Web;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
@@ -16,7 +17,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
     public class FilterServiceTests
     {
-        private readonly IServiceProvider _services = Program.CreateHostBuilder(new string[] { }).Build().Services;
+        private readonly IServiceProvider _services = GetServices();
         private IFilterService _service;
 
         [Theory]
@@ -30,13 +31,52 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             Assert.True(expected.SetEquals(applied));
         }
 
+        public static IServiceProvider GetServices()
+        {
+            return new HostBuilder()
+                .ConfigureAppConfiguration((hostingContext, config) => {
+                    config.AddJsonFile("appsettings.json", optional: true);
+                })
+                .ConfigureServices((hostContext, services) => {
+                    services.AddOptions();
+                    services.AddSingleton<IFilterService, FilterService>();
+                })
+                .Build()
+                .Services;
+        }
+
         public class FilterServiceTestData : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()
             {
-                yield return new object[] { new Scheme[] { }, new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { } ) };
-                yield return new object[] { new Scheme[] { }, new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { }) };
-                yield return new object[] { new Scheme[] { }, new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { }) };
+                string fourToTwelveMonths = "scheme-length--4-months-to-12-months";
+                string yearOrMore = "scheme-length--a-year-or-more";
+                string unpaid = "pay--unpaid";
+
+                yield return new object[] {
+                    SchemesContent.Schemes,
+                    new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { })
+                };
+                yield return new object[] {
+                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths)),
+                    new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths }, new string[] { })
+                };
+                yield return new object[] {
+                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore)),
+                    new SchemeFilterViewModel(new string[] { }, new string[] { yearOrMore }, new string[] { } )
+                };
+                yield return new object[] {
+                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(unpaid)),
+                    new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { unpaid })
+                };
+                yield return new object[] {
+                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore) && s.FilterAspects.Contains(unpaid)),
+                    new SchemeFilterViewModel(new string[] { }, new string[] { yearOrMore }, new string[] { unpaid })
+                };
+                yield return new object[] {
+                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
+                    new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths, yearOrMore }, new string[] { })
+                };
             }
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
