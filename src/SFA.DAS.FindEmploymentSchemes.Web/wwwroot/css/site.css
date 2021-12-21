@@ -1,4 +1,56 @@
 
+.app-header {
+    background-color: #23145f;
+}
+
+.app-header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*todo:    flex-wrap: wrap;*/
+    margin-bottom: -10px;
+    padding-top: 10px;
+    border-bottom: 10px solid #f4d80d;
+}
+
+.app-header-hm-government-logo {
+    margin-right: 10px;
+}
+
+@media (min-width: 40.0625em) {
+    .app-header__link--service-name {
+        font-size: 24px;
+        font-size: 1.5rem;
+        line-height: 1.25;
+    }
+}
+
+.app-header__link--service-name {
+    display: inline-block;
+/*    margin-bottom: 10px;*/
+    margin-right: 10px;
+    font-family: "GDS Transport",arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 700;
+    font-size: 18px;
+    font-size: 1.125rem;
+    line-height: 1.11111;
+}
+
+/*.app-header__content {
+    width: 33%;
+}
+
+.app-plan-for-jobs-logo-container {
+    width: 33%;
+}
+*/
+.app-plan-for-jobs-logo {
+    width: 100px;
+    margin: 10px 0;
+}
+
 .app-logo-fallback-image {
     width: 194px;
     height: 34px;
