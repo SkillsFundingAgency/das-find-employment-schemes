@@ -23,6 +23,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         public void ApplyFilters_Result(IEnumerable<Scheme> expectedSchemes, SchemeFilterViewModel filters)
         {
             _service = _services.GetRequiredService<IFilterService>();
+            Assert.NotNull(_service);
             
             HashSet<Scheme> expected = new HashSet<Scheme>(expectedSchemes);
             HashSet<Scheme> applied = new HashSet<Scheme>(_service.ApplyFilter(filters).Schemes);
