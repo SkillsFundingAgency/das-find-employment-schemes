@@ -7,7 +7,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /*todo:    flex-wrap: wrap;*/
+    /*tpdp: https://mastery.games/post/flex-wrap/*/
+    flex-wrap: wrap;
     margin-bottom: -10px;
     padding-top: 10px;
     border-bottom: 10px solid #f4d80d;
@@ -27,7 +28,7 @@
 
 .app-header__link--service-name {
     display: inline-block;
-/*    margin-bottom: 10px;*/
+    /*    margin-bottom: 10px;*/
     margin-right: 10px;
     font-family: "GDS Transport",arial,sans-serif;
     -webkit-font-smoothing: antialiased;
