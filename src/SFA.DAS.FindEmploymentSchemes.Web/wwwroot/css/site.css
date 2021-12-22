@@ -59,6 +59,12 @@
     vertical-align: bottom;
 }
 
+.app-pfj-logo-fallback-image {
+    width: 100px;
+    height: 51px;
+    margin: 10px 0;
+}
+
 .app-show-hide {
     display: none;
 }
