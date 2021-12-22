@@ -7,7 +7,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /*tpdp: https://mastery.games/post/flex-wrap/*/
     flex-wrap: wrap;
     margin-bottom: -10px;
     padding-top: 10px;
@@ -16,6 +15,7 @@
 
 .app-header-hm-government-logo {
     margin-right: 10px;
+    flex: 0 0 auto;
 }
 
 @media (min-width: 40.0625em) {
@@ -28,7 +28,6 @@
 
 .app-header__link--service-name {
     display: inline-block;
-    /*    margin-bottom: 10px;*/
     margin-right: 10px;
     font-family: "GDS Transport",arial,sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -37,11 +36,25 @@
     font-size: 18px;
     font-size: 1.125rem;
     line-height: 1.11111;
+    flex: 1 1 auto;
+    flex-basis: min-content;
+    max-width: 35%;
+    margin: 10px 10px 10px 0;
 }
+
+/*todo: rearrange order when header wraps, so that the plan for jobs keeps on the rhs
+    
+    @media (max-width: 40.0600em) {
+    .app-header__link--service-name {
+        order: 10;
+        margin-bottom: 10px;
+    }
+}*/
 
 .app-plan-for-jobs-logo {
     width: 100px;
     margin: 10px 0;
+    flex: 0 0 auto;
 }
 
 .app-logo-fallback-image {
