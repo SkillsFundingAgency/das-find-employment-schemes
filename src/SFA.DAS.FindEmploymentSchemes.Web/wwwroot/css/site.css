@@ -16,6 +16,8 @@
 .app-header-hm-government-logo {
     margin-right: 10px;
     flex: 0 0 auto;
+    height: 34px;
+    width: 194px;
 }
 
 @media (min-width: 40.0625em) {
@@ -39,20 +41,22 @@
     flex: 1 1 auto;
     flex-basis: min-content;
     max-width: 35%;
+    min-width: 100px;
     margin: 10px 10px 10px 0;
 }
 
-/*todo: rearrange order when header wraps, so that the plan for jobs keeps on the rhs
-    
-    @media (max-width: 40.0600em) {
+/*todo: rearrange order when header wraps, so that the plan for jobs keeps on the rhs*/
+
+/* 194+100+100+?*/
+@media (max-width: 460px) {
     .app-header__link--service-name {
         order: 10;
-        margin-bottom: 10px;
     }
-}*/
+}
 
 .app-plan-for-jobs-logo {
     width: 100px;
+    height: 51px;
     margin: 10px 0;
     flex: 0 0 auto;
 }
