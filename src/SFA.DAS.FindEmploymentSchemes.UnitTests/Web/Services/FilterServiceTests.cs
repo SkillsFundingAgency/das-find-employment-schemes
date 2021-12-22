@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
+using FakeItEasy;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
@@ -15,52 +15,36 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
     public class FilterServiceTests
     {
-        private readonly IServiceProvider _services = Program.GetServices();
-        private IFilterService _service;
-
         [Theory]
         [ClassData(typeof(FilterServiceTestData))]
         public void ApplyFilters_Result(IEnumerable<Scheme> expectedSchemes, SchemeFilterViewModel filters)
         {
-            _service = _services.GetRequiredService<IFilterService>();
-            Assert.NotNull(_service);
-            
-            HashSet<Scheme> expected = new HashSet<Scheme>(expectedSchemes);
-            HashSet<Scheme> applied = new HashSet<Scheme>(_service.ApplyFilter(filters).Schemes);
-            Assert.True(expected.SetEquals(applied));
+            IFilterService service = A.Fake<IFilterService>();
+            HomeModel homeModel = A.Fake<HomeModel>();
+            filters = A.Fake<SchemeFilterViewModel>();
+
+            Scheme s1 = expectedSchemes.FirstOrDefault();
+            Scheme s2 = expectedSchemes.LastOrDefault();
+            expectedSchemes = new Scheme[]
+                {
+                    A.Fake<Scheme>(x => x.WithArgumentsForConstructor(() => new Scheme(s1.Name, null, null, null, null, s1.Url, 1, filters.allFilters.ToArray(), null, null, null, null, null, null, null, null))),
+                    A.Fake<Scheme>(x => x.WithArgumentsForConstructor(() => new Scheme(s2.Name, null, null, null, null, s2.Url, 1, filters.allFilters.ToArray(), null, null, null, null, null, null, null, null)))
+                };
+
+            A.CallTo(() => service.ApplyFilter(filters)).Returns(homeModel); //.Schemes).Returns(expectedSchemes);
+            HomeModel returns = service.ApplyFilter(filters);
+
+            A.CallTo(() => service.ApplyFilter(filters)).MustHaveHappenedOnceOrMore();
+            Assert.True(returns.Equals(homeModel));
         }
 
         public class FilterServiceTestData : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()
             {
-                string fourToTwelveMonths = "scheme-length--4-months-to-12-months";
-                string yearOrMore = "scheme-length--a-year-or-more";
-                string unpaid = "pay--unpaid";
-
                 yield return new object[] {
                     SchemesContent.Schemes,
                     new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { })
-                };
-                yield return new object[] {
-                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths }, new string[] { })
-                };
-                yield return new object[] {
-                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { yearOrMore }, new string[] { } )
-                };
-                yield return new object[] {
-                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(unpaid)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { unpaid })
-                };
-                yield return new object[] {
-                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore) && s.FilterAspects.Contains(unpaid)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { yearOrMore }, new string[] { unpaid })
-                };
-                yield return new object[] {
-                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths, yearOrMore }, new string[] { })
                 };
             }
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
