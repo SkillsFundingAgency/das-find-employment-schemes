@@ -52,6 +52,10 @@
     .app-header__link--service-name {
         order: 10;
     }
+
+    .app-header__link--service-name {
+        max-width: 100%;
+    }
 }
 
 .app-plan-for-jobs-logo {
