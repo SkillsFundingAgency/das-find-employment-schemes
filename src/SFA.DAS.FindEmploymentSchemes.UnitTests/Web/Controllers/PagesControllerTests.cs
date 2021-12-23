@@ -1,11 +1,10 @@
 ﻿
-using System;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FakeItEasy;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
@@ -16,20 +15,14 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
     public class PagesControllerTests
     {
-        private readonly IServiceProvider _services = Program.GetServices();
-        private ILogger<PagesController> _logger;
-        private PagesController _controller = null;
-
         [Theory]
         [ClassData(typeof(PagesControllerTestData))]
         public void PagesController_Page(Page expectedPage, string pageUrl)
         {
-            _logger = _services.GetRequiredService<ILogger<PagesController>>();
-            Assert.NotNull(_logger);
-            _controller = new PagesController(_logger);
-            Assert.NotNull(_controller);
+            ILogger<PagesController> logger = A.Fake<ILogger<PagesController>>();
+            PagesController controller = A.Fake<PagesController>(x => x.WithArgumentsForConstructor(() => new PagesController(logger)));
 
-            IActionResult result = _controller.Page(pageUrl);
+            IActionResult result = controller.Page(pageUrl);
             Assert.True(result is ViewResult);
             ViewResult vr = (ViewResult)result;
             Assert.True(!(vr.Model is null) && vr.Model is Page);

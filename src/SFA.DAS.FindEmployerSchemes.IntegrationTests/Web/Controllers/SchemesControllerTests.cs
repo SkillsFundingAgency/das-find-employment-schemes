@@ -137,17 +137,6 @@ namespace SFA.DAS.FindEmploymentSchemes.IntegrationTests.Web.Controllers
             foreach(Scheme S in SchemesContent.Schemes) {
                 yield return new object[] { new SchemeDetailsModel(S.Url, SchemesContent.Schemes), S.Url };
             }
-
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "apprenticeships"), "apprenticeships" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "t-levels-industry-placements"), "t-levels-industry-placements" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "sector-based-work-academy-programme-swap"), "sector-based-work-academy-programme-swap" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "skills-bootcamps"), "skills-bootcamps" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

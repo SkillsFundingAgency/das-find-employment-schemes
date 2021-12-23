@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FakeItEasy;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
@@ -18,22 +19,16 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
     public class SchemesControllerTests
     {
-        private readonly IServiceProvider _services = Program.GetServices();
-        private ILogger<SchemesController> _logger;
-        private IFilterService _service;
-        private SchemesController _controller = null;
-
         [Theory]
         [ClassData(typeof(SchemesControllerTestsHomeTestData))]
         public void SchemesController_Home(IEnumerable<Scheme> expectedSchemes, object dummy)
         {
-            _logger = _services.GetRequiredService<ILogger<SchemesController>>();
-            _service = _services.GetRequiredService<IFilterService>();
-            Assert.NotNull(_logger);
-            _controller = new SchemesController(_logger, _service);
-            Assert.NotNull(_controller);
+            ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
+            IFilterService service = A.Fake<IFilterService>();
+            SchemesController controller = A.Fake<SchemesController>(x => x.WithArgumentsForConstructor(() => new SchemesController(logger, service)));
+            Assert.NotNull(controller);
 
-            IActionResult result = _controller.Home();
+            IActionResult result = controller.Home();
             Assert.True(result is ViewResult);
             ViewResult vr = (ViewResult)result;
             Assert.True(!(vr.Model is null) && vr.Model is HomeModel);
@@ -48,14 +43,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         [ClassData(typeof(SchemesControllerTestsFilteredHomeTestData))]
         public void SchemesController_FilteredHome(IEnumerable<Scheme> expectedSchemes, SchemeFilterViewModel filters)
         {
-            _logger = _services.GetRequiredService<ILogger<SchemesController>>();
-            _service = _services.GetRequiredService<IFilterService>();
-            Assert.NotNull(_logger);
-            Assert.NotNull(_service);
-            _controller = new SchemesController(_logger, _service);
-            Assert.NotNull(_controller);
+            ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
+            IFilterService service = A.Fake<IFilterService>();
+            SchemesController controller = A.Fake<SchemesController>(x => x.WithArgumentsForConstructor(() => new SchemesController(logger, service)));
+            Assert.NotNull(controller);
 
-            IActionResult result = _controller.Home(filters);
+            IActionResult result = controller.Home(filters);
             Assert.True(result is ViewResult);
             ViewResult vr = (ViewResult)result;
             Assert.True(!(vr.Model is null) && vr.Model is HomeModel);
@@ -70,14 +63,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         [ClassData(typeof(SchemesControllerTestsDetailsTestData))]
         public void SchemesController_Details(SchemeDetailsModel expectedDetails, string schemeUrl)
         {
-            _logger = _services.GetRequiredService<ILogger<SchemesController>>();
-            _service = _services.GetRequiredService<IFilterService>();
-            Assert.NotNull(_logger);
-            Assert.NotNull(_service);
-            _controller = new SchemesController(_logger, _service);
-            Assert.NotNull(_controller);
+            ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
+            IFilterService service = A.Fake<IFilterService>();
+            SchemesController controller = A.Fake<SchemesController>(x => x.WithArgumentsForConstructor(() => new SchemesController(logger, service)));
+            Assert.NotNull(controller);
 
-            IActionResult result = _controller.Details(schemeUrl);
+            IActionResult result = controller.Details(schemeUrl);
             Assert.True(result is ViewResult);
             ViewResult vr = (ViewResult)result;
             Assert.True(!(vr.Model is null) && vr.Model is SchemeDetailsModel);
@@ -137,17 +128,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             foreach(Scheme S in SchemesContent.Schemes) {
                 yield return new object[] { new SchemeDetailsModel(S.Url, SchemesContent.Schemes), S.Url };
             }
-
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "apprenticeships"), "apprenticeships" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "t-levels-industry-placements"), "t-levels-industry-placements" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "sector-based-work-academy-programme-swap"), "sector-based-work-academy-programme-swap" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "skills-bootcamps"), "skills-bootcamps" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
-            //yield return new object[] { SchemesContent.Schemes.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
