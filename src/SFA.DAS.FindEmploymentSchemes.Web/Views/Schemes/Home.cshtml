@@ -58,6 +58,10 @@
             e.preventDefault();
         });
 
+        $("#filter-schemes").click(function() {
+            toggleSchemeShortDescriptionWidth();
+        });
+
         $("#schemes").removeClass("govuk-grid-column-two-thirds").addClass("govuk-grid-column-full");
 
         if (window.document.documentMode) {
@@ -67,5 +71,7 @@
         else {
             initFiltering();
         }
+
+        toggleSchemeShortDescriptionWidth();
     });
 </script>
