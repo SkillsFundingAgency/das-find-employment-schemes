@@ -181,8 +181,8 @@ function updateNumberOfSchemes() {
 
 function toggleSchemeShortDescriptionWidth() {
     if ($('#scheme-filter').hasClass('app-show-hide__section--show')) {
-        $(".filter-full-width").removeClass("govuk-grid-column-full").addClass("govuk-grid-column-two-thirds");
-    } else {
         $(".filter-full-width").removeClass("govuk-grid-column-two-thirds").addClass("govuk-grid-column-full");
+    } else {
+        $(".filter-full-width").removeClass("govuk-grid-column-full").addClass("govuk-grid-column-two-thirds");
     }
 }
