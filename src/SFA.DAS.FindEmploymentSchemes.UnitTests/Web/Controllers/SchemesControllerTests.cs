@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FakeItEasy;
@@ -12,7 +13,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
-using System.Collections.ObjectModel;
+
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
@@ -135,57 +136,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
                     SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
                     new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths, yearOrMore }, new string[] { })
                 };
-            //yield return new object[] {
-            //    SchemesContent.Schemes,
-            //    new FilterGroupModel[] {
-            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
-            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] { } ),
-            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { } )
-            //    }
-            //};
-            //yield return new object[] {
-            //    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths)),
-            //    new FilterGroupModel[] {
-            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
-            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] { new SchemeLengthFilter(fourToTwelveMonths, "fourToTwelveMonths", true) } ),
-            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { } )
-            //    }
-            //};
-            //yield return new object[] {
-            //    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore)),
-            //    new FilterGroupModel[] {
-            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
-            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] { new SchemeLengthFilter(yearOrMore, "yearOrMore", true) } ),
-            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { } )
-            //    }
-            //};
-            //yield return new object[] {
-            //    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(unpaid)),
-            //    new FilterGroupModel[] {
-            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
-            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] { } ),
-            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { new PayFilter(unpaid, "unpaid", true) } )
-            //    }
-            //};
-            //yield return new object[] {
-            //    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore) && s.FilterAspects.Contains(unpaid)),
-            //    new FilterGroupModel[] {
-            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
-            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] { new SchemeLengthFilter(yearOrMore, "yearOrMore", true) } ),
-            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { new PayFilter(unpaid, "unpaid", true) } )
-            //    }
-            //};
-            //yield return new object[] {
-            //    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
-            //    new FilterGroupModel[] {
-            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
-            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] {
-            //            new SchemeLengthFilter(fourToTwelveMonths, "fourToTwelveMonths", true),
-            //            new SchemeLengthFilter(yearOrMore, "yearOrMore", true)
-            //        }),
-            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { } )
-            //    }
-            //};
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
