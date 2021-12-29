@@ -4,7 +4,6 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using FakeItEasy;
 using Xunit;
@@ -13,7 +12,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
-
+using System.Collections.ObjectModel;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
@@ -25,7 +24,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
             IFilterService service = A.Fake<IFilterService>();
-            SchemesController controller = A.Fake<SchemesController>(x => x.WithArgumentsForConstructor(() => new SchemesController(logger, service)));
+            A.CallTo(service)
+             .Where(a => a.Method.Name.Equals("get_HomeModel"))
+             .WithReturnType<HomeModel>()
+             .ReturnsLazily(() => new HomeModel(expectedSchemes, null));
+
+            SchemesController controller = new SchemesController(logger, service);
             Assert.NotNull(controller);
 
             IActionResult result = controller.Home();
@@ -45,7 +49,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
             IFilterService service = A.Fake<IFilterService>();
-            SchemesController controller = A.Fake<SchemesController>(x => x.WithArgumentsForConstructor(() => new SchemesController(logger, service)));
+            HomeModel expectedHomeModel = A.Fake<HomeModel>(x=> x.WithArgumentsForConstructor(() => new HomeModel(expectedSchemes, null)));
+
+            A.CallTo(() => service.ApplyFilter(filters))
+             .Returns(expectedHomeModel);
+
+            SchemesController controller = new SchemesController(logger, service);
             Assert.NotNull(controller);
 
             IActionResult result = controller.Home(filters);
@@ -65,7 +74,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
             IFilterService service = A.Fake<IFilterService>();
-            SchemesController controller = A.Fake<SchemesController>(x => x.WithArgumentsForConstructor(() => new SchemesController(logger, service)));
+            Dictionary<string, SchemeDetailsModel> dictionary = new Dictionary<string, SchemeDetailsModel>();
+            dictionary.Add(schemeUrl, expectedDetails);
+
+            A.CallTo(service)
+             .Where(a => a.Method.Name.Equals("get_SchemeDetailsModels"))
+             .WithReturnType<IReadOnlyDictionary<string, SchemeDetailsModel>>()
+             .ReturnsLazily(() => new ReadOnlyDictionary<string, SchemeDetailsModel>(dictionary));
+
+            SchemesController controller = new SchemesController(logger, service);
             Assert.NotNull(controller);
 
             IActionResult result = controller.Details(schemeUrl);
@@ -118,6 +135,57 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
                     SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
                     new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths, yearOrMore }, new string[] { })
                 };
+            //yield return new object[] {
+            //    SchemesContent.Schemes,
+            //    new FilterGroupModel[] {
+            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
+            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] { } ),
+            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { } )
+            //    }
+            //};
+            //yield return new object[] {
+            //    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths)),
+            //    new FilterGroupModel[] {
+            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
+            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] { new SchemeLengthFilter(fourToTwelveMonths, "fourToTwelveMonths", true) } ),
+            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { } )
+            //    }
+            //};
+            //yield return new object[] {
+            //    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore)),
+            //    new FilterGroupModel[] {
+            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
+            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] { new SchemeLengthFilter(yearOrMore, "yearOrMore", true) } ),
+            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { } )
+            //    }
+            //};
+            //yield return new object[] {
+            //    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(unpaid)),
+            //    new FilterGroupModel[] {
+            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
+            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] { } ),
+            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { new PayFilter(unpaid, "unpaid", true) } )
+            //    }
+            //};
+            //yield return new object[] {
+            //    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore) && s.FilterAspects.Contains(unpaid)),
+            //    new FilterGroupModel[] {
+            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
+            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] { new SchemeLengthFilter(yearOrMore, "yearOrMore", true) } ),
+            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { new PayFilter(unpaid, "unpaid", true) } )
+            //    }
+            //};
+            //yield return new object[] {
+            //    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
+            //    new FilterGroupModel[] {
+            //        new FilterGroupModel("motivations", "mot-desc", new MotivationsFilter[] { } ),
+            //        new FilterGroupModel("length", "length-desc", new SchemeLengthFilter[] {
+            //            new SchemeLengthFilter(fourToTwelveMonths, "fourToTwelveMonths", true),
+            //            new SchemeLengthFilter(yearOrMore, "yearOrMore", true)
+            //        }),
+            //        new FilterGroupModel("pay", "pay-desc", new PayFilter[] { } )
+            //    }
+            //};
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
