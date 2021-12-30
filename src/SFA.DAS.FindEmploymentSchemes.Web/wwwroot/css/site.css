@@ -30,12 +30,8 @@
         display: flex;
         align-items: center;
     }
-
-    .app-header__service-name {
-        flex-grow: 1;
-        padding-right: 15px;
-        text-align: left;
-
+    .app-header__col {
+        justify-content: space-between;
     }
     .app-header__plan-for-jobs-logo {
         margin-top: 0;
