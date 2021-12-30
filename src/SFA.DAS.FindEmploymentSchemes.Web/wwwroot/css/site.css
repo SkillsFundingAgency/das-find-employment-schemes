@@ -18,6 +18,7 @@
     flex: 0 0 auto;
     height: 34px;
     width: 194px;
+    order: 10;
 }
 
 @media (min-width: 40.0625em) {
@@ -25,6 +26,15 @@
         font-size: 24px;
         font-size: 1.5rem;
         line-height: 1.25;
+    }
+    .app-plan-for-jobs-logo {
+        order: 30;
+    }
+}
+
+@media (max-width: 40.0625em) {
+    .app-plan-for-jobs-logo {
+        order: 15;
     }
 }
 
@@ -40,8 +50,9 @@
     line-height: 1.11111;
     flex: 1 1 auto;
     flex-basis: min-content;
+    order: 20;
     max-width: 35%;
-    min-width: 100px;
+    min-width: 264px;
     margin: 10px 10px 10px 0;
 }
 
