@@ -4,70 +4,38 @@
 }
 
 .app-header__container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: -10px;
-    padding-top: 10px;
+    padding: 10px 0;
     border-bottom: 10px solid #f4d80d;
+    margin-bottom: -10px;
 }
 
-.app-header-hm-government-logo {
-    margin-right: 10px;
-    flex: 0 0 auto;
-}
-
-@media (min-width: 40.0625em) {
-    .app-header__link--service-name {
-        font-size: 24px;
-        font-size: 1.5rem;
-        line-height: 1.25;
-    }
-}
-
-.app-header__link--service-name {
-    display: inline-block;
-    margin-right: 10px;
-    font-family: "GDS Transport",arial,sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+.app-header__service-name {
     font-weight: 700;
     font-size: 18px;
     font-size: 1.125rem;
     line-height: 1.11111;
-    flex: 1 1 auto;
-    flex-basis: min-content;
-    max-width: 35%;
-    margin: 10px 10px 10px 0;
+    display: inline-block;
+    margin: 5px 0;
 }
 
-/*todo: rearrange order when header wraps, so that the plan for jobs keeps on the rhs
-    
-    @media (max-width: 40.0600em) {
-    .app-header__link--service-name {
-        order: 10;
-        margin-bottom: 10px;
+.app-header__plan-for-jobs-logo {
+    float: right;
+    margin-top: -30px;
+    position: relative;
+}
+
+@media (min-width: 40.0625em) {
+    .app-header__row,
+    .app-header__col {
+        display: flex;
+        align-items: center;
     }
-}*/
-
-.app-plan-for-jobs-logo {
-    width: 100px;
-    margin: 10px 0;
-    flex: 0 0 auto;
-}
-
-.app-logo-fallback-image {
-    width: 194px;
-    height: 34px;
-    border: 0;
-    vertical-align: bottom;
-}
-
-.app-pfj-logo-fallback-image {
-    width: 100px;
-    height: 51px;
-    margin: 10px 0;
+    .app-header__col {
+        justify-content: space-between;
+    }
+    .app-header__plan-for-jobs-logo {
+        margin-top: 0;
+    }
 }
 
 .app-show-hide {
