@@ -25,7 +25,7 @@ namespace SFA.DAS.FindEmploymentSchemes.IntegrationTests.Web.Controllers
 
         [Theory]
         [ClassData(typeof(SchemesControllerTestsHomeTestData))]
-        public void SchemesController_Home(IEnumerable<Scheme> expectedSchemes, object dummy)
+        public void SchemesController_Home(IEnumerable<Scheme> expectedSchemes)
         {
             _logger = _services.GetRequiredService<ILogger<SchemesController>>();
             _service = _services.GetRequiredService<IFilterService>();
@@ -55,7 +55,7 @@ namespace SFA.DAS.FindEmploymentSchemes.IntegrationTests.Web.Controllers
             _controller = new SchemesController(_logger, _service);
             Assert.NotNull(_controller);
 
-            IActionResult result = _controller.Home(filters);
+            IActionResult result = _controller.Home(filters, "");
             Assert.True(result is ViewResult);
             ViewResult vr = (ViewResult)result;
             Assert.True(!(vr.Model is null) && vr.Model is HomeModel);
@@ -90,7 +90,7 @@ namespace SFA.DAS.FindEmploymentSchemes.IntegrationTests.Web.Controllers
     public class SchemesControllerTestsHomeTestData : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] { SchemesContent.Schemes, null };
+            yield return new object[] { SchemesContent.Schemes };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

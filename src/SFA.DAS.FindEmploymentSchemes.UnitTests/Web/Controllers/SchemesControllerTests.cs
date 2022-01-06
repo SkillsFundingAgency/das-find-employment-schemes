@@ -21,14 +21,14 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
     {
         [Theory]
         [ClassData(typeof(SchemesControllerTestsHomeTestData))]
-        public void SchemesController_Home(IEnumerable<Scheme> expectedSchemes, object dummy)
+        public void SchemesController_Home(IEnumerable<Scheme> expectedSchemes)
         {
             ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
             IFilterService service = A.Fake<IFilterService>();
             A.CallTo(service)
              .Where(a => a.Method.Name.Equals("get_HomeModel"))
              .WithReturnType<HomeModel>()
-             .ReturnsLazily(() => new HomeModel(expectedSchemes, null));
+             .ReturnsLazily(() => new HomeModel(null, expectedSchemes, null));
 
             SchemesController controller = new SchemesController(logger, service);
             Assert.NotNull(controller);
@@ -50,7 +50,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
             IFilterService service = A.Fake<IFilterService>();
-            HomeModel expectedHomeModel = A.Fake<HomeModel>(x=> x.WithArgumentsForConstructor(() => new HomeModel(expectedSchemes, null)));
+            HomeModel expectedHomeModel = A.Fake<HomeModel>(x=> x.WithArgumentsForConstructor(() => new HomeModel(null, expectedSchemes, null, false)));
 
             A.CallTo(() => service.ApplyFilter(filters))
              .Returns(expectedHomeModel);
@@ -58,7 +58,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             SchemesController controller = new SchemesController(logger, service);
             Assert.NotNull(controller);
 
-            IActionResult result = controller.Home(filters);
+            IActionResult result = controller.Home(filters, "");
             Assert.True(result is ViewResult);
             ViewResult vr = (ViewResult)result;
             Assert.True(!(vr.Model is null) && vr.Model is HomeModel);
@@ -99,7 +99,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
     public class SchemesControllerTestsHomeTestData : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] { SchemesContent.Schemes, null };
+            yield return new object[] { SchemesContent.Schemes };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
