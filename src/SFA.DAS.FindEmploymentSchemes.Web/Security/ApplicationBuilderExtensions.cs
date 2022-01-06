@@ -98,7 +98,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             connectSrc.From(new [] { "https://localhost:*", "ws://localhost:*", "wss://localhost:*"});
                         }
                     })
-                    .AddCustomHeader("X-Permitted-Cross-Domain-Policies", "none"));
+                    .AddCustomHeader("X-Permitted-Cross-Domain-Policies", "none")
+                    // this is called in AddDefaultSecurityHeaders(), but without this, we get AddXssProtectionDisabled() instead
+                    .AddXssProtectionBlock());
 #pragma warning restore S1075
 
             return app;

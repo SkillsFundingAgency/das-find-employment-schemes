@@ -1,3 +1,43 @@
+
+.app-header {
+    background-color: #23145f;
+}
+
+.app-header__container {
+    padding: 10px 0;
+    border-bottom: 10px solid #f4d80d;
+    margin-bottom: -10px;
+}
+
+.app-header__service-name {
+    font-weight: 700;
+    font-size: 18px;
+    font-size: 1.125rem;
+    line-height: 1.11111;
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.app-header__plan-for-jobs-logo {
+    float: right;
+    margin-top: -30px;
+    position: relative;
+}
+
+@media (min-width: 40.0625em) {
+    .app-header__row,
+    .app-header__col {
+        display: flex;
+        align-items: center;
+    }
+    .app-header__col {
+        justify-content: space-between;
+    }
+    .app-header__plan-for-jobs-logo {
+        margin-top: 0;
+    }
+}
+
 .app-show-hide {
     display: none;
 }
@@ -24,6 +64,30 @@
     }
 }
 
+/*todo: consistent naming of these*/
+
+@media (max-width: 40.0600em) {
+    body:not(.js-enabled) .app-hide-on-mobile-no-js {
+        display: none;
+    }
+}
+
+@media (min-width: 40.0625em) {
+    body.js-enabled .app-js-desktop-hide {
+        display: none;
+    }
+}
+
+body.js-enabled .app-show-on-mobile-no-js {
+    display: none;
+}
+
+@media (min-width: 40.0625em) {
+    .app-show-on-mobile-no-js {
+        display: none;
+    }
+}
+
 .app-filter:focus {
     outline: 2px solid #fd0;
 }
@@ -44,6 +108,10 @@
     right: 0;
     top: 0;
     padding: inherit;
+    width: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 @media (min-width: 40.0625em) {
@@ -78,6 +146,11 @@
     margin-bottom: 0;
 }
 
+#mobile-no-js-filter-form {
+    width: 100%;
+    margin-top: 15px;
+}
+
 #scheme-home-filter-form-button-group {
     margin-top: 15px;
 }
@@ -93,7 +166,7 @@
 @media (min-width: 40.0625em) {
     .cx-cta-box {
         margin-bottom: 20px;
-        margin-top: 40px; 
+        margin-top: 40px;
         padding-bottom: 25px;
         padding: 20px;
     }

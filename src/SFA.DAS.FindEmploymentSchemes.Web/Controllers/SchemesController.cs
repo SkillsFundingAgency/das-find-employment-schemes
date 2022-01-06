@@ -25,8 +25,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         // if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled
         [HttpPost]
-        public IActionResult Home(SchemeFilterViewModel filters)
+        public IActionResult Home(SchemeFilterViewModel filters, [FromQuery] string? show)
         {
+            if (show is "filter")
+            {
+                // handle the case where we are on mobile, javascript is disabled, the user has performed a filter, then clicked 'filter schemes'.
+                // the user loses their current set of selected filters, but this is such an edge case they'll have to live with it,
+                // as a penance for disabling javascript on their phone's browser (it's not even possible on mobile chrome!)
+                // they can still perform another filter.
+                Response.Redirect("/");
+            }
+
             return View(_filterService.ApplyFilter(filters));
         }
 

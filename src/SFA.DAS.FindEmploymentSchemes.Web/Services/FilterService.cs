@@ -9,6 +9,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
     public class FilterService : IFilterService
     {
+        private const string HomepagePreambleUrl = "home";
         private const string MotivationName = "motivations";
         private const string MotivationDescription = "I want to";
         private const string SchemeLengthName = "schemeLength";
@@ -16,7 +17,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private const string PayName = "pay";
         private const string PayDescription = "I can offer";
 
-        private static readonly HomeModel StaticHomeModel = new HomeModel(SchemesContent.Schemes,
+        private static readonly HomeModel StaticHomeModel = new HomeModel(
+            SchemesContent.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
+            SchemesContent.Schemes,
 new[] {
                 new FilterGroupModel(MotivationName, MotivationDescription, SchemesContent.MotivationsFilters),
                 new FilterGroupModel(SchemeLengthName, SchemeLengthDescription, SchemesContent.SchemeLengthFilters),
@@ -82,8 +85,7 @@ new[] {
                     SchemesContent.PayFilters.Select(x => new PayFilter(x.Id, x.Description, filters.pay.Contains(x.Id))))
             };
 
-            return new HomeModel(filteredSchemes, filterGroupModels);
+            return new HomeModel(StaticHomeModel.Preamble, filteredSchemes, filterGroupModels, true);
         }
-
     }
 }
