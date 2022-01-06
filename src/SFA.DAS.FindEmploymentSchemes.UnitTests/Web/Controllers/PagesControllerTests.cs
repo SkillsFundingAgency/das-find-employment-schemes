@@ -24,7 +24,21 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             IActionResult result = controller.Page(pageUrl);
             Assert.True(result is ViewResult);
         }
+
+        [Theory]
+        [InlineData(null, "doesnt-exist")]
+        [InlineData(null, "this-one-neither")]
+        public void PagesController_PageNotFound(string expectedTitle, string pageUrl)
+        {
+            ILogger<PagesController> logger = A.Fake<ILogger<PagesController>>();
+            PagesController controller = new PagesController(logger);
+            Page expectedPage = A.Fake<Page>(x => x.WithArgumentsForConstructor(() => new Page(expectedTitle, pageUrl, null)));
+
+            IActionResult result = controller.Page(pageUrl);
+            Assert.True(result is NotFoundResult);
+        }
     }
+
     public class PagesControllerTestData : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
