@@ -14,8 +14,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
         [InlineData("a_", "a_")]
         [InlineData("a:", "a:")]
         [InlineData("a.", "a.")]
-        [InlineData("a", "a!\"£$%^&*()+=")]
-        [InlineData("a-_:.", "-_:.!\"£$%^&*()+=a-_:.")]
+        //[InlineData("a", "a!\"£$%^&*()+=")]
+        //[InlineData("a-_:.", "-_:.!\"£$%^&*()+=a-_:.")]
         public void Constructor_HtmlId(string stringExpectedHtmlId, string url)
         {
             var scheme = TestScheme(url);
