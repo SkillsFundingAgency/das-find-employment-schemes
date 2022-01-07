@@ -26,7 +26,9 @@
       *@
       <script asp-add-nonce>
           document.documentElement.classList.add("hidden");
-          window.addEventListener("load", function() { document.documentElement.classList.remove("hidden"); });
+          window.addEventListener("load", function() { document.documentElement.classList.remove("hidden");
+              updateNumberOfSchemes();
+          });
       </script>
       <!--[if !IE 8]><!-->
       <link href="/css/main.css" rel="stylesheet"/>
