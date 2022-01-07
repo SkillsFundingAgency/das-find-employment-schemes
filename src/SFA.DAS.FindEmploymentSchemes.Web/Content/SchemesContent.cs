@@ -52,7 +52,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
             ),
             new Scheme("T Levels: industry placements",
                 new HtmlString(
-                    @"<p class=""govuk-body"">Provide a 45 day (315 hours) industry placement for 16 to 19 year-olds, which gives you early access to the brightest entering the market and the opportunity to develop your workforce of the future.</p>"),
+                    @"<p class=""govuk-body"">Provide a 45-day (315 hours) industry placement for 16 to 19 year-olds, which gives you early access to the brightest young people entering the market and the opportunity to develop your workforce of the future.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
                 new HtmlString(
@@ -66,7 +66,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 },
                 null,
                 new HtmlString(
-                    @"<p class=""govuk-body"">T Levels are qualifications for students aged 16 to 19 who have finished GCSEs. They are a 2-year qualification and the equivalent to 3 A levels.</p><p class=""govuk-body"">They have been designed with employers, to give them the skilled workforce they need by helping young people develop their knowledge, attitude and practical skills to thrive in the workplace.</p>"),
+                    @"<p class=""govuk-body"">T Levels are qualifications for students aged 16 to 19 who have finished GCSEs. They are a 2-year qualification and the equivalent to studying 3 A levels.</p><p class=""govuk-body"">They have been designed with employers, to give them the skilled workforce they need by helping young people develop their knowledge, attitude and practical skills to thrive in the workplace.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay wages and cover expenses such as travel and living costs.</p>"),
                 new HtmlString(
@@ -83,7 +83,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
             ),
             new Scheme("Sector-based Work Academy Programme (SWAP)",
                 new HtmlString(
-                    @"<p class=""govuk-body"">Up to 6-week placement for benefit claimants aged 18+ designed to help you recruit a workforce with the right skills to sustain and grow your business.</p>"),
+                    @"<p class=""govuk-body"">Up to 6-week placement for benefit claimants for those aged 18 and over designed to help you recruit a workforce with the right skills to sustain and grow your business.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
                 new HtmlString(
@@ -112,7 +112,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
             ),
             new Scheme("Skills Bootcamps",
                 new HtmlString(
-                    @"<p class=""govuk-body"">Flexible work and training courses for over 19's to fast-track specialist skill development, for existing or new talent for your business.</p>"),
+                    @"<p class=""govuk-body"">Flexible work and training courses for aged 19 and over to fast-track specialist skill development, for existing or new talent for your business.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">No cost unless self-employed</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Helps future-proof your business in a rapidly changing labour market and recruit staff with the right training and skills from the outset</p>"),
@@ -158,14 +158,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     @"<p class=""govuk-body"">A traineeship is a work based skills development programme that includes a work placement.</p><p class=""govuk-body"">The full programme can last from 6 weeks up to 1 year, though most traineeships last for between 6-weeks and 12-weeks.</p><p class=""govuk-body"">Your business needs to be able to offer a safe, meaningful and high-quality work experience placement of at least 70 hours to 240 hours.</p><p class=""govuk-body"">You will work with a training provider to design what is included in the programme.</p><p class=""govuk-body"">Trainees can gain English, maths, digital and work-related qualifications which can lead them on to:</p><ul class =""govuk-list govuk-list--bullet""><li>an apprenticeship</li><li>work</li><li>further education</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay the wages and any payments for expenses such as travel and living costs.
-</p>"),
+    </p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe, meaningful and high-quality work experience placement</li><li>a minimum of 70 hours of work experience placement over the duration of the traineeship (if the trainee claims benefits, the placement cannot last longer than 240 hours)</li><li>constructive feedback and advice to the trainee</li><li>an interview for an apprenticeship or job in their organisation at the end of the traineeship if one is available</li><li>an exit interview at the end of the traineeship with meaningful written feedback if no job is available</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Traineeships have seen big increases as businesses recover from the pandemic and are expected to double to around 40,000 per year.</p><p class=""govuk-body"">
-Incentive payments are available for businesses offering traineeship work placements.
+    Incentive payments are available for businesses offering traineeship work placements.
 
-Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-employers"" title="""" class=""govuk-link"">how traineeships can benefit your business</a>.</p>"),
+    Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-employers"" title="""" class=""govuk-link"">how traineeships can benefit your business</a>.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-traineeships"" title="""" class=""govuk-link"">how businesses are using traineeships</a>.</p>"),
                 "Offer a traineeship",
@@ -212,7 +212,7 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
                 "care-leaver-covenant", 2000,
                 new string[]
                 {
-                    "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
+                    "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", 
                     "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more",
                     "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
@@ -233,7 +233,7 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
             ),
             new Scheme("Employing prisoners and prison leavers",
                 new HtmlString(
-                    @"<p class=""govuk-body"">Employ prisoners and prison leavers aged 18+ to help your business fill skills gaps and develop a loyal and talented workforce.</p>"),
+                    @"<p class=""govuk-body"">Employ prisoners and prison leavers aged 18 and over to help your business fill skills gaps and develop a loyal and talented workforce.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Helping prisoners and prison leavers find employment</p>"),
@@ -263,7 +263,7 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
             ),
             new Scheme("Higher Technical Qualifications (HTQs)",
                 new HtmlString(
-                    @"<p class=""govuk-body"">Level 4 or 5 qualifications, for over 18s, with no work placement but flexible for employees to study while working.</p>"),
+                    @"<p class=""govuk-body"">Level 4 or 5 qualifications, for those 18 and over, with no work placement but flexible for employees to study while working.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
                 new HtmlString(
@@ -300,7 +300,14 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
                     "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
                 new HtmlString(
-                    @"<p class=""govuk-body"">Career advice, free level 3 qualifications, and financial support for level 4 and 5 qualifications are all available through Government initiatives for your workforce.</p><h2 class=""govuk-heading-l"">Free qualifications for adults</h2><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free level 3 qualifications</a> are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.</p><p class=""govuk-body"">A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p class=""govuk-body"">Without needing to fund the training yourself, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>progress your current employees into higher skilled roles</li></ul><p class=""govuk-body"">The <a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free Courses for jobs</a> offer and the qualification list has been developed with industry, and will be regularly reviewed. </p><h3 class=""govuk-heading-m"">Benefits of free level 3 qualifications</h3><p class=""govuk-body"">Read the <a href=""https://learning.linkedin.com/content/dam/me/business/en-us/amp/learning-solutions/images/workplace-learning-report-2019/pdf/workplace-learning-report-2019.pdf"" title="""" class=""govuk-link"">LinkedIn Workplace Learning</a> report 2019 for information on developing a loyal and talented workforce.</p><div class=""cx-cta-box""><p class=""govuk-body"">Offer free qualifications to adults</p><p class=""govuk-body"">Upskill your workforce by helping your employees <a href=""https://www.gov.uk/government/publications/find-a-free-level-3-qualification"" title="""" class=""govuk-link"">find a free level 3 qualification</a>.</p></div><h2 class=""govuk-heading-l"">National Careers Service</h2><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>explore work and skills opportunities for your workforce including those offered as part of the skills recovery package.</li><li>carry out skills needs analysis for your business to understand gaps and find solutions.</li><li>find skilled people to fill current vacancies in your organisation.</li></ul><h3 class=""govuk-heading-m"">Employer costs</h3><p class=""govuk-body"">The National Careers Service is free to use.</p><h3 class=""govuk-heading-m"">Benefits of National Careers Service</h3><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>futureproof your business for the future labour market</li><li>help to develop your current workforce and supplement with talented individuals who have the skills you need</li><li>increase your resilience and productivity</li><li>take part in national virtual jobs fairs</li></ul><div class=""cx-cta-box""><p class=""govuk-body"">Use the National Careers Service to support your workforce</p><p class=""govuk-body"">Find out more about the <a href=""https://nationalcareers.service.gov.uk/"" title="""" class=""govuk-link"">National Careers Service and how to contact them</a>.</p></div><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">Career advice, free level 3 qualifications, and financial support for level 4 and 5 qualifications are all available through Government initiatives for your workforce.</p><h2 class=""govuk-heading-l"">Basic skills (English, maths and digital)</h2><p class=""govuk-body"">Free English, maths, digital courses and qualifications for adults. </p><h2 class=""govuk-heading-l"">
+                English and maths entitlement</h2><p class=""govuk-body"">In England, any adult who does not already have a level 2 qualification (GCSE grade 4 or equivalent) in English or maths is legally entitled to fully funded study up to level 2.&#160;</p><p class=""govuk-body"">Your workforce gets the potential to progress and your business increases its productivity.</p><h2 class=""govuk-heading-l"">
+
+                English for Speakers of Other Languages (ESOL)</h2><p class=""govuk-body"">Adults can be fully or part-funded to study for ESOL qualifications from entry-level to level 2.&#160;</p><p class=""govuk-body"">ESOL improves English language skills which provides a clear return for individuals and the economy.&#160;</p><p class=""govuk-body"">Full-funding is available through the Adult Education Budget (AEB) if individuals:</p><ul class =""govuk-list govuk-list--bullet""><li>are unemployed, looking for work and in receipt of certain benefits</li><li>in low-wage employment&#160;</li></ul><p class=""govuk-body"">Some AEB-eligible learners can have up to 50% of the course cost paid for through a Government contribution.</p><p class=""govuk-body"">In 9 Mayoral Combined Authorities (MCAs), AEB funding is allocated locally as well as in the Greater London Authority (GLA). Therefore in these areas, eligibility may differ.
+
+                </p><h2 class=""govuk-heading-l"">Digital entitlement</h2><p class=""govuk-body"">Any adult with low digital skills is entitled to fully funded essential digital skills qualifications, at entry-level and level 1. These equip adults with the full range of essential digital skills needed for life, work and further study.&#160;</p><p class=""govuk-body"">Funding for other digital skills qualifications may also be available but this will depend on local training providers.</p><h2 class=""govuk-heading-l"">
+                Benefits of free basic skills qualifications </h2><p class=""govuk-body"">
+                Without your business needing to fund the training, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>ensure your entire workforce is digitally literate&#160;</li><li>ensure your workforce has the English, maths and digital skills they need&#160;</li><li>progress your current employees into higher skilled roles</li><li>offer free qualifications to adults</li></ul><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Free qualifications for adults</h2><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free level 3 qualifications</a> are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.</p><p class=""govuk-body"">A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p class=""govuk-body"">Without needing to fund the training yourself, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>progress your current employees into higher skilled roles</li></ul><p class=""govuk-body"">The <a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free Courses for jobs</a> offer and the qualification list has been developed with industry, and will be regularly reviewed. </p><h3 class=""govuk-heading-m"">Benefits of free level 3 qualifications</h3><p class=""govuk-body"">Read the <a href=""https://learning.linkedin.com/content/dam/me/business/en-us/amp/learning-solutions/images/workplace-learning-report-2019/pdf/workplace-learning-report-2019.pdf"" title="""" class=""govuk-link"">LinkedIn Workplace Learning</a> report 2019 for information on developing a loyal and talented workforce.</p><div class=""cx-cta-box""><p class=""govuk-body"">Offer free qualifications to adults</p><p class=""govuk-body"">Upskill your workforce by helping your employees <a href=""https://www.gov.uk/government/publications/find-a-free-level-3-qualification"" title="""" class=""govuk-link"">find a free level 3 qualification</a>.</p></div><h2 class=""govuk-heading-l"">National Careers Service</h2><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>explore work and skills opportunities for your workforce including those offered as part of the skills recovery package.</li><li>carry out skills needs analysis for your business to understand gaps and find solutions.</li><li>find skilled people to fill current vacancies in your organisation.</li></ul><h3 class=""govuk-heading-m"">Employer costs</h3><p class=""govuk-body"">The National Careers Service is free to use.</p><h3 class=""govuk-heading-m"">Benefits of National Careers Service</h3><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>futureproof your business for the future labour market</li><li>help to develop your current workforce and supplement with talented individuals who have the skills you need</li><li>increase your resilience and productivity</li><li>take part in national virtual jobs fairs</li></ul><div class=""cx-cta-box""><p class=""govuk-body"">Use the National Careers Service to support your workforce</p><p class=""govuk-body"">Find out more about the <a href=""https://nationalcareers.service.gov.uk/"" title="""" class=""govuk-link"">National Careers Service and how to contact them</a>.</p></div><p class=""govuk-body""></p>"),
                 null,
                 null,
                 null,
@@ -362,51 +369,51 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
                 new HtmlString(
                     @"<h1 class=""govuk-heading-xl"">Accessibility statement</h1><p class=""govuk-body"">This accessibility statement applies to ""Find training and employment schemes for your business.""
 
-This website is run by the Education and Skills Funding Agency. We want as many people as possible to be able to use this website. For example, that means you should be able to:</p><ul class =""govuk-list govuk-list--bullet""><li>
-change colours, contrast levels and fonts
-</li><li>zoom in up to 300% without the text spilling off the screen
-</li><li>navigate most of the website using just a keyboard
-</li><li>navigate most of the website using speech recognition software
-</li><li>listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)</li></ul><p class=""govuk-body"">
-We've also made the website text as simple as possible to understand.
-<a href=""https://mcmw.abilitynet.org.uk/"" title="""" class=""govuk-link"">AbilityNet</a> has advice on making your device easier to use if you have a disability.
+    This website is run by the Education and Skills Funding Agency. We want as many people as possible to be able to use this website. For example, that means you should be able to:</p><ul class =""govuk-list govuk-list--bullet""><li>
+    change colours, contrast levels and fonts
+    </li><li>zoom in up to 300% without the text spilling off the screen
+    </li><li>navigate most of the website using just a keyboard
+    </li><li>navigate most of the website using speech recognition software
+    </li><li>listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)</li></ul><p class=""govuk-body"">
+    We've also made the website text as simple as possible to understand.
+    <a href=""https://mcmw.abilitynet.org.uk/"" title="""" class=""govuk-link"">AbilityNet</a> has advice on making your device easier to use if you have a disability.
 
-</p><h2 class=""govuk-heading-l"">
-Feedback and contact information</h2><h2 class=""govuk-heading-l""></h2><p class=""govuk-body"">
-If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille, email:
-<a href=""ESFA.GOVUK-ENQUIRIES@education.gov.uk "" title="""" class=""govuk-link"">ESFA.GOVUK-ENQUIRIES@education.gov.uk </a>
+    </p><h2 class=""govuk-heading-l"">
+    Feedback and contact information</h2><h2 class=""govuk-heading-l""></h2><p class=""govuk-body"">
+    If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille, email:
+    <a href=""ESFA.GOVUK-ENQUIRIES@education.gov.uk "" title="""" class=""govuk-link"">ESFA.GOVUK-ENQUIRIES@education.gov.uk </a>
 
-We'll consider your request and get back to you in 5 working days.
-</p><h2 class=""govuk-heading-l"">Reporting accessibility problems with this website</h2><p class=""govuk-body""></p><p class=""govuk-body"">
-We're always looking to improve the accessibility of this website.
+    We'll consider your request and get back to you in 5 working days.
+    </p><h2 class=""govuk-heading-l"">Reporting accessibility problems with this website</h2><p class=""govuk-body""></p><p class=""govuk-body"">
+    We're always looking to improve the accessibility of this website.
 
-If you find any problems not listed on this page or think we're not meeting accessibility requirements, contact: <a href=""ESFA.GOVUK-ENQUIRIES@education.gov.uk "" title="""" class=""govuk-link"">ESFA.GOVUK-ENQUIRIES@education.gov.uk</a>.
-Enforcement procedure
-</p><p class=""govuk-body"">The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations').
-</p><p class=""govuk-body"">If you're not happy with how we respond to your complaint, <a href=""https://www.equalityadvisoryservice.com/"" title="""" class=""govuk-link"">contact the Equality Advisory and Support Service (EASS)</a>.
+    If you find any problems not listed on this page or think we're not meeting accessibility requirements, contact: <a href=""ESFA.GOVUK-ENQUIRIES@education.gov.uk "" title="""" class=""govuk-link"">ESFA.GOVUK-ENQUIRIES@education.gov.uk</a>.
+    </p><h2 class=""govuk-heading-l"">Enforcement procedure
+    </h2><p class=""govuk-body"">The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations').
+    </p><p class=""govuk-body"">If you're not happy with how we respond to your complaint, <a href=""https://www.equalityadvisoryservice.com/"" title="""" class=""govuk-link"">contact the Equality Advisory and Support Service (EASS)</a>.
 
-</p><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Technical information about this website's accessibility</h2><p class=""govuk-body""></p><p class=""govuk-body"">Education and Skills Funding Agency is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
+    </p><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Technical information about this website's accessibility</h2><p class=""govuk-body""></p><p class=""govuk-body"">Education and Skills Funding Agency is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
 
-</p><h2 class=""govuk-heading-l"">Compliance status</h2><p class=""govuk-body"">
+    </p><h2 class=""govuk-heading-l"">Compliance status</h2><p class=""govuk-body"">
 
-This website is fully compliant with the <a href=""https://www.w3.org/TR/WCAG21/"" title="""" class=""govuk-link"">Web Content Accessibility Guidelines version 2.1 AA standard</a>.
+    This website is fully compliant with the <a href=""https://www.w3.org/TR/WCAG21/"" title="""" class=""govuk-link"">Web Content Accessibility Guidelines version 2.1 AA standard</a>.
 
-We know some of the content is above the reading age of 9. We will work to improve this.</p><p class=""govuk-body"">
+    We know some of the content is above the reading age of 9. We will work to improve this.</p><p class=""govuk-body"">
 
-</p><h2 class=""govuk-heading-l"">Preparation of this accessibility statement
-</h2><p class=""govuk-body"">This statement was prepared on 22 December 2021. </p><p class=""govuk-body"">
+    </p><h2 class=""govuk-heading-l"">Preparation of this accessibility statement
+    </h2><p class=""govuk-body"">This statement was prepared on 22 December 2021. </p><p class=""govuk-body"">
 
-This website was last tested on 13 December 2021. The test was carried out by the Education and Skills Funding Agency (ESFA) development team who built the website.</p><p class=""govuk-body""></p>")
-            ),
-            new Page("Cookies",
-                "cookies",
-                new HtmlString(
-                    @"<h1 class=""govuk-heading-xl"">Details about cookies</h1><p class=""govuk-body"">This service puts small files (known as &#39;cookies&#39;) onto your computer. These cookies are used to:</p><ul class =""govuk-list govuk-list--bullet""><li>help us understand how you use the website, so we can make improvements</li><li>remember what notifications you&#39;ve seen so you&#39;re not shown them more than once</li><li>temporarily store the selections you make</li></ul><p class=""govuk-body"">Find out more about&#160;<a href=""https://ico.org.uk/your-data-matters/online/cookies/"" title="""" class=""govuk-link"">how to manage cookies</a>.</p><h2 class=""govuk-heading-l"">Cookies that measure website usage</h2><p class=""govuk-body"">We use Google Analytics software (Universal Analytics) to collect anonymised information about how you use the service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements.</p><p class=""govuk-body"">We do not allow Google to use or share the data about how you use this service.</p><p class=""govuk-body"">Google Analytics stores information about:</p><ul class =""govuk-list govuk-list--bullet""><li>how you got to the service</li><li>the pages you visit on this service and how long you spend on them</li><li>what you click on while you&#39;re visiting the service</li></ul><p class=""govuk-body"">We may also set our own cookies to understand how people move through the service.</p><p class=""govuk-body""></p>")
-            ),
-            new Page("Privacy Notice",
-                "privacy-notice",
-                new HtmlString(
-                    @"<h1 class=""govuk-heading-xl"">Privacy notice</h1><h2 class=""govuk-heading-l"">Who we are</h2><p class=""govuk-body"">This website is provided by the Education and Skills Funding Agency
+    This website was last tested on 13 December 2021. The test was carried out by the Education and Skills Funding Agency (ESFA) development team who built the website.</p><p class=""govuk-body""></p>")
+                ),
+                new Page("Cookies",
+                    "cookies",
+                    new HtmlString(
+                        @"<h1 class=""govuk-heading-xl"">Details about cookies</h1><p class=""govuk-body"">This service puts small files (known as &#39;cookies&#39;) onto your computer. These cookies are used to:</p><ul class =""govuk-list govuk-list--bullet""><li>help us understand how you use the website, so we can make improvements</li><li>remember what notifications you&#39;ve seen so you&#39;re not shown them more than once</li><li>temporarily store the selections you make</li></ul><p class=""govuk-body"">Find out more about&#160;<a href=""https://ico.org.uk/your-data-matters/online/cookies/"" title="""" class=""govuk-link"">how to manage cookies</a>.</p><h2 class=""govuk-heading-l"">Cookies that measure website usage</h2><p class=""govuk-body"">We use Google Analytics software (Universal Analytics) to collect anonymised information about how you use the service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements.</p><p class=""govuk-body"">We do not allow Google to use or share the data about how you use this service.</p><p class=""govuk-body"">Google Analytics stores information about:</p><ul class =""govuk-list govuk-list--bullet""><li>how you got to the service</li><li>the pages you visit on this service and how long you spend on them</li><li>what you click on while you&#39;re visiting the service</li></ul><p class=""govuk-body"">We may also set our own cookies to understand how people move through the service.</p><p class=""govuk-body""></p>")
+                ),
+                new Page("Privacy Notice",
+                    "privacy-notice",
+                    new HtmlString(
+                        @"<h1 class=""govuk-heading-xl"">Privacy notice</h1><h2 class=""govuk-heading-l"">Who we are</h2><p class=""govuk-body"">This website is provided by the Education and Skills Funding Agency
 (ESFA) which is a part of the Department for Education (DfE). For the
 purpose of data protection legislation, the DfE is the data controller
 for the personal data processed as part of this website.</p><p class=""govuk-body"">We collect certain information or data about you when you use of this website if you
