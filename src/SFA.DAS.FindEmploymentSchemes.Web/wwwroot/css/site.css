@@ -1,4 +1,8 @@
 
+h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1, etc {*/
+    font-family: arial !important;
+}
+
 .app-header {
     background-color: #23145f;
 }
@@ -16,12 +20,15 @@
     line-height: 1.11111;
     display: inline-block;
     margin: 5px 0;
+    float: left;
+    width: calc(100% - 110px);
 }
 
 .app-header__plan-for-jobs-logo {
     float: right;
     margin-top: -30px;
     position: relative;
+    width: 100px;
 }
 
 @media (min-width: 40.0625em) {

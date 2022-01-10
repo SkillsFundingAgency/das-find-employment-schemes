@@ -178,3 +178,11 @@ function setHashParams(hashParams, updateResults) {
 function updateNumberOfSchemes() {
     $(numberOfSchemesSelector).html($('[data-scheme]:visible').length);
 }
+
+function toggleSchemeShortDescriptionWidth() {
+    if ($('#scheme-filter').hasClass('app-show-hide__section--show')) {
+        $(".filter-full-width").removeClass("govuk-grid-column-two-thirds").addClass("govuk-grid-column-full");
+    } else {
+        $(".filter-full-width").removeClass("govuk-grid-column-full").addClass("govuk-grid-column-two-thirds");
+    }
+}

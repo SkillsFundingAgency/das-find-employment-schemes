@@ -19,6 +19,14 @@
       <link rel="apple-touch-icon" sizes="167x167" href="/assets/images/govuk-apple-touch-icon-167x167.png"/>
       <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/govuk-apple-touch-icon-152x152.png"/>
       <link rel="apple-touch-icon" href="/assets/images/govuk-apple-touch-icon.png"/>
+      <style asp-add-nonce>.hidden {display:none;}</style>
+      @* waiting until load, delays rendering more than document.addEventListener("DOMContentLoaded"
+          but stops the cookie banner from flashing too
+      *@
+      <script asp-add-nonce>
+          document.documentElement.classList.add("hidden");
+          window.addEventListener("load", function() { document.documentElement.classList.remove("hidden"); });
+      </script>
       <!--[if !IE 8]><!-->
       <link href="/css/main.css" rel="stylesheet"/>
       <link href="/css/site.css" rel="stylesheet" no-cdn />
@@ -26,15 +34,14 @@
       <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
    </head>
    <body id="layout-body" class="govuk-template__body">
+       <script asp-add-nonce>
+           document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+       </script>
 
-      <!-- Google Tag Manager (noscript) -->
+       <!-- Google Tag Manager (noscript) -->
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLHRMLT"
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- End Google Tag Manager (noscript) -->
-
-      <script asp-add-nonce>
-          document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-      </script>
 
       <div id="layout-cookie-banner" class="govuk-cookie-banner das-js-show" data-nosnippet role="region" aria-label="Cookies on Find schemes for your business">
          <div id="cookie-message" class="govuk-cookie-banner__message govuk-width-container">
@@ -63,7 +70,7 @@
               <div id="cookie-accept-column" class="govuk-grid-column-two-thirds">
 
                 <div id="cookie-accept-banner" class="govuk-cookie-banner__content">
-                  <p id="cookie-accept-para" class="govuk-body">You’ve accepted analytics cookies. You can <a id="cookie-accept-link" class="govuk-link" href="#">change your cookie settings</a> at any time.</p>
+                  <p id="cookie-accept-para" class="govuk-body">You’ve accepted analytics cookies.</p>
                 </div>
               </div>
             </div>
@@ -80,7 +87,7 @@
               <div id="cookie-reject-column" class="govuk-grid-column-two-thirds">
 
                 <div id="cookie-reject-banner" class="govuk-cookie-banner__content">
-                  <p id="cookie-reject-para" class="govuk-body">You’ve rejected analytics cookies. You can <a id="cookie-reject-link" class="govuk-link" href="#">change your cookie settings</a> at any time.</p>
+                  <p id="cookie-reject-para" class="govuk-body">You’ve rejected analytics cookies.</p>
                 </div>
               </div>
             </div>
