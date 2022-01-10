@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -5,10 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AspNetCore.SEOHelper;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.FindEmploymentSchemes.Web.Extensions;
+using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
 using SFA.DAS.FindEmploymentSchemes.Web.Security;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
+
 
 namespace SFA.DAS.FindEmploymentSchemes.Web
 {
@@ -92,6 +96,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                 }
             });
 
+            app.UseXMLSitemap(env.ContentRootPath);
             app.UseRouting();
             app.UseAuthorization();
 
@@ -125,6 +130,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     pattern: "schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "Details" });
             });
+
+            Sitemap.Generate(env, new System.Uri(configuration["Endpoints:BaseURL"]));
         }
     }
 }
