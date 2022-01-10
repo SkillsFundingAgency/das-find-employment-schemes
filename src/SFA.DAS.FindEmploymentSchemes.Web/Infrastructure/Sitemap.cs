@@ -11,31 +11,29 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Infrastructure
 {
     public static class Sitemap
     {
-        private static bool done = false;
-
         public static void Generate(IWebHostEnvironment env, Uri baseUri)
         {
-            if (!done)
+            List<SitemapNode> nodes = new List<SitemapNode>();
+
+            nodes.AddRange(SchemesContent.Schemes.Select(x => new SitemapNode() {
+                Priority = 1.0,
+                Frequency = SitemapFrequency.Weekly,
+                Url = new Uri(baseUri, string.Concat("schemes", x.Url.StartsWith("/") ? x.Url : $"/{x.Url}"))
+                            .AbsoluteUri
+            }));
+            nodes.AddRange(SchemesContent.Pages.Select(x => new SitemapNode()
             {
-                List<SitemapNode> nodes = new List<SitemapNode>();
+                Priority = 1.0,
+                Frequency = SitemapFrequency.Weekly,
+                Url = new Uri(baseUri, string.Concat("page", x.Url.StartsWith("/") ? x.Url : $"/{x.Url}"))
+                            .AbsoluteUri
+            }));
 
-                nodes.AddRange(SchemesContent.Schemes.Select(x => new SitemapNode() {
-                    LastModified = DateTime.UtcNow,
-                    Priority = 1.0,
-                    Frequency = SitemapFrequency.Weekly,
-                    Url = new Uri(baseUri, x.Url.StartsWith("/") ? x.Url : $"/{x.Url}").AbsoluteUri
-                }));
-                nodes.AddRange(SchemesContent.Pages.Select(x => new SitemapNode()
-                {
-                    LastModified = DateTime.UtcNow,
-                    Priority = 1.0,
-                    Frequency = SitemapFrequency.Weekly,
-                    Url = new Uri(baseUri, x.Url.StartsWith("/") ? x.Url : $"/{x.Url}").AbsoluteUri
-                }));
+            SitemapNode home = nodes.FirstOrDefault(x => x.Url.EndsWith("/home"));
+            if (home != null)
+                home.Url = home.Url[..^9];
 
-                new SitemapDocument().CreateSitemapXML(nodes, env.ContentRootPath);
-                done = true;
-            }
+            new SitemapDocument().CreateSitemapXML(nodes, env.ContentRootPath);
         }
     }
 }

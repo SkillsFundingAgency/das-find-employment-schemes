@@ -13,22 +13,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
     public class SchemesController : Controller
     {
         private readonly ILogger<SchemesController> _logger;
-        private readonly IWebHostEnvironment _environment;
         private readonly IFilterService _filterService;
 
         public SchemesController(ILogger<SchemesController> logger,
-                                 IWebHostEnvironment environment,
                                  IFilterService filterService)
         {
             _logger = logger;
-            _environment = environment;
             _filterService = filterService;
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Home()
         {
-            Sitemap.Generate(_environment, new System.Uri($"{Request.Scheme}://{Request.Host}"));
             return View(_filterService.HomeModel);
         }
 

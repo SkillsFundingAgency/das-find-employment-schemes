@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using AspNetCore.SEOHelper;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.FindEmploymentSchemes.Web.Extensions;
+using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
 using SFA.DAS.FindEmploymentSchemes.Web.Security;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 
@@ -129,6 +130,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     pattern: "schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "Details" });
             });
+
+            Sitemap.Generate(env, new System.Uri(configuration["Endpoints:BaseURL"]));
         }
     }
 }
