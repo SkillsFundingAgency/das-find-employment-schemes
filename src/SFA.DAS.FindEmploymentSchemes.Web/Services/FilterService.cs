@@ -27,7 +27,8 @@ new[] {
             });
         private static readonly ReadOnlyDictionary<string, SchemeDetailsModel> StaticSchemeDetailsModels = BuildSchemeDetailsModelsDictionary();
 
-        public HomeModel HomeModel => StaticHomeModel;
+        public HomeModel HomeModel { get; set; } = StaticHomeModel;
+
         public IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels => StaticSchemeDetailsModels;
 
         private static ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()

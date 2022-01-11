@@ -58,7 +58,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     assetPipeline.AddCssBundle("/css/site.css", "/css/site.css");
                 }
             });
-            services.AddScoped<IFilterService, FilterService>();
+            services.AddSingleton<IFilterService, FilterService>();
 
             services.AddHostedService<ContentUpdateService>();
         }

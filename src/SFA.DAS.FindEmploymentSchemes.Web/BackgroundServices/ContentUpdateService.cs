@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Runtime.Serialization;
 using Cronos;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Web.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
@@ -38,12 +40,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
     {
         private int _executionCount;
         private readonly ILogger<ContentUpdateService> _logger;
+        private readonly IFilterService _filterService;
         private Timer? _timer;
         private readonly CronExpression _cronExpression;
 
-        public ContentUpdateService(ILogger<ContentUpdateService> logger)
+        public ContentUpdateService(
+            ILogger<ContentUpdateService> logger,
+            IFilterService filterService)
         {
             _logger = logger;
+            _filterService = filterService;
             //todo: from config
             //todo: do we want to support changing config without an app service restart?
             _cronExpression = CronExpression.Parse("* * * * *");
@@ -80,6 +86,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 
             //todo: check timer null & throw ex?
             _timer!.Change(delay, Timeout.InfiniteTimeSpan);
+
+            _filterService.HomeModel = new HomeModel(null!, null!, null!);
+            // new ctor for homemodel that accepts pages and schemes?
+                //SchemesContent.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
+                //SchemesContent.Schemes,
+                //new[] {
+                //    new FilterGroupModel(MotivationName, MotivationDescription, SchemesContent.MotivationsFilters),
+                //    new FilterGroupModel(SchemeLengthName, SchemeLengthDescription, SchemesContent.SchemeLengthFilters),
+                //    new FilterGroupModel(PayName, PayDescription, SchemesContent.PayFilters)
+                //});
 
             Interlocked.Decrement(ref _executionCount);
         }
