@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using Cronos;
 
@@ -37,7 +36,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
     /// </summary>
     public class ContentUpdateService : IHostedService, IDisposable
     {
-        private int _executionCount = 0;
+        private int _executionCount;
         private readonly ILogger<ContentUpdateService> _logger;
         private Timer? _timer;
         private readonly CronExpression _cronExpression;
@@ -82,7 +81,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
             //todo: check timer null & throw ex?
             _timer!.Change(delay, Timeout.InfiniteTimeSpan);
 
-
+            Interlocked.Decrement(ref _executionCount);
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
