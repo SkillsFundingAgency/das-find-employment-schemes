@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.FindEmploymentSchem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.FindEmploymentSchemes.UnitTests", "SFA.DAS.FindEmploymentSchemes.UnitTests\SFA.DAS.FindEmploymentSchemes.UnitTests.csproj", "{73469777-579D-4D13-9A52-06A904D0AA6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.FindEmployerSchemes.IntegrationTests", "SFA.DAS.FindEmployerSchemes.IntegrationTests\SFA.DAS.FindEmployerSchemes.IntegrationTests.csproj", "{EF7F858F-D91E-43AF-A25E-586BBFAF96AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.FindEmployerSchemes.IntegrationTests", "SFA.DAS.FindEmployerSchemes.IntegrationTests\SFA.DAS.FindEmployerSchemes.IntegrationTests.csproj", "{EF7F858F-D91E-43AF-A25E-586BBFAF96AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B3BC46C3-F828-4A01-8C02-28DF3E6F28B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{73469777-579D-4D13-9A52-06A904D0AA6D} = {B3BC46C3-F828-4A01-8C02-28DF3E6F28B5}
+		{EF7F858F-D91E-43AF-A25E-586BBFAF96AC} = {B3BC46C3-F828-4A01-8C02-28DF3E6F28B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ADCFEDB9-9CDB-491E-9AD6-FDC4BB218294}
