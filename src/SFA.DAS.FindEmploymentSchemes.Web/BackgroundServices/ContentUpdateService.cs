@@ -1,13 +1,34 @@
 ﻿using Microsoft.Extensions.Hosting;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
 using Cronos;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
+    [Serializable]
+    public class ContentUpdateServiceException : Exception
+    {
+        public ContentUpdateServiceException()
+        {
+        }
+
+        protected ContentUpdateServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+
+        public ContentUpdateServiceException(string? message) : base(message)
+        {
+        }
+
+        public ContentUpdateServiceException(string? message, Exception? innerException) : base(message, innerException)
+        {
+        }
+    }
+
     /// <summary>
     /// Updates content on a schedule, given in a configurable cron expression.
     /// It uses a cron expression, as it's standard, well understood, supported by libraries and provides flexibility,
@@ -33,9 +54,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         {
             _logger.LogInformation("Content Update Service running.");
 
-            _timer = new Timer(UpdateContent, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            var delay = TimeToNextInvocation();
+
+            _timer = new Timer(UpdateContent, null, delay, Timeout.InfiniteTimeSpan);
 
             return Task.CompletedTask;
+        }
+
+        private TimeSpan TimeToNextInvocation()
+        {
+            var now = DateTime.UtcNow;
+            DateTime? next = _cronExpression.GetNextOccurrence(now);
+            if (next == null)
+                throw new ContentUpdateServiceException("Next invocation time is unreachable.");
+
+            return next.Value - now;
         }
 
         private void UpdateContent(object? state)
@@ -43,6 +76,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
             var count = Interlocked.Increment(ref _executionCount);
 
             _logger.LogInformation("Content Update Service is updating content. Count: {Count}", count);
+
+            var delay = TimeToNextInvocation();
+
+            //todo: check timer null & throw ex?
+            _timer!.Change(delay, Timeout.InfiniteTimeSpan);
+
+
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
