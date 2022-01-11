@@ -59,6 +59,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     assetPipeline.AddCssBundle("/css/site.css", "/css/site.css");
                 }
             });
+
+            services.GenerateSitemap(Configuration, _currentEnvironment);
             services.AddScoped<IFilterService, FilterService>();
         }
 
@@ -130,8 +132,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     pattern: "schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "Details" });
             });
-
-            Sitemap.Generate(env, new System.Uri(configuration["Endpoints:BaseURL"]));
         }
     }
 }
