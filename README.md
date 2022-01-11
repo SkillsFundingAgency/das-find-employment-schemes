@@ -110,6 +110,9 @@ Data:
   },
   "NLog": {
     "LogLevel": "Info"
+  },
+  "Endpoints": {
+    "BaseURL": "https://localhost:44318/"
   }
 }
 ```
