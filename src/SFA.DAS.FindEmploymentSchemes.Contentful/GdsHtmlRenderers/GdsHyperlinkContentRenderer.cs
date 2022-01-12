@@ -41,7 +41,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         /// </summary>
         /// <param name="content">The content to render.</param>
         /// <returns>The GDS compliant a tag as a string.</returns>
-        public string Render(IContent content)
+        public async Task<string> RenderAsync(IContent content)
         {
             var link = content as Hyperlink;
             var sb = new StringBuilder();
@@ -60,22 +60,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
             foreach (var subContent in link.Content)
             {
                 var renderer = _rendererCollection.GetRendererForContent(subContent);
-                sb.Append(renderer.Render(subContent));
+                sb.Append(await renderer.RenderAsync(subContent));
             }
 
             sb.Append("</a>");
 
             return sb.ToString();
-        }
-
-        /// <summary>
-        /// Renders the content asynchronously.
-        /// </summary>
-        /// <param name="content">The content to render.</param>
-        /// <returns>The rendered string.</returns>
-        public Task<string> RenderAsync(IContent content)
-        {
-            return Task.FromResult(Render(content));
         }
     }
 }
