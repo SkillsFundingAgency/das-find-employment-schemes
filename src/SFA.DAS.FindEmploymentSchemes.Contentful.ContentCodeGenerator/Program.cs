@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
-using SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.Model;
 using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {

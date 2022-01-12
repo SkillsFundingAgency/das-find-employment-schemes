@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 
-namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.Model
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model
 {
     [DebuggerDisplay("{Name}")]
-    public class SchemeLengthFilter : IFilter
+    public class PayFilter : IFilter
     {
         public string? Name { get; set; }
         public string? Description { get; set; }

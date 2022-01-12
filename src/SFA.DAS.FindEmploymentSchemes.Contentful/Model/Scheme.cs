@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Contentful.Core.Models;
 
-namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.Model
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model
 {
     [DebuggerDisplay("{Name}")]
     public class Scheme

@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.Model
+﻿namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model
 {
     public interface IFilter
     {

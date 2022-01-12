@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.Model
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model
 {
     [DebuggerDisplay("{Name}")]
     public class MotivationsFilter : IFilter
