@@ -8,7 +8,7 @@ using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
 using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
@@ -185,7 +185,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
         {
             return @"using System.Collections.Generic;
 using Microsoft.AspNetCore.Html;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Content
 {

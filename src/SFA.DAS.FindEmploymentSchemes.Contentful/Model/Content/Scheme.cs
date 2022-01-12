@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿using System;
 using System.Text.RegularExpressions;
-using System;
+using Microsoft.AspNetCore.Html;
 
-namespace SFA.DAS.FindEmploymentSchemes.Web.Models
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 {
-    //todo: won't end up living here
+    //todo: interface?
     //todo: revisit for c#9
     public class Scheme
     {

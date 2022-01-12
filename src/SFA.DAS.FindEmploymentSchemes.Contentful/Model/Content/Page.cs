@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Html;
 
-namespace SFA.DAS.FindEmploymentSchemes.Web.Models
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 {
+    //todo: interface?
     public class Page
     {
         public string Title { get; set; }

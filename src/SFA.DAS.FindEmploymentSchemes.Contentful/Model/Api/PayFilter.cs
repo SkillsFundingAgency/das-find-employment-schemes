@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 
-namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 {
     [DebuggerDisplay("{Name}")]
-    public class MotivationsFilter : IFilter
+    public class PayFilter : IFilter
     {
         public string? Name { get; set; }
         public string? Description { get; set; }

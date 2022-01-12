@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Html;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Content
 {

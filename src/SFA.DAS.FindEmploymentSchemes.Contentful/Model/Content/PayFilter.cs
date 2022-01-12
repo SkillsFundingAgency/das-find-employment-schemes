@@ -1,16 +1,16 @@
 ﻿using System.Diagnostics;
-using SFA.DAS.FindEmploymentSchemes.Web.Models.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 
-namespace SFA.DAS.FindEmploymentSchemes.Web.Models
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 {
     [DebuggerDisplay("{Id}")]
-    public class MotivationsFilter : IFilter
+    public class PayFilter : IFilter
     {
         public string Id { get; set; }
         public string Description { get; set; }
         public bool Selected { get; set; }
 
-        public MotivationsFilter(string id, string description, bool selected = false)
+        public PayFilter(string id, string description, bool selected = false)
         {
             Id = id;
             Description = description;
