@@ -15,5 +15,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             Url = url;
             Content = content;
         }
+
+        //public Page(Api.Page apiPage)
+        //{
+        //    //todo: can any of these come through as null?
+        //    Title = apiPage.Title!;
+        //    Url = apiPage.Url!;
+        //    Content = apiPage.Content;
+        //}
     }
 }

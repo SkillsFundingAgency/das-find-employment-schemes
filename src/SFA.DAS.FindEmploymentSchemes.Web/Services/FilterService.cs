@@ -19,6 +19,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private const string PayDescription = "I can offer";
 
         private static readonly HomeModel StaticHomeModel = new HomeModel(
+            //ignore below: check mandatory fields can't come through as null and we're fine
+            //todo: preamble content could be missing - check and throw?
+            //todo: how to handle missing preamble on auto-update
+            //options: on any missing mandatory content either
+            // * reject whole content update (probably the safest option) <-- can we do more than just log an error - post to slack channel?
+            // * fall back to generated content
             SchemesContent.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
             SchemesContent.Schemes,
 new[] {

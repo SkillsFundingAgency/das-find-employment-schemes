@@ -1,15 +1,13 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.IntegrationTests.Web.Services
 {

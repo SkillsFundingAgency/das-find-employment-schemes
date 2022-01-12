@@ -1,18 +1,17 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.IntegrationTests.Web.Controllers
 {
@@ -21,7 +20,7 @@ namespace SFA.DAS.FindEmploymentSchemes.IntegrationTests.Web.Controllers
         private readonly IServiceProvider _services = Program.GetServices();
         private ILogger<SchemesController> _logger;
         private IFilterService _service;
-        private SchemesController _controller = null;
+        private SchemesController _controller;
 
         [Theory]
         [ClassData(typeof(SchemesControllerTestsHomeTestData))]

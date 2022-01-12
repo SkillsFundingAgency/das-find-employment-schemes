@@ -1,13 +1,11 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FakeItEasy;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {

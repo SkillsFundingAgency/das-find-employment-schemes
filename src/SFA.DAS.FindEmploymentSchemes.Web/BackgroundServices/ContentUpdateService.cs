@@ -7,6 +7,8 @@ using System.Runtime.Serialization;
 using Cronos;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
+using Contentful.Core;
+using Contentful.Core.Search;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
@@ -30,6 +32,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         }
     }
 
+    //todo: config from storage table
+
     /// <summary>
     /// Updates content on a schedule, given in a configurable cron expression.
     /// It uses a cron expression, as it's standard, well understood, supported by libraries and provides flexibility,
@@ -40,15 +44,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
     {
         private int _executionCount;
         private readonly ILogger<ContentUpdateService> _logger;
+        private readonly IContentfulClient _contentfulClient;
         private readonly IFilterService _filterService;
         private Timer? _timer;
         private readonly CronExpression _cronExpression;
 
         public ContentUpdateService(
             ILogger<ContentUpdateService> logger,
+            //todo: create service to get content from contentful and inject that instead
+            IContentfulClient contentfulClient,
             IFilterService filterService)
         {
             _logger = logger;
+            _contentfulClient = contentfulClient;
             _filterService = filterService;
             //todo: from config
             //todo: do we want to support changing config without an app service restart?
@@ -119,5 +127,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         {
             _timer?.Dispose();
         }
+
+        //private async Task x()
+        //{
+        //    //todo: wrap calling into service and use in generator and here
+        //    var builder = QueryBuilder<Page>.New.ContentTypeIs("page");
+
+        //    var pages = await _contentfulClient.GetEntries<Page>(builder);
+        //}
     }
 }

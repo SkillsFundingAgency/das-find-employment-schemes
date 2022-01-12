@@ -1,16 +1,14 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.IntegrationTests.Web.Controllers
 {
@@ -18,7 +16,7 @@ namespace SFA.DAS.FindEmploymentSchemes.IntegrationTests.Web.Controllers
     {
         private readonly IServiceProvider _services = Program.GetServices();
         private ILogger<PagesController> _logger;
-        private PagesController _controller = null;
+        private PagesController _controller;
 
         [Theory]
         [ClassData(typeof(PagesControllerTestData))]
