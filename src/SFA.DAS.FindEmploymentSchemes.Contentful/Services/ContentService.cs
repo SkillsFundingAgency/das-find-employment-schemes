@@ -15,7 +15,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         Task<string> ToHtml(Document doc);
     }
 
+
     //todo: better way? use factory??
+    //https://www.contentful.com/developers/docs/net/tutorials/rich-text/
+    // except singleton??
+    // think have to do this, for IContentfulCLient to pick up our renderer
+    //https://www.contentful.com/developers/docs/net/tutorials/aspnet-core/s
+    //services.AddTransient((c) => {
+    //    var renderer = new HtmlRenderer();
+    //    renderer.AddRenderer(new CustomContentRenderer() { Order = 10 });
+    //    return renderer;
+    //});
     public class GdsHtmlRenderer : IGdsHtmlRenderer
     {
         private readonly HtmlRenderer _htmlRenderer;
