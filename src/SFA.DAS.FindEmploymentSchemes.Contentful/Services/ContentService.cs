@@ -9,50 +9,6 @@ using Microsoft.AspNetCore.Html;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
-    //public interface IGdsHtmlRenderer
-    //{
-    //    Task<string> ToHtml(Document doc);
-    //}
-
-
-    //todo: better way? use factory??
-    //https://www.contentful.com/developers/docs/net/tutorials/rich-text/
-    // except singleton??
-    // think have to do this, for IContentfulCLient to pick up our renderer
-    //https://www.contentful.com/developers/docs/net/tutorials/aspnet-core/s
-    //services.AddTransient((c) => {
-    //    var renderer = new HtmlRenderer();
-    //    renderer.AddRenderer(new CustomContentRenderer() { Order = 10 });
-    //    return renderer;
-    //});
-    //public class GdsHtmlRenderer : IGdsHtmlRenderer
-    //{
-    //    private readonly HtmlRenderer _htmlRenderer;
-
-    //    public GdsHtmlRenderer()
-    //    {
-    //        var htmlRendererOptions = new HtmlRendererOptions
-    //        {
-    //            ListItemOptions =
-    //            {
-    //                OmitParagraphTagsInsideListItems = true
-    //            }
-    //        };
-    //        _htmlRenderer = new HtmlRenderer(htmlRendererOptions);
-    //        _htmlRenderer.AddRenderer(new GdsCtaContentRenderer(_htmlRenderer.Renderers));
-    //        _htmlRenderer.AddRenderer(new GdsHeadingRenderer(_htmlRenderer.Renderers));
-    //        _htmlRenderer.AddRenderer(new GdsHorizontalRulerContentRenderer());
-    //        _htmlRenderer.AddRenderer(new GdsHyperlinkContentRenderer(_htmlRenderer.Renderers));
-    //        _htmlRenderer.AddRenderer(new GdsListContentRenderer(_htmlRenderer.Renderers));
-    //        _htmlRenderer.AddRenderer(new GdsParagraphRenderer(_htmlRenderer.Renderers));
-    //    }
-
-    //    public Task<string> ToHtml(Document doc)
-    //    {
-    //        return _htmlRenderer.ToHtml(doc);
-    //    }
-    //}
-
     public interface IContent
     {
         public IEnumerable<Page> Pages { get; set; }

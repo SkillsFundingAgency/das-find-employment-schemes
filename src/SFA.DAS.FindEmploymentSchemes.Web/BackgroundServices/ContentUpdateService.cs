@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using Cronos;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
@@ -51,7 +52,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 
         public ContentUpdateService(
             ILogger<ContentUpdateService> logger,
-            //todo: create service to get content from contentful and inject that instead
             IContentService contentService,
             IFilterService filterService)
         {
@@ -69,6 +69,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 
             var delay = TimeToNextInvocation();
 
+            //todo: want to update content straight away, then timer
             _timer = new Timer(UpdateContent, null, delay, Timeout.InfiniteTimeSpan);
 
             return Task.CompletedTask;
@@ -84,19 +85,27 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
             return next.Value - now;
         }
 
-        private void UpdateContent(object? state)
+        // event handler, so ok to use async void, as per sonar's/asyncfixer's warning descriptions (and also given the thumbs up by Stephen Clearly)
+        // we also catch and consume all exceptions
+#pragma warning disable S3168
+#pragma warning disable AsyncFixer03
+        private async void UpdateContent(object? state)
         {
-            var count = Interlocked.Increment(ref _executionCount);
+            try
+            {
+                var count = Interlocked.Increment(ref _executionCount);
 
-            _logger.LogInformation("Content Update Service is updating content. Count: {Count}", count);
+                _logger.LogInformation("Content Update Service is updating content. Count: {Count}", count);
 
-            var delay = TimeToNextInvocation();
+                var delay = TimeToNextInvocation();
 
-            //todo: check timer null & throw ex?
-            _timer!.Change(delay, Timeout.InfiniteTimeSpan);
+                //todo: check timer null & throw ex?
+                _timer!.Change(delay, Timeout.InfiniteTimeSpan);
 
-            _filterService.HomeModel = new HomeModel(null!, null!, null!);
-            // new ctor for homemodel that accepts pages and schemes?
+                var content = await _contentService.Get();
+
+                _filterService.HomeModel = new HomeModel(content.Pages.First(p => p.Url == "home").Content, null!, null!);
+                // new ctor for homemodel that accepts pages and schemes?
                 //SchemesContent.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
                 //SchemesContent.Schemes,
                 //new[] {
@@ -105,8 +114,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
                 //    new FilterGroupModel(PayName, PayDescription, SchemesContent.PayFilters)
                 //});
 
-            Interlocked.Decrement(ref _executionCount);
+                Interlocked.Decrement(ref _executionCount);
+            }
+            catch (Exception exception)
+            {
+                _logger.Log(LogLevel.Error, exception, "Update content failed!");
+            }
         }
+#pragma warning restore AsyncFixer03
+#pragma warning restore S3168
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
