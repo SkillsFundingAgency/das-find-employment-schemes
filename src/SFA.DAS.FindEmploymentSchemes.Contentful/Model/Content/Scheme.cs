@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Html;
 
@@ -24,12 +25,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public IHtmlContent? Offer { get; }
         // when we display the matching schemes on the filter page, we'll sort largest to smallest
         public int Size { get; }
-        public string[] FilterAspects { get; }
+        public IEnumerable<string> FilterAspects { get; }
         public string HtmlId { get; }
 
         public Scheme(string name, IHtmlContent shortDescription, IHtmlContent shortCost, IHtmlContent shortBenefits, IHtmlContent shortTime,
             string url, int size,
-            string[] filterAspects,
+            IEnumerable<string> filterAspects,
             IHtmlContent? detailsPageOverride = null,
             IHtmlContent? description = null, IHtmlContent? cost = null, IHtmlContent? responsibility = null, IHtmlContent? benefits = null,
             IHtmlContent? caseStudies = null, string? offerHeader = null, IHtmlContent? offer = null)
