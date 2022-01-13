@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
-using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
+using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
@@ -26,7 +27,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 "",
                 "082i50qdtar9");
 
-            var htmlRenderer = CreateHtmlRenderer();
+            var htmlRenderer = ContentService.CreateHtmlRenderer();
+            var contentService = new ContentService(client, htmlRenderer);
+
+            var content = await contentService.Get();
 
             Console.Write(Preamble());
 
@@ -36,25 +40,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             await GenerateFilterContent<PayFilter>(client, "payFilter", PayFilterPrefix);
             await GenerateFilterContent<SchemeLengthFilter>(client, "schemeLengthFilter", SchemeLengthFilterPrefix);
 
-            await GeneratePagesContent(client, htmlRenderer);
+            GeneratePagesContent(content.Pages);
 
             Console.WriteLine(Closing());
         }
 
-        private static async Task GeneratePagesContent(ContentfulClient client, HtmlRenderer htmlRenderer)
+        private static void GeneratePagesContent(IEnumerable<Model.Content.Page> pages)
         {
-            var builder = QueryBuilder<Page>.New.ContentTypeIs("page");
-
-            var pages = await client.GetEntries<Page>(builder);
-
             Console.WriteLine(@"        public static readonly IEnumerable<Page> Pages = new[]
         {");
 
-            foreach (Page page in pages)
+            foreach (var page in pages)
             {
                 Console.WriteLine($"new Page(\"{page.Title}\",");
                 Console.WriteLine($"\"{page.Url}\",");
-                Console.WriteLine($"{await AsHtmlString(page.Content, htmlRenderer)}");
+                Console.WriteLine(GenerateHtmlString(page.Content));
                 Console.WriteLine("),");
             }
 
@@ -65,7 +65,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
         {
             var builder = QueryBuilder<Scheme>.New.ContentTypeIs("scheme").Include(1);
 
-            var schemes = await client.GetEntries<Scheme>(builder);
+            var schemes = await client.GetEntries(builder);
 
             // ensure we order by size desc, so we don't have to sort at run time
             var schemesBiggestFirst = schemes.OrderByDescending(s => s.Size);
@@ -113,25 +113,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             }
 
             Console.WriteLine(@"        };");
-        }
-
-        private static HtmlRenderer CreateHtmlRenderer()
-        {
-            var htmlRendererOptions = new HtmlRendererOptions
-            {
-                ListItemOptions =
-                {
-                    OmitParagraphTagsInsideListItems = true
-                }
-            };
-            var htmlRenderer = new HtmlRenderer(htmlRendererOptions);
-            htmlRenderer.AddRenderer(new GdsCtaContentRenderer(htmlRenderer.Renderers));
-            htmlRenderer.AddRenderer(new GdsHeadingRenderer(htmlRenderer.Renderers));
-            htmlRenderer.AddRenderer(new GdsHorizontalRulerContentRenderer());
-            htmlRenderer.AddRenderer(new GdsHyperlinkContentRenderer(htmlRenderer.Renderers));
-            htmlRenderer.AddRenderer(new GdsListContentRenderer(htmlRenderer.Renderers));
-            htmlRenderer.AddRenderer(new GdsParagraphRenderer(htmlRenderer.Renderers));
-            return htmlRenderer;
         }
 
         private static string GenerateFilterIds(IEnumerable<IFilter>? filters, string filterPrefix)
@@ -199,8 +180,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
 }";
         }
 
-        //todo: empty strings as nulls?
+        private static string GenerateHtmlString(HtmlString? content)
+        {
+            if (content == null)
+                return "null";
 
+            return $"new HtmlString(@\"{content.Value}\")";
+        }
+
+        //todo: empty strings as nulls?
         private static async Task<string> AsHtmlString(Document? document, HtmlRenderer htmlRenderer)
         {
             if (document == null)

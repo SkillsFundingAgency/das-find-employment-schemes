@@ -6,6 +6,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Contentful.Core.Search;
 using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
+using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
@@ -46,7 +47,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         {
             var builder = QueryBuilder<Model.Api.Page>.New.ContentTypeIs("page");
 
-            var apiPages = await _contentfulClient.GetEntries<Model.Api.Page>(builder);
+            var apiPages = await _contentfulClient.GetEntries(builder);
 
             //todo: ctor to accept apipage??
             return await Task.WhenAll(apiPages.Select(ToContent));
@@ -78,6 +79,26 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             html = html.Replace("\r", "\r\n");
 
             return new HtmlString(html);
+        }
+
+        public static HtmlRenderer CreateHtmlRenderer()
+        {
+            var htmlRendererOptions = new HtmlRendererOptions
+            {
+                ListItemOptions =
+                {
+                    OmitParagraphTagsInsideListItems = true
+                }
+            };
+            var htmlRenderer = new HtmlRenderer(htmlRendererOptions);
+            htmlRenderer.AddRenderer(new GdsCtaContentRenderer(htmlRenderer.Renderers));
+            htmlRenderer.AddRenderer(new GdsHeadingRenderer(htmlRenderer.Renderers));
+            htmlRenderer.AddRenderer(new GdsHorizontalRulerContentRenderer());
+            htmlRenderer.AddRenderer(new GdsHyperlinkContentRenderer(htmlRenderer.Renderers));
+            htmlRenderer.AddRenderer(new GdsListContentRenderer(htmlRenderer.Renderers));
+            htmlRenderer.AddRenderer(new GdsParagraphRenderer(htmlRenderer.Renderers));
+
+            return htmlRenderer;
         }
     }
 }
