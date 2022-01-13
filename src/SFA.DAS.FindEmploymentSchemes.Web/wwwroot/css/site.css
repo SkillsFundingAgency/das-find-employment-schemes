@@ -31,6 +31,13 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
     width: 100px;
 }
 
+@media (max-width: 330px) {
+    svg.app-header__govuk-logo, svg.app-header__plan-for-jobs-logo {
+        max-width: 150px;
+        max-height: 33px;
+    }
+}
+
 @media (min-width: 40.0625em) {
     .app-header__row,
     .app-header__col {
