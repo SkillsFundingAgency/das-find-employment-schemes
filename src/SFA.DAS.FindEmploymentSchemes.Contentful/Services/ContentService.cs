@@ -6,14 +6,13 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Contentful.Core.Search;
 using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
-using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
-    public interface IGdsHtmlRenderer
-    {
-        Task<string> ToHtml(Document doc);
-    }
+    //public interface IGdsHtmlRenderer
+    //{
+    //    Task<string> ToHtml(Document doc);
+    //}
 
 
     //todo: better way? use factory??
@@ -26,33 +25,33 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
     //    renderer.AddRenderer(new CustomContentRenderer() { Order = 10 });
     //    return renderer;
     //});
-    public class GdsHtmlRenderer : IGdsHtmlRenderer
-    {
-        private readonly HtmlRenderer _htmlRenderer;
+    //public class GdsHtmlRenderer : IGdsHtmlRenderer
+    //{
+    //    private readonly HtmlRenderer _htmlRenderer;
 
-        public GdsHtmlRenderer()
-        {
-            var htmlRendererOptions = new HtmlRendererOptions
-            {
-                ListItemOptions =
-                {
-                    OmitParagraphTagsInsideListItems = true
-                }
-            };
-            _htmlRenderer = new HtmlRenderer(htmlRendererOptions);
-            _htmlRenderer.AddRenderer(new GdsCtaContentRenderer(_htmlRenderer.Renderers));
-            _htmlRenderer.AddRenderer(new GdsHeadingRenderer(_htmlRenderer.Renderers));
-            _htmlRenderer.AddRenderer(new GdsHorizontalRulerContentRenderer());
-            _htmlRenderer.AddRenderer(new GdsHyperlinkContentRenderer(_htmlRenderer.Renderers));
-            _htmlRenderer.AddRenderer(new GdsListContentRenderer(_htmlRenderer.Renderers));
-            _htmlRenderer.AddRenderer(new GdsParagraphRenderer(_htmlRenderer.Renderers));
-        }
+    //    public GdsHtmlRenderer()
+    //    {
+    //        var htmlRendererOptions = new HtmlRendererOptions
+    //        {
+    //            ListItemOptions =
+    //            {
+    //                OmitParagraphTagsInsideListItems = true
+    //            }
+    //        };
+    //        _htmlRenderer = new HtmlRenderer(htmlRendererOptions);
+    //        _htmlRenderer.AddRenderer(new GdsCtaContentRenderer(_htmlRenderer.Renderers));
+    //        _htmlRenderer.AddRenderer(new GdsHeadingRenderer(_htmlRenderer.Renderers));
+    //        _htmlRenderer.AddRenderer(new GdsHorizontalRulerContentRenderer());
+    //        _htmlRenderer.AddRenderer(new GdsHyperlinkContentRenderer(_htmlRenderer.Renderers));
+    //        _htmlRenderer.AddRenderer(new GdsListContentRenderer(_htmlRenderer.Renderers));
+    //        _htmlRenderer.AddRenderer(new GdsParagraphRenderer(_htmlRenderer.Renderers));
+    //    }
 
-        public Task<string> ToHtml(Document doc)
-        {
-            return _htmlRenderer.ToHtml(doc);
-        }
-    }
+    //    public Task<string> ToHtml(Document doc)
+    //    {
+    //        return _htmlRenderer.ToHtml(doc);
+    //    }
+    //}
 
     public interface IContent
     {
@@ -72,14 +71,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
     public class ContentService : IContentService
     {
         private readonly IContentfulClient _contentfulClient;
-        private readonly IGdsHtmlRenderer _gdsHtmlRenderer;
+        private readonly HtmlRenderer _htmlRenderer;
 
         public ContentService(
             IContentfulClient contentfulClient,
-            IGdsHtmlRenderer gdsHtmlRenderer)
+            HtmlRenderer htmlRenderer)
         {
             _contentfulClient = contentfulClient;
-            _gdsHtmlRenderer = gdsHtmlRenderer;
+            _htmlRenderer = htmlRenderer;
         }
 
         public async Task<IContent> Get()
@@ -112,7 +111,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             if (document == null)
                 return null;
 
-            string unescapedHtml = await _gdsHtmlRenderer.ToHtml(document);
+            string unescapedHtml = await _htmlRenderer.ToHtml(document);
 
             // replace left/right quotation marks with regular old quotation marks
             string html = unescapedHtml.Replace('“', '"').Replace('”', '"');

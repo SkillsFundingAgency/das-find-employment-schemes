@@ -6,14 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AspNetCore.SEOHelper;
-using Contentful.AspNetCore;
 using SFA.DAS.Configuration.AzureTableStorage;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Extensions;
 using SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices;
 using SFA.DAS.FindEmploymentSchemes.Web.Extensions;
 using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
 using SFA.DAS.FindEmploymentSchemes.Web.Security;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web
 {
@@ -62,16 +61,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             });
             services.AddSingleton<IFilterService, FilterService>();
 
-            //todo: hmm, this uses a singleton HttpClient, so will we hit dns issues that IHttpClientFactory fixes??
-            //todo: add extension to add support for ContentService
-            services.AddContentful(Configuration);
-            // from looking at the code, appears to be thread safe (although the invoke intervals should be far enough apart so that it doesn't have to be)
-            //services.AddSingleton<HtmlRenderer>();
-            //services.AddSingleton(sp => )
-            services.AddSingleton<IGdsHtmlRenderer, GdsHtmlRenderer>();
+            services.AddContentService(Configuration)
             //adds HtmlRenderer as a transient, do we wrap our HtmlRenderer and add that?
             // GdsHtmlRenderer : IGdsHtmlRenderer
-            services.AddHostedService<ContentUpdateService>();
+                .AddHostedService<ContentUpdateService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
