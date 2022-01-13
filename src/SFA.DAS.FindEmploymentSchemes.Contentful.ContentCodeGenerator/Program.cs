@@ -34,7 +34,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             Console.Write(Preamble());
 
-            await GenerateSchemesContent(client, htmlRenderer);
+            GenerateSchemesContent(content.Schemes);
 
             await GenerateFilterContent<MotivationsFilter>(client, "motivationsFilter", MotivationsFilterPrefix);
             await GenerateFilterContent<PayFilter>(client, "payFilter", PayFilterPrefix);
@@ -61,15 +61,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             Console.WriteLine(@"        };");
         }
 
-        private static async Task GenerateSchemesContent(ContentfulClient client, HtmlRenderer htmlRenderer)
+        private static void GenerateSchemesContent(IEnumerable<Model.Content.Scheme> schemes)
         {
-            var builder = QueryBuilder<Scheme>.New.ContentTypeIs("scheme").Include(1);
-
-            var schemes = await client.GetEntries(builder);
-
-            // ensure we order by size desc, so we don't have to sort at run time
-            var schemesBiggestFirst = schemes.OrderByDescending(s => s.Size);
-
             Console.WriteLine(@"        public static readonly IEnumerable<Scheme> Schemes = new[]
         {
             // _    _                                _
@@ -86,29 +79,27 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             ");
 
-            foreach (Scheme scheme in schemesBiggestFirst)
+            foreach (var scheme in schemes)
             {
                 Console.WriteLine($"new Scheme(\"{scheme.Name}\",");
-                Console.WriteLine($"{await AsHtmlString(scheme.ShortDescription, htmlRenderer)},");
-                Console.WriteLine($"{await AsHtmlString(scheme.ShortCost, htmlRenderer)},");
-                Console.WriteLine($"{await AsHtmlString(scheme.ShortBenefits, htmlRenderer)},");
-                Console.WriteLine($"{await AsHtmlString(scheme.ShortTime, htmlRenderer)},");
+                Console.WriteLine($"{GenerateHtmlString(scheme.ShortDescription)},");
+                Console.WriteLine($"{GenerateHtmlString(scheme.ShortCost)},");
+                Console.WriteLine($"{GenerateHtmlString(scheme.ShortBenefits)},");
+                Console.WriteLine($"{GenerateHtmlString(scheme.ShortTime)},");
                 Console.WriteLine($"\"{scheme.Url}\", {scheme.Size},");
 
                 Console.Write("new string[] {");
-                Console.Write(GenerateFilterIds(scheme.PayFilterAspects, PayFilterPrefix));
-                Console.Write(GenerateFilterIds(scheme.MotivationsFilterAspects, MotivationsFilterPrefix));
-                Console.Write(GenerateFilterIds(scheme.SchemeLengthFilterAspects, SchemeLengthFilterPrefix));
+                Console.Write(string.Join(", ", scheme.FilterAspects.Select(f => $"\"{f}\"")));
                 Console.WriteLine("},");
 
-                Console.WriteLine($"{await AsHtmlString(scheme.DetailsPageOverride, htmlRenderer)},");
-                Console.WriteLine($"{await AsHtmlString(scheme.Description, htmlRenderer)},");
-                Console.WriteLine($"{await AsHtmlString(scheme.Cost, htmlRenderer)},");
-                Console.WriteLine($"{await AsHtmlString(scheme.Responsibility, htmlRenderer)},");
-                Console.WriteLine($"{await AsHtmlString(scheme.Benefits, htmlRenderer)},");
-                Console.WriteLine($"{await AsHtmlString(scheme.CaseStudies, htmlRenderer)},");
+                Console.WriteLine($"{GenerateHtmlString(scheme.DetailsPageOverride)},");
+                Console.WriteLine($"{GenerateHtmlString(scheme.Description)},");
+                Console.WriteLine($"{GenerateHtmlString(scheme.Cost)},");
+                Console.WriteLine($"{GenerateHtmlString(scheme.Responsibility)},");
+                Console.WriteLine($"{GenerateHtmlString(scheme.Benefits)},");
+                Console.WriteLine($"{GenerateHtmlString(scheme.CaseStudies)},");
                 Console.WriteLine($"\"{scheme.OfferHeader}\",");
-                Console.WriteLine($"{await AsHtmlString(scheme.Offer, htmlRenderer)}");
+                Console.WriteLine($"{GenerateHtmlString(scheme.Offer)}");
                 Console.WriteLine("),");
             }
 
@@ -185,7 +176,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
             if (content == null)
                 return "null";
 
-            return $"new HtmlString(@\"{content.Value}\")";
+            return $"new HtmlString(@\"{content.Value.Replace("\"", "\"\"")}\")";
         }
 
         //todo: empty strings as nulls?

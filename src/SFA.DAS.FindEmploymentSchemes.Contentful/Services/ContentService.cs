@@ -7,24 +7,10 @@ using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
 using System;
+using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
-    public interface IContent
-    {
-        public IEnumerable<Model.Content.Page> Pages { get; set; }
-    }
-
-    public class Content : IContent
-    {
-        public Content(IEnumerable<Model.Content.Page> pages)
-        {
-            Pages = pages;
-        }
-
-        public IEnumerable<Model.Content.Page> Pages { get; set; }
-    }
-
     public class ContentService : IContentService
     {
         private readonly IContentfulClient _contentfulClient;
@@ -44,7 +30,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         public async Task<IContent> Get()
         {
-            return new Content(await GetPages());
+            return new Model.Content.Content(await GetPages(), await GetSchemes());
         }
 
         private async Task<IEnumerable<Model.Content.Page>> GetPages()
@@ -85,7 +71,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 (await ToHtmlString(apiScheme.ShortTime))!,
                 apiScheme.Url!,
                 apiScheme.Size,
-                apiScheme.PayFilterAspects?.Select(f => ToFilterId(f, PayFilterPrefix)) ?? Enumerable.Empty<string>()
+                (apiScheme.PayFilterAspects?.Select(f => ToFilterId(f, PayFilterPrefix)) ?? Enumerable.Empty<string>())
                     .Concat(apiScheme.MotivationsFilterAspects?.Select(f => ToFilterId(f, MotivationsFilterPrefix)) ?? Enumerable.Empty<string>())
                     .Concat(apiScheme.SchemeLengthFilterAspects?.Select(f => ToFilterId(f, SchemeLengthFilterPrefix)) ?? Enumerable.Empty<string>()),
                 await ToHtmlString(apiScheme.DetailsPageOverride),
@@ -93,7 +79,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 await ToHtmlString(apiScheme.Cost),
                 await ToHtmlString(apiScheme.Responsibility),
                 await ToHtmlString(apiScheme.Benefits),
-                await ToHtmlString(apiScheme.ShortBenefits),
+                await ToHtmlString(apiScheme.CaseStudies),
                 apiScheme.OfferHeader,
                 await ToHtmlString(apiScheme.Offer));
         }

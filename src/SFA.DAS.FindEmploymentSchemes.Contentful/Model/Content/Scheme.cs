@@ -10,30 +10,30 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
     public class Scheme
     {
         public string Name { get; }
-        public IHtmlContent ShortDescription { get; }
-        public IHtmlContent ShortCost { get; }
-        public IHtmlContent ShortBenefits { get; }
-        public IHtmlContent ShortTime { get; }
+        public HtmlString ShortDescription { get; }
+        public HtmlString ShortCost { get; }
+        public HtmlString ShortBenefits { get; }
+        public HtmlString ShortTime { get; }
         public string Url { get; }
-        public IHtmlContent? DetailsPageOverride { get; }
-        public IHtmlContent? Description { get; }
-        public IHtmlContent? Cost { get; }
-        public IHtmlContent? Responsibility { get; }
-        public IHtmlContent? Benefits { get; }
-        public IHtmlContent? CaseStudies { get; }
+        public HtmlString? DetailsPageOverride { get; }
+        public HtmlString? Description { get; }
+        public HtmlString? Cost { get; }
+        public HtmlString? Responsibility { get; }
+        public HtmlString? Benefits { get; }
+        public HtmlString? CaseStudies { get; }
         public string? OfferHeader { get; }
-        public IHtmlContent? Offer { get; }
+        public HtmlString? Offer { get; }
         // when we display the matching schemes on the filter page, we'll sort largest to smallest
         public int Size { get; }
         public IEnumerable<string> FilterAspects { get; }
         public string HtmlId { get; }
 
-        public Scheme(string name, IHtmlContent shortDescription, IHtmlContent shortCost, IHtmlContent shortBenefits, IHtmlContent shortTime,
+        public Scheme(string name, HtmlString shortDescription, HtmlString shortCost, HtmlString shortBenefits, HtmlString shortTime,
             string url, int size,
             IEnumerable<string> filterAspects,
-            IHtmlContent? detailsPageOverride = null,
-            IHtmlContent? description = null, IHtmlContent? cost = null, IHtmlContent? responsibility = null, IHtmlContent? benefits = null,
-            IHtmlContent? caseStudies = null, string? offerHeader = null, IHtmlContent? offer = null)
+            HtmlString? detailsPageOverride = null,
+            HtmlString? description = null, HtmlString? cost = null, HtmlString? responsibility = null, HtmlString? benefits = null,
+            HtmlString? caseStudies = null, string? offerHeader = null, HtmlString? offer = null)
         {
             Name = name;
             ShortDescription = shortDescription;
