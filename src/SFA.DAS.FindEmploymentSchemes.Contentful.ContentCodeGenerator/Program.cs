@@ -2,23 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Contentful.Core;
-using Contentful.Core.Models;
-using Contentful.Core.Search;
 using Microsoft.AspNetCore.Html;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
     internal class Program
     {
-        private const string PayFilterPrefix = "pay";
-        private const string MotivationsFilterPrefix = "motivations";
-        private const string SchemeLengthFilterPrefix = "scheme-length";
-
         static async Task Main(string[] args)
         {
             var httpClient = new HttpClient();
@@ -36,9 +28,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             GenerateSchemesContent(content.Schemes);
 
-            await GenerateFilterContent<MotivationsFilter>(client, "motivationsFilter", MotivationsFilterPrefix);
-            await GenerateFilterContent<PayFilter>(client, "payFilter", PayFilterPrefix);
-            await GenerateFilterContent<SchemeLengthFilter>(client, "schemeLengthFilter", SchemeLengthFilterPrefix);
+            GenerateFilterContent<Model.Content.MotivationsFilter>(content.MotivationsFilters);
+            GenerateFilterContent<Model.Content.PayFilter>(content.PayFilters);
+            GenerateFilterContent<Model.Content.SchemeLengthFilter>(content.SchemeLengthFilters);
 
             GeneratePagesContent(content.Pages);
 
@@ -106,51 +98,23 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             Console.WriteLine(@"        };");
         }
 
-        private static string GenerateFilterIds(IEnumerable<IFilter>? filters, string filterPrefix)
+        private static void GenerateFilterContent<T>(IEnumerable<T> filters)
+            where T : Model.Content.Interfaces.IFilter
         {
-            if (filters == null)
-                return "";
-
-            var filterIds = new StringBuilder();
-            foreach (var payFilter in filters)
-            {
-                filterIds.Append($"\"{filterPrefix}--{Slugify(payFilter.Name)}\", ");
-            }
-
-            return filterIds.ToString();
-        }
-
-        private static async Task GenerateFilterContent<T>(ContentfulClient client, string filterContentfulTypeName, string filterPrefix)
-        where T : IFilter
-        {
-            var builder = QueryBuilder<T>.New.ContentTypeIs(filterContentfulTypeName);
-
-            var filters = await client.GetEntries<T>(builder);
-
-            var orderedFilters = filters.OrderBy(f => f.Order);
-
             string filterTypeName = typeof(T).Name;
 
             Console.WriteLine(@$"        public static readonly IEnumerable<{filterTypeName}> {filterTypeName}s = new {filterTypeName}[]
             {{
                 ");
 
-            foreach (T filter in orderedFilters)
+            foreach (T filter in filters)
             {
-                Console.WriteLine($"new {typeof(T).Name}(\"{filterPrefix}--{Slugify(filter.Name)}\",");
+                Console.WriteLine($"new {filterTypeName}(\"{filter.Id}\",");
                 Console.WriteLine($"\"{filter.Description}\"");
                 Console.WriteLine("),");
             }
 
             Console.WriteLine("        };");
-        }
-
-        private static string Slugify(string? name)
-        {
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
-
-            return name.ToLower().Replace(' ', '-');
         }
 
         private static string Preamble()
@@ -177,24 +141,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 return "null";
 
             return $"new HtmlString(@\"{content.Value.Replace("\"", "\"\"")}\")";
-        }
-
-        //todo: empty strings as nulls?
-        private static async Task<string> AsHtmlString(Document? document, HtmlRenderer htmlRenderer)
-        {
-            if (document == null)
-                return "null";
-
-            string unescapedHtml = await htmlRenderer.ToHtml(document);
-            string html = unescapedHtml.Replace("\"", "\"\"");
-            html = html.Replace("“", "\"\"");
-            html = html.Replace("”", "\"\"");
-            // sometimes contentful uses a \r and sometimes a \r\n - nice!
-            // we could strip these out instead
-            html = html.Replace("\r\n", "\r");
-            html = html.Replace("\r", "\r\n");
-
-            return $"new HtmlString(@\"{html}\")";
         }
     }
 }
