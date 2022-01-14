@@ -66,6 +66,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             // GdsHtmlRenderer : IGdsHtmlRenderer
                 .AddHostedService<ContentUpdateService>();
 
+            services.GenerateSitemap(Configuration, _currentEnvironment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -136,8 +137,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     pattern: "schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "Details" });
             });
-
-            Sitemap.Generate(env, new System.Uri(configuration["Endpoints:BaseURL"]));
         }
     }
 }
