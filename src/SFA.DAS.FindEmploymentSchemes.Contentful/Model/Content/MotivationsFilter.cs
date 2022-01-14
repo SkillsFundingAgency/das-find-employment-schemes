@@ -10,6 +10,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public string Description { get; set; }
         public bool Selected { get; set; }
 
+        //todo: yukk - need factory/builder to create immutable filter using generics
+        public MotivationsFilter()
+        {
+            Id = null!;
+            Description = null!;
+        }
+
         public MotivationsFilter(string id, string description, bool selected = false)
         {
             Id = id;

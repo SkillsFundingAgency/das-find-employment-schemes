@@ -16,9 +16,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         private readonly IContentfulClient _contentfulClient;
         private readonly HtmlRenderer _htmlRenderer;
 
-        private const string PayFilterPrefix = "pay";
         private const string MotivationsFilterPrefix = "motivations";
+        private const string PayFilterPrefix = "pay";
         private const string SchemeLengthFilterPrefix = "scheme-length";
+
+        private const string MotivationsFilterContentfulTypeName = "motivationsFilter";
+        private const string PayFilterContentfulTypeName = "payFilter";
+        private const string SchemeLengthFilterContentfulTypeName = "schemeLengthFilter";
 
         public ContentService(
             IContentfulClient contentfulClient,
@@ -30,7 +34,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         public async Task<IContent> Get()
         {
-            return new Model.Content.Content(await GetPages(), await GetSchemes());
+            return new Model.Content.Content(
+                await GetPages(),
+                await GetSchemes(),
+                await GetFilters<Model.Api.MotivationsFilter, Model.Content.MotivationsFilter>(MotivationsFilterContentfulTypeName, MotivationsFilterPrefix),
+                await GetFilters<Model.Api.PayFilter, Model.Content.PayFilter>(PayFilterContentfulTypeName, PayFilterPrefix),
+                await GetFilters<Model.Api.SchemeLengthFilter, Model.Content.SchemeLengthFilter>(SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix));
         }
 
         private async Task<IEnumerable<Model.Content.Page>> GetPages()
@@ -50,6 +59,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             var schemes = await _contentfulClient.GetEntries(builder);
 
             return await Task.WhenAll(schemes.OrderByDescending(s => s.Size).Select(ToContent));
+        }
+
+        private async Task<IEnumerable<TContent>> GetFilters<TApi, TContent>(string contentfulTypeName, string filterPrefix)
+            where TApi : Model.Api.IFilter
+            where TContent : Model.Content.Interfaces.IFilter, new()
+        {
+            var builder = QueryBuilder<TApi>.New.ContentTypeIs(contentfulTypeName);
+
+            var filters = await _contentfulClient.GetEntries<TApi>(builder);
+
+            return filters.OrderBy(f => f.Order).Select(f => ToContent<TContent>(f, filterPrefix));
         }
 
         private async Task<Model.Content.Page> ToContent(Model.Api.Page apiPage)
@@ -82,6 +102,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 await ToHtmlString(apiScheme.CaseStudies),
                 apiScheme.OfferHeader,
                 await ToHtmlString(apiScheme.Offer));
+        }
+
+        private TContent ToContent<TContent>(Model.Api.IFilter apiFilter, string filterPrefix)
+            where TContent : Model.Content.Interfaces.IFilter, new()
+        {
+            return new TContent()
+            {
+                Id = ToFilterId(apiFilter, filterPrefix),
+                Description = apiFilter.Description!
+            };
         }
 
         private static string ToFilterId(Model.Api.IFilter filter, string filterPrefix)
