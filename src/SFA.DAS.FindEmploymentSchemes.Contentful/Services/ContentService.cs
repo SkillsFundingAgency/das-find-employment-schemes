@@ -107,7 +107,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         private TContent ToContent<TContent>(Model.Api.IFilter apiFilter, string filterPrefix)
             where TContent : Model.Content.Interfaces.IFilter, new()
         {
-            return new TContent()
+            return new TContent
             {
                 Id = ToFilterId(apiFilter, filterPrefix),
                 Description = apiFilter.Description!
@@ -126,21 +126,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
             return name.ToLower().Replace(' ', '-');
         }
-
-        //private static IEnumerable<string> GenerateFilterIds(IEnumerable<IFilter>? filters, string filterPrefix)
-        //{
-        //    if (filters == null)
-        //        return Enumerable.Empty<string>();
-
-        //    var filterIds = new StringBuilder();
-        //    foreach (var filter in filters)
-        //    {
-        //        filterIds.Append($"\"{filterPrefix}--{Slugify(payFilter.Name)}\", ");
-        //    }
-
-        //    return filterIds.ToString();
-        //}
-
 
         private async Task<HtmlString?> ToHtmlString(Document? document)
         {
