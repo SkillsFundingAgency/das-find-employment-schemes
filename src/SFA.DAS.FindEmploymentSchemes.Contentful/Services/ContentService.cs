@@ -40,7 +40,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         //todo: if backing null, do immediate update and only use generated is update fails
         public IContent Content { get; private set; } = GeneratedContent;
 
-        //todo: locking around update, so only one at a time, either lock/wait or just noop if already in progress
         public async Task<IContent> Update()
         {
             Content = new Model.Content.Content(
