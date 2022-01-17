@@ -3,11 +3,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
 using System.Runtime.Serialization;
 using Cronos;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
-using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
@@ -45,18 +42,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         private int _executionCount;
         private readonly ILogger<ContentUpdateService> _logger;
         private readonly IContentService _contentService;
-        private readonly IFilterService _filterService;
         private Timer? _timer;
         private readonly CronExpression _cronExpression;
 
         public ContentUpdateService(
             ILogger<ContentUpdateService> logger,
-            IContentService contentService,
-            IFilterService filterService)
+            IContentService contentService)
         {
             _logger = logger;
             _contentService = contentService;
-            _filterService = filterService;
             //todo: from config
             //todo: do we want to support changing config without an app service restart?
             _cronExpression = CronExpression.Parse("* * * * *");
@@ -103,17 +97,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 
                 await _contentService.Update();
 
-                //todo: event to update models
-
-                //_filterService.HomeModel = new HomeModel(content.Pages.First(p => p.Url == "home").Content, null!, null!);
-                // new ctor for homemodel that accepts pages and schemes?
-                //SchemesContent.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
-                //SchemesContent.Schemes,
-                //new[] {
-                //    new FilterGroupModel(MotivationName, MotivationDescription, SchemesContent.MotivationsFilters),
-                //    new FilterGroupModel(SchemeLengthName, SchemeLengthDescription, SchemesContent.SchemeLengthFilters),
-                //    new FilterGroupModel(PayName, PayDescription, SchemesContent.PayFilters)
-                //});
+                //todo: update event in sitemap
 
                 Interlocked.Decrement(ref _executionCount);
             }

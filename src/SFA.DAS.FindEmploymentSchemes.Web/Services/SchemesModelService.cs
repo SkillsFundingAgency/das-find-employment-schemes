@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
@@ -7,12 +8,6 @@ using SFA.DAS.FindEmploymentSchemes.Web.Models;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
-    public interface ISchemesModelService
-    {
-        HomeModel HomeModel { get; }
-        SchemeDetailsModel? GetSchemeDetailsModel(string schemeUrl);
-    }
-
     //todo: singleton
     public class SchemesModelService : ISchemesModelService
     {
@@ -27,31 +22,32 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private const string PayDescription = "I can offer";
 
         private readonly IContentService _contentService;
-        private HomeModel _homeModel;
 
+#pragma warning disable CS8618
         public SchemesModelService(IContentService contentService)
         {
             _contentService = contentService;
-            _homeModel = CreateHomeModel(_contentService.Content);
-            _schemeDetailsModels = BuildSchemeDetailsModelsDictionary();
-            _schemeDetailsModelsContent = _contentService.Content;
-        }
+            contentService.ContentUpdated += OnContentUpdated;
 
-        public HomeModel HomeModel
+            BuildModels();
+        }
+#pragma warning restore CS8618
+
+        // tried https://github.com/manuelroemer/Nullable (as we're using a legacy lts release, but didn't work)
+        //[MemberNotNull(nameof(HomeModel))]
+        //[MemberNotNull(nameof(SchemeDetailsModels))]
+        private void BuildModels()
         {
-            //todo: locking : need to be careful - don't want to keep creating homemodel, but also don't want to bottleneck with locking
-            // can we use a no-locking solution?
-            // might be best to create the model each time and not lock?
-            get
-            {
-                if (!_homeModel.IsBasedOn(_contentService.Content))
-                {
-                    _homeModel = CreateHomeModel(_contentService.Content);
-                }
-
-                return _homeModel;
-            }
+            HomeModel = CreateHomeModel(_contentService.Content);
+            SchemeDetailsModels = BuildSchemeDetailsModelsDictionary();
         }
+
+        private void OnContentUpdated(object? sender, EventArgs args)
+        {
+            BuildModels();
+        }
+
+        public HomeModel HomeModel { get; private set; }
 
         private HomeModel CreateHomeModel(IContent content)
         {
@@ -62,27 +58,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                     new FilterGroupModel(MotivationName, MotivationDescription, content.MotivationsFilters),
                     new FilterGroupModel(SchemeLengthName, SchemeLengthDescription, content.SchemeLengthFilters),
                     new FilterGroupModel(PayName, PayDescription, content.PayFilters)
-                },
-                content);
+                });
         }
 
-        //todo: locking / create model each time??
-        private IContent _schemeDetailsModelsContent;
-        private IReadOnlyDictionary<string, SchemeDetailsModel> _schemeDetailsModels;
-        private IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels
-        {
-            get
-            {
-                //if (!_homeModel.IsBasedOn(_contentService.Content))
-                if (_schemeDetailsModelsContent != _contentService.Content)
-                {
-                    _schemeDetailsModels = BuildSchemeDetailsModelsDictionary();
-                    _schemeDetailsModelsContent = _contentService.Content;
-                }
-
-                return _schemeDetailsModels;
-            }
-        }
+        private IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels { get; set; }
 
         private ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
         {

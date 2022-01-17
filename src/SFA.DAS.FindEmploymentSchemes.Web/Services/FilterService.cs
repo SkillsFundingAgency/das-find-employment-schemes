@@ -12,7 +12,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private readonly IContentService _contentService;
         private readonly ISchemesModelService _schemesModelService;
 
-        //private const string HomepagePreambleUrl = "home";
         //todo: these don't belong here
         private const string MotivationName = "motivations";
         private const string MotivationDescription = "I want to";
@@ -28,32 +27,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             _contentService = contentService;
             _schemesModelService = schemesModelService;
         }
-
-        //        private static readonly HomeModel StaticHomeModel = new HomeModel(
-//            GeneratedContent.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
-//            GeneratedContent.Schemes,
-//new[] {
-//                new FilterGroupModel(MotivationName, MotivationDescription, GeneratedContent.MotivationsFilters),
-//                new FilterGroupModel(SchemeLengthName, SchemeLengthDescription, GeneratedContent.SchemeLengthFilters),
-//                new FilterGroupModel(PayName, PayDescription, GeneratedContent.PayFilters)
-//            });
-//        private static readonly ReadOnlyDictionary<string, SchemeDetailsModel> StaticSchemeDetailsModels = BuildSchemeDetailsModelsDictionary();
-
-//        public HomeModel HomeModel { get; set; } = StaticHomeModel;
-
-//        public IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels => StaticSchemeDetailsModels;
-
-//        private static ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
-//        {
-//            var schemeDetailsModels = new Dictionary<string, SchemeDetailsModel>();
-
-//            foreach (string schemeUrl in GeneratedContent.Schemes.Select(s => s.Url))
-//            {
-//                schemeDetailsModels.Add(schemeUrl, new SchemeDetailsModel(schemeUrl, GeneratedContent.Schemes));
-//            }
-
-//            return new ReadOnlyDictionary<string, SchemeDetailsModel>(schemeDetailsModels);
-//        }
 
         public HomeModel ApplyFilter(SchemeFilterViewModel filters)
         {
@@ -100,7 +73,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                     content.PayFilters.Select(x => new PayFilter(x.Id, x.Description, filters.pay.Contains(x.Id))))
             };
 
-            return new HomeModel(_schemesModelService.HomeModel.Preamble, filteredSchemes, filterGroupModels, content, true);
+            return new HomeModel(_schemesModelService.HomeModel.Preamble, filteredSchemes, filterGroupModels, true);
         }
     }
 }

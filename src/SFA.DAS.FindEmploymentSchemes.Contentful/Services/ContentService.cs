@@ -25,6 +25,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         private const string PayFilterContentfulTypeName = "payFilter";
         private const string SchemeLengthFilterContentfulTypeName = "schemeLengthFilter";
 
+        public event EventHandler<EventArgs>? ContentUpdated;
+
         public ContentService(
             IContentfulClient contentfulClient,
             HtmlRenderer htmlRenderer)
@@ -41,12 +43,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         //todo: locking around update, so only one at a time, either lock/wait or just noop if already in progress
         public async Task<IContent> Update()
         {
-            return Content = new Model.Content.Content(
+            Content = new Model.Content.Content(
                 await GetPages(),
                 await GetSchemes(),
                 await GetFilters<Model.Api.MotivationsFilter, Model.Content.MotivationsFilter>(MotivationsFilterContentfulTypeName, MotivationsFilterPrefix),
                 await GetFilters<Model.Api.PayFilter, Model.Content.PayFilter>(PayFilterContentfulTypeName, PayFilterPrefix),
                 await GetFilters<Model.Api.SchemeLengthFilter, Model.Content.SchemeLengthFilter>(SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix));
+
+            ContentUpdated?.Invoke(this, EventArgs.Empty);
+
+            return Content;
         }
 
         private async Task<IEnumerable<Model.Content.Page>> GetPages()
