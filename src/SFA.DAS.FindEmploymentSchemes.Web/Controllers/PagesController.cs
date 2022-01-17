@@ -43,17 +43,26 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         }
 
         [HttpPost]
-        [Route("page/Cookie")]
-        public IActionResult Cookie(string AnalyticsCookies)
+        [Route("page/cookies")]
+        public IActionResult Cookies(string AnalyticsCookies, string MarketingCookies)
         {
+            CookieOptions options = new CookieOptions()
+            {
+                IsEssential = true,
+                Secure = true,
+                Expires = DateTimeOffset.UtcNow.AddYears(1)
+            };
+
             HttpContext.Response
                        .Cookies
                        .Append("AnalyticsConsent",
                                (AnalyticsCookies == "yes").ToString().ToLower(),
-                               new CookieOptions() {
-                                   Secure = true,
-                                   Expires = DateTimeOffset.UtcNow.AddYears(1)
-                               });
+                               options);
+            HttpContext.Response
+                       .Cookies
+                       .Append("MarketingCookieConsent",
+                               (MarketingCookies == "yes").ToString().ToLower(),
+                               options);
 
             Page page = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "cookies");
             return (page == null
