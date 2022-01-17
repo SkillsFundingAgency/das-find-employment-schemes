@@ -8,7 +8,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
     public class GeneratedContent : IContent
     {
         private IEnumerable<Scheme>? _schemes;
-        public IEnumerable<Scheme> Schemes => _schemes ??= new[]
+        public IEnumerable<Scheme> Schemes => _schemes ??= new Scheme[]
         {
             // _    _                                _
             //| |  | |                              | |
@@ -198,29 +198,28 @@ Without your business needing to fund the training, they help you:</p><ul class 
                 ),
         };
         private IEnumerable<MotivationsFilter>? _motivationsFilters;
-        public IEnumerable<MotivationsFilter> MotivationsFilters => _motivationsFilters ??= new[]
+        public IEnumerable<MotivationsFilter> MotivationsFilters => _motivationsFilters ??= new MotivationsFilter[]
         {
             new MotivationsFilter("motivations--full-time-role", "help train someone up into a full-time role"),
             new MotivationsFilter("motivations--unpaid-placement", "offer someone an unpaid work placement opportunity"),
             new MotivationsFilter("motivations--diversity-or-responsibility", "diversify our workforce or for corporate and social responsibility"),
         };
         private IEnumerable<PayFilter>? _payFilters;
-        public IEnumerable<PayFilter> PayFilters => _payFilters ??= new[]
+        public IEnumerable<PayFilter> PayFilters => _payFilters ??= new PayFilter[]
         {
             new PayFilter("pay--minimum-wage", "at least national minimum wage"),
             new PayFilter("pay--unpaid", "unpaid placements"),
         };
         private IEnumerable<SchemeLengthFilter>? _schemeLengthFilters;
-        public IEnumerable<SchemeLengthFilter> SchemeLengthFilters => _schemeLengthFilters ??= new[]
+        public IEnumerable<SchemeLengthFilter> SchemeLengthFilters => _schemeLengthFilters ??= new SchemeLengthFilter[]
         {
             new SchemeLengthFilter("scheme-length--up-to-4-months", "Up to 4 months"),
             new SchemeLengthFilter("scheme-length--4-months-to-12-months", "4 months to 12 months"),
             new SchemeLengthFilter("scheme-length--a-year-or-more", "A year or more"),
         };
-        private IEnumerable<Page>? _page;
-        public IEnumerable<Page> Pages => _page ??= new[]
+        private IEnumerable<Page>? _pages;
+        public IEnumerable<Page> Pages => _pages ??= new Page[]
         {
-
             new Page("Cookies",
                 "cookies",
                 new HtmlString(@"<h1 class=""govuk-heading-xl"">Details about cookies</h1><p class=""govuk-body"">This service puts small files (known as &#39;cookies&#39;) onto your computer. These cookies are used to:</p><ul class =""govuk-list govuk-list--bullet""><li>help us understand how you use the website, so we can make improvements</li><li>remember what notifications you&#39;ve seen so you&#39;re not shown them more than once</li><li>temporarily store the selections you make</li></ul><p class=""govuk-body"">Find out more about&#160;<a href=""https://ico.org.uk/your-data-matters/online/cookies/"" title="""" class=""govuk-link"">how to manage cookies</a>.</p><h2 class=""govuk-heading-l"">Cookies that measure website usage</h2><p class=""govuk-body"">We use Google Analytics software (Universal Analytics) to collect anonymised information about how you use the service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements.</p><p class=""govuk-body"">We do not allow Google to use or share the data about how you use this service.</p><p class=""govuk-body"">Google Analytics stores information about:</p><ul class =""govuk-list govuk-list--bullet""><li>how you got to the service</li><li>the pages you visit on this service and how long you spend on them</li><li>what you click on while you&#39;re visiting the service</li></ul><p class=""govuk-body"">We may also set our own cookies to understand how people move through the service.</p><h2 class=""govuk-heading-l"">Cookies that help with our communications and marketing</h2><p class=""govuk-body"">Some of our pages may contain content from other sites, like YouTube, which may set their own cookies. These sites are sometimes called &#39;third party&#39; services. This tells us how many people are seeing the content and whether it&#39;s useful.</p><p class=""govuk-body"">We also share information about your use of our pages with our social media and advertising partners (for example, Facebook) to help us improve the relevancy of advertising campaigns you receive from us.</p><p class=""govuk-body"">They may set cookies that you can turn off. Find out more about how to&#160;<a href=""https://ico.org.uk/your-data-matters/online/cookies/"" title="""" class=""govuk-link"">turn off these cookies</a>.</p><p class=""govuk-body"">In addition, if you share a link to one of our pages, the service you share it on (for example, Facebook) may set a cookie. We have no control over cookies set on other websites - you can turn them off, but not through us.</p><p class=""govuk-body""></p>")

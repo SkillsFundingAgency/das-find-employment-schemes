@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Contentful.Core;
 using Microsoft.AspNetCore.Html;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
@@ -28,25 +30,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             GenerateSchemesContent(content.Schemes);
 
-            GenerateFilterContent<Model.Content.MotivationsFilter>(content.MotivationsFilters);
-            GenerateFilterContent<Model.Content.PayFilter>(content.PayFilters);
-            GenerateFilterContent<Model.Content.SchemeLengthFilter>(content.SchemeLengthFilters);
+            GenerateFilterContent<MotivationsFilter>(content.MotivationsFilters);
+            GenerateFilterContent<PayFilter>(content.PayFilters);
+            GenerateFilterContent<SchemeLengthFilter>(content.SchemeLengthFilters);
 
             GeneratePagesContent(content.Pages);
 
             Console.WriteLine(Closing());
         }
 
-        private static void GeneratePagesContent(IEnumerable<Model.Content.Page> pages)
+        private static void GeneratePagesContent(IEnumerable<Page> pages)
         {
-            Console.WriteLine(@"        private IEnumerable<Page>? _page;
-        public IEnumerable<Page> Pages => _page ??= new[]
-        {
-");
+            string typeName = GenerateProperty<Page>();
 
             foreach (var page in pages)
             {
-                Console.WriteLine($"            new Page(\"{page.Title}\",");
+                Console.WriteLine($"            new {typeName}(\"{page.Title}\",");
                 Console.WriteLine($"                \"{page.Url}\",");
                 Console.WriteLine($"                {GenerateHtmlString(page.Content)}");
                 Console.WriteLine("            ),");
@@ -55,12 +54,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             Console.WriteLine(@"        };");
         }
 
-        private static void GenerateSchemesContent(IEnumerable<Model.Content.Scheme> schemes)
+        private static void GenerateSchemesContent(IEnumerable<Scheme> schemes)
         {
-            Console.WriteLine(@"        private IEnumerable<Scheme>? _schemes;
-        public IEnumerable<Scheme> Schemes => _schemes ??= new[]
-        {
-            // _    _                                _
+            string typeName = GenerateProperty<Scheme>();
+
+            Console.WriteLine(@"            // _    _                                _
             //| |  | |                              | |
             //| |__| | ___ _   _   _   _  ___  _   _| |
             //|  __  |/ _ \ | | | | | | |/ _ \| | | | |
@@ -75,7 +73,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             foreach (var scheme in schemes)
             {
-                Console.WriteLine($"            new Scheme(\"{scheme.Name}\",");
+                Console.WriteLine($"            new {typeName}(\"{scheme.Name}\",");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.ShortDescription)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.ShortCost)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.ShortBenefits)},");
@@ -101,18 +99,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
         }
 
         private static void GenerateFilterContent<T>(IEnumerable<T> filters)
-            where T : Model.Content.Interfaces.IFilter
+            where T : IFilter
         {
-            string filterTypeName = typeof(T).Name;
-            string backingName = $"_{char.ToLowerInvariant(filterTypeName[0])}{filterTypeName.Substring(1)}s";
-
-            Console.WriteLine($@"        private IEnumerable<{filterTypeName}>? {backingName};
-        public IEnumerable<{filterTypeName}> {filterTypeName}s => {backingName} ??= new[]
-        {{");
+            string typeName = GenerateProperty<T>();
 
             foreach (T filter in filters)
             {
-                Console.WriteLine($"            new {filterTypeName}(\"{filter.Id}\", \"{filter.Description}\"),");
+                Console.WriteLine($"            new {typeName}(\"{filter.Id}\", \"{filter.Description}\"),");
             }
 
             Console.WriteLine("        };");
@@ -136,6 +129,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
         {
             return @"    }
 }";
+        }
+
+        private static string GenerateProperty<T>()
+        {
+            string typeName = typeof(T).Name;
+            string backingName = $"_{char.ToLowerInvariant(typeName[0])}{typeName.Substring(1)}s";
+
+            Console.WriteLine($@"        private IEnumerable<{typeName}>? {backingName};
+        public IEnumerable<{typeName}> {typeName}s => {backingName} ??= new {typeName}[]
+        {{");
+
+            return typeName;
         }
 
         private static string GenerateHtmlString(HtmlString? content)
