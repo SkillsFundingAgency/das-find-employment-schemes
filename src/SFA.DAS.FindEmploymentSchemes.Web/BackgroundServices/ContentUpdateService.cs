@@ -101,9 +101,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
                 //todo: check timer null & throw ex?
                 _timer!.Change(delay, Timeout.InfiniteTimeSpan);
 
-                var content = await _contentService.Get();
+                await _contentService.Update();
 
-                _filterService.HomeModel = new HomeModel(content.Pages.First(p => p.Url == "home").Content, null!, null!);
+                //todo: event to update models
+
+                //_filterService.HomeModel = new HomeModel(content.Pages.First(p => p.Url == "home").Content, null!, null!);
                 // new ctor for homemodel that accepts pages and schemes?
                 //SchemesContent.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
                 //SchemesContent.Schemes,

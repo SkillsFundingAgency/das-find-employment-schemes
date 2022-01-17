@@ -14,7 +14,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Extensions
                 //todo: hmm, this uses a singleton HttpClient, so will we hit dns issues that IHttpClientFactory fixes??
                 .AddContentful(configuration)
                 .AddTransient(sp => ContentService.CreateHtmlRenderer())
-                .AddTransient<IContentService, ContentService>();
+                .AddSingleton<IContentService, ContentService>();
 
             return serviceCollection;
         }

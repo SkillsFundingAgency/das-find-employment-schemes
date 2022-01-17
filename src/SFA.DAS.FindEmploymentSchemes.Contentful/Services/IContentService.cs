@@ -5,6 +5,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
     public interface IContentService
     {
-        Task<IContent> Get();
+        IContent Content { get; }
+        Task<IContent> Update();
     }
 }

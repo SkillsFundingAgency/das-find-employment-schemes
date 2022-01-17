@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 
-namespace SFA.DAS.FindEmploymentSchemes.Web.Content
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
 {
-    public static class SchemesContent
+    //todo: update generator to generate new source code
+    public class GeneratedContent : IContent
     {
-        public static readonly IEnumerable<Scheme> Schemes = new[]
+        private IEnumerable<Scheme>? _schemes;
+        public IEnumerable<Scheme> Schemes => _schemes ??= new[]
         {
             // _    _                                _
             //| |  | |                              | |
@@ -318,7 +321,7 @@ Without your business needing to fund the training, they help you:</p><ul class 
             ),
         };
 
-        public static readonly IEnumerable<MotivationsFilter> MotivationsFilters = new MotivationsFilter[]
+        public IEnumerable<MotivationsFilter> MotivationsFilters { get; }= new MotivationsFilter[]
         {
 
             new MotivationsFilter("motivations--full-time-role",
@@ -332,7 +335,7 @@ Without your business needing to fund the training, they help you:</p><ul class 
             ),
         };
 
-        public static readonly IEnumerable<PayFilter> PayFilters = new PayFilter[]
+        public IEnumerable<PayFilter> PayFilters { get; }= new PayFilter[]
         {
 
             new PayFilter("pay--minimum-wage",
@@ -343,7 +346,7 @@ Without your business needing to fund the training, they help you:</p><ul class 
             ),
         };
 
-        public static readonly IEnumerable<SchemeLengthFilter> SchemeLengthFilters = new SchemeLengthFilter[]
+        public IEnumerable<SchemeLengthFilter> SchemeLengthFilters { get; } = new SchemeLengthFilter[]
         {
 
             new SchemeLengthFilter("scheme-length--up-to-4-months",
@@ -357,7 +360,7 @@ Without your business needing to fund the training, they help you:</p><ul class 
             ),
         };
 
-        public static readonly IEnumerable<Page> Pages = new[]
+        public IEnumerable<Page> Pages { get; } = new[]
         {
             new Page("Accessibility statement",
                 "accessibility-statement",

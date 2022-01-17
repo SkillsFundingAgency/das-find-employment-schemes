@@ -22,7 +22,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             var htmlRenderer = ContentService.CreateHtmlRenderer();
             var contentService = new ContentService(client, htmlRenderer);
 
-            var content = await contentService.Get();
+            var content = await contentService.Update();
 
             Console.Write(Preamble());
 

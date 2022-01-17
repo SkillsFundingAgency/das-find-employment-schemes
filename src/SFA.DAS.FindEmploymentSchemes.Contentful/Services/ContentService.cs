@@ -7,6 +7,7 @@ using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
 using System;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
@@ -32,9 +33,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             _htmlRenderer = htmlRenderer;
         }
 
-        public async Task<IContent> Get()
+        public static readonly IContent GeneratedContent = new GeneratedContent();
+
+        //todo: if backing null, do immediate update and only use generated is update fails
+        public IContent Content { get; private set; } = GeneratedContent;
+
+        //todo: locking around update, so only one at a time, either lock/wait or just noop if already in progress
+        public async Task<IContent> Update()
         {
-            return new Model.Content.Content(
+            return Content = new Model.Content.Content(
                 await GetPages(),
                 await GetSchemes(),
                 await GetFilters<Model.Api.MotivationsFilter, Model.Content.MotivationsFilter>(MotivationsFilterContentfulTypeName, MotivationsFilterPrefix),

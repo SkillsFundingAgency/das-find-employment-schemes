@@ -2,17 +2,21 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.FindEmploymentSchemes.Web.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class PagesController : Controller
     {
         private readonly ILogger<PagesController> _log;
+        private readonly IContentService _contentService;
 
-        public PagesController(ILogger<PagesController> logger)
+        public PagesController(
+            ILogger<PagesController> logger,
+            IContentService contentService)
         {
             _log = logger;
+            _contentService = contentService;
         }
 
         // we _could_ add cache control parameters to the page content type
@@ -20,7 +24,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         public IActionResult Page(string pageUrl)
         {
             pageUrl = pageUrl.ToLowerInvariant();
-            var page = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == pageUrl);
+            var page = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == pageUrl);
 
             switch (pageUrl)
             {
