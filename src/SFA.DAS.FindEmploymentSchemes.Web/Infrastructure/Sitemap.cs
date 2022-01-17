@@ -3,30 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using AspNetCore.SEOHelper.Sitemap;
+using Microsoft.Extensions.Configuration;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Infrastructure
 {
     public interface ISitemap
     {
-        void Generate(Uri baseUri);
+        void Generate();
     }
 
     public class Sitemap : ISitemap
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IConfiguration _configuration;
         private readonly IContentService _contentService;
 
         public Sitemap(
             IWebHostEnvironment webHostEnvironment,
+            IConfiguration configuration,
             IContentService contentService)
         {
             _webHostEnvironment = webHostEnvironment;
+            _configuration = configuration;
             _contentService = contentService;
+            contentService.ContentUpdated += OnContentUpdated;
         }
 
-        public void Generate(Uri baseUri)
+        private void OnContentUpdated(object? sender, EventArgs args)
         {
+            Generate();
+        }
+
+        public void Generate()
+        {
+            //todo: error handling on startup and update (if config missing/incorrect : abort startup (fail fast))
+            // read config in ctor? and store uri?
+            if (!Uri.TryCreate(_configuration["Endpoints:BaseURL"], UriKind.Absolute, out Uri? baseUri))
+                return;
+
             var nodes = new List<SitemapNode>();
 
             var content = _contentService.Content;

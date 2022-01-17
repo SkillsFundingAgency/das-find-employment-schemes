@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Threading;
 using System;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.StartupServices
@@ -19,16 +18,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.StartupServices
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            // Create a new scope to retrieve scoped services
             using var scope = _serviceProvider.CreateScope();
 
-            var sitemap = scope.ServiceProvider.GetRequiredService<ISitemap>();
-            var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-
-            //todo: if config missing/incorrect : abort startup (fail fast)
-
-            if (Uri.TryCreate(configuration["Endpoints:BaseURL"], UriKind.Absolute, out Uri? baseUri))
-                sitemap.Generate(baseUri);
+            scope.ServiceProvider.GetRequiredService<ISitemap>().Generate();
 
             return Task.CompletedTask;
         }
