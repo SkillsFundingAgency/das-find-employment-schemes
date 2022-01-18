@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             switch (pageUrl)
             {
                 case "cookies":
-                    return (page == null ? NotFound() : (IActionResult)View("Cookies", new CookiePage(page, false)));
+                    Page analyticsPage = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "analyticscookies");
+                    Page marketingPage = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "marketingcookies");
+                    return (analyticsPage == null || marketingPage == null
+                                ? NotFound()
+                                : (IActionResult)View("Cookies", new CookiePage(analyticsPage, marketingPage, false)));
 
                 case "error-check":
                     throw new NotImplementedException("DEADBEEF-DEAD-BEEF-DEAD-BAAAAAAAAAAD");
@@ -64,10 +69,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
                                (MarketingCookies == "yes").ToString().ToLower(),
                                options);
 
-            Page page = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "cookies");
-            return (page == null
+            Page analyticsPage = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "analyticscookies");
+            Page marketingPage = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "marketingcookies");
+            return (analyticsPage == null || marketingPage == null
                         ? NotFound()
-                        : (IActionResult)View("Cookies", new CookiePage(page, true)));
+                        : (IActionResult)View("Cookies", new CookiePage(analyticsPage, marketingPage, true)));
         }
     }
 }

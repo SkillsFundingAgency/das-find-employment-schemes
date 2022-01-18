@@ -27,7 +27,7 @@
             </div>
         }
 
-        @Model.Content
+        @Model.AnalyticsPage.Content
 
         <table class="govuk-table">
             <thead class="govuk-table__head">
@@ -77,6 +77,39 @@
                         1 day
                     </td>
                 </tr>
+                <tr>
+                    <td class="govuk-table__cell">
+                        AnalyticsConsent
+                    </td>
+                    <td class="govuk-table__cell">
+                        Stores if user has accepted analytics cookies
+                    </td>
+                    <td class="govuk-table__cell">
+                        1 year
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr class="govuk-section-break govuk-section-break--l g" />
+
+        @Model.MarketingPage.Content
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr>
+                    <th scope="col" class="govuk-table__header">
+                        Name
+                    </th>
+                    <th scope="col" class="govuk-table__header">
+                        Purpose
+                    </th>
+                    <th scope="col" class="govuk-table__header">
+                        Expires
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
                 <tr>
                     <td class="govuk-table__cell">
                         _fbp
@@ -374,12 +407,6 @@
                         9 months
                     </td>
                 </tr>
-
-
-
-
-
-
                 <tr>
                     <td class="govuk-table__cell">
                         _ppcMktoCmp
@@ -455,17 +482,6 @@
                     </td>
                     <td class="govuk-table__cell">
                         6 months
-                    </td>
-                </tr>
-                <tr>
-                    <td class="govuk-table__cell">
-                        AnalyticsConsent
-                    </td>
-                    <td class="govuk-table__cell">
-                        Stores if user has accepted analytics cookies
-                    </td>
-                    <td class="govuk-table__cell">
-                        1 year
                     </td>
                 </tr>
                 <tr>
