@@ -4,12 +4,17 @@ using System.Threading;
 using Microsoft.Extensions.Logging;
 using System;
 using Cronos;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
     //todo: config from storage table
+
+    public class ContentUpdateServiceOptions
+    {
+        public string? CronSchedule { get; set; }
+    }
 
     /// <summary>
     /// Updates content on a schedule, given in a configurable cron expression.
@@ -26,7 +31,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         private readonly CronExpression _cronExpression;
 
         public ContentUpdateService(
-            IConfiguration configuration,
+            IOptions<ContentUpdateServiceOptions> contentUpdateServiceOptions,
             IContentService contentService,
             ILogger<ContentUpdateService> logger)
         {
@@ -41,11 +46,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
             // */5 * * * *
 
             // for debugging : once a minute "* * * * *"
-            string? schedule = configuration["ContentUpdates:CronSchedule"];
-            if (schedule == null)
+
+            var options = contentUpdateServiceOptions.Value;
+
+            if (options.CronSchedule == null)
                 throw new ContentUpdateServiceException("ContentUpdates:CronSchedule config is missing.");
 
-            _cronExpression = CronExpression.Parse(schedule);
+            _cronExpression = CronExpression.Parse(options.CronSchedule);
         }
 
         //todo: page with content version?

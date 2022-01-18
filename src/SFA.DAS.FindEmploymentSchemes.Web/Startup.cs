@@ -43,11 +43,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //todo: we're replacing a factory with an instance - is that gonna cause issues?
-            // would be better to do it during host build time, but how do we access the config required to feed to the azure table storage provider?
-            // https://code-maze.com/aspnet-configuration-providers/
-            services.Replace(ServiceDescriptor.Singleton(Configuration));
-
             services.AddNLog(Configuration)
                     .AddHealthChecks();
             //services.AddApplicationInsightsTelemetry();
@@ -68,6 +63,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             });
             services.AddSingleton<IFilterService, FilterService>()
                 .AddSingleton<ISchemesModelService, SchemesModelService>();
+
+            services.Configure<ContentUpdateServiceOptions>(Configuration.GetSection("ContentUpdates"));
 
             services.AddContentService(Configuration)
                 .AddHostedService<ContentUpdateService>();
