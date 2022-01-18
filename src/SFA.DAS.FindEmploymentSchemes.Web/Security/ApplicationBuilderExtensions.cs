@@ -45,6 +45,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .From(new []
                             {
                                 "https://www.google-analytics.com",
+                                "https://www.youtube.com",
                                 /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track"
                             });
 
@@ -65,8 +66,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         var scriptSrc = builder.AddScriptSrc()
                             .Self()
-                            .From(new[] {cdnUrl, "https://tagmanager.google.com"})
-                            // this is needed for gtm
+                            .From(new[] {cdnUrl, "https://tagmanager.google.com", "https://www.youtube.com" })
+                            // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
                             .WithNonce();
 
@@ -86,7 +87,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .Self();
 
                         builder.AddFrameSrc()
-                            .From("https://www.googletagmanager.com");
+                            .From(new[] { "https://www.googletagmanager.com", "https://www.youtube.com" });
 
                         if (env.IsDevelopment())
                         {
