@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AspNetCore.SEOHelper;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Extensions;
 using SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices;
@@ -42,6 +43,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //todo: we're replacing a factory with an instance - is that gonna cause issues?
+            // would be better to do it during host build time, but how do we access the config required to feed to the azure table storage provider?
+            // https://code-maze.com/aspnet-configuration-providers/
+            services.Replace(ServiceDescriptor.Singleton(Configuration));
+
             services.AddNLog(Configuration)
                     .AddHealthChecks();
             //services.AddApplicationInsightsTelemetry();

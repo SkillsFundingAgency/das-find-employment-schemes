@@ -65,7 +65,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
             var apiPages = await _contentfulClient.GetEntries(builder);
 
-            //todo: ctor to accept apipage??
             return await Task.WhenAll(apiPages.Select(ToContent));
         }
 

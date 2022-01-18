@@ -4,6 +4,7 @@ using System.Threading;
 using Microsoft.Extensions.Logging;
 using System;
 using Cronos;
+using Microsoft.Extensions.Configuration;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
@@ -25,14 +26,26 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         private readonly CronExpression _cronExpression;
 
         public ContentUpdateService(
-            ILogger<ContentUpdateService> logger,
-            IContentService contentService)
+            IConfiguration configuration,
+            IContentService contentService,
+            ILogger<ContentUpdateService> logger)
         {
             _logger = logger;
             _contentService = contentService;
             //todo: from config
             //todo: do we want to support changing config without an app service restart?
-            _cronExpression = CronExpression.Parse("* * * * *");
+            // 0 0/30 6,7,8,9,10,11,12,13,14,15,16,17,18,19 ? * * *
+            // unit test expression is what we expect?
+            // 0 0/30 6-19/1 ? * * *
+            // every half hour
+            // */5 * * * *
+
+            // for debugging : once a minute "* * * * *"
+            string? schedule = configuration["ContentUpdates:CronSchedule"];
+            if (schedule == null)
+                throw new ContentUpdateServiceException("ContentUpdates:CronSchedule config is missing.");
+
+            _cronExpression = CronExpression.Parse(schedule);
         }
 
         //todo: page with content version?
@@ -48,7 +61,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
             }
             catch (Exception exception)
             {
-                _logger.Log(LogLevel.Error, exception, "Initial content update content!");
+                _logger.Log(LogLevel.Error, exception, "Initial content update failed!");
             }
 
             var delay = TimeToNextInvocation();
