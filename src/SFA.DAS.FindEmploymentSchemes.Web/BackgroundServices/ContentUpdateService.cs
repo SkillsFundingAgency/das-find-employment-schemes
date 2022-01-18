@@ -59,7 +59,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 
             var delay = TimeToNextInvocation();
 
-            //todo: want to update content straight away, then timer
             _timer = new Timer(UpdateContent, null, delay, Timeout.InfiniteTimeSpan);
         }
 
@@ -91,8 +90,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
                 _timer!.Change(delay, Timeout.InfiniteTimeSpan);
 
                 await _contentService.Update();
-
-                //todo: update event in sitemap
 
                 Interlocked.Decrement(ref _executionCount);
             }
