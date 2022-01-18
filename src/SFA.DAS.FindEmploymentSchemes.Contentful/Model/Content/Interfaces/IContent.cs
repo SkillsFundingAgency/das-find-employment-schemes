@@ -11,19 +11,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
         /// </summary>
         IEnumerable<Scheme> Schemes { get; }
 
-        /// <summary>
-        /// Guaranteed in ascending Order order
-        /// </summary>
-        IEnumerable<MotivationsFilter> MotivationsFilters { get; }
-
-        /// <summary>
-        /// Guaranteed in ascending Order order
-        /// </summary>
-        IEnumerable<PayFilter> PayFilters { get; }
-
-        /// <summary>
-        /// Guaranteed in ascending Order order
-        /// </summary>
-        IEnumerable<SchemeLengthFilter> SchemeLengthFilters { get; }
+        Filter MotivationsFilter { get; }
+        Filter PayFilter { get; }
+        Filter SchemeLengthFilter { get; }
     }
 }

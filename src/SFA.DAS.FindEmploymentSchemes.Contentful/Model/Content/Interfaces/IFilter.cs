@@ -2,7 +2,7 @@
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
 {
     //todo: make immutable
-    public interface IFilter
+    public interface IFilterAspect
     {
         public string Id { get; set; }
         public string Description { get; set; }

@@ -5,12 +5,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Contentful.Core;
 using Microsoft.AspNetCore.Html;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
+//todo: move generated content into web project (so can run generator when it doesn't compile)
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
     internal class Program
@@ -33,9 +32,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             GenerateSchemesContent(content.Schemes);
 
-            GenerateFilterContent<MotivationsFilter>(content.MotivationsFilters);
-            GenerateFilterContent<PayFilter>(content.PayFilters);
-            GenerateFilterContent<SchemeLengthFilter>(content.SchemeLengthFilters);
+            GenerateFilterContent(content.MotivationsFilter);
+            GenerateFilterContent(content.PayFilter);
+            GenerateFilterContent(content.SchemeLengthFilter);
 
             GeneratePagesContent(content.Pages);
 
@@ -101,17 +100,20 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             Console.WriteLine(@"        };");
         }
 
-        private static void GenerateFilterContent<T>(IEnumerable<T> filters)
-            where T : IFilter
+        private static void GenerateFilterContent(Filter filter)
         {
-            string typeName = GenerateProperty<T>();
+            string upperName = $"{char.ToUpperInvariant(filter.Name[0])}{filter.Name.Substring(1)}";
 
-            foreach (T filter in filters)
+            Console.WriteLine($@"       private Filter? _{filter.Name}Filter;
+        public Filter {upperName}Filter => _{filter.Name}Filter ??= new Filter(""{filter.Name}"", ""{filter.Description}"", new FilterAspect[]
+        {{");
+
+            foreach (var filterAspect in filter.Aspects)
             {
-                Console.WriteLine($"            new {typeName}(\"{filter.Id}\", \"{filter.Description}\"),");
+                Console.WriteLine($"            new FilterAspect(\"{filterAspect.Id}\", \"{filterAspect.Description}\"),");
             }
 
-            Console.WriteLine("        };");
+            Console.WriteLine("        });");
         }
 
         private static string Preamble()
@@ -134,6 +136,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
 }";
         }
 
+        //todo: rename EnumerableProperty?
         private static string GenerateProperty<T>()
         {
             string typeName = typeof(T).Name;

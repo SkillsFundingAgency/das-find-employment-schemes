@@ -13,14 +13,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
     {
         private const string HomepagePreambleUrl = "home";
 
-        //todo: we could move these into IContent (filter contain name, description & filters)
-        private const string MotivationName = "motivations";
-        private const string MotivationDescription = "I want to";
-        private const string SchemeLengthName = "schemeLength";
-        private const string SchemeLengthDescription = "Length of scheme?";
-        private const string PayName = "pay";
-        private const string PayDescription = "I can offer";
-
         private readonly IContentService _contentService;
 
 #pragma warning disable CS8618
@@ -55,9 +47,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 content.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
                 content.Schemes,
                 new[] {
-                    new FilterGroupModel(MotivationName, MotivationDescription, content.MotivationsFilters),
-                    new FilterGroupModel(SchemeLengthName, SchemeLengthDescription, content.SchemeLengthFilters),
-                    new FilterGroupModel(PayName, PayDescription, content.PayFilters)
+                    new FilterGroupModel(content.MotivationsFilter.Name, content.MotivationsFilter.Description, content.MotivationsFilter.Aspects),
+                    new FilterGroupModel(content.SchemeLengthFilter.Name, content.SchemeLengthFilter.Description, content.SchemeLengthFilter.Aspects),
+                    new FilterGroupModel(content.PayFilter.Name, content.PayFilter.Description, content.PayFilter.Aspects)
                 });
         }
 

@@ -27,6 +27,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         private const string PayFilterContentfulTypeName = "payFilter";
         private const string SchemeLengthFilterContentfulTypeName = "schemeLengthFilter";
 
+        private const string MotivationName = "motivations";
+        private const string MotivationDescription = "I want to";
+        private const string SchemeLengthName = "schemeLength";
+        private const string SchemeLengthDescription = "Length of scheme?";
+        private const string PayName = "pay";
+        private const string PayDescription = "I can offer";
+
         public event EventHandler<EventArgs>? ContentUpdated;
 
         public ContentService(
@@ -49,9 +56,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             Content = new Model.Content.Content(
                 await GetPages(),
                 await GetSchemes(),
-                await GetFilters<Model.Api.MotivationsFilter, Model.Content.MotivationsFilter>(MotivationsFilterContentfulTypeName, MotivationsFilterPrefix),
-                await GetFilters<Model.Api.PayFilter, Model.Content.PayFilter>(PayFilterContentfulTypeName, PayFilterPrefix),
-                await GetFilters<Model.Api.SchemeLengthFilter, Model.Content.SchemeLengthFilter>(SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix));
+                //todo: just FilterAspect for api as well, then might not need to be generic
+                new Model.Content.Filter(MotivationName, MotivationDescription, await GetFilters<Model.Api.MotivationsFilter, Model.Content.FilterAspect>(MotivationsFilterContentfulTypeName, MotivationsFilterPrefix)),
+                new Model.Content.Filter(PayName, PayDescription, await GetFilters<Model.Api.PayFilter, Model.Content.FilterAspect>(PayFilterContentfulTypeName, PayFilterPrefix)),
+                new Model.Content.Filter(SchemeLengthName, SchemeLengthDescription, await GetFilters<Model.Api.SchemeLengthFilter, Model.Content.FilterAspect>(SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix)));
 
             _logger.LogInformation("Publishing ContentUpdated event");
             ContentUpdated?.Invoke(this, EventArgs.Empty);
@@ -79,7 +87,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         private async Task<IEnumerable<TContent>> GetFilters<TApi, TContent>(string contentfulTypeName, string filterPrefix)
             where TApi : Model.Api.IFilter
-            where TContent : Model.Content.Interfaces.IFilter, new()
+            where TContent : Model.Content.Interfaces.IFilterAspect, new()
         {
             var builder = QueryBuilder<TApi>.New.ContentTypeIs(contentfulTypeName);
 
@@ -121,7 +129,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         }
 
         private TContent ToContent<TContent>(Model.Api.IFilter apiFilter, string filterPrefix)
-            where TContent : Model.Content.Interfaces.IFilter, new()
+            where TContent : Model.Content.Interfaces.IFilterAspect, new()
         {
             return new TContent
             {

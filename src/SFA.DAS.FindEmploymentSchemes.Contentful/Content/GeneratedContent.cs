@@ -187,7 +187,27 @@ English for Speakers of Other Languages (ESOL)</h2><p class=""govuk-body"">Adult
 
 </p><h2 class=""govuk-heading-l"">Digital entitlement</h2><p class=""govuk-body"">Any adult with low digital skills is entitled to fully funded essential digital skills qualifications, at entry-level and level 1. These equip adults with the full range of essential digital skills needed for life, work and further study.&#160;</p><p class=""govuk-body"">Funding for other digital skills qualifications may also be available but this will depend on local training providers.</p><h2 class=""govuk-heading-l"">
 Benefits of free basic skills qualifications </h2><p class=""govuk-body"">
-Without your business needing to fund the training, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>ensure your entire workforce is digitally literate&#160;</li><li>ensure your workforce has the English, maths and digital skills they need&#160;</li><li>progress your current employees into higher skilled roles</li><li>offer free qualifications to adults</li></ul><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Free qualifications for adults</h2><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free level 3 qualifications</a> are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.</p><p class=""govuk-body"">A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p class=""govuk-body"">Without needing to fund the training yourself, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>progress your current employees into higher skilled roles</li></ul><p class=""govuk-body"">The <a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free Courses for jobs</a> offer and the qualification list has been developed with industry, and will be regularly reviewed. </p><h3 class=""govuk-heading-m"">Benefits of free level 3 qualifications</h3><p class=""govuk-body"">Read the <a href=""https://learning.linkedin.com/content/dam/me/business/en-us/amp/learning-solutions/images/workplace-learning-report-2019/pdf/workplace-learning-report-2019.pdf"" title="""" class=""govuk-link"">LinkedIn Workplace Learning</a> report 2019 for information on developing a loyal and talented workforce.</p><div class=""cx-cta-box""><p class=""govuk-body"">Offer free qualifications to adults</p><p class=""govuk-body"">Upskill your workforce by helping your employees <a href=""https://www.gov.uk/government/publications/find-a-free-level-3-qualification"" title="""" class=""govuk-link"">find a free level 3 qualification</a>.</p></div><h2 class=""govuk-heading-l"">National Careers Service</h2><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>explore work and skills opportunities for your workforce including those offered as part of the skills recovery package.</li><li>carry out skills needs analysis for your business to understand gaps and find solutions.</li><li>find skilled people to fill current vacancies in your organisation.</li></ul><h3 class=""govuk-heading-m"">Employer costs</h3><p class=""govuk-body"">The National Careers Service is free to use.</p><h3 class=""govuk-heading-m"">Benefits of National Careers Service</h3><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>futureproof your business for the future labour market</li><li>help to develop your current workforce and supplement with talented individuals who have the skills you need</li><li>increase your resilience and productivity</li><li>take part in national virtual jobs fairs</li></ul><div class=""cx-cta-box""><p class=""govuk-body"">Use the National Careers Service to support your workforce</p><p class=""govuk-body"">Find out more about the <a href=""https://nationalcareers.service.gov.uk/"" title="""" class=""govuk-link"">National Careers Service and how to contact them</a>.</p></div><p class=""govuk-body""></p>"),
+Without your business needing to fund the training, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>ensure your entire workforce is digitally literate&#160;</li><li>ensure your workforce has the English, maths and digital skills they need&#160;</li><li>progress your current employees into higher skilled roles</li><li>offer free qualifications to adults</li></ul><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Higher Technical Qualifications (HTQs)</h2><p class=""govuk-body"">
+Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships and degrees.
+</p><p class=""govuk-body"">They are:</p><ul class =""govuk-list govuk-list--bullet""><li>
+new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)
+</li></ul><ul class =""govuk-list govuk-list--bullet""><li>approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards
+ 
+</li></ul><p class=""govuk-body"">The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.
+Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.
+</p><h2 class=""govuk-heading-l"">Employer costs</h2><p class=""govuk-body"">You may choose to pay for an employee to undertake a HTQ. Costs will vary depending on the course and provider.</p><h2 class=""govuk-heading-l"">
+
+Employer responsibilities</h2><p class=""govuk-body"">
+Most HTQs do not require an in-work placement. 
+
+</p><h2 class=""govuk-heading-l"">Benefits of HTQs</h2><p class=""govuk-body"">HTQs have been developed by employers and awarding bodies to help you upskill existing employees and provide a different recruitment pool to hire new talent.
+
+They help your workforce have the right knowledge, skills and behaviours for your company to succeed.</p><h2 class=""govuk-heading-l"">
+
+Case studies</h2><p class=""govuk-body"">Awaiting content from HTQ team. If not available when we launch we will need to keep the section out until available.</p><h2 class=""govuk-heading-l"">
+
+Offer HTQs
+</h2><p class=""govuk-body"">Learn more and get started with HTQs. </p><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Free qualifications for adults</h2><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free level 3 qualifications</a> are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.</p><p class=""govuk-body"">A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p class=""govuk-body"">Without needing to fund the training yourself, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>progress your current employees into higher skilled roles</li></ul><p class=""govuk-body"">The <a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free Courses for jobs</a> offer and the qualification list has been developed with industry, and will be regularly reviewed. </p><h3 class=""govuk-heading-m"">Benefits of free level 3 qualifications</h3><p class=""govuk-body"">Read the <a href=""https://learning.linkedin.com/content/dam/me/business/en-us/amp/learning-solutions/images/workplace-learning-report-2019/pdf/workplace-learning-report-2019.pdf"" title="""" class=""govuk-link"">LinkedIn Workplace Learning</a> report 2019 for information on developing a loyal and talented workforce.</p><div class=""cx-cta-box""><p class=""govuk-body"">Offer free qualifications to adults</p><p class=""govuk-body"">Upskill your workforce by helping your employees <a href=""https://www.gov.uk/government/publications/find-a-free-level-3-qualification"" title="""" class=""govuk-link"">find a free level 3 qualification</a>.</p></div><h2 class=""govuk-heading-l"">National Careers Service</h2><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>explore work and skills opportunities for your workforce including those offered as part of the skills recovery package.</li><li>carry out skills needs analysis for your business to understand gaps and find solutions.</li><li>find skilled people to fill current vacancies in your organisation.</li></ul><h3 class=""govuk-heading-m"">Employer costs</h3><p class=""govuk-body"">The National Careers Service is free to use.</p><h3 class=""govuk-heading-m"">Benefits of National Careers Service</h3><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>futureproof your business for the future labour market</li><li>help to develop your current workforce and supplement with talented individuals who have the skills you need</li><li>increase your resilience and productivity</li><li>take part in national virtual jobs fairs</li></ul><div class=""cx-cta-box""><p class=""govuk-body"">Use the National Careers Service to support your workforce</p><p class=""govuk-body"">Find out more about the <a href=""https://nationalcareers.service.gov.uk/"" title="""" class=""govuk-link"">National Careers Service and how to contact them</a>.</p></div><p class=""govuk-body""></p>"),
                 null,
                 null,
                 null,
@@ -197,33 +217,33 @@ Without your business needing to fund the training, they help you:</p><ul class 
                 null
                 ),
         };
-        private IEnumerable<MotivationsFilter>? _motivationsFilters;
-        public IEnumerable<MotivationsFilter> MotivationsFilters => _motivationsFilters ??= new MotivationsFilter[]
+       private Filter? _motivationsFilter;
+        public Filter MotivationsFilter => _motivationsFilter ??= new Filter("motivations", "I want to", new FilterAspect[]
         {
-            new MotivationsFilter("motivations--full-time-role", "help train someone up into a full-time role"),
-            new MotivationsFilter("motivations--unpaid-placement", "offer someone an unpaid work placement opportunity"),
-            new MotivationsFilter("motivations--diversity-or-responsibility", "diversify our workforce or for corporate and social responsibility"),
-        };
-        private IEnumerable<PayFilter>? _payFilters;
-        public IEnumerable<PayFilter> PayFilters => _payFilters ??= new PayFilter[]
+            new FilterAspect("motivations--full-time-role", "help train someone up into a full-time role"),
+            new FilterAspect("motivations--unpaid-placement", "offer someone an unpaid work placement opportunity"),
+            new FilterAspect("motivations--diversity-or-responsibility", "diversify our workforce or for corporate and social responsibility"),
+        });
+       private Filter? _payFilter;
+        public Filter PayFilter => _payFilter ??= new Filter("pay", "I can offer", new FilterAspect[]
         {
-            new PayFilter("pay--minimum-wage", "at least national minimum wage"),
-            new PayFilter("pay--unpaid", "unpaid placements"),
-        };
-        private IEnumerable<SchemeLengthFilter>? _schemeLengthFilters;
-        public IEnumerable<SchemeLengthFilter> SchemeLengthFilters => _schemeLengthFilters ??= new SchemeLengthFilter[]
+            new FilterAspect("pay--minimum-wage", "at least national minimum wage"),
+            new FilterAspect("pay--unpaid", "unpaid placements"),
+        });
+       private Filter? _schemeLengthFilter;
+        public Filter SchemeLengthFilter => _schemeLengthFilter ??= new Filter("schemeLength", "Length of scheme?", new FilterAspect[]
         {
-            new SchemeLengthFilter("scheme-length--up-to-4-months", "Up to 4 months"),
-            new SchemeLengthFilter("scheme-length--4-months-to-12-months", "4 months to 12 months"),
-            new SchemeLengthFilter("scheme-length--a-year-or-more", "A year or more"),
-        };
+            new FilterAspect("scheme-length--up-to-4-months", "Up to 4 months"),
+            new FilterAspect("scheme-length--4-months-to-12-months", "4 months to 12 months"),
+            new FilterAspect("scheme-length--a-year-or-more", "A year or more"),
+        });
         private IEnumerable<Page>? _pages;
         public IEnumerable<Page> Pages => _pages ??= new Page[]
         {
             new Page("Cookies",
                 "cookies",
                 new HtmlString(@"<h1 class=""govuk-heading-xl"">Details about cookies</h1><p class=""govuk-body"">This service puts small files (known as &#39;cookies&#39;) onto your computer. These cookies are used to:</p><ul class =""govuk-list govuk-list--bullet""><li>help us understand how you use the website, so we can make improvements</li><li>remember what notifications you&#39;ve seen so you&#39;re not shown them more than once</li><li>temporarily store the selections you make</li></ul><p class=""govuk-body"">Find out more about&#160;<a href=""https://ico.org.uk/your-data-matters/online/cookies/"" title="""" class=""govuk-link"">how to manage cookies</a>.</p><h2 class=""govuk-heading-l"">Cookies that measure website usage</h2><p class=""govuk-body"">We use Google Analytics software (Universal Analytics) to collect anonymised information about how you use the service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements.</p><p class=""govuk-body"">We do not allow Google to use or share the data about how you use this service.</p><p class=""govuk-body"">Google Analytics stores information about:</p><ul class =""govuk-list govuk-list--bullet""><li>how you got to the service</li><li>the pages you visit on this service and how long you spend on them</li><li>what you click on while you&#39;re visiting the service</li></ul><p class=""govuk-body"">We may also set our own cookies to understand how people move through the service.</p><h2 class=""govuk-heading-l"">Cookies that help with our communications and marketing</h2><p class=""govuk-body"">Some of our pages may contain content from other sites, like YouTube, which may set their own cookies. These sites are sometimes called &#39;third party&#39; services. This tells us how many people are seeing the content and whether it&#39;s useful.</p><p class=""govuk-body"">We also share information about your use of our pages with our social media and advertising partners (for example, Facebook) to help us improve the relevancy of advertising campaigns you receive from us.</p><p class=""govuk-body"">They may set cookies that you can turn off. Find out more about how to&#160;<a href=""https://ico.org.uk/your-data-matters/online/cookies/"" title="""" class=""govuk-link"">turn off these cookies</a>.</p><p class=""govuk-body"">In addition, if you share a link to one of our pages, the service you share it on (for example, Facebook) may set a cookie. We have no control over cookies set on other websites - you can turn them off, but not through us.</p><p class=""govuk-body""></p>")
-            ),
+                ),
             new Page("Accessibility statement",
                 "accessibility-statement",
                 new HtmlString(@"<h1 class=""govuk-heading-xl"">Accessibility statement</h1><p class=""govuk-body"">This accessibility statement applies to ""Find training and employment schemes for your business.""

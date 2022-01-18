@@ -12,14 +12,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private readonly IContentService _contentService;
         private readonly ISchemesModelService _schemesModelService;
 
-        //todo: these don't belong here
-        private const string MotivationName = "motivations";
-        private const string MotivationDescription = "I want to";
-        private const string SchemeLengthName = "schemeLength";
-        private const string SchemeLengthDescription = "Length of scheme?";
-        private const string PayName = "pay";
-        private const string PayDescription = "I can offer";
-
         public FilterService(
             IContentService contentService,
             ISchemesModelService schemesModelService)
@@ -64,13 +56,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             var filterGroupModels = new List<FilterGroupModel>
             {
-                new FilterGroupModel(MotivationName, MotivationDescription,
-                    content.MotivationsFilters.Select(x =>
-                        new MotivationsFilter(x.Id, x.Description, filters.motivations.Contains(x.Id)))),
-                new FilterGroupModel(SchemeLengthName, SchemeLengthDescription,
-                    content.SchemeLengthFilters.Select(x => new SchemeLengthFilter(x.Id, x.Description, filters.schemeLength.Contains(x.Id)))),
-                new FilterGroupModel(PayName, PayDescription,
-                    content.PayFilters.Select(x => new PayFilter(x.Id, x.Description, filters.pay.Contains(x.Id))))
+                new FilterGroupModel(content.MotivationsFilter.Name, content.MotivationsFilter.Description,
+                    content.MotivationsFilter.Aspects.Select(x =>
+                        new FilterAspect(x.Id, x.Description, filters.motivations.Contains(x.Id)))),
+                new FilterGroupModel(content.SchemeLengthFilter.Name, content.SchemeLengthFilter.Description,
+                    content.SchemeLengthFilter.Aspects.Select(x => new FilterAspect(x.Id, x.Description, filters.schemeLength.Contains(x.Id)))),
+                new FilterGroupModel(content.PayFilter.Name, content.PayFilter.Description,
+                    content.PayFilter.Aspects.Select(x => new FilterAspect(x.Id, x.Description, filters.pay.Contains(x.Id))))
             };
 
             return new HomeModel(_schemesModelService.HomeModel.Preamble, filteredSchemes, filterGroupModels, true);

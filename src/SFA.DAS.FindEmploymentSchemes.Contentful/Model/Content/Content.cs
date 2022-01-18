@@ -8,21 +8,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public Content(
             IEnumerable<Page> pages,
             IEnumerable<Scheme> schemes,
-            IEnumerable<MotivationsFilter> motivationsFilters,
-            IEnumerable<PayFilter> payFilters,
-            IEnumerable<SchemeLengthFilter> schemeLengthFilters)
+            Filter motivationsFilter,
+            Filter payFilter,
+            Filter schemeLengthFilter)
         {
             Pages = pages;
             Schemes = schemes;
-            MotivationsFilters = motivationsFilters;
-            PayFilters = payFilters;
-            SchemeLengthFilters = schemeLengthFilters;
+            MotivationsFilter = motivationsFilter;
+            PayFilter = payFilter;
+            SchemeLengthFilter = schemeLengthFilter;
         }
 
         public IEnumerable<Page> Pages { get; }
         public IEnumerable<Scheme> Schemes { get; }
-        public IEnumerable<MotivationsFilter> MotivationsFilters { get; }
-        public IEnumerable<PayFilter> PayFilters { get; }
-        public IEnumerable<SchemeLengthFilter> SchemeLengthFilters { get; }
+        public Filter MotivationsFilter { get; }
+        public Filter PayFilter { get; }
+        public Filter SchemeLengthFilter { get; }
     }
 }
