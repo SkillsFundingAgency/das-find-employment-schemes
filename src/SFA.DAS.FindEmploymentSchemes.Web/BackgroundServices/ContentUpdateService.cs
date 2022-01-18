@@ -9,13 +9,6 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
-    //todo: config from storage table
-
-    public class ContentUpdateServiceOptions
-    {
-        public string? CronSchedule { get; set; }
-    }
-
     /// <summary>
     /// Updates content on a schedule, given in a configurable cron expression.
     /// It uses a cron expression, as it's standard, well understood, supported by libraries and provides flexibility,
@@ -37,16 +30,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         {
             _logger = logger;
             _contentService = contentService;
-            //todo: from config
-            //todo: do we want to support changing config without an app service restart?
-            // 0 0/30 6,7,8,9,10,11,12,13,14,15,16,17,18,19 ? * * *
-            // unit test expression is what we expect?
-            // 0 0/30 6-19/1 ? * * *
-            // every half hour
-            // */5 * * * *
 
+            // for envs: every half "*/30 * * * *"
             // for debugging : once a minute "* * * * *"
-
             var options = contentUpdateServiceOptions.Value;
 
             if (options.CronSchedule == null)

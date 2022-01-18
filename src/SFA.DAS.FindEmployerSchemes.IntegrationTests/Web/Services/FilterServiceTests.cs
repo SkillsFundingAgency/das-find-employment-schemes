@@ -1,7 +1,9 @@
 ﻿//using System;
 //using System.Collections;
 //using System.Collections.Generic;
+//using System.Linq;
 //using Microsoft.Extensions.DependencyInjection;
+//using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 //using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 //using Xunit;
 //using SFA.DAS.FindEmploymentSchemes.Web.Services;
@@ -20,7 +22,7 @@
 //        {
 //            _service = _services.GetRequiredService<IFilterService>();
 //            Assert.NotNull(_service);
-            
+
 //            HashSet<Scheme> expected = new HashSet<Scheme>(expectedSchemes);
 //            HashSet<Scheme> applied = new HashSet<Scheme>(_service.ApplyFilter(filters).Schemes);
 //            Assert.True(expected.SetEquals(applied));
@@ -35,27 +37,27 @@
 //                string unpaid = "pay--unpaid";
 
 //                yield return new object[] {
-//                    SchemesContent.Schemes,
+//                    new GeneratedContent().Schemes,
 //                    new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { })
 //                };
 //                yield return new object[] {
-//                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths)),
+//                    new GeneratedContent().Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths)),
 //                    new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths }, new string[] { })
 //                };
 //                yield return new object[] {
-//                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore)),
+//                    new GeneratedContent().Schemes.Where(s => s.FilterAspects.Contains(yearOrMore)),
 //                    new SchemeFilterViewModel(new string[] { }, new string[] { yearOrMore }, new string[] { } )
 //                };
 //                yield return new object[] {
-//                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(unpaid)),
+//                    new GeneratedContent().Schemes.Where(s => s.FilterAspects.Contains(unpaid)),
 //                    new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { unpaid })
 //                };
 //                yield return new object[] {
-//                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore) && s.FilterAspects.Contains(unpaid)),
+//                    new GeneratedContent().Schemes.Where(s => s.FilterAspects.Contains(yearOrMore) && s.FilterAspects.Contains(unpaid)),
 //                    new SchemeFilterViewModel(new string[] { }, new string[] { yearOrMore }, new string[] { unpaid })
 //                };
 //                yield return new object[] {
-//                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
+//                    new GeneratedContent().Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
 //                    new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths, yearOrMore }, new string[] { })
 //                };
 //            }
