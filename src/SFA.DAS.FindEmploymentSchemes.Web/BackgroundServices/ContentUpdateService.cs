@@ -56,16 +56,26 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
             _cronExpression = CronExpression.Parse("* * * * *");
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        //todo: page with content version?
+        //todo: logging
+
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Content Update Service running.");
+
+            try
+            {
+                await _contentService.Update();
+            }
+            catch (Exception exception)
+            {
+                _logger.Log(LogLevel.Error, exception, "Initial content update content!");
+            }
 
             var delay = TimeToNextInvocation();
 
             //todo: want to update content straight away, then timer
             _timer = new Timer(UpdateContent, null, delay, Timeout.InfiniteTimeSpan);
-
-            return Task.CompletedTask;
         }
 
         private TimeSpan TimeToNextInvocation()
