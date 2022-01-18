@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,6 +11,9 @@ using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
+using AutoFixture.Kernel;
+using AutoFixture;
+using Microsoft.AspNetCore.Html;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
@@ -23,12 +25,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
             ISchemesModelService schemesModelService = A.Fake<ISchemesModelService>();
+            //todo: mock homemodel
+            A.CallTo(() => schemesModelService.HomeModel)
+                .Returns(new HomeModel(null!, expectedSchemes, null!));
 
             IFilterService filterService = A.Fake<IFilterService>();
-            A.CallTo(filterService)
-             .Where(a => a.Method.Name.Equals("get_HomeModel"))
-             .WithReturnType<HomeModel>()
-             .ReturnsLazily(() => new HomeModel(null, expectedSchemes, null));
 
             SchemesController controller = new SchemesController(logger, schemesModelService, filterService);
             Assert.NotNull(controller);
@@ -71,21 +72,29 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             Assert.True(expected.SetEquals(fromView));
         }
 
-        [Theory]
-        [ClassData(typeof(SchemesControllerTestsDetailsTestData))]
-        public void SchemesController_Details(SchemeDetailsModel expectedDetails, string schemeUrl)
+        [Fact]
+        public void SchemesController_Details()
         {
+            var fixture = new Fixture();
+            fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(IHtmlContent),
+                    typeof(HtmlString)));
+
+            var schemes = fixture.CreateMany<Scheme>(5).ToArray();
+
+            const int selectedScheme = 2;
+
+            var schemeUrl = schemes[selectedScheme].Url;
+
+            SchemeDetailsModel schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes);
+
             ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
             ISchemesModelService schemesModelService = A.Fake<ISchemesModelService>();
+            A.CallTo(() => schemesModelService.GetSchemeDetailsModel(schemeUrl))
+                .Returns(schemeDetailsModel);
 
             IFilterService filterService = A.Fake<IFilterService>();
-            Dictionary<string, SchemeDetailsModel> dictionary = new Dictionary<string, SchemeDetailsModel>();
-            dictionary.Add(schemeUrl, expectedDetails);
-
-            A.CallTo(filterService)
-             .Where(a => a.Method.Name.Equals("get_SchemeDetailsModels"))
-             .WithReturnType<IReadOnlyDictionary<string, SchemeDetailsModel>>()
-             .ReturnsLazily(() => new ReadOnlyDictionary<string, SchemeDetailsModel>(dictionary));
 
             SchemesController controller = new SchemesController(logger, schemesModelService, filterService);
             Assert.NotNull(controller);
@@ -94,9 +103,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             Assert.True(result is ViewResult);
             ViewResult vr = (ViewResult)result;
             Assert.True(!(vr.Model is null) && vr.Model is SchemeDetailsModel);
-
-            SchemeDetailsModel detailsModel = (SchemeDetailsModel)vr.Model;
-            Assert.True(expectedDetails.Scheme.Name == detailsModel.Scheme.Name);
         }
     }
 
@@ -141,18 +147,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
                     new GeneratedContent().Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
                     new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths, yearOrMore }, new string[] { })
                 };
-        }
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
-
-    public class SchemesControllerTestsDetailsTestData : IEnumerable<object[]>
-    {
-        public IEnumerator<object[]> GetEnumerator()
-        {
-            foreach (Scheme S in new GeneratedContent().Schemes)
-            {
-                yield return new object[] { new SchemeDetailsModel(S.Url, new GeneratedContent().Schemes), S.Url };
-            }
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
