@@ -3,32 +3,11 @@ using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Runtime.Serialization;
 using Cronos;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
-    [Serializable]
-    public class ContentUpdateServiceException : Exception
-    {
-        public ContentUpdateServiceException()
-        {
-        }
-
-        protected ContentUpdateServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-
-        public ContentUpdateServiceException(string? message) : base(message)
-        {
-        }
-
-        public ContentUpdateServiceException(string? message, Exception? innerException) : base(message, innerException)
-        {
-        }
-    }
-
     //todo: config from storage table
 
     /// <summary>

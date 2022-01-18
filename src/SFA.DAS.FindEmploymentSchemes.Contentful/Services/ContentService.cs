@@ -7,6 +7,7 @@ using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
 using System;
+using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
 
@@ -16,6 +17,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
     {
         private readonly IContentfulClient _contentfulClient;
         private readonly HtmlRenderer _htmlRenderer;
+        private readonly ILogger<ContentService> _logger;
 
         private const string MotivationsFilterPrefix = "motivations";
         private const string PayFilterPrefix = "pay";
@@ -29,19 +31,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         public ContentService(
             IContentfulClient contentfulClient,
-            HtmlRenderer htmlRenderer)
+            HtmlRenderer htmlRenderer,
+            ILogger<ContentService> logger)
         {
             _contentfulClient = contentfulClient;
             _htmlRenderer = htmlRenderer;
+            _logger = logger;
         }
 
         public static readonly IContent GeneratedContent = new GeneratedContent();
 
-        //todo: if backing null, do immediate update and only use generated is update fails
         public IContent Content { get; private set; } = GeneratedContent;
 
         public async Task<IContent> Update()
         {
+            _logger.LogInformation("Updating content");
             Content = new Model.Content.Content(
                 await GetPages(),
                 await GetSchemes(),
@@ -49,6 +53,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 await GetFilters<Model.Api.PayFilter, Model.Content.PayFilter>(PayFilterContentfulTypeName, PayFilterPrefix),
                 await GetFilters<Model.Api.SchemeLengthFilter, Model.Content.SchemeLengthFilter>(SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix));
 
+            _logger.LogInformation("Publishing ContentUpdated event");
             ContentUpdated?.Invoke(this, EventArgs.Empty);
 
             return Content;

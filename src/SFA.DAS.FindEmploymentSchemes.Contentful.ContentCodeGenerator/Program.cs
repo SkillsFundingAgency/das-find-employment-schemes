@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Contentful.Core;
 using Microsoft.AspNetCore.Html;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
@@ -22,7 +24,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 "082i50qdtar9");
 
             var htmlRenderer = ContentService.CreateHtmlRenderer();
-            var contentService = new ContentService(client, htmlRenderer);
+
+            var contentService = new ContentService(client, htmlRenderer, new NullLogger<ContentService>());
 
             var content = await contentService.Update();
 
