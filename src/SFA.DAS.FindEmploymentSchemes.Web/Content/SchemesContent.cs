@@ -34,18 +34,25 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     "pay--minimum-wage", "motivations--full-time-role", "motivations--diversity-or-responsibility",
                     "scheme-length--4-months-to-12-months", "scheme-length--a-year-or-more",
                 },
+                new CaseStudy[]
+                {
+                    new CaseStudy("Apprenticeships - government incentives", "How businesses are using government incentives to hire apprentices",
+                                  new HtmlString(@"<p class=""govuk-body""><strong>Paul Siniecki, Strategic Labour Needs and Training Manager at MTR Elizabeth line said:</strong></p><p class=""govuk-body"">We plan to continue to offer apprenticeship opportunities in 2021 and will be recruiting for the role of Customer Experience Assistant to work at the new stations in the Crossrail tunnel, and we will also be using the new &#39;Redundancy Support Service for Apprentices&#39;, who have been made redundant, for future apprenticeship opportunities, supporting those that have lost their job and giving them a new start.</p><p class=""govuk-body""><a href=""https://www.gov.uk/government/case-studies/how-employers-are-making-the-most-of-apprenticeship-incentives"" title="""" class=""govuk-link"">Link to full page</a></p>")),
+                    new CaseStudy("Apprenticeships - employer", "Smith & Williamson", 
+                                  new HtmlString(@"<p class=""govuk-body"">Smith &amp; Williamson is among the ten largest firms of accountants in the UK. With a workforce of 1800, Smith and Williamson has 124 apprentices, in roles including Assurance &amp; Business Services, Business Tax and Private Client Tax. The firm merged with Tilney Group in September 2020 and is now part of the Tilney Smith and Williamson Group.</p>")),
+                    new CaseStudy("Apprenticeships - what is the service video", "What is the Apprenticeship service?",
+                                  new HtmlString(@"<p class=""govuk-body"">&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/xWUFLAAc4TY&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt;</p>")),
+                },
                 null,
                 new HtmlString(
-                    @"<p class=""govuk-body"">Applies to England</p><p class=""govuk-body"">Apprenticeships are for those aged 16 or over and combine working with studying to gain skills and knowledge in a job role.</p><p class=""govuk-body"">Apprentices can be new or current employees.</p><p class=""govuk-body"">Your apprentice must:</p><ul class =""govuk-list govuk-list--bullet""><li>work with experienced staff</li><li>learn skills relevant to your organisation</li><li>get time for training or study during their working week (at least 20% of their normal working hours)</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">Applies to England</p><p class=""govuk-body"">Apprenticeships are for those aged 16 or over and combine working with studying to gain skills and knowledge in a job role.</p><p class=""govuk-body"">Apprentices can be new or current employees.</p><p class=""govuk-body"">Apprentices:</p><ul class =""govuk-list govuk-list--bullet""><li>work with experienced staff</li><li>learn skills relevant to your organisation</li><li>get time for training or study during their working week (at least 20% of their normal working hours)</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">You must pay apprentices <a href=""https://www.gov.uk/national-minimum-wage-rates"" title="""" class=""govuk-link"">the minimum wage</a>.</p><p class=""govuk-body"">You may have to contribute 5% of the apprentice's training and assessment costs - depending on the size of your business and the age of your apprentice.</p>"),
+                    @"<p class=""govuk-body"">Apprentices are paid <a href=""https://www.gov.uk/national-minimum-wage-rates"" title="""" class=""govuk-link"">the minimum wage</a>.</p><p class=""govuk-body"">You may have to contribute 5% of the apprentice's training and assessment costs - depending on the size of your business and the age of your apprentice.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>opportunities for the student to develop their technical skills within your industry</li><li>20% 'Off-the-job' training delivered by a training provider during your apprentice&#39;s normal working hours</li><li>'On-the-job' training and additional support to ensure your apprentice's success</li></ul><p class=""govuk-body"">Employers must also have:</p><ul class =""govuk-list govuk-list--bullet""><li>a signed apprenticeship agreement and apprenticeship commitment statement from the learner and training provider</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">Employers provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>opportunities for the student to develop their technical skills within your industry</li><li>20% 'Off-the-job' training delivered by a training provider during your apprentice&#39;s normal working hours</li><li>'On-the-job' training and additional support to ensure your apprentice's success</li></ul><p class=""govuk-body"">Employers need:</p><ul class =""govuk-list govuk-list--bullet""><li>a signed apprenticeship agreement and apprenticeship commitment statement from the learner and training provider</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Incentive payments are available for each apprentice a business takes on as a new employee.
 </p><p class=""govuk-body"">Find out <a href=""https://www.apprenticeships.gov.uk/"" title="""" class=""govuk-link"">how apprenticeships can benefit your business</a>.</p>"),
-                new HtmlString(
-                    @"<p class=""govuk-body"">Read about <a href=""https://www.apprenticeships.gov.uk/employers/real-stories-employers"" title="""" class=""govuk-link"">how businesses are using incentive payments to hire apprentices</a>.</p>"),
                 "Offer an apprenticeship",
                 new HtmlString(
                     @"<p class=""govuk-body"">Get started with offering an apprenticeship.</p><p class=""govuk-body""><a href=""https://www.apprenticeships.gov.uk/employers/hiring-an-apprentice"" title="""" class=""govuk-link"">Hire an apprentice</a></p><p class=""govuk-body"">Alternatively, call <a href=""tel:08000150400"" title="""" class=""govuk-link"">08000 150 400</a></p>")
@@ -64,7 +71,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
                     "motivations--unpaid-placement", "scheme-length--up-to-4-months",
                 },
-                null,
+                new CaseStudy[] { },
                 new HtmlString(
                     @"<p class=""govuk-body"">T Levels are qualifications for students aged 16 to 19 who have finished GCSEs. They are a 2-year qualification and the equivalent to studying 3 A levels.</p><p class=""govuk-body"">They have been designed with employers, to give them the skilled workforce they need by helping young people develop their knowledge, attitude and practical skills to thrive in the workplace.</p>"),
                 new HtmlString(
@@ -95,7 +102,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
                     "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--up-to-4-months",
                 },
-                null,
+                new CaseStudy[] { },
                 new HtmlString(
                     @"<p class=""govuk-body"">Sector-based Work Academy Programmes (SWAPs) help prepare those receiving unemployment benefits to apply for jobs in a different area of work.</p><p class=""govuk-body"">Placements run up to 6 weeks and are designed to help you recruit a workforce with the right skills to sustain and grow your business.</p><p class=""govuk-body"">They are tailored to meet your recruitment needs, including pre-employment training, a work experience placement, and your guarantee of a job interview for participants.</p><p class=""govuk-body"">Jobcentre Plus manages SWAPs in England and Scotland.</p>"),
                 new HtmlString(
@@ -124,7 +131,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     "motivations--unpaid-placement", "motivations--full-time-role",
                     "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
-                null,
+                new CaseStudy[] { },
                 new HtmlString(
                     @"<p class=""govuk-body"">Skills Bootcamps offer free, flexible courses of up to 16 weeks for adults aged 19 or over and who are either in work, self-employed, recently unemployed or returning to work after a break.</p><p class=""govuk-body"">They give people the opportunity to build up valuable sector-specific skills based on local employer demand in areas including digital, construction and green skills.</p><p class=""govuk-body"">They provide a direct path to a job on completion.</p>"),
                 new HtmlString(
@@ -153,7 +160,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     "motivations--unpaid-placement", "motivations--full-time-role",
                     "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
-                null,
+                new CaseStudy[] { },
                 new HtmlString(
                     @"<p class=""govuk-body"">A traineeship is a work based skills development programme that includes a work placement.</p><p class=""govuk-body"">The full programme can last from 6 weeks up to 1 year, though most traineeships last for between 6-weeks and 12-weeks.</p><p class=""govuk-body"">Your business needs to be able to offer a safe, meaningful and high-quality work experience placement of at least 70 hours to 240 hours.</p><p class=""govuk-body"">You will work with a training provider to design what is included in the programme.</p><p class=""govuk-body"">Trainees can gain English, maths, digital and work-related qualifications which can lead them on to:</p><ul class =""govuk-list govuk-list--bullet""><li>an apprenticeship</li><li>work</li><li>further education</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
@@ -187,7 +194,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     "motivations--unpaid-placement", "motivations--full-time-role",
                     "scheme-length--4-months-to-12-months",
                 },
-                null,
+                new CaseStudy[] { },
                 new HtmlString(
                     @"<p class=""govuk-body"">Supported internships are a work-based study programme for young people aged 16 to 24 with Special Educational Needs and Disabilities (SEND), who have an <a href=""https://www.gov.uk/children-with-special-educational-needs/extra-SEN-help"" title="""" class=""govuk-link"">education health and care (EHC) plan</a>.</p><p class=""govuk-body"">Supported internships equip young people with the skills they need to secure and sustain employment through learning in the workplace, with support from a qualified job coach. They last between 6 to 12 months.</p><p class=""govuk-body"">Supported interns are enrolled with and supported by a learning provider, but spend most of their learning time - typically around 70% in the workplace.</p><p class=""govuk-body"">Alongside their time with the employer, supported interns complete a personalised study programme delivered by the school/college, which includes the chance to study for relevant qualifications, if appropriate, and English and maths at an appropriate level.</p>"),
                 new HtmlString(
@@ -212,11 +219,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 "care-leaver-covenant", 2000,
                 new string[]
                 {
-                    "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", 
+                    "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility",
                     "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more",
                     "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
-                null,
+                new CaseStudy[] { },
                 new HtmlString(
                     @"<p class=""govuk-body"">The Care-leaver Covenant is a way companies can support 16 to 25-year-olds leaving care to become independent.</p><p class=""govuk-body"">Organisations can pledge support including apprenticeships, work experience or free or discounted goods or services.</p>"),
                 new HtmlString(
@@ -246,7 +253,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months",
                     "scheme-length--up-to-4-months",
                 },
-                null,
+                new CaseStudy[] { },
                 new HtmlString(
                     @"<p class=""govuk-body"">New Futures Network (NFN) arranges partnerships between prisons and employers in England and Wales. These partnerships help you:</p><ul class =""govuk-list govuk-list--bullet""><li>fill skills gaps in your business</li><li>reduce recruitment costs</li><li>increase staff retention</li><li>transform prison leavers lives</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
@@ -271,7 +278,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(@"<p class=""govuk-body"">1 to 2 years</p>"),
                 "higher-technical-qualifications", -500,
                 new string[] {"pay--minimum-wage", "motivations--full-time-role", "scheme-length--a-year-or-more",},
-                null,
+                new CaseStudy[] { },
                 new HtmlString(
                     @"<p class=""govuk-body"">Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships and degrees.</p><p class=""govuk-body"">They are:</p><ul class =""govuk-list govuk-list--bullet""><li>new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)</li><li>approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards</li></ul><p class=""govuk-body"">The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.</p><p class=""govuk-body"">Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.</p>"),
                 new HtmlString(
@@ -299,6 +306,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more",
                     "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
+                new CaseStudy[] { },
                 new HtmlString(
                     @"<p class=""govuk-body"">Career advice, free level 3 qualifications, and financial support for level 4 and 5 qualifications are all available through Government initiatives for your workforce.</p><h2 class=""govuk-heading-l"">Basic skills (English, maths and digital)</h2><p class=""govuk-body"">Free English, maths, digital courses and qualifications for adults. </p><h2 class=""govuk-heading-l"">
                 English and maths entitlement</h2><p class=""govuk-body"">In England, any adult who does not already have a level 2 qualification (GCSE grade 4 or equivalent) in English or maths is legally entitled to fully funded study up to level 2.&#160;</p><p class=""govuk-body"">Your workforce gets the potential to progress and your business increases its productivity.</p><h2 class=""govuk-heading-l"">
@@ -308,7 +316,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 </p><h2 class=""govuk-heading-l"">Digital entitlement</h2><p class=""govuk-body"">Any adult with low digital skills is entitled to fully funded essential digital skills qualifications, at entry-level and level 1. These equip adults with the full range of essential digital skills needed for life, work and further study.&#160;</p><p class=""govuk-body"">Funding for other digital skills qualifications may also be available but this will depend on local training providers.</p><h2 class=""govuk-heading-l"">
                 Benefits of free basic skills qualifications </h2><p class=""govuk-body"">
                 Without your business needing to fund the training, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>ensure your entire workforce is digitally literate&#160;</li><li>ensure your workforce has the English, maths and digital skills they need&#160;</li><li>progress your current employees into higher skilled roles</li><li>offer free qualifications to adults</li></ul><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Free qualifications for adults</h2><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free level 3 qualifications</a> are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.</p><p class=""govuk-body"">A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p class=""govuk-body"">Without needing to fund the training yourself, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>progress your current employees into higher skilled roles</li></ul><p class=""govuk-body"">The <a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free Courses for jobs</a> offer and the qualification list has been developed with industry, and will be regularly reviewed. </p><h3 class=""govuk-heading-m"">Benefits of free level 3 qualifications</h3><p class=""govuk-body"">Read the <a href=""https://learning.linkedin.com/content/dam/me/business/en-us/amp/learning-solutions/images/workplace-learning-report-2019/pdf/workplace-learning-report-2019.pdf"" title="""" class=""govuk-link"">LinkedIn Workplace Learning</a> report 2019 for information on developing a loyal and talented workforce.</p><div class=""cx-cta-box""><p class=""govuk-body"">Offer free qualifications to adults</p><p class=""govuk-body"">Upskill your workforce by helping your employees <a href=""https://www.gov.uk/government/publications/find-a-free-level-3-qualification"" title="""" class=""govuk-link"">find a free level 3 qualification</a>.</p></div><h2 class=""govuk-heading-l"">National Careers Service</h2><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>explore work and skills opportunities for your workforce including those offered as part of the skills recovery package.</li><li>carry out skills needs analysis for your business to understand gaps and find solutions.</li><li>find skilled people to fill current vacancies in your organisation.</li></ul><h3 class=""govuk-heading-m"">Employer costs</h3><p class=""govuk-body"">The National Careers Service is free to use.</p><h3 class=""govuk-heading-m"">Benefits of National Careers Service</h3><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>futureproof your business for the future labour market</li><li>help to develop your current workforce and supplement with talented individuals who have the skills you need</li><li>increase your resilience and productivity</li><li>take part in national virtual jobs fairs</li></ul><div class=""cx-cta-box""><p class=""govuk-body"">Use the National Careers Service to support your workforce</p><p class=""govuk-body"">Find out more about the <a href=""https://nationalcareers.service.gov.uk/"" title="""" class=""govuk-link"">National Careers Service and how to contact them</a>.</p></div><p class=""govuk-body""></p>"),
-                null,
                 null,
                 null,
                 null,
