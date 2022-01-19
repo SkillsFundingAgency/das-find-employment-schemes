@@ -26,44 +26,23 @@
 		        @Model.Scheme.Responsibility
             <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
                 @Model.Scheme.Benefits
-            @if (@Model.Scheme.CaseStudies.Any())
+            @if (Model.Scheme.CaseStudies.Any())
             {
                 <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
-                @*@Model.Scheme.CaseStudies*@
 
-                <details class="govuk-details" data-module="govuk-details">
-                    <summary class="govuk-details__summary1">
-                        <span class="govuk-details__summary1-text">
-                            How businesses are using government incentives to hire apprentices
-                        </span>
-                    </summary>
-                    <div class="govuk-details__text">
-                        <p><b>Paul Sinieki, Strategic Labour Needs and Training Manager at MTR Elizabeth Line said:</b></p>
-                        <p>We plan to continue to offer apprenticeship opportunities in 2021 and will be recruiting for the role of Customer Experience Assistant to work at the new stations in the Crossrail tunnel, and we will also be using the new 'Redundancy Support Service for Apprentices', who have been made redundant, for future apprenticeship opportunities, supporting those that have lost their job and giving them a new start.</p>
-                        <a href="https://www.gov.uk/government/case-studies/how-employers-are-making-the-most-of-apprenticeship-incentives">Link to full page</a>
-                    </div>
-                </details>
-                <details class="govuk-details" data-module="govuk-details">
-                    <summary class="govuk-details__summary2">
-                        <span class="govuk-details__summary2-text">
-                            Smith & Williamson
-                        </span>
-                    </summary>
-                    <div class="govuk-details__text">
-                        <p>Smith & Williamson is among the ten largest firms of accountants in the UK. With a workforce of 1800, Smith and Williamson has 124 apprentices, in roles including Assurance & Business Services, Business Tax and Private Client Tax. The firm merged with Tilney Group in September 2020 and is now part of the Tilney Smith and Williamson Group.</p>
-                    </div>
-                </details>
-                <details class="govuk-details" data-module="govuk-details">
-                    <summary class="govuk-details__summary3">
-                        <span class="govuk-details__summary3-text">
-                            What is the Apprenticeship service?
-                        </span>
-                    </summary>
-                    <div class="govuk-details__text">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/xWUFLAAc4TY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </details>
-
+                @foreach (CaseStudy study in Model.Scheme.CaseStudies)
+                {
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary1">
+                            <span class="govuk-details__summary1-text">
+                                @study.DisplayTitle
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            @study.Content
+                        </div>
+                    </details>
+                }
 
             }
             <section id="scheme-details-section-offer-header" class="cx-cta-box">
