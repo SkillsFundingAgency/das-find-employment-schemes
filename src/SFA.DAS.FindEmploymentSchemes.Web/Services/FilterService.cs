@@ -54,14 +54,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                                                       ).Distinct() :
                                                       content.Schemes);
 
-            var filterGroupModels = new List<FilterGroupModel>
+            var filterGroupModels = new[]
             {
-                new FilterGroupModel(content.MotivationsFilter.Name, content.MotivationsFilter.Description,
+                new Filter(content.MotivationsFilter.Name, content.MotivationsFilter.Description,
                     content.MotivationsFilter.Aspects.Select(x =>
                         new FilterAspect(x.Id, x.Description, filters.motivations.Contains(x.Id)))),
-                new FilterGroupModel(content.SchemeLengthFilter.Name, content.SchemeLengthFilter.Description,
+                new Filter(content.SchemeLengthFilter.Name, content.SchemeLengthFilter.Description,
                     content.SchemeLengthFilter.Aspects.Select(x => new FilterAspect(x.Id, x.Description, filters.schemeLength.Contains(x.Id)))),
-                new FilterGroupModel(content.PayFilter.Name, content.PayFilter.Description,
+                new Filter(content.PayFilter.Name, content.PayFilter.Description,
                     content.PayFilter.Aspects.Select(x => new FilterAspect(x.Id, x.Description, filters.pay.Contains(x.Id))))
             };
 

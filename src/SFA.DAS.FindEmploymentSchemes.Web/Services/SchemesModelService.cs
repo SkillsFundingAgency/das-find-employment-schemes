@@ -43,14 +43,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         private HomeModel CreateHomeModel(IContent content)
         {
+            //todo: have ienumerable Filter in content? store IContent in HomeModel?
             return new HomeModel(
                 content.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
                 content.Schemes,
-                new[] {
-                    new FilterGroupModel(content.MotivationsFilter.Name, content.MotivationsFilter.Description, content.MotivationsFilter.Aspects),
-                    new FilterGroupModel(content.SchemeLengthFilter.Name, content.SchemeLengthFilter.Description, content.SchemeLengthFilter.Aspects),
-                    new FilterGroupModel(content.PayFilter.Name, content.PayFilter.Description, content.PayFilter.Aspects)
-                });
+                new[] { content.MotivationsFilter, content.SchemeLengthFilter, content.PayFilter });
         }
 
         private IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels { get; set; }

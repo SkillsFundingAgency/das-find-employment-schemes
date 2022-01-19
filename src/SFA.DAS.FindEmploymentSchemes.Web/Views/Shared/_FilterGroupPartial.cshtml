@@ -1,4 +1,4 @@
-﻿@model FilterGroupModel
+﻿@model Filter
 
 <div id="filter-group-@Model.Name" class="govuk-form-group">
     <fieldset id="filter-group-fieldset-@Model.Name" class="govuk-fieldset">
@@ -6,17 +6,17 @@
             @Model.Description
         </legend>
         <div id="filter-group-checkboxes-container-outer-@Model.Name" class="govuk-checkboxes govuk-checkboxes--small">
-            @foreach (var filter in Model.Filters)
+            @foreach (var aspect in Model.Aspects)
             {
-                <div id="filter-group-checkboxe-container-inner-@filter.Id" class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="@filter.Id" name="@Model.Name" type="checkbox" value="@filter.Id"
-                            @if (filter.Selected)
+                <div id="filter-group-checkboxe-container-inner-@aspect.Id" class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="@aspect.Id" name="@Model.Name" type="checkbox" value="@aspect.Id"
+                            @if (aspect.Selected)
                             {
                                 @:checked
                             }
                     >
-                    <label id="filter-group-checkbox-label-@filter.Id" class="govuk-label govuk-checkboxes__label" for="@filter.Id">
-                        @filter.Description
+                    <label id="filter-group-checkbox-label-@aspect.Id" class="govuk-label govuk-checkboxes__label" for="@aspect.Id">
+                        @aspect.Description
                     </label>
                 </div>
             }
