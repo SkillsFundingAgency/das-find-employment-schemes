@@ -24,6 +24,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.Model
         public Document? CaseStudies { get; set; }
         public string? OfferHeader { get; set; }
         public Document? Offer { get; set; }
+        public Document? AdditionalFooter { get; set; }
 
         public List<MotivationsFilter>? MotivationsFilterAspects { get; set; }
         public List<PayFilter>? PayFilterAspects { get; set; }
