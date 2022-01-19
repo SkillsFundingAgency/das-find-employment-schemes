@@ -22,6 +22,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
         public IHtmlContent? CaseStudies { get; }
         public string? OfferHeader { get; }
         public IHtmlContent? Offer { get; }
+        public IHtmlContent? AdditionalFooter { get; }
         // when we display the matching schemes on the filter page, we'll sort largest to smallest
         public int Size { get; }
         public string[] FilterAspects { get; }
@@ -32,7 +33,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             string[] filterAspects,
             IHtmlContent? detailsPageOverride = null,
             IHtmlContent? description = null, IHtmlContent? cost = null, IHtmlContent? responsibility = null, IHtmlContent? benefits = null,
-            IHtmlContent? caseStudies = null, string? offerHeader = null, IHtmlContent? offer = null)
+            IHtmlContent? caseStudies = null, string? offerHeader = null, IHtmlContent? offer = null, IHtmlContent? additionalFooter = null)
         {
             Name = name;
             ShortDescription = shortDescription;
@@ -50,6 +51,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             CaseStudies = caseStudies;
             OfferHeader = offerHeader;
             Offer = offer;
+            AdditionalFooter = additionalFooter;
 
             HtmlId = SanitizeHtmlId(url);
             if (HtmlId == "")
