@@ -13,6 +13,7 @@ using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfac
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
+    //todo: will contentful library pick up config from table storage? probably not!
     public class ContentService : IContentService
     {
         private readonly IContentfulClient _contentfulClient;
@@ -56,7 +57,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             Content = new Model.Content.Content(
                 await GetPages(),
                 await GetSchemes(),
-                //todo: just FilterAspect for api as well, then might not need to be generic
                 new Model.Content.Filter(
                     MotivationName,
                     MotivationDescription,

@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging.Abstractions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
-//todo: move generated content into web project (so can run generator when it doesn't compile)
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
     internal class Program
