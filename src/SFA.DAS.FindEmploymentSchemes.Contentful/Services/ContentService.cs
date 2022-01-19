@@ -57,9 +57,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 await GetPages(),
                 await GetSchemes(),
                 //todo: just FilterAspect for api as well, then might not need to be generic
-                new Model.Content.Filter(MotivationName, MotivationDescription, await GetFilters<Model.Api.MotivationsFilter, Model.Content.FilterAspect>(MotivationsFilterContentfulTypeName, MotivationsFilterPrefix)),
-                new Model.Content.Filter(PayName, PayDescription, await GetFilters<Model.Api.PayFilter, Model.Content.FilterAspect>(PayFilterContentfulTypeName, PayFilterPrefix)),
-                new Model.Content.Filter(SchemeLengthName, SchemeLengthDescription, await GetFilters<Model.Api.SchemeLengthFilter, Model.Content.FilterAspect>(SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix)));
+                new Model.Content.Filter(
+                    MotivationName,
+                    MotivationDescription,
+                    await GetFilterAspects<Model.Api.MotivationsFilter>(MotivationsFilterContentfulTypeName, MotivationsFilterPrefix)),
+                new Model.Content.Filter(
+                    PayName,
+                    PayDescription,
+                    await GetFilterAspects<Model.Api.PayFilter>(PayFilterContentfulTypeName, PayFilterPrefix)),
+                new Model.Content.Filter(
+                    SchemeLengthName,
+                    SchemeLengthDescription,
+                    await GetFilterAspects<Model.Api.SchemeLengthFilter>(SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix)));
 
             _logger.LogInformation("Publishing ContentUpdated event");
             ContentUpdated?.Invoke(this, EventArgs.Empty);
@@ -85,15 +94,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             return await Task.WhenAll(schemes.OrderByDescending(s => s.Size).Select(ToContent));
         }
 
-        private async Task<IEnumerable<TContent>> GetFilters<TApi, TContent>(string contentfulTypeName, string filterPrefix)
+        private async Task<IEnumerable<Model.Content.FilterAspect>> GetFilterAspects<TApi>(string contentfulTypeName, string filterPrefix)
             where TApi : Model.Api.IFilter
-            where TContent : Model.Content.Interfaces.IFilterAspect, new()
         {
             var builder = QueryBuilder<TApi>.New.ContentTypeIs(contentfulTypeName);
 
-            var filters = await _contentfulClient.GetEntries<TApi>(builder);
+            var filterAspects = await _contentfulClient.GetEntries<TApi>(builder);
 
-            return filters.OrderBy(f => f.Order).Select(f => ToContent<TContent>(f, filterPrefix));
+            return filterAspects.OrderBy(f => f.Order).Select(f => ToContent(f, filterPrefix));
         }
 
         private async Task<Model.Content.Page> ToContent(Model.Api.Page apiPage)
@@ -128,14 +136,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 await ToHtmlString(apiScheme.Offer));
         }
 
-        private TContent ToContent<TContent>(Model.Api.IFilter apiFilter, string filterPrefix)
-            where TContent : Model.Content.Interfaces.IFilterAspect, new()
+        private Model.Content.FilterAspect ToContent(Model.Api.IFilter apiFilter, string filterPrefix)
         {
-            return new TContent
-            {
-                Id = ToFilterId(apiFilter, filterPrefix),
-                Description = apiFilter.Description!
-            };
+            return new Model.Content.FilterAspect(ToFilterId(apiFilter, filterPrefix), apiFilter.Description!);
         }
 
         private static string ToFilterId(Model.Api.IFilter filter, string filterPrefix)
