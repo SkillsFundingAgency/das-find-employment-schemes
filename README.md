@@ -106,13 +106,24 @@ Data:
 ```json
 {
   "ConnectionStrings": {
-    "Redis": "localhost:6379"
+      "Redis": "localhost:6379"
   },
   "NLog": {
-    "LogLevel": "Info"
+      "LogLevel": "Info"
   },
   "Endpoints": {
     "BaseURL": "https://localhost:44318/"
+  }
+  "ContentUpdates": {
+      "CronSchedule": "*/30 * * * *"
+  },
+  "ContentfulOptions": {
+    "DeliveryApiKey": "<Ask for key>",
+    "ManagementApiKey": "",
+    "PreviewApiKey": "<Ask for key>",
+    "SpaceId": "082i50qdtar9",
+    "UsePreviewApi": false,
+    "MaxNumberOfRateLimitRetries": 0
   }
 }
 ```

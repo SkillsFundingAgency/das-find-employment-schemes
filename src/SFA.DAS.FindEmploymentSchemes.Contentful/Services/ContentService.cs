@@ -13,7 +13,6 @@ using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfac
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
-    //todo: will contentful library pick up config from table storage? probably not!
     public class ContentService : IContentService
     {
         private readonly IContentfulClient _contentfulClient;
