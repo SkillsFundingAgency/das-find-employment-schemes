@@ -3,7 +3,7 @@
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 {
     [DebuggerDisplay("{Name}")]
-    public class PayFilter : IFilter
+    public class Filter : IFilter
     {
         public string? Name { get; set; }
         public string? Description { get; set; }

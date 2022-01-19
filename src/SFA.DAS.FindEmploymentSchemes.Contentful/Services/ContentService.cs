@@ -60,15 +60,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 new Model.Content.Filter(
                     MotivationName,
                     MotivationDescription,
-                    await GetFilterAspects<Model.Api.MotivationsFilter>(MotivationsFilterContentfulTypeName, MotivationsFilterPrefix)),
+                    await GetFilterAspects(MotivationsFilterContentfulTypeName, MotivationsFilterPrefix)),
                 new Model.Content.Filter(
                     PayName,
                     PayDescription,
-                    await GetFilterAspects<Model.Api.PayFilter>(PayFilterContentfulTypeName, PayFilterPrefix)),
+                    await GetFilterAspects(PayFilterContentfulTypeName, PayFilterPrefix)),
                 new Model.Content.Filter(
                     SchemeLengthName,
                     SchemeLengthDescription,
-                    await GetFilterAspects<Model.Api.SchemeLengthFilter>(SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix)));
+                    await GetFilterAspects(SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix)));
 
             _logger.LogInformation("Publishing ContentUpdated event");
             ContentUpdated?.Invoke(this, EventArgs.Empty);
@@ -94,12 +94,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             return await Task.WhenAll(schemes.OrderByDescending(s => s.Size).Select(ToContent));
         }
 
-        private async Task<IEnumerable<Model.Content.FilterAspect>> GetFilterAspects<TApi>(string contentfulTypeName, string filterPrefix)
-            where TApi : Model.Api.IFilter
+        private async Task<IEnumerable<Model.Content.FilterAspect>> GetFilterAspects(string contentfulTypeName, string filterPrefix)
         {
-            var builder = QueryBuilder<TApi>.New.ContentTypeIs(contentfulTypeName);
+            var builder = QueryBuilder<Model.Api.Filter>.New.ContentTypeIs(contentfulTypeName);
 
-            var filterAspects = await _contentfulClient.GetEntries<TApi>(builder);
+            var filterAspects = await _contentfulClient.GetEntries(builder);
 
             return filterAspects.OrderBy(f => f.Order).Select(f => ToContent(f, filterPrefix));
         }

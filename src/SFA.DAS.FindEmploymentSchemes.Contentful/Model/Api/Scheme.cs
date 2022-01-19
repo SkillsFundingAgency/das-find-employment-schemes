@@ -25,8 +25,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
         public string? OfferHeader { get; set; }
         public Document? Offer { get; set; }
 
-        public List<MotivationsFilter>? MotivationsFilterAspects { get; set; }
-        public List<PayFilter>? PayFilterAspects { get; set; }
-        public List<SchemeLengthFilter>? SchemeLengthFilterAspects { get; set; }
+        public List<Filter>? MotivationsFilterAspects { get; set; }
+        public List<Filter>? PayFilterAspects { get; set; }
+        public List<Filter>? SchemeLengthFilterAspects { get; set; }
     }
 }
