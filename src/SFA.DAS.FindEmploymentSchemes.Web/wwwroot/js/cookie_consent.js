@@ -4,13 +4,16 @@ $(document).ready(function () {
         $("div.govuk-cookie-banner").hide();
     } else {
         $("button.cookie-consent-button").click(function () {
+            var date = new Date();
+            date.setFullYear(date.getFullYear() + 1);
+            var expiry = date.toUTCString();
             if ($(this).hasClass("cookies-accept")) {
-                window.GOVUK.cookie("AnalyticsConsent", "true", { days: 365 });
-                window.GOVUK.cookie("MarketingCookieConsent", "true", { days: 365 });
+                document.cookie = "AnalyticsConsent=true; path=/; secure; expires=" + expiry;
+                document.cookie = "MarketingCookieConsent=true; path=/; secure; expires=" + expiry;
                 $("div#cookie-accept-message").show();
             } else {
-                window.GOVUK.cookie("AnalyticsConsent", "false", { days: 365 });
-                window.GOVUK.cookie("MarketingCookieConsent", "false", { days: 365 });
+                document.cookie = "AnalyticsConsent=false; path=/; secure; expires=" + expiry;
+                document.cookie = "MarketingCookieConsent=false; path=/; secure; expires=" + expiry;
                 $("div#cookie-reject-message").show();
             }
 
