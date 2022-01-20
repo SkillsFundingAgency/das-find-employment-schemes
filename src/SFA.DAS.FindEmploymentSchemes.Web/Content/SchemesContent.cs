@@ -123,7 +123,7 @@ developing a workforce with skills specific to your business
                 new HtmlString(
                     @"<p class=""govuk-body"">Flexible work and training courses for aged 19 and over to fast-track specialist skill development, for existing or new talent for your business.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Cost is dependent on the size of your business. There is no cost for independent learners unless you are self-employed.</p>"),
+                    @"<p class=""govuk-body"">Cost is dependent on the size of your business. There is no cost to the employer if the learner is not currently employed by you.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body""> A new starter will be trained in a specialist skill specific to your business and be highly motivated by a guaranteed an interview afterwards.
 
