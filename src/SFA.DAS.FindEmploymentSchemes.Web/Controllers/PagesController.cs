@@ -55,6 +55,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             {
                 IsEssential = true,
                 Secure = true,
+                SameSite = SameSiteMode.None,
                 Expires = DateTimeOffset.UtcNow.AddYears(1)
             };
 
