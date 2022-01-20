@@ -8,12 +8,12 @@ $(document).ready(function () {
             date.setFullYear(date.getFullYear() + 1);
             var expiry = date.toUTCString();
             if ($(this).hasClass("cookies-accept")) {
-                document.cookie = "AnalyticsConsent=true; path=/; secure; expires=" + expiry;
-                document.cookie = "MarketingCookieConsent=true; path=/; secure; expires=" + expiry;
+                document.cookie = "AnalyticsConsent=true; path=/; SameSite=None; secure; expires=" + expiry;
+                document.cookie = "MarketingCookieConsent=true; path=/; SameSite=None; secure; expires=" + expiry;
                 $("div#cookie-accept-message").show();
             } else {
-                document.cookie = "AnalyticsConsent=false; path=/; secure; expires=" + expiry;
-                document.cookie = "MarketingCookieConsent=false; path=/; secure; expires=" + expiry;
+                document.cookie = "AnalyticsConsent=false; path=/; SameSite=None; secure; expires=" + expiry;
+                document.cookie = "MarketingCookieConsent=false; path=/; SameSite=None; secure; expires=" + expiry;
                 $("div#cookie-reject-message").show();
             }
 
