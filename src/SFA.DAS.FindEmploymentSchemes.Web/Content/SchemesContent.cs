@@ -125,7 +125,9 @@ developing a workforce with skills specific to your business
                 new HtmlString(
                     @"<p class=""govuk-body"">Cost is dependent on the size of your business. There is no cost for independent learners unless you are self-employed.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Helps future-proof your business in a rapidly changing labour market and recruit staff with the right training and skills from the outset.</p>"),
+                    @"<p class=""govuk-body""> A new starter will be trained in a specialist skill specific to your business and be highly motivated by a guaranteed an interview afterwards.
+
+</p>"),
                 new HtmlString(@"<p class=""govuk-body"">up to 16-weeks</p>"),
                 "skills-bootcamps", 68000,
                 new string[]
@@ -188,7 +190,7 @@ providing a stepping-stone for your future apprentices
             ),
             new Scheme("Supported Internships for learners with an education, health and care plan",
                 new HtmlString(
-                    @"<p class=""govuk-body"">An unpaid 6 to 12-month work placement for 16 to 24-year-olds with additional needs supported by a qualified job coach.</p>"),
+                    @"<p class=""govuk-body"">An unpaid 6 to 12-month work placement for 16 to 24-year-olds with additional needs, including Special Educational Needs and Disabilities (SEND), supported by a qualified job coach.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p>"),
                 new HtmlString(
