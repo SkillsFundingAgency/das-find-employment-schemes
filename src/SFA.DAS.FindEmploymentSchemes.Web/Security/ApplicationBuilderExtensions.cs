@@ -20,7 +20,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
         /// https://skillsfundingagency.atlassian.net/wiki/spaces/DAS/pages/3249700873/Adding+Google+Analytics
         ///
         /// Note: we _may_ need the other google domains from the das ga doc,
-        /// but there were no violations reported without them, so we leave them out for now.
+        /// but there were no violations reported without them, so we leave them out for now
         ///
         /// Allowing unsafe-inline scripts
         /// ------------------------------
