@@ -26,7 +26,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     @"<p class=""govuk-body"">Paid employment for over 16s, combining work and study in a job allowing you to develop your workforce and business.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Apprentice minimum wage and 5% training contribution depending on business size</p>"),
-                new HtmlString(@"<p class=""govuk-body"">You develop a motivated, skilled and qualified workforce</p>"),
+                new HtmlString(
+                    @"<p class=""govuk-body"">You develop a motivated, skilled and qualified workforce with knowledge of your business</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Minimum of 12 months employment</p>"),
                 "apprenticeships", 403000,
                 new string[]
@@ -36,13 +37,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 },
                 null,
                 new HtmlString(
-                    @"<p class=""govuk-body"">Applies to England</p><p class=""govuk-body"">Apprenticeships are for those aged 16 or over and combine working with studying to gain skills and knowledge in a job role.</p><p class=""govuk-body"">Apprentices can be new or current employees.</p><p class=""govuk-body"">Your apprentice must:</p><ul class =""govuk-list govuk-list--bullet""><li>work with experienced staff</li><li>learn skills relevant to your organisation</li><li>get time for training or study during their working week (at least 20% of their normal working hours)</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">Applies to England</p><p class=""govuk-body"">Apprenticeships are for those aged 16 or over and combine working with studying to gain skills and knowledge in a job role.</p><p class=""govuk-body"">Apprentices can be new or current employees.</p><p class=""govuk-body"">Apprentices:</p><ul class =""govuk-list govuk-list--bullet""><li>work with experienced staff</li><li>learn skills relevant to your organisation</li><li>get time for training or study during their working week (at least 20% of their normal working hours)</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">You must pay apprentices <a href=""https://www.gov.uk/national-minimum-wage-rates"" title="""" class=""govuk-link"">the minimum wage</a>.</p><p class=""govuk-body"">You may have to contribute 5% of the apprentice's training and assessment costs - depending on the size of your business and the age of your apprentice.</p>"),
+                    @"<p class=""govuk-body"">Apprentices are paid <a href=""https://www.gov.uk/national-minimum-wage-rates"" title="""" class=""govuk-link"">the minimum wage</a>.</p><p class=""govuk-body"">You may have to contribute 5% of the apprentice's training and assessment costs - depending on the size of your business and the age of your apprentice.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>opportunities for the student to develop their technical skills within your industry</li><li>20% 'Off-the-job' training delivered by a training provider during your apprentice&#39;s normal working hours</li><li>'On-the-job' training and additional support to ensure your apprentice's success</li></ul><p class=""govuk-body"">Employers must also have:</p><ul class =""govuk-list govuk-list--bullet""><li>a signed apprenticeship agreement and apprenticeship commitment statement from the learner and training provider</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">Employers need to provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>opportunities for the student to develop their technical skills within your industry</li><li>20% 'Off-the-job' training delivered by a training provider during your apprentice&#39;s normal working hours</li><li>'On-the-job' training and additional support to ensure your apprentice's success</li></ul><p class=""govuk-body"">Employers need to have:</p><ul class =""govuk-list govuk-list--bullet""><li>a signed apprenticeship agreement and apprenticeship commitment statement from the learner and training provider</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Incentive payments are available for each apprentice a business takes on as a new employee.
+                    @"<p class=""govuk-body"">Apprenticeships can benefit your business by:</p><ul class =""govuk-list govuk-list--bullet""><li>
+developing a workforce with skills specific to your business
+</li><li>allowing existing employees to pass on their knowledge with your next generation of employees
+</li><li>providing you with a motivated and fast-developing workforce</li><li>offering you <a href=""https://help.apprenticeships.education.gov.uk/hc/en-gb/articles/360022029039-Incentive-payment-for-hiring-a-new-apprentice-check-who-is-eligible"" title="""" class=""govuk-link"">incentive payments</a> of up to &#163;3,000 per apprentice </li></ul><p class=""govuk-body"">
 </p><p class=""govuk-body"">Find out <a href=""https://www.apprenticeships.gov.uk/"" title="""" class=""govuk-link"">how apprenticeships can benefit your business</a>.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Read about <a href=""https://www.apprenticeships.gov.uk/employers/real-stories-employers"" title="""" class=""govuk-link"">how businesses are using incentive payments to hire apprentices</a>.</p>"),
@@ -58,7 +62,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Industry placements can save on many of the costs associated with recruitment</p>"),
+                    @"<p class=""govuk-body"">Allows you to grow your workforce in the short-term with little or no cost and scout future talent in your area.
+</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Short term 45-day industry placement</p>"),
                 "t-levels-industry-placements", 72000,
                 new string[]
@@ -72,9 +77,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay wages and cover expenses such as travel and living costs.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>opportunities for the student to develop their technical skills within your industry</li><li>a line manager to support, supervise and mentor the student</li><li>an induction which includes explaining relevant policies and procedures</li><li>formal feedback on the student's progress against the agreed learning goals at the end of the placement</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">Employers need to provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>opportunities for the student to develop their technical skills within your industry</li><li>a line manager to support, supervise and mentor the student</li><li>an induction which includes explaining relevant policies and procedures</li><li>formal feedback on the student's progress against the agreed learning goals at the end of the placement</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">T Levels are available in more than 20 courses, covering 11 skill areas.</p><p class=""govuk-body"">Incentive payments are available for every T Level student a business hosts on a high-quality industry placement.</p><p class=""govuk-body"">T Levels can support:</p><ul class =""govuk-list govuk-list--bullet""><li>you to build a pipeline of entry-level positions</li><li>the next generation of workers entering your industry to succeed</li><li>you with recruitment, improve innovation and increase your organisation's productivity</li><li>you to fill skills shortages&#160;</li><li>your local community and improve diversity</li><li>your existing staff gain management and mentoring skills</li></ul><p class=""govuk-body"">Find out <a href=""https://www.tlevels.gov.uk/employers"" title="""" class=""govuk-link"">how T Levels can benefit your business</a>.
+                    @"<p class=""govuk-body"">T Levels are available in more than 20 courses, covering 11 skill areas.</p><p class=""govuk-body"">T Levels can support your business:</p><ul class =""govuk-list govuk-list--bullet""><li>you to build a pipeline of entry-level positions with &#163;1,000 incentive payments for employers hosting placements between 27 May 2021 and 31 July 2022</li><li>evaluate future talent</li><li>with recruitment, improve innovation and increase your organisation's productivity</li><li>to fill skills shortages&#160;</li><li>to support your local community and improve diversity</li><li>to provide existing staff gain management and mentoring skills</li></ul><p class=""govuk-body"">Find out <a href=""https://www.tlevels.gov.uk/employers"" title="""" class=""govuk-link"">how T Levels can benefit your business</a>.
 
 </p>"),
                 new HtmlString(
@@ -117,10 +122,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
             new Scheme("Skills Bootcamps",
                 new HtmlString(
                     @"<p class=""govuk-body"">Flexible work and training courses for aged 19 and over to fast-track specialist skill development, for existing or new talent for your business.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">No cost unless self-employed</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Helps future-proof your business in a rapidly changing labour market and recruit staff with the right training and skills from the outset</p>"),
-                new HtmlString(@"<p class=""govuk-body"">12 to 16-weeks</p>"),
+                    @"<p class=""govuk-body"">Cost is dependant on the size of your business. There is no cost for independant learners, unless you are self-employed.</p>"),
+                new HtmlString(
+                    @"<p class=""govuk-body"">Helps future-proof your business in a rapidly changing labour market and recruit staff with the right training and skills from the outset.</p>"),
+                new HtmlString(@"<p class=""govuk-body"">up to 16-weeks</p>"),
                 "skills-bootcamps", 68000,
                 new string[]
                 {
@@ -132,11 +138,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(
                     @"<p class=""govuk-body"">Skills Bootcamps offer free, flexible courses of up to 16 weeks for adults aged 19 or over and who are either in work, self-employed, recently unemployed or returning to work after a break.</p><p class=""govuk-body"">They give people the opportunity to build up valuable sector-specific skills based on local employer demand in areas including digital, construction and green skills.</p><p class=""govuk-body"">They provide a direct path to a job on completion.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Employers who want to use Skills Bootcamps for their existing employees contribute 30% of the cost.</p><p class=""govuk-body"">Existing employees may need time to study and attend classes depending on their working hours and status and the flexibility of the course.</p>"),
+                    @"<p class=""govuk-body"">Employers who want to use Skills Bootcamps for their existing employees contribute 30% of the cost if they are a large employer, or 10% if they are a small to medium employer (SME).</p><p class=""govuk-body"">Existing employees may need time to study and attend classes depending on their working hours and status and the flexibility of the course.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>a line manager to support, supervise and mentor the student</li><li>a guaranteed interview as part of the Skills Bootcamp provision</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">Employers need to provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>a line manager to support, supervise and mentor the student</li><li>a guaranteed interview as part of the Skills Bootcamp provision</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">They help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop a loyal and talented workforce with the skills you need</li><li>futureproof your business in a rapidly changing labour market</li><li>improve your productivity; learners are motivated to learn new skills, provide new ideas and a fresh perspective</li><li>recruit staff with the right training and skills from the outset</li><li>get access to a pipeline of skilled adults at no cost by working with existing Skills Bootcamp providers </li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">They help your business:</p><ul class =""govuk-list govuk-list--bullet""><li>develop a loyal and talented workforce with the skills you need quickly</li><li>futureproof your business in a rapidly changing labour market</li><li>improve your productivity; learners are motivated to learn new skills, provide new ideas and a fresh perspective</li><li>recruit staff with the right training and skills from the outset</li><li>get access to a pipeline of skilled adults by working with existing Skills Bootcamp providers </li></ul><p class=""govuk-body""></p>"),
                 null,
                 "Offer a Skills Bootcamps",
                 new HtmlString(
@@ -149,7 +155,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Helps you increase your capacity and productivity whilst developing a loyal and talented workforce</p>"),
+                    @"<p class=""govuk-body"">Provides a stepping stone for your future apprentices or employees to gain valuable skills relevant to your business. 
+</p>"),
                 new HtmlString(@"<p class=""govuk-body"">70 to 240 hours work placement</p>"),
                 "traineeships", 43000,
                 new string[]
@@ -165,12 +172,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Content
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay the wages and any payments for expenses such as travel and living costs.
 </p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe, meaningful and high-quality work experience placement</li><li>a minimum of 70 hours of work experience placement over the duration of the traineeship (if the trainee claims benefits, the placement cannot last longer than 240 hours)</li><li>constructive feedback and advice to the trainee</li><li>an interview for an apprenticeship or job in their organisation at the end of the traineeship if one is available</li><li>an exit interview at the end of the traineeship with meaningful written feedback if no job is available</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">Employers need to provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe, meaningful and high-quality work experience placement</li><li>a minimum of 70 hours of work experience placement over the duration of the traineeship (if the trainee claims benefits, the placement cannot last longer than 240 hours)</li><li>constructive feedback and advice to the trainee</li><li>an interview for an apprenticeship or job in their organisation at the end of the traineeship if one is available</li><li>an exit interview at the end of the traineeship with meaningful written feedback if no job is available</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Traineeships have seen big increases as businesses recover from the pandemic and are expected to double to around 40,000 per year.</p><p class=""govuk-body"">
-Incentive payments are available for businesses offering traineeship work placements.
-
-Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-employers"" title="""" class=""govuk-link"">how traineeships can benefit your business</a>.</p>"),
+                    @"<p class=""govuk-body"">Traineeships can benefit your business by:</p><ul class =""govuk-list govuk-list--bullet""><li>
+providing a stepping-stone for your future apprentices
+</li><li>allowing you to test out a new position in your business without committing to full time hires
+</li><li>helping your business attract a new generation of talent
+</li><li>offering financial incentives of up to &#163;1,000 per trainee</li></ul><p class=""govuk-body"">Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-employers"" title="""" class=""govuk-link"">how traineeships can benefit your business</a>.</p><p class=""govuk-body""></p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-traineeships"" title="""" class=""govuk-link"">how businesses are using traineeships</a>.</p>"),
                 "Offer a traineeship",
@@ -184,7 +192,7 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Allows you to shape a job role that suits your business and the needs of the supported intern and increases your confidence of employing individuals with additional needs</p>"),
+                    @"<p class=""govuk-body"">Increases your confidence and ability to employ individuals with additional needs, improving and expanding your business' recruitment prospects.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">6 to 12-months</p>"),
                 "supported-internships", 20000,
                 new string[]
@@ -199,7 +207,7 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay wages and cover expenses such as travel and living costs.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>workplaces adjustments the supported intern may need</li><li>a line manager to support, supervise and mentor the student</li><li>an induction which includes explaining relevant policies and procedures</li><li>a welcoming environment and be willing to work collaboratively with the job coach, to support the young person to succeed</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">Employers provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>workplaces adjustments the supported intern may need</li><li>a line manager to support, supervise and mentor the student</li><li>an induction which includes explaining relevant policies and procedures</li><li>a welcoming environment and be willing to work collaboratively with the job coach, to support the young person to succeed</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Supported internships:</p><ul class =""govuk-list govuk-list--bullet""><li>create and support a diverse workforce</li><li>provide a job coach who will support the intern and increase your confidence of employing individuals with additional needs</li><li>increase your capacity and productivity</li><li>allows you to shape a job role that suits both the needs of your business and the needs of the supported intern</li></ul><p class=""govuk-body""></p>"),
                 null,
@@ -229,7 +237,7 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs related to the practical offer your business makes to care leavers.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>practical help that makes a difference to the life of a care leaver</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">Employers will provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>practical help that makes a difference to the life of a care leaver</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">You create and support a diverse and loyal workforce for your business.</p>"),
                 new HtmlString(
@@ -244,7 +252,8 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
                     @"<p class=""govuk-body"">Employ prisoners and prison leavers aged 18 and over to help your business fill skills gaps and develop a loyal and talented workforce.</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Helping prisoners and prison leavers find employment</p>"),
+                new HtmlString(
+                    @"<p class=""govuk-body"">Access a workforce that is highly motivated to grow through work</p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Variable depending on employer and prisoner and prison leaver</p>"),
                 "employing-prisoners-and-prison-leavers", 1000,
@@ -256,11 +265,11 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
                 },
                 null,
                 new HtmlString(
-                    @"<p class=""govuk-body"">New Futures Network (NFN) arranges partnerships between prisons and employers in England and Wales. These partnerships help you:</p><ul class =""govuk-list govuk-list--bullet""><li>fill skills gaps in your business</li><li>reduce recruitment costs</li><li>increase staff retention</li><li>transform prison leavers lives</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">New Futures Network (NFN) arranges partnerships between prisons and employers in England and Wales. These partnerships help you:</p><ul class =""govuk-list govuk-list--bullet""><li>fill skills gaps in your business</li><li>reduce recruitment costs</li><li>increase staff retention</li><li>transform prison leavers&#39; lives</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Free government scheme but you may have your own business costs. If you recruit someone you must pay <a href=""https://www.gov.uk/national-minimum-wage-rates"" title="""" class=""govuk-link"">the minimum wage</a>.</p>"),
                 new HtmlString(
-                    @"<p class=""govuk-body"">Employers must provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>a line manager to support, supervise and mentor</li><li>an induction which includes explaining relevant policies and procedures</li></ul><p class=""govuk-body""></p>"),
+                    @"<p class=""govuk-body"">Employers need to provide:</p><ul class =""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>a line manager to support, supervise and mentor</li><li>an induction which includes explaining relevant policies and procedures</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(
                     @"<p class=""govuk-body"">Over 400 businesses already work in partnership with prisons to provide work and employment opportunities.</p><p class=""govuk-body"">Of those surveyed, more than 80% of employers positively rated those they employed as reliable and hard-working.</p>"),
                 new HtmlString(
@@ -268,30 +277,6 @@ Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-emplo
                 "Offer prisoners and prison leavers employment",
                 new HtmlString(
                     @"<p class=""govuk-body""><a href=""https://newfuturesnetwork.gov.uk/register/"" title="""" class=""govuk-link"">Register your interest on the New Futures Network</a>.</p><p class=""govuk-body"">A member of the team will be in touch to discuss the process.</p>"),
-                null
-            ),
-            new Scheme("Higher Technical Qualifications (HTQs)",
-                new HtmlString(
-                    @"<p class=""govuk-body"">Level 4 or 5 qualifications, for those 18 and over, with no work placement but flexible for employees to study while working.</p>"),
-                new HtmlString(
-                    @"<p class=""govuk-body"">Costs vary depending on the course and provider. You may choose to pay for an employee to do a HTQ.</p>"),
-                new HtmlString(
-                    @"<p class=""govuk-body"">Developed by employers to upskill existing employees, provide a different recruitment pool to hire new talent and help your company succeed</p>"),
-                new HtmlString(@"<p class=""govuk-body"">1 to 2 years</p>"),
-                "higher-technical-qualifications", -500,
-                new string[] {"pay--minimum-wage", "motivations--full-time-role", "scheme-length--a-year-or-more",},
-                null,
-                new HtmlString(
-                    @"<p class=""govuk-body"">Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships and degrees.</p><p class=""govuk-body"">They are:</p><ul class =""govuk-list govuk-list--bullet""><li>new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)</li><li>approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards</li></ul><p class=""govuk-body"">The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.</p><p class=""govuk-body"">Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.</p>"),
-                new HtmlString(
-                    @"<p class=""govuk-body"">You may choose to pay for an employee to undertake a HTQ. Costs will vary depending on the course and provider.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Most HTQs do not require an in-work placement.</p>"),
-                new HtmlString(
-                    @"<p class=""govuk-body"">HTQs have been developed by employers and awarding bodies to help you upskill existing employees and provide a different recruitment pool to hire new talent.</p><p class=""govuk-body"">They help your workforce have the right knowledge, skills and behaviours for your company to succeed.</p>"),
-                null,
-                "Offer HTQs",
-                new HtmlString(
-                    @"<p class=""govuk-body""><a href=""https://www.gov.uk/guidance/htqs"" title="""" class=""govuk-link"">Learn more and get started with HTQs</a>.</p>"),
                 null
             ),
             new Scheme("Training outside of employment",
@@ -317,7 +302,27 @@ English for Speakers of Other Languages (ESOL)</h2><p class=""govuk-body"">Adult
 
 </p><h2 class=""govuk-heading-l"">Digital entitlement</h2><p class=""govuk-body"">Any adult with low digital skills is entitled to fully funded essential digital skills qualifications, at entry-level and level 1. These equip adults with the full range of essential digital skills needed for life, work and further study.&#160;</p><p class=""govuk-body"">Funding for other digital skills qualifications may also be available but this will depend on local training providers.</p><h2 class=""govuk-heading-l"">
 Benefits of free basic skills qualifications </h2><p class=""govuk-body"">
-Without your business needing to fund the training, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>ensure your entire workforce is digitally literate&#160;</li><li>ensure your workforce has the English, maths and digital skills they need&#160;</li><li>progress your current employees into higher skilled roles</li><li>offer free qualifications to adults</li></ul><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Free qualifications for adults</h2><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free level 3 qualifications</a> are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.</p><p class=""govuk-body"">A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p class=""govuk-body"">Without needing to fund the training yourself, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>progress your current employees into higher skilled roles</li></ul><p class=""govuk-body"">The <a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free Courses for jobs</a> offer and the qualification list has been developed with industry, and will be regularly reviewed. </p><h3 class=""govuk-heading-m"">Benefits of free level 3 qualifications</h3><p class=""govuk-body"">Read the <a href=""https://learning.linkedin.com/content/dam/me/business/en-us/amp/learning-solutions/images/workplace-learning-report-2019/pdf/workplace-learning-report-2019.pdf"" title="""" class=""govuk-link"">LinkedIn Workplace Learning</a> report 2019 for information on developing a loyal and talented workforce.</p><div class=""cx-cta-box""><p class=""govuk-body"">Offer free qualifications to adults</p><p class=""govuk-body"">Upskill your workforce by helping your employees <a href=""https://www.gov.uk/government/publications/find-a-free-level-3-qualification"" title="""" class=""govuk-link"">find a free level 3 qualification</a>.</p></div><h2 class=""govuk-heading-l"">National Careers Service</h2><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>explore work and skills opportunities for your workforce including those offered as part of the skills recovery package.</li><li>carry out skills needs analysis for your business to understand gaps and find solutions.</li><li>find skilled people to fill current vacancies in your organisation.</li></ul><h3 class=""govuk-heading-m"">Employer costs</h3><p class=""govuk-body"">The National Careers Service is free to use.</p><h3 class=""govuk-heading-m"">Benefits of National Careers Service</h3><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>futureproof your business for the future labour market</li><li>help to develop your current workforce and supplement with talented individuals who have the skills you need</li><li>increase your resilience and productivity</li><li>take part in national virtual jobs fairs</li></ul><div class=""cx-cta-box""><p class=""govuk-body"">Use the National Careers Service to support your workforce</p><p class=""govuk-body"">Find out more about the <a href=""https://nationalcareers.service.gov.uk/"" title="""" class=""govuk-link"">National Careers Service and how to contact them</a>.</p></div><p class=""govuk-body""></p>"),
+Without your business needing to fund the training, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>ensure your entire workforce is digitally literate&#160;</li><li>ensure your workforce has the English, maths and digital skills they need&#160;</li><li>progress your current employees into higher skilled roles</li><li>offer free qualifications to adults</li></ul><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Higher Technical Qualifications (HTQs)</h2><p class=""govuk-body"">
+Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships and degrees.
+</p><p class=""govuk-body"">They are:</p><ul class =""govuk-list govuk-list--bullet""><li>
+new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)
+</li></ul><ul class =""govuk-list govuk-list--bullet""><li>approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards
+ 
+</li></ul><p class=""govuk-body"">The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.
+Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.
+</p><h2 class=""govuk-heading-l"">Employer costs</h2><p class=""govuk-body"">You may choose to pay for an employee to undertake a HTQ. Costs will vary depending on the course and provider.</p><h2 class=""govuk-heading-l"">
+
+Employer responsibilities</h2><p class=""govuk-body"">
+Most HTQs do not require an in-work placement. 
+
+</p><h2 class=""govuk-heading-l"">Benefits of HTQs</h2><p class=""govuk-body"">HTQs have been developed by employers and awarding bodies to help you upskill existing employees and provide a different recruitment pool to hire new talent.
+
+They help your workforce have the right knowledge, skills and behaviours for your company to succeed.</p><h2 class=""govuk-heading-l"">
+
+Case studies</h2><p class=""govuk-body"">Awaiting content from HTQ team. If not available when we launch we will need to keep the section out until available.</p><h2 class=""govuk-heading-l"">
+
+Offer HTQs
+</h2><p class=""govuk-body"">Learn more and get started with HTQs. </p><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">Free qualifications for adults</h2><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free level 3 qualifications</a> are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.</p><p class=""govuk-body"">A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p class=""govuk-body"">Without needing to fund the training yourself, they help you:</p><ul class =""govuk-list govuk-list--bullet""><li>develop the talent pool in your business</li><li>progress your current employees into higher skilled roles</li></ul><p class=""govuk-body"">The <a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free Courses for jobs</a> offer and the qualification list has been developed with industry, and will be regularly reviewed. </p><h3 class=""govuk-heading-m"">Benefits of free level 3 qualifications</h3><p class=""govuk-body"">Read the <a href=""https://learning.linkedin.com/content/dam/me/business/en-us/amp/learning-solutions/images/workplace-learning-report-2019/pdf/workplace-learning-report-2019.pdf"" title="""" class=""govuk-link"">LinkedIn Workplace Learning</a> report 2019 for information on developing a loyal and talented workforce.</p><div class=""cx-cta-box""><p class=""govuk-body"">Offer free qualifications to adults</p><p class=""govuk-body"">Upskill your workforce by helping your employees <a href=""https://www.gov.uk/government/publications/find-a-free-level-3-qualification"" title="""" class=""govuk-link"">find a free level 3 qualification</a>.</p></div><h2 class=""govuk-heading-l"">National Careers Service</h2><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>explore work and skills opportunities for your workforce including those offered as part of the skills recovery package.</li><li>carry out skills needs analysis for your business to understand gaps and find solutions.</li><li>find skilled people to fill current vacancies in your organisation.</li></ul><h3 class=""govuk-heading-m"">Employer costs</h3><p class=""govuk-body"">The National Careers Service is free to use.</p><h3 class=""govuk-heading-m"">Benefits of National Careers Service</h3><p class=""govuk-body"">The National Careers Service can help you:</p><ul class =""govuk-list govuk-list--bullet""><li>futureproof your business for the future labour market</li><li>help to develop your current workforce and supplement with talented individuals who have the skills you need</li><li>increase your resilience and productivity</li><li>take part in national virtual jobs fairs</li></ul><div class=""cx-cta-box""><p class=""govuk-body"">Use the National Careers Service to support your workforce</p><p class=""govuk-body"">Find out more about the <a href=""https://nationalcareers.service.gov.uk/"" title="""" class=""govuk-link"">National Careers Service and how to contact them</a>.</p></div><p class=""govuk-body""></p>"),
                 null,
                 null,
                 null,
@@ -370,6 +375,16 @@ Without your business needing to fund the training, they help you:</p><ul class 
 
         public static readonly IEnumerable<Page> Pages = new[]
         {
+            new Page("AnalyticsCookies",
+                "analyticscookies",
+                new HtmlString(
+                    @"<h1 class=""govuk-heading-xl"">Details about cookies</h1><p class=""govuk-body"">This service puts small files (known as &#39;cookies&#39;) onto your computer. These cookies are used to:</p><ul class =""govuk-list govuk-list--bullet""><li>help us understand how you use the website, so we can make improvements</li><li>remember what notifications you&#39;ve seen so you&#39;re not shown them more than once</li><li>temporarily store the selections you make</li></ul><p class=""govuk-body"">Find out more about&#160;<a href=""https://ico.org.uk/your-data-matters/online/cookies/"" title="""" class=""govuk-link"">how to manage cookies</a>.</p><h2 class=""govuk-heading-l"">Cookies that measure website usage</h2><p class=""govuk-body"">We use Google Analytics software (Universal Analytics) to collect anonymised information about how you use the service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements.</p><p class=""govuk-body"">We do not allow Google to use or share the data about how you use this service.</p><p class=""govuk-body"">Google Analytics stores information about:</p><ul class =""govuk-list govuk-list--bullet""><li>how you got to the service</li><li>the pages you visit on this service and how long you spend on them</li><li>what you click on while you&#39;re visiting the service</li></ul><p class=""govuk-body"">We may also set our own cookies to understand how people move through the service.</p><p class=""govuk-body""></p>")
+            ),
+            new Page("MarketingCookies",
+                "marketingcookies",
+                new HtmlString(
+                    @"<h2 class=""govuk-heading-l"">Cookies that help with our communications and marketing</h2><p class=""govuk-body"">Some of our pages may contain content from other sites, like YouTube, which may set their own cookies. These sites are sometimes called &#39;third party&#39; services. This tells us how many people are seeing the content and whether it&#39;s useful.</p><p class=""govuk-body"">We also share information about your use of our pages with our social media and advertising partners (for example, Facebook) to help us improve the relevancy of advertising campaigns you receive from us.</p><p class=""govuk-body"">They may set cookies that you can turn off. Find out more about how to&#160;<a href=""https://ico.org.uk/your-data-matters/online/cookies/"" title="""" class=""govuk-link"">turn off these cookies</a>.</p><p class=""govuk-body"">In addition, if you share a link to one of our pages, the service you share it on (for example, Facebook) may set a cookie. We have no control over cookies set on other websites - you can turn them off, but not through us.</p><p class=""govuk-body""></p>")
+            ),
             new Page("Accessibility statement",
                 "accessibility-statement",
                 new HtmlString(
@@ -415,14 +430,6 @@ This website was last tested on 13 December 2021. The test was carried out by th
                 "home",
                 new HtmlString(
                     @"<h1 class=""govuk-heading-xl"">Find training and employment schemes for your business</h1><p class=""govuk-body"">A range of government programmes, are available for employers who are considering hiring employees, offering work experience or upskilling existing staff, some of which offer financial incentives.</p>")
-            ),
-            new Page("AnalyticsCookies",
-                "analyticscookies",
-                new HtmlString(@"<h1 class=""govuk-heading-xl"">Details about cookies</h1><p class=""govuk-body"">This service puts small files (known as &#39;cookies&#39;) onto your computer. These cookies are used to:</p><ul class =""govuk-list govuk-list--bullet""><li>help us understand how you use the website, so we can make improvements</li><li>remember what notifications you&#39;ve seen so you&#39;re not shown them more than once</li><li>temporarily store the selections you make</li></ul><p class=""govuk-body"">Find out more about&#160;<a href=""https://ico.org.uk/your-data-matters/online/cookies/"" title="""" class=""govuk-link"">how to manage cookies</a>.</p><h2 class=""govuk-heading-l"">Cookies that measure website usage</h2><p class=""govuk-body"">We use Google Analytics software (Universal Analytics) to collect anonymised information about how you use the service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements.</p><p class=""govuk-body"">We do not allow Google to use or share the data about how you use this service.</p><p class=""govuk-body"">Google Analytics stores information about:</p><ul class =""govuk-list govuk-list--bullet""><li>how you got to the service</li><li>the pages you visit on this service and how long you spend on them</li><li>what you click on while you&#39;re visiting the service</li></ul><p class=""govuk-body"">We may also set our own cookies to understand how people move through the service.</p><p class=""govuk-body""></p>")
-            ),
-            new Page("MarketingCookies",
-                "marketingcookies",
-                new HtmlString(@"<h2 class=""govuk-heading-l"">Cookies that help with our communications and marketing</h2><p class=""govuk-body"">Some of our pages may contain content from other sites, like YouTube, which may set their own cookies. These sites are sometimes called &#39;third party&#39; services. This tells us how many people are seeing the content and whether it&#39;s useful.</p><p class=""govuk-body"">We also share information about your use of our pages with our social media and advertising partners (for example, Facebook) to help us improve the relevancy of advertising campaigns you receive from us.</p><p class=""govuk-body"">They may set cookies that you can turn off. Find out more about how to&#160;<a href=""https://ico.org.uk/your-data-matters/online/cookies/"" title="""" class=""govuk-link"">turn off these cookies</a>.</p><p class=""govuk-body"">In addition, if you share a link to one of our pages, the service you share it on (for example, Facebook) may set a cookie. We have no control over cookies set on other websites - you can turn them off, but not through us.</p><p class=""govuk-body""></p>")
             ),
             new Page("Privacy Notice",
                 "privacy-notice",
