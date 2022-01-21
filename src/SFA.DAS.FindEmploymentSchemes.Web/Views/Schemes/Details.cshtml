@@ -29,12 +29,13 @@
             @if (Model.Scheme.CaseStudies.Any())
             {
                 <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
+                @Model.Scheme.CaseStudiesPreAmble
 
                 @foreach (CaseStudy study in Model.Scheme.CaseStudies)
                 {
                     <details class="govuk-details" data-module="govuk-details">
-                        <summary class="govuk-details__summary1">
-                            <span class="govuk-details__summary1-text">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
                                 @study.DisplayTitle
                             </span>
                         </summary>

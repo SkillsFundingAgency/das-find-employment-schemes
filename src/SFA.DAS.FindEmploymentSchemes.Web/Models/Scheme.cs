@@ -20,6 +20,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
         public IHtmlContent? Responsibility { get; }
         public IHtmlContent? Benefits { get; }
         public CaseStudy[] CaseStudies { get; }
+        public IHtmlContent? CaseStudiesPreAmble { get;}
         public string? OfferHeader { get; }
         public IHtmlContent? Offer { get; }
         public IHtmlContent? AdditionalFooter { get; }
@@ -32,6 +33,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             string url, int size,
             string[] filterAspects,
             CaseStudy[] caseStudies,
+            IHtmlContent? caseStudiesPreAmble,
             IHtmlContent? detailsPageOverride = null,
             IHtmlContent? description = null, IHtmlContent? cost = null, IHtmlContent? responsibility = null, IHtmlContent? benefits = null,
             string? offerHeader = null, IHtmlContent? offer = null, IHtmlContent? additionalFooter = null)
@@ -45,6 +47,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             Size = size;
             FilterAspects = filterAspects;
             CaseStudies = caseStudies;
+            CaseStudiesPreAmble = caseStudiesPreAmble;
             DetailsPageOverride = detailsPageOverride;
             Description = description;
             Cost = cost;

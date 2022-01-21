@@ -104,6 +104,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 Console.Write(await GenerateCaseStudies(scheme.CaseStudyReferences, htmlRenderer));
                 Console.WriteLine("},");
 
+                Console.WriteLine($"{await AsHtmlString(scheme.CaseStudiesPreamble, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.DetailsPageOverride, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.Description, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.Cost, htmlRenderer)},");

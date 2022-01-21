@@ -41,6 +41,7 @@ new Scheme("Apprenticeships",
                     new CaseStudy("Apprenticeships - employer", "Smith & Williamson", new HtmlString(@"<p class=""govuk-body"">Smith &amp; Williamson is among the ten largest firms of accountants in the UK. With a workforce of 1800, Smith and Williamson has 124 apprentices, in roles including Assurance &amp; Business Services, Business Tax and Private Client Tax. The firm merged with Tilney Group in September 2020 and is now part of the Tilney Smith and Williamson Group.</p>")),
                     new CaseStudy("Apprenticeships - what is the service video", "What is the Apprenticeship service?", new HtmlString(@"<p class=""govuk-body""><iframe width=""560"" height=""315"" src=""https://www.youtube.com/embed/xWUFLAAc4TY"" title=""YouTube video player"" frameborder=""0"" allow=""accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"" allowfullscreen></iframe></p>")),
                 },
+                new HtmlString(@"<p class=""govuk-body"">Read how other businesses have used an apprenticeship scheme</p>"),
                 null,
                 new HtmlString(
                     @"<p class=""govuk-body"">Applies to England</p><p class=""govuk-body"">Apprenticeships are for those aged 16 or over and combine working with studying to gain skills and knowledge in a job role.</p><p class=""govuk-body"">Apprentices can be new or current employees.</p><p class=""govuk-body"">Apprentices:</p><ul class =""govuk-list govuk-list--bullet""><li>work with experienced staff</li><li>learn skills relevant to your organisation</li><li>get time for training or study during their working week (at least 20% of their normal working hours)</li></ul><p class=""govuk-body""></p>"),
@@ -77,6 +78,7 @@ new Scheme("T Levels: industry placements",
                 },
                 new CaseStudy[] {},
                 null,
+                null,
                 new HtmlString(
                     @"<p class=""govuk-body"">T Levels are qualifications for students aged 16 to 19 who have finished GCSEs. They are a 2-year qualification and the equivalent to studying 3 A levels.</p><p class=""govuk-body"">They have been designed with employers, to give them the skilled workforce they need by helping young people develop their knowledge, attitude and practical skills to thrive in the workplace.</p>"),
                 new HtmlString(
@@ -107,6 +109,7 @@ new Scheme("Sector-based Work Academy Programme (SWAP)",
                     "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--up-to-4-months",
                 },
                 new CaseStudy[] {},
+                null,
                 null,
                 new HtmlString(
                     @"<p class=""govuk-body"">Sector-based Work Academy Programmes (SWAPs) help prepare those receiving unemployment benefits to apply for jobs in a different area of work.</p><p class=""govuk-body"">Placements run up to 6 weeks and are designed to help you recruit a workforce with the right skills to sustain and grow your business.</p><p class=""govuk-body"">They are tailored to meet your recruitment needs, including pre-employment training, a work experience placement, and your guarantee of a job interview for participants.</p><p class=""govuk-body"">Jobcentre Plus manages SWAPs in England and Scotland.</p>"),
@@ -140,6 +143,7 @@ new Scheme("Skills Bootcamps",
                 },
                 new CaseStudy[] {},
                 null,
+                null,
                 new HtmlString(
                     @"<p class=""govuk-body"">Skills Bootcamps offer free, flexible courses of up to 16 weeks for adults aged 19 or over and who are either in work, self-employed, recently unemployed or returning to work after a break.</p><p class=""govuk-body"">They give people the opportunity to build up valuable sector-specific skills based on local employer demand in areas including digital, construction and green skills.</p><p class=""govuk-body"">They provide a direct path to a job on completion.</p>"),
                 new HtmlString(
@@ -170,6 +174,7 @@ new Scheme("Traineeships",
                     "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
                 },
                 new CaseStudy[] {},
+                null,
                 null,
                 new HtmlString(
                     @"<p class=""govuk-body"">A traineeship is a work based skills development programme that includes a work placement.</p><p class=""govuk-body"">The full programme can last from 6 weeks up to 1 year, though most traineeships last for between 6-weeks and 12-weeks.</p><p class=""govuk-body"">Your business needs to be able to offer a safe, meaningful and high-quality work experience placement of at least 70 hours to 240 hours.</p><p class=""govuk-body"">You will work with a training provider to design what is included in the programme.</p><p class=""govuk-body"">Trainees can gain English, maths, digital and work-related qualifications which can lead them on to:</p><ul class =""govuk-list govuk-list--bullet""><li>an apprenticeship</li><li>work</li><li>further education</li></ul><p class=""govuk-body""></p>"),
@@ -206,6 +211,7 @@ new Scheme("Supported Internships for learners with an education, health and car
             },
             new CaseStudy[] {},
             null,
+            null,
             new HtmlString(
                 @"<p class=""govuk-body"">Supported internships are a work-based study programme for young people aged 16 to 24 with Special Educational Needs and Disabilities (SEND), who have an <a href=""https://www.gov.uk/children-with-special-educational-needs/extra-SEN-help"" title="""" class=""govuk-link"">education health and care (EHC) plan</a>.</p><p class=""govuk-body"">Supported internships equip young people with the skills they need to secure and sustain employment through learning in the workplace, with support from a qualified job coach. They last between 6 to 12 months.</p><p class=""govuk-body"">Supported interns are enrolled with and supported by a learning provider, but spend most of their learning time - typically around 70% in the workplace.</p><p class=""govuk-body"">Alongside their time with the employer, supported interns complete a personalised study programme delivered by the school/college, which includes the chance to study for relevant qualifications, if appropriate, and English and maths at an appropriate level.</p>"),
             new HtmlString(
@@ -235,6 +241,7 @@ new Scheme("Care-Leaver covenant",
                 "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
             },
             new CaseStudy[] {},
+            null,
             null,
             new HtmlString(
                 @"<p class=""govuk-body"">The Care-leaver Covenant is a way companies can support 16 to 25-year-olds leaving care to become independent.</p><p class=""govuk-body"">Organisations can pledge support including apprenticeships, work experience or free or discounted goods or services.</p>"),
@@ -267,6 +274,7 @@ new Scheme("Employing prisoners and prison leavers",
             },
             new CaseStudy[] {},
             null,
+            null,
             new HtmlString(
                 @"<p class=""govuk-body"">New Futures Network (NFN) arranges partnerships between prisons and employers in England and Wales. These partnerships help you:</p><ul class =""govuk-list govuk-list--bullet""><li>fill skills gaps in your business</li><li>reduce recruitment costs</li><li>increase staff retention</li><li>transform prison leavers&#39; lives</li></ul><p class=""govuk-body""></p>"),
             new HtmlString(
@@ -296,6 +304,7 @@ new Scheme("Training outside of employment",
                 "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months",
             },
             new CaseStudy[] {},
+            null,
             new HtmlString(@"<p class=""govuk-body"">Free training up to level 3, financial support and career advice, available through Government initiatives for your workforce.</p><h2 class=""govuk-heading-l"">Basic skills (English, maths and digital)</h2><p class=""govuk-body"">Free English, maths, digital courses and qualifications for adults. </p><h2 class=""govuk-heading-l"">
 English and maths entitlement</h2><p class=""govuk-body"">In England, any adult who does not already have a level 2 qualification (GCSE grade 4 or equivalent) in English or maths is legally entitled to fully funded study up to level 2.&#160;</p><p class=""govuk-body"">Your workforce gets the potential to progress and your business increases its productivity.</p><h2 class=""govuk-heading-l"">
 
