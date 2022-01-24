@@ -64,3 +64,13 @@ ShowHideElement.prototype.showHideTarget = function (e) {
 ShowHideElement.prototype.isExpanded = function () {
     return this.module.classList.contains(this.sectionExpandedClass)
 }
+
+
+
+$(document).ready(function () {
+    $("details.govuk-details").click(function () {
+        $(this).siblings("details.govuk-details").each(function () {
+            $(this).removeAttr("open");
+        });
+    });
+});
