@@ -37,6 +37,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             await GenerateFilterContent<SchemeLengthFilter>(client, "schemeLengthFilter", SchemeLengthFilterPrefix);
 
             await GeneratePagesContent(client, htmlRenderer);
+            await GenerateCaseStudyPagesContent(client, htmlRenderer);
 
             Console.WriteLine(Closing());
         }
@@ -44,7 +45,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
         private static async Task GeneratePagesContent(ContentfulClient client, HtmlRenderer htmlRenderer)
         {
             var builder = QueryBuilder<Page>.New.ContentTypeIs("page");
-
             var pages = await client.GetEntries<Page>(builder);
 
             Console.WriteLine(@"        public static readonly IEnumerable<Page> Pages = new[]
@@ -53,6 +53,25 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             foreach (Page page in pages)
             {
                 Console.WriteLine($"new Page(\"{page.Title}\",");
+                Console.WriteLine($"\"{page.Url}\",");
+                Console.WriteLine($"{await AsHtmlString(page.Content, htmlRenderer)}");
+                Console.WriteLine("),");
+            }
+
+            Console.WriteLine(@"        };");
+        }
+
+        private static async Task GenerateCaseStudyPagesContent(ContentfulClient client, HtmlRenderer htmlRenderer)
+        {
+            var builder = QueryBuilder<CaseStudyPage>.New.ContentTypeIs("caseStudyPage");
+            var pages = await client.GetEntries<CaseStudyPage>(builder);
+
+            Console.WriteLine(@"        public static readonly IEnumerable<CaseStudyPage> CaseStudyPages = new[]
+        {");
+
+            foreach (CaseStudyPage page in pages)
+            {
+                Console.WriteLine($"new CaseStudyPage(\"{page.Title}\",");
                 Console.WriteLine($"\"{page.Url}\",");
                 Console.WriteLine($"{await AsHtmlString(page.Content, htmlRenderer)}");
                 Console.WriteLine("),");
@@ -132,6 +151,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             htmlRenderer.AddRenderer(new GdsHyperlinkContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsListContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsParagraphRenderer(htmlRenderer.Renderers));
+            htmlRenderer.AddRenderer(new GdsEmbeddedYoutubeContentRenderer(htmlRenderer.Renderers));
             return htmlRenderer;
         }
 

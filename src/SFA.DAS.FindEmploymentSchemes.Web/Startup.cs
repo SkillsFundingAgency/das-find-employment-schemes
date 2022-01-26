@@ -128,6 +128,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     defaults: new { controller = "Pages", action = "Page" });
 
                 endpoints.MapControllerRoute(
+                    name: "casestudypage",
+                    pattern: "case-study/{pageUrl}",
+                    defaults: new { controller = "CaseStudies", action = "CaseStudyPage" });
+
+                endpoints.MapControllerRoute(
                     name: "schemes",
                     pattern: "schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "Details" });

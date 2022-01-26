@@ -1,0 +1,15 @@
+﻿@model SFA.DAS.FindEmploymentSchemes.Web.Models.CaseStudyPage
+
+@{
+    ViewData["Title"] = Model.Title.Substring(0, Math.Min(Model.Title.Length, 64));;
+}
+
+@section BreadCrumbs {
+    <a href="/" class="govuk-back-link">Home</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        @Model.Content
+    </div>
+</div>
