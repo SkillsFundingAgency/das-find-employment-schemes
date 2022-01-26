@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 
@@ -456,6 +457,7 @@ the website you came from to find out more about this.</p>")
         {
             new CaseStudyPage("TestCaseStudyPage",
                 "test-case-study-page-for-apprenticeships",
+                Schemes.FirstOrDefault(x => x.Name == "Apprenticeships"),
                 new HtmlString(
                     @"<p class=""govuk-body""><strong>MTR Elizabeth Line</strong></p><p class=""govuk-body"">MTR Elizabeth Line, based in London and operator of sustainable rail transport services, heard about the hire a new apprentice incentive through media coverage, before checking&#160;<a href=""https://www.gov.uk/guidance/plan-for-jobs-skills-and-employment-programmes-information-for-employers?utm_source=ApprenticeshipsCaseStudy&utm_medium=Link&utm_campaign=PFJ#apprenticeships"" title="""" class=""govuk-link"">GOV.UK</a>&#160;to understand the incentives in more detail.</p><p class=""govuk-body"">In August the company registered, through their Apprenticeship Service account, for the 'Hiring a new apprentice' incentive for two new apprentices to join their team of over 500 past and current apprentices. MTR Elizabeth Line are proud to have increased their apprentice salary to align with London Living Wage rates of pay - and the incentive payment will help support these costs and the costs of uniforms.
 

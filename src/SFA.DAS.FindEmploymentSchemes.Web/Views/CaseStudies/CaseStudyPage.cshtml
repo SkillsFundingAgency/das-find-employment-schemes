@@ -6,10 +6,15 @@
 
 @section BreadCrumbs {
     <a href="/" class="govuk-back-link">Home</a>
+    <a href="@Url.Action("Details", "Schemes", new { schemeUrl = Model.Scheme.Url })" class="govuk-back-link">@Model.Scheme.Name</a>
 }
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        @Model.Content
+    <div id="scheme-details-outer" class="govuk-grid-row">
+        <div id="case-study-inner-two-thirds" class="govuk-grid-column-two-thirds">
+            @Model.Content
+        </div>
+        <div id="case-study-inner-one-third" class="govuk-grid-column-one-third">
+        </div>
     </div>
 </div>

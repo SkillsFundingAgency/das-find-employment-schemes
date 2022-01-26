@@ -73,7 +73,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             {
                 Console.WriteLine($"new CaseStudyPage(\"{page.Title}\",");
                 Console.WriteLine($"\"{page.Url}\",");
-                Console.WriteLine($"{await AsHtmlString(page.Content, htmlRenderer)}");
+                Console.WriteLine($"Schemes.FirstOrDefault(x => x.Name == \"{page?.Scheme?.Name}\"),");
+                Console.WriteLine($"{await AsHtmlString(page?.Content, htmlRenderer)}");
                 Console.WriteLine("),");
             }
 
@@ -205,6 +206,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
         private static string Preamble()
         {
             return @"using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 
