@@ -33,16 +33,21 @@
 
                 @foreach (CaseStudy study in Model.Scheme.CaseStudies)
                 {
-                    <details class="govuk-details" data-module="govuk-details">
-                        <summary class="govuk-details__summary">
-                            <span class="govuk-details__summary-text">
-                                @study.DisplayTitle
-                            </span>
-                        </summary>
-                        <div class="govuk-details__text">
-                            @study.Content
-                        </div>
-                    </details>
+                    @if(Model.Scheme.CaseStudies.Length > 1) {
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    @study.DisplayTitle
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                @study.Content
+                            </div>
+                        </details>
+                    } else {
+                        <h3 id="scheme-details-h3-case-studies">@study.DisplayTitle</h3>
+                        @study.Content
+                    }
                 }
 
             }
