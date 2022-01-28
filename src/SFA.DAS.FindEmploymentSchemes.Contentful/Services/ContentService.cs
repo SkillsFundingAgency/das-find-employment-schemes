@@ -131,7 +131,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 await ToHtmlString(apiScheme.Benefits),
                 await ToHtmlString(apiScheme.CaseStudies),
                 apiScheme.OfferHeader,
-                await ToHtmlString(apiScheme.Offer));
+                await ToHtmlString(apiScheme.Offer),
+                await ToHtmlString(apiScheme.AdditionalFooter));
         }
 
         private Model.Content.FilterAspect ToContent(Model.Api.IFilter apiFilter, string filterPrefix)

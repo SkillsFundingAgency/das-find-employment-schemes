@@ -30,7 +30,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         /// <returns>A GDS horizontal ruler HTML tag.</returns>
         public Task<string> RenderAsync(IContent content)
         {
-            return Task.FromResult("hr class=\"govuk-section-break govuk-section-break--visible\"");
+            return Task.FromResult("<hr class=\"govuk-section-break govuk-section-break--visible\">");
         }
     }
 }

@@ -20,7 +20,28 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
         /// https://skillsfundingagency.atlassian.net/wiki/spaces/DAS/pages/3249700873/Adding+Google+Analytics
         ///
         /// Note: we _may_ need the other google domains from the das ga doc,
-        /// but there were no violations reported without them, so we leave them out for now 
+        /// but there were no violations reported without them, so we leave them out for now.
+        ///
+        /// Allowing unsafe-inline scripts
+        /// ------------------------------
+        /// Google's nonce-aware tag manager code has an issue with custom html tags (which we use).
+        /// https://stackoverflow.com/questions/65100704/gtm-not-propagating-nonce-to-custom-html-tags
+        /// https://dev.to/matijamrkaic/using-google-tag-manager-with-a-content-security-policy-9ai
+        ///
+        /// We tried the given solution (above), but the last piece of the puzzle to make it work,
+        /// would involve self hosting a modified version of google's gtm.js script.
+        ///
+        /// In gtm.js, where it's creating customScripts, we'd have to change...
+        /// var n = C.createElement("script");
+        /// to
+        /// var n=C.createElement("script");n.nonce=[get nonce from containing script block];
+        ///
+        /// The problems with self hosting a modified gtm.js are (from https://stackoverflow.com/questions/45615612/is-it-possible-to-host-google-tag-managers-script-locally)
+        /// * we wouldn't automatically pick up any new tags or triggers that Steve added
+        /// * we would need a version of the script that worked across all browsers and versions (and wouldn't have a browser optimised version)
+        /// * we wouldn't pick up new versions of the script
+        /// For these reasons, the only way to get the campaign tracking working, is to open up the CSP to allow unsafe-inline scripts.
+        /// This will make our site less secure, but is a trade-off between security and tracking functionality.
         /// </summary>
         public static IApplicationBuilder UseAppSecurityHeaders(
             this IApplicationBuilder app,
@@ -65,10 +86,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         var scriptSrc = builder.AddScriptSrc()
                             .Self()
-                            .From(new[] {cdnUrl, "https://tagmanager.google.com"})
+                            .From(new[] {cdnUrl, "https://tagmanager.google.com", "https://www.google-analytics.com/", "https://www.googletagmanager.com" })
                             // this is needed for gtm
                             .UnsafeEval()
-                            .WithNonce();
+                            .UnsafeInline();
+                            //.WithNonce();
 
                         builder.AddStyleSrc()
                             .Self()

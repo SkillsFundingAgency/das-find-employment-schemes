@@ -23,6 +23,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public HtmlString? CaseStudies { get; }
         public string? OfferHeader { get; }
         public HtmlString? Offer { get; }
+        public HtmlString? AdditionalFooter { get; }
         // when we display the matching schemes on the filter page, we'll sort largest to smallest
         public int Size { get; }
         public IEnumerable<string> FilterAspects { get; }
@@ -33,7 +34,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             IEnumerable<string> filterAspects,
             HtmlString? detailsPageOverride = null,
             HtmlString? description = null, HtmlString? cost = null, HtmlString? responsibility = null, HtmlString? benefits = null,
-            HtmlString? caseStudies = null, string? offerHeader = null, HtmlString? offer = null)
+            HtmlString? caseStudies = null, string? offerHeader = null, HtmlString? offer = null, HtmlString? additionalFooter = null)
         {
             Name = name;
             ShortDescription = shortDescription;
@@ -51,6 +52,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             CaseStudies = caseStudies;
             OfferHeader = offerHeader;
             Offer = offer;
+            AdditionalFooter = additionalFooter;
 
             HtmlId = SanitizeHtmlId(url);
             if (HtmlId == "")

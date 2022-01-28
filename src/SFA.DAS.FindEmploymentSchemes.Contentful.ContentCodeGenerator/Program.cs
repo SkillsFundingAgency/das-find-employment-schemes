@@ -92,7 +92,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 Console.WriteLine($"                {GenerateHtmlString(scheme.Benefits)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.CaseStudies)},");
                 Console.WriteLine($"                \"{scheme.OfferHeader}\",");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.Offer)}");
+                Console.WriteLine($"                {GenerateHtmlString(scheme.Offer)},");
+                Console.WriteLine($"                {GenerateHtmlString(scheme.AdditionalFooter)}");
                 Console.WriteLine("                ),");
             }
 

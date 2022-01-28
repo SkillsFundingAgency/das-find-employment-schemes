@@ -7,7 +7,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
       <meta name="theme-color" content="blue">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <script asp-add-nonce>
+      @*https://dev.to/matijamrkaic/using-google-tag-manager-with-a-content-security-policy-9ai*@
+      <script id="gtmScript" data-nonce="@Context.GetNonce()" asp-add-nonce>
       (function (w, d, s, l, i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
           var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
           j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;var n=d.querySelector('[nonce]');n&&j.setAttribute('nonce',n.nonce||n.getAttribute('nonce'));
@@ -40,7 +41,7 @@
            document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
        </script>
 
-       <!-- Google Tag Manager (noscript) -->
+      <!-- Google Tag Manager (noscript) -->
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLHRMLT"
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- End Google Tag Manager (noscript) -->
@@ -58,10 +59,10 @@
             </div>
             <div id="layout-cookie-button-group" class="govuk-button-group">
                <button id="layout-cookie-button-accept" value="accept" type="button" name="cookies" class="govuk-button cookie-consent-button cookies-accept" data-module="govuk-button">
-               Accept analytics cookies
+               Accept cookies
                </button>
                <button id="layout-cookie-button-reject" value="reject" type="button" name="cookies" class="govuk-button cookie-consent-button cookies-reject" data-module="govuk-button">
-               Reject analytics cookies
+               Reject cookies
                </button>
                <a id="layout-cookie-link" class="govuk-link" asp-route="page" asp-route-pageUrl="cookies">View cookies</a>
             </div>
@@ -72,7 +73,7 @@
               <div id="cookie-accept-column" class="govuk-grid-column-two-thirds">
 
                 <div id="cookie-accept-banner" class="govuk-cookie-banner__content">
-                  <p id="cookie-accept-para" class="govuk-body">You’ve accepted analytics cookies.</p>
+                  <p id="cookie-accept-para" class="govuk-body">You’ve accepted all cookies. You can <a id="cookie-accept-link" class="govuk-link" href="/page/cookies">change your cookie settings</a> at any time.</p>
                 </div>
               </div>
             </div>
@@ -89,7 +90,7 @@
               <div id="cookie-reject-column" class="govuk-grid-column-two-thirds">
 
                 <div id="cookie-reject-banner" class="govuk-cookie-banner__content">
-                  <p id="cookie-reject-para" class="govuk-body">You’ve rejected analytics cookies.</p>
+                  <p id="cookie-reject-para" class="govuk-body">You’ve rejected all cookies. You can <a id="cookie-reject-link" class="govuk-link" href="/page/cookies">change your cookie settings</a> at any time.</p>
                 </div>
               </div>
             </div>
@@ -192,9 +193,11 @@
                     <![endif]-->
                 </div>
                 <div class="govuk-grid-column-two-thirds app-header__col">
-                    <a id="header-service-link" href="/" class="govuk-header__link app-header__service-name">
-                        Find schemes for your business
-                    </a>
+                    <div class="app-header__service-name">
+                        <a id="header-service-link" href="/" class="govuk-header__link">
+                            Find schemes for your business
+                        </a>
+                    </div>
                     <!--[if gt IE 8]><!-->
                     <svg id="Layer_1" class="app-header__plan-for-jobs-logo" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 639.21 325.27" height="51" width="100"><defs><style>.cls-1{fill:#fff;}</style></defs><path class="cls-1" d="M68.17,49.24H97.05c20.87,0,29.78,9.32,29.78,24.82v.41c0,15.1-10,23.61-28.77,23.61h-7v23.61H68.17ZM95.83,82.68c6.08,0,9.22-2.74,9.22-8.11v-.4c0-5.58-3.14-7.81-9.12-7.81H91.07V82.68Z"/><path class="cls-1" d="M135.45,49.24h23V104h26.34v17.74H135.45Z"/><path class="cls-1" d="M212.55,49.24h29.69l22.7,72.45H240.62l-3.34-12.06h-22.9l-3.24,12.06H189.76ZM218.74,94H233l-7.09-26.24Z"/><path class="cls-1" d="M272.44,49.24h25.73l20.57,38.3V49.24H338.9v72.45h-22L292.7,78.32v43.37H272.44Z"/><path class="cls-1" d="M370.93,49.24h50.15V67H393.93V80.45h21.88V97.37H393.93v24.32h-23Z"/><path class="cls-1" d="M425.34,85.92v-.81c0-22.39,17-37,38.7-37C486.33,48.13,503,61.6,503,84.5v.81c0,22.6-15.5,37.69-39.31,37.69S425.34,107.91,425.34,85.92Zm53.7-.1V85c0-12.26-5.88-19-15-19-8.91,0-14.69,6.59-14.69,19v.81c0,12.36,5.78,19.15,14.9,19.15S479,97.88,479,85.82Z"/><path class="cls-1" d="M512.28,49.24h29.58c20,0,30.3,8,30.3,23.51v.4c0,10-5.07,15.71-12.26,18.95l16.51,29.59H552.3L538.82,96.86h-3.65v24.83H512.28Zm28.26,32.83c6.39,0,9.43-2.64,9.43-7.9v-.41c0-5.27-3.14-7.29-9.32-7.29h-5.48v15.6Z"/><path class="cls-1" d="M49.54,273.65v-39a57.43,57.43,0,0,0,16.63,2.21c9.61,0,16.42-3.62,16.42-16.09V133.43h53.49v87.31c0,37.62-17.43,58.34-57.29,58.34C64,279.08,56.35,277.07,49.54,273.65Z"/><path class="cls-1" d="M149.1,206.25v-1.61c0-45.46,35.06-73.43,78.33-73.43,44.47,0,78.92,25.15,78.92,72v1.61c0,46.07-31.45,75.24-80.12,75.24C178,280.08,149.1,250.91,149.1,206.25Zm101.57-.2v-1.61c0-22.13-9.62-31.58-23.24-31.58-13.42,0-22.64,9.65-22.64,31.58v1.61c0,21.73,8.21,32.19,22.84,32.19C241.65,238.24,250.67,227,250.67,206.05Z"/><path class="cls-1" d="M321.78,133.43H396.5c37.66,0,49.48,18.5,49.48,37.82v.8c0,17.71-9.82,27.76-25.64,31.18,15.82,2.22,28.64,12.68,28.64,33.2v.8c0,25.15-15.62,40-54.68,40H321.78Zm62.3,54.31c8.41,0,11.82-2.81,11.82-9.25v-.8c0-6.44-3.21-9.86-11.82-9.86H373.66v19.91Zm-.8,54.93c9,0,13.22-4.43,13.22-11.67v-.81c0-7.24-3.81-11.46-13.82-11.46h-9v23.94Z"/><path class="cls-1" d="M456.8,230.59h50.28c.4,6.84,4.21,12.28,15,12.28,8.42,0,11-3.22,11-7.65,0-5-4.41-7.44-16.23-8.85-42.66-4.63-57.29-16.5-57.29-47.08,0-28,22.24-48.08,60.3-48.08,37.46,0,57.69,14.69,60.1,47.68H530.72c-.4-6.23-4.21-10.46-11-10.46-6.41,0-9.62,2.62-9.62,6.84,0,4.83,3.81,7.44,16,8.65,35.46,3.42,58.09,12.07,58.09,45.47,0,27.36-20.83,50.69-62.1,50.69C481.24,280.08,457.2,265.2,456.8,230.59Z"/><path class="cls-1" d="M639.21,325.27H0V0H639.21ZM10.92,313.59H628.3V11.68H10.92Z"/></svg>
                     <!--<![endif]-->
@@ -222,42 +225,43 @@
             @RenderBody()
          </main>
       </div>
-      <footer id="layout-footer-container" class="govuk-footer">
-         <div id="layout-footer-outer" class="govuk-width-container ">
-            <div id="layout-footer-inner" class="govuk-footer__meta">
-               <div id="layout-footer-inner-meta" class="govuk-footer__meta-item govuk-footer__meta-item--grow">
-                  <h2 id="layout-footer-header" class="govuk-visually-hidden">Support links</h2>
-                  <ul id="layout-footer-ul" class="govuk-footer__inline-list">
-                      <li id="layout-footer-privacy-li" class="govuk-footer__inline-list-item">
+      <footer class="govuk-footer">
+         <div class="govuk-width-container ">
+             @RenderSection("AdditionalFooter", required: false)
+            <div class="govuk-footer__meta">
+               <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+                  <h2 class="govuk-visually-hidden">Support links</h2>
+                  <ul class="govuk-footer__inline-list">
+                      <li class="govuk-footer__inline-list-item">
                           <a id="layout-footer-privacy-link" class="govuk-footer__link" asp-route="page" asp-route-pageUrl="privacy-notice">
                               Privacy
                           </a>
                       </li>
-                     <li id="layout-footer-cookies-li" class="govuk-footer__inline-list-item">
+                     <li class="govuk-footer__inline-list-item">
                         <a id="layout-footer-cookies-link" class="govuk-footer__link" asp-route="page" asp-route-pageUrl="cookies">
                         Cookies
                         </a>
                      </li>
-                     <li id="layout-footer-accessibility-li" class="govuk-footer__inline-list-item">
+                     <li class="govuk-footer__inline-list-item">
                         <a id="layout-footer-accessibility-link" class="govuk-footer__link" asp-route="page" asp-route-pageUrl="accessibility-statement">
                         Accessibility statement
                         </a>
                      </li>
-                      <li id="layout-footer-contact-ul" class="govuk-footer__inline-list-item">
+                      <li class="govuk-footer__inline-list-item">
                           <a id="layout-footer-contact-link" class="govuk-footer__link" href="mailto:customer.experience@education.gov.uk?subject=Query%20from%20Employers%20Find%20Employment%20Schemes%20Service">
                               Contact
                           </a>
                       </li>
                   </ul>
-                  <svg id="layout-footer-svg" aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.2 195.7" height="17" width="41">
+                  <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.2 195.7" height="17" width="41">
                      <path id="layout-footer-path" fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145" />
                   </svg>
-                  <span id="layout-footer-license-span" class="govuk-footer__licence-description">
+                  <span class="govuk-footer__licence-description">
                   All content is available under the
                   <a id="layout-footer-license-link" class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
                   </span>
                </div>
-               <div id="layout-footer-copyright-container" class="govuk-footer__meta-item">
+               <div class="govuk-footer__meta-item">
                   <a id="layout-footer-copyright-link" class="govuk-footer__link govuk-footer__copyright-logo" href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">© Crown copyright</a>
                </div>
             </div>
