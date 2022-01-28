@@ -19,7 +19,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
         public IHtmlContent? Cost { get; }
         public IHtmlContent? Responsibility { get; }
         public IHtmlContent? Benefits { get; }
-        public IHtmlContent? CaseStudies { get; }
+        public CaseStudy[] CaseStudies { get; }
+        public IHtmlContent? CaseStudiesPreAmble { get;}
         public string? OfferHeader { get; }
         public IHtmlContent? Offer { get; }
         public IHtmlContent? AdditionalFooter { get; }
@@ -31,9 +32,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
         public Scheme(string name, IHtmlContent shortDescription, IHtmlContent shortCost, IHtmlContent shortBenefits, IHtmlContent shortTime,
             string url, int size,
             string[] filterAspects,
+            CaseStudy[] caseStudies,
+            IHtmlContent? caseStudiesPreAmble,
             IHtmlContent? detailsPageOverride = null,
             IHtmlContent? description = null, IHtmlContent? cost = null, IHtmlContent? responsibility = null, IHtmlContent? benefits = null,
-            IHtmlContent? caseStudies = null, string? offerHeader = null, IHtmlContent? offer = null, IHtmlContent? additionalFooter = null)
+            string? offerHeader = null, IHtmlContent? offer = null, IHtmlContent? additionalFooter = null)
         {
             Name = name;
             ShortDescription = shortDescription;
@@ -43,12 +46,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             Url = url;
             Size = size;
             FilterAspects = filterAspects;
+            CaseStudies = caseStudies;
+            CaseStudiesPreAmble = caseStudiesPreAmble;
             DetailsPageOverride = detailsPageOverride;
             Description = description;
             Cost = cost;
             Responsibility = responsibility;
             Benefits = benefits;
-            CaseStudies = caseStudies;
             OfferHeader = offerHeader;
             Offer = offer;
             AdditionalFooter = additionalFooter;
