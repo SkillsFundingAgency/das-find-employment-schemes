@@ -42,7 +42,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         }
 
         //todo: page with content version?
-        //todo: logging
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
@@ -86,9 +85,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 
                 var delay = TimeToNextInvocation();
 
-                //todo: check timer null & throw ex?
                 _timer!.Change(delay, Timeout.InfiniteTimeSpan);
 
+                //todo: how to handle content update ok, but event handler throwing?
                 await _contentService.Update();
 
                 Interlocked.Decrement(ref _executionCount);

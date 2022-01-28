@@ -3,7 +3,7 @@ using System;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
-    //todo: one exception for the web?
+    // if we need more than 1 exception, we could have one exception for the web
     [Serializable]
     public class ContentUpdateServiceException : Exception
     {

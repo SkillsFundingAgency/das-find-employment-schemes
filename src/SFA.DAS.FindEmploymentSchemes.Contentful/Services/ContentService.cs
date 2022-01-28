@@ -104,7 +104,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         private async Task<Model.Content.Page> ToContent(Model.Api.Page apiPage)
         {
-            //todo: can any of these come through as null?
             return new Model.Content.Page(
                 apiPage.Title!,
                 apiPage.Url!,
@@ -155,7 +154,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         private async Task<HtmlString?> ToHtmlString(Document? document)
         {
-            //todo: code gen needed to check null, check gen code to remember why
             if (document == null)
                 return null;
 
