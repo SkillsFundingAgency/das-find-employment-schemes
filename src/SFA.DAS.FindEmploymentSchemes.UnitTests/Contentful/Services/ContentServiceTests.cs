@@ -7,7 +7,9 @@ using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
 using FakeItEasy;
+using KellermanSoftware.CompareNetObjects;
 using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using Xunit;
@@ -23,6 +25,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         public ContentfulCollection<Page> PagesCollection { get; set; }
         public ContentfulCollection<Scheme> SchemesCollection { get; set; }
         public ContentfulCollection<Filter> FiltersCollection { get; set; }
+        public ContentService ContentService { get; set; }
+        public CompareLogic CompareLogic { get; set; }
 
         public ContentServiceTests()
         {
@@ -49,6 +53,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             // decouples us from the order of fetching filters
             A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
                 .Returns(FiltersCollection);
+
+            ContentService = new ContentService(ContentfulClient, HtmlRenderer, Logger);
+
+            CompareLogic = new CompareLogic();
         }
 
         [Theory]
@@ -65,16 +73,32 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             filters.First().Name = filterName;
             FiltersCollection.Items = filters;
 
-            var contentService = new ContentService(ContentfulClient, HtmlRenderer, Logger);
-
-            var content = await contentService.Update();
+            var content = await ContentService.Update();
 
             Assert.Equal(expectedFilterAspectId, content.PayFilter.Aspects.First().Id);
         }
 
-        //public async Task Content_IsGeneratedContentBeforeUpdate(string expectedFilterAspectId, string filterName)
-        //{
+        [Fact]
+        public void Content_IsGeneratedContentBeforeUpdate()
+        {
+            // xunit v3 supports this, but the vs & msbuild test runners aren't ready yet
+            //Assert.Equivalent
 
-        //}
+            // so use the old faithful...
+
+            var compareResult = CompareLogic.Compare(new GeneratedContent(), ContentService.Content);
+
+            Assert.True(compareResult.AreEqual);
+        }
+
+        [Fact]
+        public async Task Content_IsNotGeneratedContentAfterUpdate()
+        {
+            await ContentService.Update();
+
+            var compareResult = CompareLogic.Compare(new GeneratedContent(), ContentService.Content);
+
+            Assert.False(compareResult.AreEqual);
+        }
     }
 }
