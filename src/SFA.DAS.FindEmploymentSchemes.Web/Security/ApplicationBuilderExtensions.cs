@@ -87,7 +87,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         var scriptSrc = builder.AddScriptSrc()
                             .Self()
-                            .From(new[] {cdnUrl, "https://tagmanager.google.com", "https://www.youtube.com" })
+                            .From(new[] {cdnUrl, "https://tagmanager.google.com", "https://www.google-analytics.com/", "https://www.googletagmanager.com, "https://www.youtube.com" })
                             // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
                             .UnsafeInline();
