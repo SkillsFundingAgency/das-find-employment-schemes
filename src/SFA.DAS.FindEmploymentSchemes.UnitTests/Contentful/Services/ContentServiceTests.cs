@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using AutoFixture;
+using AutoFixture.Kernel;
 using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
 using FakeItEasy;
 using KellermanSoftware.CompareNetObjects;
+using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using Xunit;
+using Document = Contentful.Core.Models.Document;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 {
@@ -77,6 +82,33 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 
             Assert.Equal(expectedFilterAspectId, content.PayFilter.Aspects.First().Id);
         }
+
+        // Contentful's .net library is not very test friendly: HtmlRenderer.ToHtml can't be mocked
+        // we'd have to introduce a level of indirection to test this
+        // or we _could_ make ToHtmlString in ContentService public and test it directly
+        //[Theory]
+        //[InlineData("\"", "“")]
+        //public async Task Update_HtmlQuirksTest(string expectedHtmlStringValue, string unescapedHtml)
+        //{
+        //    Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+        //        .ForEach(b => Fixture.Behaviors.Remove(b));
+        //    Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
+        //    Fixture.Customizations.Add(
+        //        new TypeRelay(
+        //            typeof(IContent),
+        //            typeof(Paragraph)));
+
+        //    var pages = Fixture.CreateMany<Page>(1).ToList();
+        //    PagesCollection.Items = pages;
+
+        //    A.CallTo(() => HtmlRenderer.ToHtml(A<Document>.Ignored))
+        //        .Returns(unescapedHtml);
+
+        //    var content = await ContentService.Update();
+
+        //    Assert.Equal(expectedHtmlStringValue, content.Pages.First().Content.Value);
+        //}
 
         [Fact]
         public void Content_IsGeneratedContentBeforeUpdate()
