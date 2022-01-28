@@ -16,6 +16,41 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 {
     public class ContentServiceTests
     {
+        public Fixture Fixture { get; }
+        public IContentfulClient ContentfulClient { get; set; }
+        public HtmlRenderer HtmlRenderer { get; set; }
+        public ILogger<ContentService> Logger { get; set; }
+        public ContentfulCollection<Page> PagesCollection { get; set; }
+        public ContentfulCollection<Scheme> SchemesCollection { get; set; }
+        public ContentfulCollection<Filter> FiltersCollection { get; set; }
+
+        public ContentServiceTests()
+        {
+            Fixture = new Fixture();
+
+            ContentfulClient = A.Fake<IContentfulClient>();
+            HtmlRenderer = A.Fake<HtmlRenderer>();
+            Logger = A.Fake<ILogger<ContentService>>();
+
+            PagesCollection = new ContentfulCollection<Page> { Items = Array.Empty<Page>() };
+            A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Page>>.Ignored, A<CancellationToken>.Ignored))
+                .Returns(PagesCollection);
+
+            SchemesCollection = new ContentfulCollection<Scheme> { Items = Array.Empty<Scheme>() };
+            A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Scheme>>.Ignored, A<CancellationToken>.Ignored))
+                .Returns(SchemesCollection);
+
+            FiltersCollection = new ContentfulCollection<Filter> { Items = Array.Empty<Filter>() };
+            //A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
+            //    .Returns(payFiltersCollection).Once()
+            //    .Then
+            //    .Returns(new ContentfulCollection<Filter>());
+
+            // decouples us from the order of fetching filters
+            A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
+                .Returns(FiltersCollection);
+        }
+
         [Theory]
         [InlineData("pay--the-name", "the name")]
         [InlineData("pay--thename", "thename")]
@@ -24,44 +59,22 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         [InlineData("pay--the--name", "the  name")]
         [InlineData("pay--", "")]
         [InlineData("pay--1234567890-qwertyuiop-asdfghjkl-zxcvbnm", "1234567890 qwertyuiop asdfghjkl zxcvbnm")]
-        public async Task ToContentScheme_FilterIdTests(string expectedFilterAspectId, string filterName)
+        public async Task Update_FilterIdTests(string expectedFilterAspectId, string filterName)
         {
-            var contentfulClient = A.Fake<IContentfulClient>();
-            var htmlRenderer = A.Fake<HtmlRenderer>();
-            var logger = A.Fake<ILogger<ContentService>>();
+            var filters = Fixture.CreateMany<Filter>(1).ToList();
+            filters.First().Name = filterName;
+            FiltersCollection.Items = filters;
 
-            var fixture = new Fixture();
-
-            var pagesCollection = new ContentfulCollection<Page> {Items = Array.Empty<Page>()};
-            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Page>>.Ignored, A<CancellationToken>.Ignored))
-                .Returns(pagesCollection);
-
-            var schemesCollection = new ContentfulCollection<Scheme> { Items = Array.Empty<Scheme>() };
-            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Scheme>>.Ignored, A<CancellationToken>.Ignored))
-                .Returns(schemesCollection);
-
-            var payFilters = fixture.CreateMany<Filter>(1).ToList();
-            payFilters.First().Name = filterName;
-
-            var payFiltersCollection = new ContentfulCollection<Filter>
-            {
-                Items = payFilters
-            };
-
-            //A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
-            //    .Returns(payFiltersCollection).Once()
-            //    .Then
-            //    .Returns(new ContentfulCollection<Filter>());
-
-            // decouples us from the order of fetching filters
-            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
-                .Returns(payFiltersCollection);
-
-            var contentService = new ContentService(contentfulClient, htmlRenderer, logger);
+            var contentService = new ContentService(ContentfulClient, HtmlRenderer, Logger);
 
             var content = await contentService.Update();
 
             Assert.Equal(expectedFilterAspectId, content.PayFilter.Aspects.First().Id);
         }
+
+        //public async Task Content_IsGeneratedContentBeforeUpdate(string expectedFilterAspectId, string filterName)
+        //{
+
+        //}
     }
 }
