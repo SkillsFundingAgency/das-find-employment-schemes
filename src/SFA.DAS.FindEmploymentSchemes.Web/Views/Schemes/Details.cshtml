@@ -25,41 +25,20 @@
             <h2 id="scheme-details-h2-responsibility" class="govuk-heading-m"> Employer responsibilities </h2>
             @Model.Scheme.Responsibility
             <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
-                @Model.Scheme.Benefits
-
-            @if (Model.Scheme.CaseStudies.Any())
+            @Model.Scheme.Benefits
+            @if (@Model.Scheme.CaseStudies != null)
             {
                 <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
-                @Model.Scheme.CaseStudiesPreAmble
-
-                @foreach (CaseStudy study in Model.Scheme.CaseStudies)
-                {
-                    @if(Model.Scheme.CaseStudies.Length > 1) {
-                        <details class="govuk-details" data-module="govuk-details">
-                            <summary class="govuk-details__summary">
-                                <span class="govuk-details__summary-text">
-                                    @study.DisplayTitle
-                                </span>
-                            </summary>
-                            <div class="govuk-details__text">
-                                @study.Content
-                            </div>
-                        </details>
-                    } else {
-                        <h3 id="scheme-details-h3-case-studies">@study.DisplayTitle</h3>
-                        @study.Content
-                    }
-                }
+                @Model.Scheme.CaseStudies
             }
-
             <section id="scheme-details-section-offer-header" class="cx-cta-box">
                 <h2 id="scheme-details-h2-offer-header" class="govuk-heading-m">@Model.Scheme.OfferHeader</h2>
                 @Model.Scheme.Offer
             </section>
         }
-	</div>
-	<div id="scheme-details-inner-one-third" class="govuk-grid-column-one-third">
-		<h3 id="scheme-details-inner-h3" class="govuk-heading-m">Other schemes</h3>
+    </div>
+    <div id="scheme-details-inner-one-third" class="govuk-grid-column-one-third">
+        <h3 id="scheme-details-inner-h3" class="govuk-heading-m">Other schemes</h3>
         <ul id="scheme-details-inner-ul" class="govuk-list">
             @foreach (var scheme in Model.OtherSchemes)
             {
