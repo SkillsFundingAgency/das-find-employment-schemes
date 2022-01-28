@@ -37,8 +37,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Infrastructure
 
         public void Generate()
         {
-            //todo: error handling on startup and update (if config missing/incorrect : abort startup (fail fast))
-            // read config in ctor? and store uri?
             if (!Uri.TryCreate(_configuration["Endpoints:BaseURL"], UriKind.Absolute, out Uri? baseUri))
                 return;
 

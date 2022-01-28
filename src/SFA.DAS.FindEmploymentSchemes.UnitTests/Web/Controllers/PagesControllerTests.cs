@@ -22,7 +22,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             A.CallTo(() => contentService.Content).Returns(content);
             A.CallTo(() => content.Pages).Returns(new[]
             {
-                new Page("", "cookies", null!),
+                new Page("", "analyticscookies", null!),
+                new Page("", "marketingcookies", null!),
                 new Page("", "accessibility-statement", null!)
             });
             PagesController controller = new PagesController(logger, contentService);

@@ -120,9 +120,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 (await ToHtmlString(apiScheme.ShortTime))!,
                 apiScheme.Url!,
                 apiScheme.Size,
-                (apiScheme.PayFilterAspects?.Select(f => ToFilterId(f, PayFilterPrefix)) ?? Enumerable.Empty<string>())
-                    .Concat(apiScheme.MotivationsFilterAspects?.Select(f => ToFilterId(f, MotivationsFilterPrefix)) ?? Enumerable.Empty<string>())
-                    .Concat(apiScheme.SchemeLengthFilterAspects?.Select(f => ToFilterId(f, SchemeLengthFilterPrefix)) ?? Enumerable.Empty<string>()),
+                (apiScheme.PayFilterAspects?.Select(f => ToFilterAspectId(f, PayFilterPrefix)) ?? Enumerable.Empty<string>())
+                    .Concat(apiScheme.MotivationsFilterAspects?.Select(f => ToFilterAspectId(f, MotivationsFilterPrefix)) ?? Enumerable.Empty<string>())
+                    .Concat(apiScheme.SchemeLengthFilterAspects?.Select(f => ToFilterAspectId(f, SchemeLengthFilterPrefix)) ?? Enumerable.Empty<string>()),
                 await ToHtmlString(apiScheme.DetailsPageOverride),
                 await ToHtmlString(apiScheme.Description),
                 await ToHtmlString(apiScheme.Cost),
@@ -136,10 +136,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         private Model.Content.FilterAspect ToContent(Model.Api.IFilter apiFilter, string filterPrefix)
         {
-            return new Model.Content.FilterAspect(ToFilterId(apiFilter, filterPrefix), apiFilter.Description!);
+            return new Model.Content.FilterAspect(ToFilterAspectId(apiFilter, filterPrefix), apiFilter.Description!);
         }
 
-        private static string ToFilterId(Model.Api.IFilter filter, string filterPrefix)
+        private static string ToFilterAspectId(Model.Api.IFilter filter, string filterPrefix)
         {
             return $"{filterPrefix}--{Slugify(filter.Name)}";
         }
