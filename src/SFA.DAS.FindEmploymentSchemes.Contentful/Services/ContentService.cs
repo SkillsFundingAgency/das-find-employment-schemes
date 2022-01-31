@@ -157,10 +157,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             if (document == null)
                 return null;
 
-            string unescapedHtml = await _htmlRenderer.ToHtml(document);
+            string html = await _htmlRenderer.ToHtml(document);
 
+            return ToNormalisedHtmlString(html);
+        }
+
+        /// <remarks>
+        /// Should be private, but Contentful's .net library is not very test friendly (HtmlRenderer.ToHtml can't be mocked).
+        /// We'd have to introduce a level of indirection to test this, were it private.
+        /// </remarks>
+        public static HtmlString ToNormalisedHtmlString(string html)
+        {
             // replace left/right quotation marks with regular old quotation marks
-            string html = unescapedHtml.Replace('“', '"').Replace('”', '"');
+            html = html.Replace('“', '"').Replace('”', '"');
 
             // sometimes contentful uses a \r and sometimes a \r\n - nice!
             // we could strip these out instead

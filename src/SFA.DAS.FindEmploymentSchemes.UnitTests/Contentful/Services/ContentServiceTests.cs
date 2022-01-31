@@ -110,6 +110,22 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         //    Assert.Equal(expectedHtmlStringValue, content.Pages.First().Content.Value);
         //}
 
+        [Theory]
+        [InlineData("\"", "“")]
+        [InlineData("\"", "”")]
+        [InlineData("\"\"", "“”")]
+        [InlineData("\r\n", "\r")]
+        [InlineData("\r\n", "\r\n")]
+        [InlineData("\r\n\r\n", "\r\r\n")]
+        [InlineData("\r\nn", "\rn")]
+        [InlineData("<br>", "<br>")]
+        public async Task ToNormalisedHtmlString_Tests(string expectedHtmlStringValue, string html)
+        {
+            var result = ContentService.ToNormalisedHtmlString(html);
+
+            Assert.Equal(expectedHtmlStringValue, result.Value);
+        }
+
         [Fact]
         public void Content_IsGeneratedContentBeforeUpdate()
         {
