@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
@@ -6,6 +7,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices;
 using System.Threading.Tasks;
 using FakeItEasy;
 using Xunit;
+using System.Globalization;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.BackgroundServices
 {
@@ -59,6 +61,21 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.BackgroundServices
 
             A.CallTo(() => ContentService.Update())
                 .MustNotHaveHappened();
+        }
+
+        [Theory]
+        [InlineData("00:15:00", "*/30 * * * *", "2022-01-31T13:45:00.0000000Z")]
+        public void TimeToNextInvocation_Tests(string expectedDelay, string cronSchedule, string utcNow)
+        {
+            CultureInfo provider = CultureInfo.InvariantCulture;
+
+            var contentUpdateService = CreateContentUpdateService();
+            var utcNowDateTime = DateTime.ParseExact(utcNow, "o", provider).ToUniversalTime();
+
+            var delay = contentUpdateService.TimeToNextInvocation(utcNowDateTime);
+
+            var expectedDelayTimeSpan = TimeSpan.ParseExact(expectedDelay, "c", provider);
+            Assert.Equal(expectedDelayTimeSpan, delay);
         }
 
         private ContentUpdateService CreateContentUpdateService()

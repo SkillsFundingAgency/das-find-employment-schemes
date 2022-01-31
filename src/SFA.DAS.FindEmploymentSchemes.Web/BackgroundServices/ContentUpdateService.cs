@@ -65,19 +65,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
                 _logger.Log(LogLevel.Error, exception, "Initial content update failed!");
             }
 
-            var delay = TimeToNextInvocation();
+            var delay = TimeToNextInvocation(DateTime.UtcNow);
 
             _timer = new Timer(UpdateContent, null, delay, Timeout.InfiniteTimeSpan);
         }
 
-        private TimeSpan TimeToNextInvocation()
+        // should be private, but public for easier testing
+        public TimeSpan TimeToNextInvocation(DateTime utcNow)
         {
-            var now = DateTime.UtcNow;
-            DateTime? next = _cronExpression.GetNextOccurrence(now);
+            DateTime? next = _cronExpression.GetNextOccurrence(utcNow);
             if (next == null)
                 throw new ContentUpdateServiceException("Next invocation time is unreachable.");
 
-            return next.Value - now;
+            return next.Value - utcNow;
         }
 
         // event handler, so ok to use async void, as per sonar's/asyncfixer's warning descriptions (and also given the thumbs up by Stephen Clearly)
@@ -92,18 +92,20 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 
                 _logger.LogInformation("Content Update Service is updating content. Count: {Count}", count);
 
-                var delay = TimeToNextInvocation();
+                var delay = TimeToNextInvocation(DateTime.UtcNow);
 
                 _timer!.Change(delay, Timeout.InfiniteTimeSpan);
 
                 //todo: how to handle content update ok, but event handler throwing?
                 await _contentService.Update();
-
-                Interlocked.Decrement(ref _executionCount);
             }
             catch (Exception exception)
             {
                 _logger.Log(LogLevel.Error, exception, "Update content failed!");
+            }
+            finally
+            {
+                Interlocked.Decrement(ref _executionCount);
             }
         }
 #pragma warning restore AsyncFixer03
