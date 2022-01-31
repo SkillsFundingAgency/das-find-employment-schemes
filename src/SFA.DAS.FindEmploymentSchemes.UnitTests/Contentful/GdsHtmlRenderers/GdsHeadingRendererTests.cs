@@ -21,7 +21,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
         }
 
         [Fact]
-        public async Task ToHtml_GdsHeadingRenderer_Heading1Tests()
+        public async Task ToHtml_GdsHeadingRenderer_Heading1Test()
         {
             Document.Content.Add(new Heading1
             {
@@ -34,7 +34,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
         }
 
         [Fact]
-        public async Task ToHtml_GdsHeadingRenderer_Heading2Tests()
+        public async Task ToHtml_GdsHeadingRenderer_Heading2Test()
         {
             Document.Content.Add(new Heading2
             {
@@ -47,7 +47,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
         }
 
         [Fact]
-        public async Task ToHtml_GdsHeadingRenderer_Heading3Tests()
+        public async Task ToHtml_GdsHeadingRenderer_Heading3Test()
         {
             Document.Content.Add(new Heading3
             {
@@ -60,7 +60,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
         }
 
         [Fact]
-        public async Task ToHtml_GdsHeadingRenderer_Heading4Tests()
+        public async Task ToHtml_GdsHeadingRenderer_Heading4Test()
         {
             Document.Content.Add(new Heading4
             {
@@ -70,6 +70,34 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
             var html = await HtmlRenderer.ToHtml(Document);
 
             Assert.Equal("<h4 class=\"govuk-heading-s\">Gobble</h4>", html);
+        }
+
+        [Fact]
+        public async Task ToHtml_GdsHeadingRenderer_Heading5NotHandledByGdsHeadingRendererTest()
+        {
+            Document.Content.Add(new Heading5
+            {
+                Content = new List<IContent> { new Text { Value = "Gobble" } }
+            });
+
+            var html = await HtmlRenderer.ToHtml(Document);
+
+            // 
+            Assert.Equal("<h5>Gobble</h5>", html);
+        }
+
+        [Fact]
+        public async Task ToHtml_GdsHeadingRenderer_Heading6NotHandledByGdsHeadingRendererTest()
+        {
+            Document.Content.Add(new Heading6
+            {
+                Content = new List<IContent> { new Text { Value = "Gobble" } }
+            });
+
+            var html = await HtmlRenderer.ToHtml(Document);
+
+            // 
+            Assert.Equal("<h6>Gobble</h6>", html);
         }
     }
 }
