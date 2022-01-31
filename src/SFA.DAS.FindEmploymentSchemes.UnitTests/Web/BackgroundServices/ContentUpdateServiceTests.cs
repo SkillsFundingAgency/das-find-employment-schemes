@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Threading;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices;
@@ -14,7 +15,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.BackgroundServices
         public IOptions<ContentUpdateServiceOptions> ContentUpdateServiceOptionsOptions { get; set; }
         public IContentService ContentService { get; set; }
         public ILogger<ContentUpdateService> Logger { get; set; }
-        public ContentUpdateService ContentUpdateService { get; set; }
 
         public ContentUpdateServiceTests()
         {
@@ -30,8 +30,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.BackgroundServices
             
             ContentService = A.Fake<IContentService>();
             Logger = A.Fake<ILogger<ContentUpdateService>>();
-
-            ContentUpdateService = new ContentUpdateService(ContentUpdateServiceOptionsOptions, ContentService, Logger);
         }
 
         [Fact]
@@ -39,7 +37,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.BackgroundServices
         {
             ContentUpdateServiceOptions.CronSchedule = "";
 
-            Assert.Throws<ContentUpdateServiceException>(() => new ContentUpdateService(ContentUpdateServiceOptionsOptions, ContentService, Logger));
+            Assert.Throws<ContentUpdateServiceException>(CreateContentUpdateService);
         }
 
         [Fact]
@@ -47,7 +45,25 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.BackgroundServices
         {
             ContentUpdateServiceOptions.CronSchedule = null;
 
-            Assert.Throws<ContentUpdateServiceException>(() => new ContentUpdateService(ContentUpdateServiceOptionsOptions, ContentService, Logger));
+            Assert.Throws<ContentUpdateServiceException>(CreateContentUpdateService);
+        }
+
+        [Fact]
+        public async Task StartAsync_NotEnabledDontUpdateTest()
+        {
+            ContentUpdateServiceOptions.Enabled = false;
+
+            var contentUpdateService = CreateContentUpdateService();
+
+            await contentUpdateService.StartAsync(CancellationToken.None);
+
+            A.CallTo(() => ContentService.Update())
+                .MustNotHaveHappened();
+        }
+
+        private ContentUpdateService CreateContentUpdateService()
+        {
+            return new ContentUpdateService(ContentUpdateServiceOptionsOptions, ContentService, Logger);
         }
     }
 }
