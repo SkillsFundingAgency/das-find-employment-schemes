@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
-using AutoFixture.Kernel;
 using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
@@ -160,6 +159,27 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             var compareResult = CompareLogic.Compare(new GeneratedContent(), ContentService.Content);
 
             Assert.False(compareResult.AreEqual);
+        }
+
+        [Fact]
+        public async Task CreateHtmlRenderer_RenderingNullContent()
+        {
+            var renderer = ContentService.CreateHtmlRenderer();
+
+            var nullResult = await renderer.ToHtml(null);
+
+            Assert.Equal(string.Empty, nullResult);
+        }
+
+        [Fact]
+        public async Task CreateHtmlRenderer_RenderingEmptyContent()
+        {
+            var renderer = ContentService.CreateHtmlRenderer();
+            var emptyDocument = new Document();
+
+            var emptyResult = await renderer.ToHtml(emptyDocument);
+
+            Assert.Equal(string.Empty, emptyResult);
         }
     }
 }
