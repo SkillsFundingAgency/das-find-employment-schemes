@@ -6,17 +6,17 @@ using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
 {
-    public class GdsParagraphContentRendererTests
+    public class GdsCtaBoxRendererTests
     {
         [Fact]
-        public async Task ToHtml_GdsParagraphRendererTests()
+        public async Task ToHtml_GdsGdsCtaBoxRendererTests()
         {
             var renderer = ContentService.CreateHtmlRenderer();
             var doc = new Document
             {
                 Content = new List<IContent>
                 {
-                    new Paragraph
+                    new Quote
                     {
                         Content = new List<IContent>
                         {
@@ -31,7 +31,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
 
             var html = await renderer.ToHtml(doc);
 
-            Assert.Equal("<p class=\"govuk-body\">Gobble</p>", html);
+            Assert.Equal("<div class=\"cx-cta-box\">Gobble</div>", html);
         }
     }
 }
