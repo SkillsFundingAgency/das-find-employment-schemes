@@ -38,7 +38,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 
             _enabled = options.Enabled;
 
-            if (options.CronSchedule == null)
+            if (string.IsNullOrEmpty(options.CronSchedule))
                 throw new ContentUpdateServiceException("ContentUpdates:CronSchedule config is missing.");
 
             _cronExpression = CronExpression.Parse(options.CronSchedule);
