@@ -65,7 +65,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
                     break;
                 case Heading4 _:
                     gdsHeadingClassSize = "s";
-                    headingSize = 3;
+                    headingSize = 4;
                     break;
                 default:
                     throw new ArgumentException("Only H1-H4 are supported", nameof(content));
