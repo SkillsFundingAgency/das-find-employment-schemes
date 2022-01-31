@@ -9,18 +9,22 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
     // https://github.com/contentful/contentful.net/blob/master/Contentful.Core.Tests/Models/Rendering/HtmlRenderTests.cs
     public class GdsListContentRendererTests
     {
-        [Fact]
-        public async Task ToHtml_GdsListTests()
+        [Theory]
+        [InlineData("<ul class=\"govuk-list govuk-list--bullet\"><li>testing</li></ul>", "unordered-list")]
+        [InlineData("<ol class=\"govuk-list govuk-list--number\"><li>testing</li></ol>", "ordered-list")]
+        public async Task ToHtml_GdsListTests(string expectedHtml, string listType)
         {
             //Arrange
-            var expectedResult = "<ul class=\"govuk-list govuk-list--bullet\"><li>testing</li></ul>";
             var renderer = ContentService.CreateHtmlRenderer();
             var doc = new Document();
             var list = new List();
+            list.NodeType = listType;
             var listItem = new ListItem();
             var paragraph = new Paragraph();
-            var text = new Text();
-            text.Value = "testing";
+            var text = new Text
+            {
+                Value = "testing"
+            };
             paragraph.Content = new List<IContent> { text };
             listItem.Content = new List<IContent> { paragraph };
             list.Content = new List<IContent> { listItem };
@@ -30,7 +34,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
             var result = await renderer.ToHtml(doc);
 
             //Assert
-            Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedHtml, result);
         }
 
     }
