@@ -8,11 +8,6 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Infrastructure
 {
-    public interface ISitemap
-    {
-        void Generate();
-    }
-
     public class Sitemap : ISitemap
     {
         private readonly IWebHostEnvironment _webHostEnvironment;

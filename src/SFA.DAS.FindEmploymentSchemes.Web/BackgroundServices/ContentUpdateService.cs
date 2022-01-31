@@ -21,6 +21,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         private readonly ILogger<ContentUpdateService> _logger;
         private readonly IContentService _contentService;
         private Timer? _timer;
+        private readonly bool _enabled;
         private readonly CronExpression _cronExpression;
 
         public ContentUpdateService(
@@ -35,6 +36,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
             // for debugging : once a minute "* * * * *"
             var options = contentUpdateServiceOptions.Value;
 
+            _enabled = options.Enabled;
+
             if (options.CronSchedule == null)
                 throw new ContentUpdateServiceException("ContentUpdates:CronSchedule config is missing.");
 
@@ -46,6 +49,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Content Update Service running.");
+
+            if (!_enabled)
+            {
+                _logger.Log(LogLevel.Information, "Online content updates disabled.");
+                return;
+            }
 
             try
             {

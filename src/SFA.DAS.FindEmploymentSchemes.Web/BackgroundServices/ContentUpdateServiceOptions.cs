@@ -2,6 +2,7 @@
 {
     public class ContentUpdateServiceOptions
     {
+        public bool Enabled { get; set; }
         public string? CronSchedule { get; set; }
     }
 }
