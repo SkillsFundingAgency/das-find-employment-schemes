@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -51,12 +50,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [Route("page/cookies")]
         public IActionResult Cookies(string AnalyticsCookies, string MarketingCookies)
         {
+            string host = HttpContext.Request.Host.Host;
             CookieOptions options = new CookieOptions()
             {
                 IsEssential = true,
                 Secure = true,
                 SameSite = SameSiteMode.None,
-                Expires = DateTimeOffset.UtcNow.AddYears(1)
+                Expires = DateTimeOffset.UtcNow.AddYears(1),
+                Domain = (host == "localhost" ? host : $".{host}")
             };
 
             HttpContext.Response
