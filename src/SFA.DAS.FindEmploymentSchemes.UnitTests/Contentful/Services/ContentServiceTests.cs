@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core;
@@ -11,13 +9,11 @@ using Contentful.Core.Models;
 using Contentful.Core.Search;
 using FakeItEasy;
 using KellermanSoftware.CompareNetObjects;
-using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using Xunit;
-using Document = Contentful.Core.Models.Document;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 {
@@ -37,6 +33,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             Fixture = new Fixture();
 
+            //Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+            //    .ForEach(b => Fixture.Behaviors.Remove(b));
+            //Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
+            //Fixture.Customizations.Add(
+            //    new TypeRelay(
+            //        typeof(IContent),
+            //        typeof(Paragraph)));
+            
             ContentfulClient = A.Fake<IContentfulClient>();
             HtmlRenderer = A.Fake<HtmlRenderer>();
             Logger = A.Fake<ILogger<ContentService>>();
@@ -64,6 +69,23 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             CompareLogic = new CompareLogic();
         }
 
+        //[Fact]
+        //public async Task Update_SchemesInDescendingSizeOrderTests()
+        //{
+        //    var schemes = Fixture.CreateMany<Scheme>(3).ToArray();
+        //    schemes[0].Size = 300;
+        //    schemes[1].Size = 100;
+        //    schemes[2].Size = 200;
+        //    SchemesCollection.Items = schemes;
+
+        //    var content = await ContentService.Update();
+
+        //    var actualSchemes = content.Schemes.ToArray();
+        //    Assert.Equal(300, actualSchemes[0].Size);
+        //    Assert.Equal(200, actualSchemes[1].Size);
+        //    Assert.Equal(100, actualSchemes[2].Size);
+        //}
+
         [Theory]
         [InlineData("pay--the-name", "the name")]
         [InlineData("pay--thename", "thename")]
@@ -90,15 +112,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         //[InlineData("\"", "“")]
         //public async Task Update_HtmlQuirksTest(string expectedHtmlStringValue, string unescapedHtml)
         //{
-        //    Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
-        //        .ForEach(b => Fixture.Behaviors.Remove(b));
-        //    Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
-
-        //    Fixture.Customizations.Add(
-        //        new TypeRelay(
-        //            typeof(IContent),
-        //            typeof(Paragraph)));
-
         //    var pages = Fixture.CreateMany<Page>(1).ToList();
         //    PagesCollection.Items = pages;
 
