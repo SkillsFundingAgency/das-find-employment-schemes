@@ -53,7 +53,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 
             var sb = new StringBuilder();
 
-            sb.Append($"<{listTagType} class =\"{gdsClasses}\">");
+            sb.Append($"<{listTagType} class=\"{gdsClasses}\">");
 
             foreach (var subContent in list.Content)
             {
