@@ -49,9 +49,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
             // we assume we only get asked to render what we've said we support
             sb.Append($"<a href=\"{link!.Data.Uri}\" title=\"{link.Data.Title}\" class=\"govuk-link\"");
 
-            // if the text content of the link is wrapped with "[]", then we make the link open in a new tab
+            // if the text content of the link ends with "(opens in new tab)", then we make the link open in a new tab
             string? firstTextValue = link.Content.OfType<Text>().FirstOrDefault()?.Value;
-            if (firstTextValue != null && firstTextValue.StartsWith('[') && firstTextValue.EndsWith(']'))
+            if (firstTextValue != null && firstTextValue.EndsWith("(opens in new tab)"))
                 sb.Append(" rel=\"noreferrer noopener\" target=\"_blank\"");
 
             sb.Append('>');
