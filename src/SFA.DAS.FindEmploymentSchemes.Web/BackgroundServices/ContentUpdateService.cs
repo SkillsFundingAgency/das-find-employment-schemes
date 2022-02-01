@@ -32,8 +32,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
             _logger = logger;
             _contentService = contentService;
 
-            // for envs: every half "*/30 * * * *"
-            // for debugging : once a minute "* * * * *"
             var options = contentUpdateServiceOptions.Value;
 
             _enabled = options.Enabled;

@@ -68,6 +68,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.BackgroundServices
         [InlineData("00:00:30", "0,30 6-23 * * *", "2022-01-31T08:29:30.0000000Z")]
         [InlineData("06:29:00", "0,30 6-23 * * *", "2022-01-31T23:31:00.0000000Z")]
         [InlineData("05:59:00", "0,30 6-23 * * *", "2022-01-31T00:01:00.0000000Z")]
+        [InlineData("01:03:00", "3-58/5 8-18 * * *", "2022-01-31T07:00:00.0000000Z")]
+        [InlineData("00:04:00", "3-58/5 8-18 * * *", "2022-01-31T08:04:00.0000000Z")]
         public void TimeToNextInvocation_Tests(string expectedDelay, string cronSchedule, string utcNow)
         {
             ContentUpdateServiceOptions.CronSchedule = cronSchedule;
