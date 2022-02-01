@@ -19,6 +19,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         public IContentService ContentService { get; set; }
         public SchemesModelService SchemesModelService { get; set; }
 
+        public const string HomePagePreamble = "expectedPreamble";
+
         public SchemesModelServiceTests()
         {
             Fixture = new Fixture();
@@ -37,25 +39,45 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             A.CallTo(() => ContentService.Content)
                 .Returns(Content);
-        }
-
-        [Fact]
-        public void HomeModel_HomepagePreambleTest()
-        {
-            const string expectedPreamble = "expectedPreamble";
 
             var notHomepages = Fixture.CreateMany<Page>(3);
-            var homePage = new Page("", "home", new HtmlString("expectedPreamble"));
+            var homePage = new Page("", "home", new HtmlString(HomePagePreamble));
 
-            var pages = notHomepages.Concat(new [] {homePage}).ToArray();
+            var pages = notHomepages.Concat(new[] { homePage }).ToArray();
 
             A.CallTo(() => Content.Pages)
                 .Returns(pages);
 
             SchemesModelService = new SchemesModelService(ContentService);
+        }
+
+        [Fact]
+        public void HomeModel_HomepagePreambleTest()
+        {
+            Assert.IsType<HtmlString>(SchemesModelService.HomeModel.Preamble);
+            Assert.Equal(HomePagePreamble, ((HtmlString) SchemesModelService.HomeModel.Preamble).Value);
+        }
+
+        [Fact]
+        public void ContentServiceContentUpdated_UpdatesHomeModel()
+        {
+            const string updatedPreamble = "updatedPreamble";
+
+            SchemesModelService = new SchemesModelService(ContentService);
+
+            var notHomepages = Fixture.CreateMany<Page>(3);
+            var homePage = new Page("", "home", new HtmlString(updatedPreamble));
+
+            var pages = notHomepages.Concat(new[] { homePage }).ToArray();
+
+            A.CallTo(() => Content.Pages)
+                .Returns(pages);
+
+            // Act
+            ContentService.ContentUpdated += Raise.WithEmpty();
 
             Assert.IsType<HtmlString>(SchemesModelService.HomeModel.Preamble);
-            Assert.Equal(expectedPreamble, ((HtmlString) SchemesModelService.HomeModel.Preamble).Value);
+            Assert.Equal(updatedPreamble, ((HtmlString)SchemesModelService.HomeModel.Preamble).Value);
         }
     }
 }
