@@ -100,13 +100,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 Console.Write(GenerateFilterIds(scheme.MotivationsFilterAspects, MotivationsFilterPrefix));
                 Console.Write(GenerateFilterIds(scheme.SchemeLengthFilterAspects, SchemeLengthFilterPrefix));
                 Console.WriteLine("},");
+                Console.Write("new CaseStudy[] {");
+                Console.Write(await GenerateCaseStudies(scheme.CaseStudyReferences, htmlRenderer));
+                Console.WriteLine("},");
 
                 Console.WriteLine($"{await AsHtmlString(scheme.DetailsPageOverride, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.Description, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.Cost, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.Responsibility, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.Benefits, htmlRenderer)},");
-                Console.WriteLine($"{await AsHtmlString(scheme.CaseStudies, htmlRenderer)},");
                 Console.WriteLine($"\"{scheme.OfferHeader}\",");
                 Console.WriteLine($"{await AsHtmlString(scheme.Offer, htmlRenderer)},");
                 Console.WriteLine($"{await AsHtmlString(scheme.AdditionalFooter, htmlRenderer)}");
@@ -132,6 +134,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             htmlRenderer.AddRenderer(new GdsHyperlinkContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsListContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsParagraphRenderer(htmlRenderer.Renderers));
+            htmlRenderer.AddRenderer(new GdsEmbeddedYoutubeContentRenderer(htmlRenderer.Renderers));
             return htmlRenderer;
         }
 
@@ -147,6 +150,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             }
 
             return filterIds.ToString();
+        }
+
+        private static async Task<string> GenerateCaseStudies(IEnumerable<CaseStudy>? caseStudies, HtmlRenderer htmlRenderer)
+        {
+            if (caseStudies == null)
+                return "";
+
+            StringBuilder sb = new StringBuilder();
+            foreach (CaseStudy cs in caseStudies)
+            {
+                sb.Append($"new CaseStudy(\"{cs.Name}\", \"{cs.DisplayTitle}\", ");
+                sb.Append($"{await AsHtmlString(cs.Description, htmlRenderer)}), ");
+            }
+
+            return sb.ToString();
         }
 
         private static async Task GenerateFilterContent<T>(ContentfulClient client, string filterContentfulTypeName, string filterPrefix)
