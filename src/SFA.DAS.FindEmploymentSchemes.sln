@@ -16,6 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F4FD8A33-4644-42E1-B66E-3F28026BD57B}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		..\contentful\contentful-export-082i50qdtar9-master.json = ..\contentful\contentful-export-082i50qdtar9-master.json
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject

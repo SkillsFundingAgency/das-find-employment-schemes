@@ -101,6 +101,7 @@ Data:
     "BaseURL": "https://localhost:44318/"
   }
   "ContentUpdates": {
+      "Enabled": true,
       "CronSchedule": "*/30 * * * *"
   },
   "ContentfulOptions": {
@@ -116,12 +117,9 @@ Data:
 
 ## 🔗 External Dependencies
 
-_Add details of any external dependencies that are required for the project to run, this could be details of authentication providers, API's or stubs/test harnesses._
+This project _can_ auto update content from a correctly configured Contentful space. An export of the required space is in the Contenful folder.
 
-_For Example_
-```
-* This utility uses the [das-audit](https://github.com/SkillsFundingAgency/das-audit) Api to log changes
-```
+Alternatively, you can set ContentUpdates:Enabled to false, to run without requiring a Contentful space set up.
 
 ## Technologies
 
