@@ -1,15 +1,10 @@
-## ⛔Never push sensitive information such as client id's, secrets or keys into repositories including in the README file⛔
-
 # _Employers Front Door_
 
 <img src="https://avatars.githubusercontent.com/u/9841374?s=200&v=4" align="right" alt="UK Government logo">
 
-_Update these badges with the correct information for this project. These give the status of the project at a glance and also sign-post developers to the appropriate resources they will need to get up and running_
-
-[![Build Status](https://dev.azure.com/sfa-gov-uk/Digital%20Apprenticeship%20Service/_apis/build/status/_projectname_?branchName=master)](https://dev.azure.com/sfa-gov-uk/Digital%20Apprenticeship%20Service/_build/latest?definitionId=_projectid_&branchName=master)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=_projectId_&metric=alert_status)](https://sonarcloud.io/dashboard?id=_projectId_)
-[![Jira Project](https://img.shields.io/badge/Jira-Project-blue)](https://skillsfundingagency.atlassian.net/secure/RapidBoard.jspa?rapidView=564&projectKey=_projectKey_)
-[![Confluence Project](https://img.shields.io/badge/Confluence-Project-blue)](https://skillsfundingagency.atlassian.net/wiki/spaces/_pageurl_)
+[![Build Status](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_apis/build/status/das-find-employment-schemes?repoName=SkillsFundingAgency%2Fdas-find-employment-schemes&branchName=refs%2Fpull%2F75%2Fmerge)](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_build/latest?definitionId=2686&repoName=SkillsFundingAgency%2Fdas-find-employment-schemes&branchName=refs%2Fpull%2F75%2Fmerge)
+[![Trello Project](https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white)](https://trello.com/b/7rko6qQ2/cx-employers-beta)
+[![Confluence Project](https://img.shields.io/badge/Confluence-Project-blue)](https://skillsfundingagency.atlassian.net/wiki/spaces/_pageurl_) (TODO: Update)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?longCache=true&style=flat-square)](https://en.wikipedia.org/wiki/MIT_License)
 
 _Add a description of the project and the high-level features that it provides. This should give new developers an understanding of the background of the project and the reason for its existence._
@@ -123,27 +118,15 @@ Alternatively, you can set ContentUpdates:Enabled to false, to run without requi
 
 ## Technologies
 
-_List the key technologies in-use in the project. This will give an indication as to the skill set required to understand and contribute to the project_
+The key technologies used in the project are:
 
-_For Example_
 ```
 * .NetCore 3.1
-* Azure Functions V3
-* CosmosDB
-* REDIS
-* NLog
-* Azure Table Storage
-* NUnit
-* Moq
-* FluentAssertions
+* Contentful
+* xUnit
+* FakeItEasy
 ```
 
 ## 🐛 Known Issues
 
-_Add any known issues with the project_
-
-_For Example_
-
-```
-* Fails when built under VS2019
-```
+N/A
