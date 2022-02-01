@@ -7,21 +7,7 @@
 [![Confluence Project](https://img.shields.io/badge/Confluence-Project-blue)](https://skillsfundingagency.atlassian.net/wiki/spaces/_pageurl_) (TODO: Update)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?longCache=true&style=flat-square)](https://en.wikipedia.org/wiki/MIT_License)
 
-_Add a description of the project and the high-level features that it provides. This should give new developers an understanding of the background of the project and the reason for its existence._
-
-_For Example_
-
-```
-The ServiceBus Support Utility is an Azure ServiceBus Queue management tool that allows you to manage messages that have moved to error queues without having to resort to managing each message individually.
-
-1. Utilises Azure Active Directory for Authentication
-2. Automatically enumerates error queues within the Azure Service Bus namespace
-3. Messages can be retrieved per queue
-4. Retrieved messages can be:
-    - Aborted - all retrieved messages will be placed back on the queue they were received from
-    - Replayed - messages will be moved back onto the original processing queue so that they can be processed again
-    - Deleted - messages will be removed and will be no longer available for processing
-```
+Provides a portal for employers to see all training schemes available to them across government.
 
 ## How It Works
 
