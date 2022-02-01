@@ -3,14 +3,14 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 {
-    public class Filter //: IFilter
+    public class Filter
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string Name { get; }
+        public string Description { get; }
         ///// <summary>
         ///// Guaranteed in ascending Order order
         ///// </summary>
-        public IEnumerable<IFilterAspect> Aspects { get; set; }
+        public IEnumerable<IFilterAspect> Aspects { get; }
 
         public Filter(string name, string description, IEnumerable<IFilterAspect> aspects)
         {
