@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using AspNetCore.SEOHelper.Sitemap;
-using Microsoft.Extensions.Configuration;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+using Microsoft.Extensions.Options;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Infrastructure
 {
     public class Sitemap : ISitemap
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IConfiguration _configuration;
+        private readonly IOptions<EndpointsOptions> _endpointsOptions;
         private readonly IContentService _contentService;
 
         public Sitemap(
             IWebHostEnvironment webHostEnvironment,
-            IConfiguration configuration,
+            IOptions<EndpointsOptions> endpointsOptions,
             IContentService contentService)
         {
             _webHostEnvironment = webHostEnvironment;
-            _configuration = configuration;
+            _endpointsOptions = endpointsOptions;
             _contentService = contentService;
             contentService.ContentUpdated += OnContentUpdated;
         }
@@ -32,7 +32,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Infrastructure
 
         public void Generate()
         {
-            if (!Uri.TryCreate(_configuration["Endpoints:BaseURL"], UriKind.Absolute, out Uri? baseUri))
+            if (!Uri.TryCreate(_endpointsOptions.Value.BaseURL, UriKind.Absolute, out Uri? baseUri))
                 return;
 
             var nodes = new List<SitemapNode>();

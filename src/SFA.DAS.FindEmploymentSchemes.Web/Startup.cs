@@ -69,6 +69,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             services.AddContentService(Configuration)
                 .AddHostedService<ContentUpdateService>();
 
+            services.Configure<EndpointsOptions>(Configuration.GetSection("Endpoints"));
+
             services.AddTransient<ISitemap, Sitemap>()
                 .AddHostedService<SitemapGeneratorService>();
         }
