@@ -8,7 +8,6 @@ using SFA.DAS.FindEmploymentSchemes.Web.Models;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
-    //todo: singleton
     public class SchemesModelService : ISchemesModelService
     {
         private const string HomepagePreambleUrl = "home";
