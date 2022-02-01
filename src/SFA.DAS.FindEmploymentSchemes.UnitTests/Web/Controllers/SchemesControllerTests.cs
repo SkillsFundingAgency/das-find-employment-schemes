@@ -25,7 +25,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
             ISchemesModelService schemesModelService = A.Fake<ISchemesModelService>();
-            //todo: mock homemodel
             A.CallTo(() => schemesModelService.HomeModel)
                 .Returns(new HomeModel(null!, expectedSchemes, null!));
 

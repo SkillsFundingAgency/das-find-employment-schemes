@@ -42,7 +42,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         private HomeModel CreateHomeModel(IContent content)
         {
-            //todo: have ienumerable Filter in content? store IContent in HomeModel?
             return new HomeModel(
                 content.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
                 content.Schemes,
