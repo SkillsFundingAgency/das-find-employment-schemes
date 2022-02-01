@@ -141,11 +141,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         [Fact]
         public void Content_IsGeneratedContentBeforeUpdate()
         {
-            // xunit v3 supports this, but the vs & msbuild test runners aren't ready yet
-            //Assert.Equivalent
-
-            // so use the old faithful...
-
             var compareResult = CompareLogic.Compare(new GeneratedContent(), ContentService.Content);
 
             Assert.True(compareResult.AreEqual);
