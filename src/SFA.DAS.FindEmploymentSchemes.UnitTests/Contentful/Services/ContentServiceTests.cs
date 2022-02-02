@@ -131,7 +131,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         [InlineData("\r\n\r\n", "\r\r\n")]
         [InlineData("\r\nn", "\rn")]
         [InlineData("<br>", "<br>")]
-        public async Task ToNormalisedHtmlString_Tests(string expectedHtmlStringValue, string html)
+        public void ToNormalisedHtmlString_Tests(string expectedHtmlStringValue, string html)
         {
             var result = ContentService.ToNormalisedHtmlString(html);
 
