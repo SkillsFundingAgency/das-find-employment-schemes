@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AspNetCore.SEOHelper;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Extensions;
 using SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices;
