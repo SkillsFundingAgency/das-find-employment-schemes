@@ -5,6 +5,7 @@ using Contentful.Core.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Extensions
@@ -22,13 +23,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Extensions
                 .AddTransient<IContentfulClient>(sp =>
                 {
                     var configOptions = sp.GetService<IOptions<ContentfulOptions>>()?.Value;
-                    //todo: this
-                    //if (configOptions == null)
-                    //    throw new ConfigurationMissingException("ContentfulOptions");
+                    if (configOptions == null)
+                        throw new ConfigurationMissingException("ContentfulOptions");
 
                     var options = new ContentfulOptions
                     {
-                        DeliveryApiKey = configOptions!.DeliveryApiKey,
+                        DeliveryApiKey = configOptions.DeliveryApiKey,
                         Environment = configOptions.Environment,
                         ManagementApiKey = configOptions.ManagementApiKey,
                         MaxNumberOfRateLimitRetries = configOptions.MaxNumberOfRateLimitRetries,
@@ -37,7 +37,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Extensions
                         SpaceId = configOptions.SpaceId,
                         UsePreviewApi = true
                     };
-                    options!.UsePreviewApi = true;
                     var client = sp.GetService<HttpClient>();
                     return new ContentfulClient(client, options);
                 })

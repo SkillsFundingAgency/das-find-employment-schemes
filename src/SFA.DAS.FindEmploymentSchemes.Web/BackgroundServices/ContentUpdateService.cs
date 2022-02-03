@@ -6,6 +6,7 @@ using System;
 using Cronos;
 using Microsoft.Extensions.Options;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
@@ -37,7 +38,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
             _enabled = options.Enabled;
 
             if (string.IsNullOrEmpty(options.CronSchedule))
-                throw new ContentUpdateServiceException("ContentUpdates:CronSchedule config is missing.");
+                throw new ConfigurationMissingException("ContentUpdates:CronSchedule");
 
             _cronExpression = CronExpression.Parse(options.CronSchedule);
         }
