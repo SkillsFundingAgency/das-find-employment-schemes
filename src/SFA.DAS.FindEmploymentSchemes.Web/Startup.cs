@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AspNetCore.SEOHelper;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Extensions;
 using SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices;
@@ -61,6 +60,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     assetPipeline.AddCssBundle("/css/site.css", "/css/site.css");
                 }
             });
+
+            services.AddSingleton<IPageService, PageService>();
+
             services.AddSingleton<IFilterService, FilterService>()
                 .AddSingleton<ISchemesModelService, SchemesModelService>();
 
@@ -142,6 +144,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     name: "schemes",
                     pattern: "schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "Details" });
+
+                endpoints.MapControllerRoute(
+                    name: "page-preview",
+                    pattern: "preview/page/{pageUrl}",
+                    defaults: new { controller = "Pages", action = "PagePreview" });
+
+                //endpoints.MapControllerRoute(
+                //    name: "schemes-preview",
+                //    pattern: "preview/schemes/{schemeUrl}",
+                //    defaults: new { controller = "Schemes", action = "DetailsPreview" });
             });
         }
     }

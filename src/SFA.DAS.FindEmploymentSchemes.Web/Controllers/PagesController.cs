@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Web.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
@@ -13,13 +15,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
     {
         private readonly ILogger<PagesController> _log;
         private readonly IContentService _contentService;
+        private readonly IPageService _pageService;
 
         public PagesController(
             ILogger<PagesController> logger,
-            IContentService contentService)
+            IContentService contentService,
+            IPageService pageService)
         {
             _log = logger;
             _contentService = contentService;
+            _pageService = pageService;
         }
 
         // we _could_ add cache control parameters to the page content type
@@ -27,26 +32,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [ResponseCache(Duration = 60*60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Page(string pageUrl)
         {
-            pageUrl = pageUrl.ToLowerInvariant();
+            var (viewName, page) = _pageService.Page(pageUrl, _contentService.Content);
 
-            switch (pageUrl)
-            {
-                case "cookies":
-                    Page? analyticsPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "analyticscookies");
-                    Page? marketingPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "marketingcookies");
-                    return (analyticsPage == null || marketingPage == null
-                                ? NotFound()
-                                : (IActionResult)View("Cookies", new CookiePage(analyticsPage, marketingPage, false)));
+            return View(viewName, page);
+        }
 
-                case "error-check":
-                    throw new NotImplementedException("DEADBEEF-DEAD-BEEF-DEAD-BAAAAAAAAAAD");
-            }
+        [HttpGet]
+        public async Task<IActionResult> PagePreview(string pageUrl)
+        {
+            //todo: do we want a update content page which triggers a non-preview content update?
 
-            Page? page = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == pageUrl);
-            if (page == null)
-                return NotFound();
+            var previewContent = await _contentService.UpdatePreview();
 
-            return View(page);
+            var (viewName, page) = _pageService.Page(pageUrl, previewContent);
+
+            return View(viewName ?? "Page", page);
         }
 
         [HttpPost]

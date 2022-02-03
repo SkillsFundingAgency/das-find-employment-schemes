@@ -21,7 +21,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Extensions
                 .AddSingleton<IContentService, ContentService>()
                 .AddTransient<IContentfulClient>(sp =>
                 {
-                    var options = sp.GetService<IOptions<ContentfulOptions>>()?.Value;
+                    var configOptions = sp.GetService<IOptions<ContentfulOptions>>()?.Value;
+                    //todo: this
+                    //if (configOptions == null)
+                    //    throw new ConfigurationMissingException("ContentfulOptions");
+
+                    var options = new ContentfulOptions
+                    {
+                        DeliveryApiKey = configOptions!.DeliveryApiKey,
+                        Environment = configOptions.Environment,
+                        ManagementApiKey = configOptions.ManagementApiKey,
+                        MaxNumberOfRateLimitRetries = configOptions.MaxNumberOfRateLimitRetries,
+                        PreviewApiKey = configOptions.PreviewApiKey,
+                        ResolveEntriesSelectively = configOptions.ResolveEntriesSelectively,
+                        SpaceId = configOptions.SpaceId,
+                        UsePreviewApi = true
+                    };
                     options!.UsePreviewApi = true;
                     var client = sp.GetService<HttpClient>();
                     return new ContentfulClient(client, options);
