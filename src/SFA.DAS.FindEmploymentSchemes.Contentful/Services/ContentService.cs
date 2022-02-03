@@ -9,13 +9,15 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
 using System;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
     public class ContentService : IContentService
     {
-        private readonly IContentfulClient _contentfulClient;
+        private readonly IContentfulClient? _contentfulClient;
+        private readonly IContentfulClient? _previewContentfulClient;
         private readonly HtmlRenderer _htmlRenderer;
         private readonly ILogger<ContentService> _logger;
 
@@ -35,13 +37,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         private const string PayDescription = "I can offer";
 
         public event EventHandler<EventArgs>? ContentUpdated;
+        public event EventHandler<EventArgs>? PreviewContentUpdated;
 
         public ContentService(
-            IContentfulClient contentfulClient,
+            IContentfulClientFactory contentfulClientFactory,
             HtmlRenderer htmlRenderer,
             ILogger<ContentService> logger)
         {
-            _contentfulClient = contentfulClient;
+            _contentfulClient = contentfulClientFactory.ContentfulClient;
+            _previewContentfulClient = contentfulClientFactory.PreviewContentfulClient;
             _htmlRenderer = htmlRenderer;
             _logger = logger;
         }
@@ -49,55 +53,85 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         public static readonly IContent GeneratedContent = new GeneratedContent();
 
         public IContent Content { get; private set; } = GeneratedContent;
+        public IContent? PreviewContent { get; private set; }
 
         public async Task<IContent> Update()
         {
             _logger.LogInformation("Updating content");
-            Content = new Model.Content.Content(
-                await GetPages(),
-                await GetSchemes(),
-                new Model.Content.Filter(
-                    MotivationName,
-                    MotivationDescription,
-                    await GetFilterAspects(MotivationsFilterContentfulTypeName, MotivationsFilterPrefix)),
-                new Model.Content.Filter(
-                    PayName,
-                    PayDescription,
-                    await GetFilterAspects(PayFilterContentfulTypeName, PayFilterPrefix)),
-                new Model.Content.Filter(
-                    SchemeLengthName,
-                    SchemeLengthDescription,
-                    await GetFilterAspects(SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix)));
+
+            if (_contentfulClient == null)
+                throw new ContentServiceException("Can't update content without a ContentfulClient.");
+
+            var content = await Update(_contentfulClient);
+            Content = content;
 
             _logger.LogInformation("Publishing ContentUpdated event");
             ContentUpdated?.Invoke(this, EventArgs.Empty);
 
-            return Content;
+            return content;
         }
 
-        private async Task<IEnumerable<Model.Content.Page>> GetPages()
+        public async Task<IContent> UpdatePreview()
+        {
+            _logger.LogInformation("Updating preview content");
+
+            if (_previewContentfulClient == null)
+                throw new ContentServiceException("Can't update preview content without a preview ContentfulClient.");
+
+            var previewContent = await Update(_previewContentfulClient);
+            PreviewContent = previewContent;
+
+            _logger.LogInformation("Publishing PreviewContentUpdated event");
+            PreviewContentUpdated?.Invoke(this, EventArgs.Empty);
+
+            return previewContent;
+        }
+
+        private async Task<IContent> Update(IContentfulClient contentfulClient)
+        {
+            return new Model.Content.Content(
+                await GetPages(contentfulClient),
+                await GetSchemes(contentfulClient),
+                new Model.Content.Filter(
+                    MotivationName,
+                    MotivationDescription,
+                    await GetFilterAspects(contentfulClient, MotivationsFilterContentfulTypeName, MotivationsFilterPrefix)),
+                new Model.Content.Filter(
+                    PayName,
+                    PayDescription,
+                    await GetFilterAspects(contentfulClient, PayFilterContentfulTypeName, PayFilterPrefix)),
+                new Model.Content.Filter(
+                    SchemeLengthName,
+                    SchemeLengthDescription,
+                    await GetFilterAspects(contentfulClient, SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix)));
+        }
+
+        private async Task<IEnumerable<Model.Content.Page>> GetPages(IContentfulClient contentfulClient)
         {
             var builder = QueryBuilder<Model.Api.Page>.New.ContentTypeIs("page");
 
-            var apiPages = await _contentfulClient.GetEntries(builder);
+            var apiPages = await contentfulClient.GetEntries(builder);
 
             return await Task.WhenAll(apiPages.Select(ToContent));
         }
 
-        private async Task<IEnumerable<Model.Content.Scheme>> GetSchemes()
+        private async Task<IEnumerable<Model.Content.Scheme>> GetSchemes(IContentfulClient contentfulClient)
         {
             var builder = QueryBuilder<Model.Api.Scheme>.New.ContentTypeIs("scheme").Include(1);
 
-            var schemes = await _contentfulClient.GetEntries(builder);
+            var schemes = await contentfulClient.GetEntries(builder);
 
             return await Task.WhenAll(schemes.OrderByDescending(s => s.Size).Select(ToContent));
         }
 
-        private async Task<IEnumerable<Model.Content.FilterAspect>> GetFilterAspects(string contentfulTypeName, string filterPrefix)
+        private async Task<IEnumerable<Model.Content.FilterAspect>> GetFilterAspects(
+            IContentfulClient contentfulClient,
+            string contentfulTypeName,
+            string filterPrefix)
         {
             var builder = QueryBuilder<Model.Api.Filter>.New.ContentTypeIs(contentfulTypeName);
 
-            var filterAspects = await _contentfulClient.GetEntries(builder);
+            var filterAspects = await contentfulClient.GetEntries(builder);
 
             return filterAspects.OrderBy(f => f.Order).Select(f => ToContent(f, filterPrefix));
         }

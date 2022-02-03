@@ -21,9 +21,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 "",
                 "082i50qdtar9");
 
+            var contenfulClientFactory = new ContentfulClientFactory(new[] {client});
+
             var htmlRenderer = ContentService.CreateHtmlRenderer();
 
-            var contentService = new ContentService(client, htmlRenderer, new NullLogger<ContentService>());
+            var contentService = new ContentService(contenfulClientFactory, htmlRenderer, new NullLogger<ContentService>());
 
             var content = await contentService.Update();
 

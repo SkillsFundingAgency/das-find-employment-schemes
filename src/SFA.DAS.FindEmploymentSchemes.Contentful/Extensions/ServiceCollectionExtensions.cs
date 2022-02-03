@@ -14,24 +14,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Extensions
         public static IServiceCollection AddContentService(this IServiceCollection serviceCollection,
             IConfiguration configuration)
         {
-            serviceCollection
+            return serviceCollection
                 //todo: hmm, this uses a singleton HttpClient, so will we hit dns issues that IHttpClientFactory fixes??
                 .AddContentful(configuration)
                 .AddTransient(sp => ContentService.CreateHtmlRenderer())
-                .AddSingleton<IContentService, ContentService>();
-
-            // have factory that injects ienumerable<IContentfulClient>, and has client and previewclient properties,
-            //using IContentfulClient.IsPreviewClient
-
-            //todo: missing options
-            //serviceCollection.AddTransient<IContentfulClient>((sp) => {
-            //    var options = sp.GetService<IOptions<ContentfulOptions>>()?.Value;
-            //    options!.UsePreviewApi = true;
-            //    var client = sp.GetService<HttpClient>();
-            //    return new ContentfulClient(client, options);
-        //});
-
-            return serviceCollection;
+                .AddSingleton<IContentService, ContentService>()
+                .AddTransient<IContentfulClient>(sp =>
+                {
+                    var options = sp.GetService<IOptions<ContentfulOptions>>()?.Value;
+                    options!.UsePreviewApi = true;
+                    var client = sp.GetService<HttpClient>();
+                    return new ContentfulClient(client, options);
+                })
+                .AddTransient<IContentfulClientFactory, ContentfulClientFactory>();
         }
     }
 }
