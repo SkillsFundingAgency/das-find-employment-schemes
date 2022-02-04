@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
-using SFA.DAS.FindEmploymentSchemes.Web.Services;
+using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers

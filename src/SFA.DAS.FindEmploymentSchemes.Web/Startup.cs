@@ -13,6 +13,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Extensions;
 using SFA.DAS.FindEmploymentSchemes.Web.Security;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
+using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.StartupServices;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web
