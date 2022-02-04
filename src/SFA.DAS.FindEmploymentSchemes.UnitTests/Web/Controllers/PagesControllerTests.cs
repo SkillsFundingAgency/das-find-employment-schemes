@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FakeItEasy;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
@@ -34,7 +35,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
                 .Returns((null, new Page("title", "url", null)));
 
+            // act
             IActionResult result = PagesController.Page(pageUrl);
+
             Assert.False(result is NotFoundResult);
             Assert.True(result is ViewResult);
             var viewResult = result as ViewResult;
@@ -50,7 +53,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
                 .Returns((nonDefaultViewName, new Page("title", "url", null)));
 
+            // act
             IActionResult result = PagesController.Page(pageUrl);
+
             Assert.True(result is ViewResult);
             Assert.False(result is NotFoundResult);
             var viewResult = result as ViewResult;
@@ -65,9 +70,70 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
                 .Returns((null, null));
 
+            // act
             IActionResult result = PagesController.Page(pageUrl);
 
             Assert.True(result is NotFoundResult);
         }
+
+        [Fact]
+        public async Task PagePreview_UpdatesPreviewContentTest()
+        {
+            // act
+            await PagesController.PagePreview("");
+
+            A.CallTo(() => ContentService.UpdatePreview())
+                .MustHaveHappenedOnceExactly();
+        }
+
+        [Fact]
+        public async Task PagePreview_KnownPageUrlReturnsViewResultWithPageViewTest()
+        {
+            const string pageUrl = "pageUrl";
+
+            A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
+                .Returns((null, new Page("title", "url", null)));
+
+            // act
+            IActionResult result = await PagesController.PagePreview(pageUrl);
+
+            Assert.False(result is NotFoundResult);
+            Assert.True(result is ViewResult);
+            var viewResult = result as ViewResult;
+            Assert.Equal("Page", viewResult.ViewName);
+        }
+
+        [Fact]
+        public async Task PagePreview_NonDefaultViewNameTest()
+        {
+            const string pageUrl = "pageUrl";
+            const string nonDefaultViewName = "nonDefaultViewName";
+
+            A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
+                .Returns((nonDefaultViewName, new Page("title", "url", null)));
+
+            // act
+            IActionResult result = await PagesController.PagePreview(pageUrl);
+
+            Assert.True(result is ViewResult);
+            Assert.False(result is NotFoundResult);
+            var viewResult = result as ViewResult;
+            Assert.Equal(nonDefaultViewName, viewResult.ViewName);
+        }
+
+        [Fact]
+        public async Task PagePreview_UnknownPageUrlReturnsNotFoundTest()
+        {
+            const string pageUrl = "unknown-page";
+
+            A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
+                .Returns((null, null));
+
+            // act
+            IActionResult result = await PagesController.PagePreview(pageUrl);
+
+            Assert.True(result is NotFoundResult);
+        }
+
     }
 }
