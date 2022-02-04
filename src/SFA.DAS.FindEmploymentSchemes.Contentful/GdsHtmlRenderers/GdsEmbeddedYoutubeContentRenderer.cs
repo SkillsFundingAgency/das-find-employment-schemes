@@ -39,8 +39,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
             if (paragraph.Content.Count != 1 || !(paragraph.Content[0] is Text))
                 return false;
 
-            string text = ((Text)paragraph.Content[0]).Value.Trim();
-            return text.StartsWith("<iframe") && text.EndsWith("</iframe>") && text.Contains("youtube.com/embed/");
+            string text = ((Text)paragraph.Content[0])
+                                          .Value
+                                          .Trim();
+            return text.StartsWith("<iframe") && text.EndsWith("</iframe>") &&
+                    text.Contains("youtube.com/embed/");
         }
 
         /// <summary>

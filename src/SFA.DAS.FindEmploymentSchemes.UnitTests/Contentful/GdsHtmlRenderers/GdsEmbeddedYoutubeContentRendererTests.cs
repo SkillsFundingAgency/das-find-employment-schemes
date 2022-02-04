@@ -15,6 +15,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
         public async Task ToHtml_GdsEmbeddedYoutubeContentRendererTests()
         {
             string youtubeValue = "  <iframe>  abcdef...https://youtube.com/embed/something...vwxyz   </iframe>  ";
+            //TODO: swap this over to ContentService.CreateHtmlRenderer() when merging later
             HtmlRenderer renderer = Program.CreateHtmlRenderer();
             Document doc = new Document
             {
