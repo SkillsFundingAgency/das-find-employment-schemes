@@ -1,10 +1,8 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.ViewModels
 {
@@ -12,10 +10,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.ViewModels
     {
         [Theory]
         [ClassData(typeof(SchemeFilterViewModelTestData))]
-
         public void Constructor_AllFiltersCount(int expectedAllFiltersCount, SchemeFilterViewModel model)
         {
-            Assert.Equal(expectedAllFiltersCount, model.allFilters.Count());
+            Assert.Equal(expectedAllFiltersCount, model.AllFilters.Count());
         }
 
         public class SchemeFilterViewModelTestData : IEnumerable<object[]>

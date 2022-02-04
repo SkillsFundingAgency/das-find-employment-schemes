@@ -13,10 +13,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
     public class PagesControllerTests
     {
-        public IPageService PageService { get; set; }
         public ILogger<PagesController> Logger { get; set; }
-        public PagesController PagesController { get; set; }
+        public IPageService PageService { get; set; }
         public IContentService ContentService { get; set; }
+        public PagesController PagesController { get; set; }
 
         public PagesControllerTests()
         {
@@ -38,9 +38,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // act
             IActionResult result = PagesController.Page(pageUrl);
 
-            Assert.False(result is NotFoundResult);
-            Assert.True(result is ViewResult);
-            var viewResult = result as ViewResult;
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
             Assert.Null(viewResult.ViewName);
         }
 
@@ -56,9 +56,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // act
             IActionResult result = PagesController.Page(pageUrl);
 
-            Assert.True(result is ViewResult);
-            Assert.False(result is NotFoundResult);
-            var viewResult = result as ViewResult;
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
             Assert.Equal(nonDefaultViewName, viewResult.ViewName);
         }
 
@@ -73,7 +73,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // act
             IActionResult result = PagesController.Page(pageUrl);
 
-            Assert.True(result is NotFoundResult);
+            Assert.IsType<NotFoundResult>(result);
         }
 
         [Fact]
@@ -97,9 +97,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // act
             IActionResult result = await PagesController.PagePreview(pageUrl);
 
-            Assert.False(result is NotFoundResult);
-            Assert.True(result is ViewResult);
-            var viewResult = result as ViewResult;
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
             Assert.Equal("Page", viewResult.ViewName);
         }
 
@@ -115,9 +115,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // act
             IActionResult result = await PagesController.PagePreview(pageUrl);
 
-            Assert.True(result is ViewResult);
-            Assert.False(result is NotFoundResult);
-            var viewResult = result as ViewResult;
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
             Assert.Equal(nonDefaultViewName, viewResult.ViewName);
         }
 
@@ -132,8 +132,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // act
             IActionResult result = await PagesController.PagePreview(pageUrl);
 
-            Assert.True(result is NotFoundResult);
+            Assert.IsType<NotFoundResult>(result);
         }
-
     }
 }

@@ -24,25 +24,25 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         {
             var content = _contentService.Content;
 
-            IEnumerable<Scheme> motivationSchemes =   filters.motivations.Any() ?
+            IEnumerable<Scheme> motivationSchemes =   filters.Motivations.Any() ?
                                                             from Scheme s in content.Schemes
-                                                            from string m in filters.motivations
+                                                            from string m in filters.Motivations
                                                             where s.FilterAspects.Contains(m)
                                                             select s :
                                                             content.Schemes;
-            IEnumerable<Scheme> schemeLengthSchemes = filters.schemeLength.Any() ?
+            IEnumerable<Scheme> schemeLengthSchemes = filters.SchemeLength.Any() ?
                                                             from Scheme s in content.Schemes
-                                                            from string l in filters.schemeLength
+                                                            from string l in filters.SchemeLength
                                                             where s.FilterAspects.Contains(l)
                                                             select s :
                                                             content.Schemes;
-            IEnumerable<Scheme> paySchemes =          filters.pay.Any() ?
+            IEnumerable<Scheme> paySchemes =          filters.Pay.Any() ?
                                                             from Scheme s in content.Schemes
-                                                            from string p in filters.pay
+                                                            from string p in filters.Pay
                                                             where s.FilterAspects.Contains(p)
                                                             select s :
                                                             content.Schemes;
-            IEnumerable<Scheme> filteredSchemes = (filters.allFilters.Any() ?
+            IEnumerable<Scheme> filteredSchemes = (filters.AllFilters.Any() ?
                                                       (from Scheme s in content.Schemes
                                                        join Scheme m in motivationSchemes
                                                        on s equals m
@@ -58,11 +58,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             {
                 new Filter(content.MotivationsFilter.Name, content.MotivationsFilter.Description,
                     content.MotivationsFilter.Aspects.Select(x =>
-                        new FilterAspect(x.Id, x.Description, filters.motivations.Contains(x.Id)))),
+                        new FilterAspect(x.Id, x.Description, filters.Motivations.Contains(x.Id)))),
                 new Filter(content.SchemeLengthFilter.Name, content.SchemeLengthFilter.Description,
-                    content.SchemeLengthFilter.Aspects.Select(x => new FilterAspect(x.Id, x.Description, filters.schemeLength.Contains(x.Id)))),
+                    content.SchemeLengthFilter.Aspects.Select(x => new FilterAspect(x.Id, x.Description, filters.SchemeLength.Contains(x.Id)))),
                 new Filter(content.PayFilter.Name, content.PayFilter.Description,
-                    content.PayFilter.Aspects.Select(x => new FilterAspect(x.Id, x.Description, filters.pay.Contains(x.Id))))
+                    content.PayFilter.Aspects.Select(x => new FilterAspect(x.Id, x.Description, filters.Pay.Contains(x.Id))))
             };
 
             return new HomeModel(_schemesModelService.HomeModel.Preamble, filteredSchemes, filterGroupModels, true);
