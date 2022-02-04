@@ -1,48 +1,55 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.Extensions.Logging;
-//using FakeItEasy;
-//using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-//using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
-//using Xunit;
-//using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
-//using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using FakeItEasy;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
+using Xunit;
+using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+using SFA.DAS.FindEmploymentSchemes.Web.Services;
+using NLog;
 
-//namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
-//{
-//    public class PagesControllerTests
-//    {
-//        [Theory]
-//        [InlineData("cookies")]
-//        [InlineData("accessibility-statement")]
-//        public void PagesController_Page(string pageUrl)
-//        {
-//            ILogger<PagesController> logger = A.Fake<ILogger<PagesController>>();
-//            IContentService contentService = A.Fake<IContentService>();
-//            IContent content = A.Fake<IContent>();
-//            A.CallTo(() => contentService.Content).Returns(content);
-//            A.CallTo(() => content.Pages).Returns(new[]
-//            {
-//                new Page("", "analyticscookies", null!),
-//                new Page("", "marketingcookies", null!),
-//                new Page("", "accessibility-statement", null!)
-//            });
-//            PagesController controller = new PagesController(logger, contentService);
+namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
+{
+    public class PagesControllerTests
+    {
+        public IPageService PageService { get; set; }
+        public ILogger<PagesController> Logger { get; set; }
+        public PagesController PagesController { get; set; }
+        public IContentService ContentService { get; set; }
 
-//            IActionResult result = controller.Page(pageUrl);
-//            Assert.True(result is ViewResult);
-//        }
+        public PagesControllerTests()
+        {
+            Logger = A.Fake<ILogger<PagesController>>();
+            PageService = A.Fake<IPageService>();
+            ContentService = A.Fake<IContentService>();
 
-//        [Theory]
-//        [InlineData("doesnt-exist")]
-//        [InlineData("this-one-neither")]
-//        public void PagesController_PageNotFound(string pageUrl)
-//        {
-//            ILogger<PagesController> logger = A.Fake<ILogger<PagesController>>();
-//            IContentService contentService = A.Fake<IContentService>();
-//            PagesController controller = new PagesController(logger, contentService);
+            PagesController = new PagesController(Logger, ContentService, PageService);
+        }
 
-//            IActionResult result = controller.Page(pageUrl);
-//            Assert.True(result is NotFoundResult);
-//        }
-//    }
-//}
+        [Theory]
+        [InlineData("cookies")]
+        [InlineData("accessibility-statement")]
+        public void Page_KnownPageUrlReturnsRealViewResultTest(string pageUrl)
+        {
+            A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
+                .Returns((null, new Page("title", "url", null)));
+
+            IActionResult result = PagesController.Page(pageUrl);
+            Assert.True(result is ViewResult);
+            Assert.False(result is NotFoundResult);
+        }
+
+        [Theory]
+        [InlineData("doesnt-exist")]
+        [InlineData("this-one-neither")]
+        public void Page_UnknownPageUrlReturnsNotFoundTest(string pageUrl)
+        {
+            A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
+                .Returns((null, null));
+
+            IActionResult result = PagesController.Page(pageUrl);
+            Assert.True(result is NotFoundResult);
+        }
+    }
+}

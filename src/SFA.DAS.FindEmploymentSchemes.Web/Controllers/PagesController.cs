@@ -34,6 +34,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         {
             var (viewName, page) = _pageService.Page(pageUrl, _contentService.Content);
 
+            if (page == null)
+                return NotFound();
+
             return View(viewName, page);
         }
 
@@ -45,6 +48,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             var previewContent = await _contentService.UpdatePreview();
 
             var (viewName, page) = _pageService.Page(pageUrl, previewContent);
+
+            if (page == null)
+                return NotFound();
 
             return View(viewName ?? "Page", page);
         }
