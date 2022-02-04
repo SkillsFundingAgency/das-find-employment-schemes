@@ -133,6 +133,33 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
+        public void Details_KnownSchemeUrlReturnsViewWithCorrectModelTest()
+        {
+            var fixture = new Fixture();
+            fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(IHtmlContent),
+                    typeof(HtmlString)));
+
+            var schemes = fixture.CreateMany<Scheme>(2).ToArray();
+
+            string schemeUrl = schemes.First().Url;
+
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes);
+
+            A.CallTo(() => SchemesModelService.GetSchemeDetailsModel(schemeUrl))
+                .Returns(schemeDetailsModel);
+
+            // act
+            IActionResult result = SchemesController.Details(schemeUrl);
+
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.Equal(schemeDetailsModel, viewResult.Model);
+        }
+
+        [Fact]
         public void Details_UnknownSchemeUrlReturnsNotFoundTest()
         {
             const string schemeUrl = "unknown-scheme";
