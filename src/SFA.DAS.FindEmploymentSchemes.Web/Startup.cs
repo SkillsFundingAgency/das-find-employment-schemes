@@ -150,10 +150,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     pattern: "preview/page/{pageUrl}",
                     defaults: new { controller = "Pages", action = "PagePreview" });
 
-                //endpoints.MapControllerRoute(
-                //    name: "schemes-preview",
-                //    pattern: "preview/schemes/{schemeUrl}",
-                //    defaults: new { controller = "Schemes", action = "DetailsPreview" });
+                endpoints.MapControllerRoute(
+                    name: "schemes-preview",
+                    pattern: "preview/schemes/{schemeUrl}",
+                    defaults: new { controller = "Schemes", action = "DetailsPreview" });
             });
         }
     }

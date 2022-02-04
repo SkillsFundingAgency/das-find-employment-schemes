@@ -1,5 +1,9 @@
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
 
@@ -10,15 +14,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         private readonly ILogger<SchemesController> _logger;
         private readonly ISchemesModelService _schemesModelService;
         private readonly IFilterService _filterService;
+        private readonly IContentService _contentService;
 
         public SchemesController(
             ILogger<SchemesController> logger,
             ISchemesModelService schemesModelService,
-            IFilterService filterService)
+            IFilterService filterService,
+            IContentService contentService)
         {
             _logger = logger;
             _schemesModelService = schemesModelService;
             _filterService = filterService;
+            _contentService = contentService;
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
@@ -51,6 +58,23 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
                 return NotFound();
 
             return View(schemeDetailsModel);
+        }
+
+        public async Task<IActionResult> DetailsPreview(string schemeUrl)
+        {
+            var previewContent = await _contentService.UpdatePreview();
+
+            SchemeDetailsModel model;
+            try
+            {
+                model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+
+            return View("Details", model);
         }
     }
 }
