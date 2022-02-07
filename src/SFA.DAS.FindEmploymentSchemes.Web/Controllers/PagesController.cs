@@ -43,7 +43,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> PagePreview(string pageUrl)
         {
-            //todo: do we want a update content page which triggers a non-preview content update?
+            // it would be nice to have a manually triggered content update, then we could change the auto-update to, say, once a night (as a backup),
+            // content could be updated on demand (rather than waiting for the next auto-update), and the number of contentful api calls would be reduced.
+            // but it's not as simple as the following, as all instances would need to be updated, so we'd have to have an external event (such as event grid)
+            // to ensure all instances were updated
+
+            //if (pageUrl == "update-site")
+            //{
+            //    await _contentService.Update();
+
+            //    return View();
+            //}
 
             var previewContent = await _contentService.UpdatePreview();
 
