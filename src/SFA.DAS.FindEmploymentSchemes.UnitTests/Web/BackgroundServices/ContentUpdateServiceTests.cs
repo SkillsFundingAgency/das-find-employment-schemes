@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using FakeItEasy;
 using Xunit;
 using System.Globalization;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.BackgroundServices
 {
@@ -39,7 +40,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.BackgroundServices
         {
             ContentUpdateServiceOptions.CronSchedule = "";
 
-            Assert.Throws<ContentUpdateServiceException>(CreateContentUpdateService);
+            Assert.Throws<ConfigurationMissingException>(CreateContentUpdateService);
         }
 
         [Fact]
@@ -47,7 +48,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.BackgroundServices
         {
             ContentUpdateServiceOptions.CronSchedule = null;
 
-            Assert.Throws<ContentUpdateServiceException>(CreateContentUpdateService);
+            Assert.Throws<ConfigurationMissingException>(CreateContentUpdateService);
         }
 
         [Fact]
