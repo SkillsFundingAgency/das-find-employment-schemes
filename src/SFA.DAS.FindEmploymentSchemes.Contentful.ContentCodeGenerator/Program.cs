@@ -12,7 +12,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
-    internal class Program
+    public class Program
     {
         private const string PayFilterPrefix = "pay";
         private const string MotivationsFilterPrefix = "motivations";
@@ -118,7 +118,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             Console.WriteLine(@"        };");
         }
 
-        private static HtmlRenderer CreateHtmlRenderer()
+        public static HtmlRenderer CreateHtmlRenderer()
         {
             var htmlRendererOptions = new HtmlRendererOptions
             {

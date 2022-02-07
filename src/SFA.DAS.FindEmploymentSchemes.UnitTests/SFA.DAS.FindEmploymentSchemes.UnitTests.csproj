@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator\SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.csproj" />
     <ProjectReference Include="..\SFA.DAS.FindEmploymentSchemes.Web\SFA.DAS.FindEmploymentSchemes.Web.csproj" />
   </ItemGroup>
 
