@@ -5,17 +5,20 @@ using System.Threading.Tasks;
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 {
     /// <summary>
-    /// A renderer for an embedded YouTube video
+    /// A renderer for text surrounded with quote marks followed by quote attribution
+    /// "These are actual words that I spoke. Don't quote me on that."
+    /// Bob Quoter
+    /// Manager, Quotes UK Ltd
     /// </summary>
-    public class GdsEmbeddedYoutubeContentRenderer : IContentRenderer
+    public class GdsQuotedContentRenderer : IContentRenderer
     {
         private readonly ContentRendererCollection _rendererCollection;
 
         /// <summary>
-        /// Initializes a new GdsEmbeddedYoutubeContentRenderer
+        /// Initializes a new GdsQuotedContentRenderer
         /// </summary>
         /// <param name="rendererCollection">The collection of renderer to use for sub-content.</param>
-        public GdsEmbeddedYoutubeContentRenderer(ContentRendererCollection rendererCollection)
+        public GdsQuotedContentRenderer(ContentRendererCollection rendererCollection)
         {
             _rendererCollection = rendererCollection;
         }
@@ -23,24 +26,26 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         /// <summary>
         /// The order of this renderer in the collection.
         /// </summary>
-        public int Order { get; set; } = 30;
+        public int Order { get; set; } = 40;
 
         /// <summary>
         /// Whether or not this renderer supports the provided content.
         /// </summary>
         /// <param name="content">The content to evaluate.</param>
-        /// <returns>Returns true if the content is a paragraph, contains only an iframe and refers to a youtube embedded url, otherwise false.</returns>
+        /// <returns>Returns true if the content is a paragraph and contains 3 content items with the first quoted text, otherwise false.</returns>
         public bool SupportsContent(IContent content)
         {
             if (!(content is Paragraph))
                 return false;
 
             Paragraph paragraph = (Paragraph)content;
-            if (paragraph.Content.Count != 1 || !(paragraph.Content[0] is Text))
+            if (paragraph.Content.Count != 3 || !(paragraph.Content[0] is Text) || !(paragraph.Content[1] is Text) || !(paragraph.Content[2] is Text))
                 return false;
 
-            string text = ((Text)paragraph.Content[0]).Value.Trim();
-            return text.StartsWith("<iframe") && text.EndsWith("</iframe>") && text.Contains("youtube.com/embed/");
+            return ((Text)paragraph.Content[0])
+                                   .Value
+                                   .Trim()
+                                   .StartsWith("\"");
         }
 
         /// <summary>
@@ -51,15 +56,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         public string Render(IContent content)
         {
             var paragraph = content as Paragraph;
+            if (paragraph == null)
+                return "";
+
             var sb = new StringBuilder();
-            sb.Append("<p class=\"govuk-body\">");
+            sb.Append("<p class=\"govuk-body\"><i>");
 
-            foreach (var subContent in paragraph!.Content)
-            {
-                sb.Append(((Text)paragraph.Content[0]).Value);
-            }
+            string quote = ((Text)paragraph.Content[0]).Value;
+            string name = ((Text)paragraph.Content[1]).Value;
+            string title = ((Text)paragraph.Content[2]).Value;
 
-            sb.Append("</p>");
+            sb.Append($"{quote}<br />");
+            sb.Append($"<b>{name}</b><br />");
+            sb.Append($"{title}");
+
+            sb.Append("</i></p>");
             return sb.ToString();
         }
 
