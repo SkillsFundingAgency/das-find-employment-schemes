@@ -53,12 +53,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [Route("page/cookies")]
         public IActionResult Cookies(string AnalyticsCookies, string MarketingCookies)
         {
-            var options = new CookieOptions
+            string host = HttpContext.Request.Host.Host;
+            CookieOptions options = new CookieOptions()
             {
                 IsEssential = true,
                 Secure = true,
                 SameSite = SameSiteMode.None,
-                Expires = DateTimeOffset.UtcNow.AddYears(1)
+                Expires = DateTimeOffset.UtcNow.AddYears(1),
+                Domain = (host == "localhost" ? host : $".{host}")
             };
 
             HttpContext.Response
