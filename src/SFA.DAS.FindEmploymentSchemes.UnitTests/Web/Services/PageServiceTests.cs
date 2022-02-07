@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core.Models;
@@ -104,6 +105,24 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             var cookiePage = (CookiePage) page;
             Assert.Equal(analyticsPage, cookiePage.AnalyticsPage);
             Assert.Equal(marketingPage, cookiePage.MarketingPage);
+        }
+
+        [Fact]
+        public void Page_UnknownPageUrlReturnsNullPageTest()
+        {
+            string unknowUrl = nameof(unknowUrl);
+
+            var (viewName, page) = PageService.Page(unknowUrl, Content);
+
+            Assert.Null(page);
+        }
+
+        [Fact]
+        public void Page_ErrorCheckPageUrlThrowsExceptionTest()
+        {
+            string errorCheckUrl = "error-check";
+
+            Assert.Throws<NotImplementedException>(() => PageService.Page(errorCheckUrl, Content));
         }
     }
 }
