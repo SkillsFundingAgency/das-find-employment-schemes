@@ -60,7 +60,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
                 return "";
 
             var sb = new StringBuilder();
-            sb.Append("<p class=\"govuk-body\"><i>");
+            sb.Append("<p class=\"govuk-body quote-and-attribution\">");
 
             string quote = ((Text)paragraph.Content[0]).Value;
             string name = ((Text)paragraph.Content[1]).Value;
@@ -70,7 +70,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
             sb.Append($"<b>{name}</b><br />");
             sb.Append($"{title}");
 
-            sb.Append("</i></p>");
+            sb.Append("</p>");
             return sb.ToString();
         }
 
