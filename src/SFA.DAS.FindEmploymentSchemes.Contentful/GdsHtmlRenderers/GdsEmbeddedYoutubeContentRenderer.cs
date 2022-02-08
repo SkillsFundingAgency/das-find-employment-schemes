@@ -39,8 +39,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
             if (paragraph.Content.Count != 1 || !(paragraph.Content[0] is Text))
                 return false;
 
-            string text = ((Text)paragraph.Content[0]).Value.Trim();
-            return text.StartsWith("<iframe") && text.EndsWith("</iframe>") && text.Contains("youtube.com/embed/");
+            string text = ((Text)paragraph.Content[0])
+                                          .Value
+                                          .Trim();
+            return text.StartsWith("<iframe") && text.EndsWith("</iframe>") &&
+                   (text.Contains("youtube.com/embed/") || text.Contains("youtube-nocookie.com/embed/"));
         }
 
         /// <summary>
@@ -56,7 +59,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 
             foreach (var subContent in paragraph!.Content)
             {
-                sb.Append(((Text)paragraph.Content[0]).Value);
+                sb.Append(((Text)paragraph.Content[0])
+                                          .Value
+                                          .Replace("youtube.com/embed/", "youtube-nocookie.com/embed/", System.StringComparison.InvariantCultureIgnoreCase));
             }
 
             sb.Append("</p>");

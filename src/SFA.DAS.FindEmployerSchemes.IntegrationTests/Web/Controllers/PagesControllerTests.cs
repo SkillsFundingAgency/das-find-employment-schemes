@@ -42,7 +42,8 @@ namespace SFA.DAS.FindEmploymentSchemes.IntegrationTests.Web.Controllers
         public IEnumerator<object[]> GetEnumerator()
         {
             yield return new object[] { SchemesContent.Pages.FirstOrDefault(p => p.Url == "accessibility-statement"), "accessibility-statement" };
-            yield return new object[] { SchemesContent.Pages.FirstOrDefault(p => p.Url == "cookies"), "cookies" };
+            yield return new object[] { SchemesContent.Pages.FirstOrDefault(p => p.Url == "analyticscookies"), "analyticscookies" };
+            yield return new object[] { SchemesContent.Pages.FirstOrDefault(p => p.Url == "marketingcookies"), "marketingcookies" };
             yield return new object[] { SchemesContent.Pages.FirstOrDefault(p => p.Url == "privacy-notice"), "privacy-notice" };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

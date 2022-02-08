@@ -38,7 +38,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
                     "pay--minimum-wage", "motivations--full-time-role", "motivations--diversity-or-responsibility",
                     "scheme-length--4-months-to-12-months", "scheme-length--a-year-or-more",
                 },
-                null,
+                new CaseStudy[]
+                {
+                    new CaseStudy("name", "title", new HtmlString(@"<p>Case study content here</p>"))
+                },
+                new HtmlString(
+                    @"<p>Preamble goes here</p>"),
                 new HtmlString(
                     @"<p>Applies to England</p><p>Apprenticeships are for those aged 16 or over and combine working with studying to gain skills and knowledge in a job role.</p><p>Apprentices can be new or current employees.</p><p>Your apprentice must:</p><ul class =""govuk-list govuk-list--bullet""><li>work with experienced staff</li><li>learn skills relevant to your organisation</li><li>get time for training or study during their working week (at least 20% of their normal working hours)</li></ul><p></p>"),
                 new HtmlString(
