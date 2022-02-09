@@ -1,12 +1,16 @@
-﻿using System.Text;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Contentful.Core.Models;
+
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 {
     /// <summary>
     /// A renderer for a call to action box.
-    /// We re-appropriate block quotes from the rich text editor and turn them into call to action boxes.
     /// </summary>
     public class GdsCtaContentRenderer : IContentRenderer
     {
@@ -24,7 +28,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         /// <summary>
         /// The order of this renderer in the collection.
         /// </summary>
-        public int Order { get; set; } = 50;
+        public int Order { get; set; } = 40;
 
         /// <summary>
         /// Renders the content to a string.
@@ -34,20 +38,40 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         public string Render(IContent content)
         {
             var quote = content as Quote;
+            StringBuilder sb = new StringBuilder("<section class=\"cx-cta-box\">");
 
-            var sb = new StringBuilder();
-
-            sb.Append("<div class=\"cx-cta-box\">");
-
-            foreach (var subContent in quote!.Content)
+            foreach (IContent subContent in quote!.Content)
             {
-                var renderer = _rendererCollection.GetRendererForContent(subContent);
-                sb.Append(renderer.Render(subContent));
+                //foreach (string line in ((Text)subContent).Value
+                //                                          .Split("\n"))
+                //{
+                //    string text = line.Replace("\n", "")
+                //                      .Replace("<cta>", "")
+                //                      .Replace("</cta>", "");
+                //    if (!string.IsNullOrWhiteSpace(text))
+                //    {
+                //        Paragraph para = new Paragraph()
+                //        {
+                //            Content = new List<IContent>
+                //        {
+                //            new Text
+                //            {
+                //                Value = text,
+                //            }
+                //        }
+                //        };
+                sb.Append(_rendererCollection.GetRendererForContent(subContent) //para)
+                                             .Render(subContent)); // para));
+                //    }
+                //}
             }
 
-            sb.Append("</div>");
-
-            return sb.ToString();
+            sb.Append("</section>");
+            return sb.ToString()
+                     .Replace("<cta>", "")
+                     .Replace("</cta>", "")
+                     .Replace("&lt;cta&gt;", "")
+                     .Replace("&lt;/cta&gt;", "");
         }
 
         /// <summary>
@@ -57,7 +81,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         /// <returns>Returns true if the content is a quote, otherwise false.</returns>
         public bool SupportsContent(IContent content)
         {
-            return content is Quote;
+            if (!(content is Quote))
+                return false;
+
+            var quote = content as Quote;
+            var para = quote!.Content[0] as Paragraph;
+            return para!.Content[0] is Text && ((Text)para!.Content[0]).Value.Trim().StartsWith("<cta>");
         }
 
         /// <summary>

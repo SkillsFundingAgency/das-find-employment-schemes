@@ -153,7 +153,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             htmlRenderer.AddRenderer(new GdsListContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsParagraphRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsEmbeddedYoutubeContentRenderer(htmlRenderer.Renderers));
-            htmlRenderer.AddRenderer(new GdsQuotedContentRenderer(htmlRenderer.Renderers));
+            htmlRenderer.AddRenderer(new GdsBlockQuoteRenderer(htmlRenderer.Renderers));
             return htmlRenderer;
         }
 
