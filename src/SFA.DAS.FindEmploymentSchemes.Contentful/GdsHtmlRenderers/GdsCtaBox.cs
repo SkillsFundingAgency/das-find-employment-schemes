@@ -42,28 +42,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 
             foreach (IContent subContent in quote!.Content)
             {
-                //foreach (string line in ((Text)subContent).Value
-                //                                          .Split("\n"))
-                //{
-                //    string text = line.Replace("\n", "")
-                //                      .Replace("<cta>", "")
-                //                      .Replace("</cta>", "");
-                //    if (!string.IsNullOrWhiteSpace(text))
-                //    {
-                //        Paragraph para = new Paragraph()
-                //        {
-                //            Content = new List<IContent>
-                //        {
-                //            new Text
-                //            {
-                //                Value = text,
-                //            }
-                //        }
-                //        };
-                sb.Append(_rendererCollection.GetRendererForContent(subContent) //para)
-                                             .Render(subContent)); // para));
-                //    }
-                //}
+                sb.Append(_rendererCollection.GetRendererForContent(subContent)
+                                             .Render(subContent));
             }
 
             sb.Append("</section>");

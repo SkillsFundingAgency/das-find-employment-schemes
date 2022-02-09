@@ -33,18 +33,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         public bool SupportsContent(IContent content)
         {
             return content is Quote;
-
-            //if (!(content is Paragraph))
-            //    return false;
-
-            //Paragraph paragraph = (Paragraph)content;
-            //if (paragraph.Content.Count != 3 || !(paragraph.Content[0] is Text) || !(paragraph.Content[1] is Text) || !(paragraph.Content[2] is Text))
-            //    return false;
-
-            //return ((Text)paragraph.Content[0])
-            //                       .Value
-            //                       .Trim()
-            //                       .StartsWith("\"");
         }
 
         /// <summary>
@@ -69,24 +57,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
             sb.Append("</div>");
 
             return sb.ToString();
-
-            //var paragraph = content as Paragraph;
-            //if (paragraph == null)
-            //    return "";
-
-            //var sb = new StringBuilder();
-            //sb.Append("<p class=\"govuk-body quote-and-attribution\">");
-
-            //string quote = ((Text)paragraph.Content[0]).Value;
-            //string name = ((Text)paragraph.Content[1]).Value;
-            //string title = ((Text)paragraph.Content[2]).Value;
-
-            //sb.Append($"{quote}<br />");
-            //sb.Append($"<b>{name}</b><br />");
-            //sb.Append($"{title}");
-
-            //sb.Append("</p>");
-            //return sb.ToString();
         }
 
         /// <summary>
