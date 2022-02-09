@@ -16,13 +16,7 @@ For a general guide to Contentful, consult the [Contentful help center](https://
 
 ### Call to action box
 
-As there is no formatting support in Contentful for a call to action box, we instead mark the content we want to appear in a call to action box like so...
-
-```
-<cta>
-Content within the call to action box.
-<cta>
-```
+As there is no formatting support in Contentful for a call to action box, we instead mark the content we want to appear in a call to action box in a blockquote, with a given first line of `<cta>`.
 
 ### Links
 
@@ -64,6 +58,8 @@ Any content in the 'Details Page Override' field, overrides the usual compositio
 Instead the main content of the scheme details page is taken from this field. It is used when the required content for the scheme doesn't match the usual format, such as the content for 'Training outside of employment'.
 
 #### Additional footer
+
+Additional footer content to render in the footer, _above_ the usual footer content. See the Apprenticeship scheme for an example.
 
 #### Size
 
