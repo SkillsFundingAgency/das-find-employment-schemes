@@ -73,6 +73,8 @@ The Motivations, Pay and Scheme Length filter aspects referenced by a scheme det
 
 When a filter box is ticked, only schemes that have the corresponding filter aspect associated with it are included in the result set.
 
+The ordering of the filter aspectes associated with a scheme is of no import.
+
 #### Case studies (edit box)
 
 The old way of entering case studies content. Has been replaced by adding case study references, and this field will eventually be removed.
