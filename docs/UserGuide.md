@@ -30,9 +30,9 @@ If you need a link to open in a new tab, append `(opens in new tab)` to the end 
 
 #### Embedded YouTube videos
 
-If you want to embedd a YouTube video, copy the embed code for the YouTube video, making sure to select "Enable privacy-enhanced mode", and copy that into an edit box. Here's a [guide to get the embed code](https://axbom.com/embed-youtube-videos-without-cookies/).
+If you want to embed a YouTube video, copy the embed code for the YouTube video, making sure to select "Enable privacy-enhanced mode", and copy that into an edit box. Here's a [guide to get the embed code](https://axbom.com/embed-youtube-videos-without-cookies/).
 
-Enabling the privacy-enhanced mode makes the embed code reference `youtube-nocookie.com`, which stops YouTube setting cookies on the site. (Our cookie page assumes no YouTube cookies are set.).
+Enabling the privacy-enhanced mode makes the embed code reference `youtube-nocookie.com`, which stops YouTube setting cookies on the site. If you forget to enable privacy-enhanced mode, the website will automatically convert the domain for you, but you should get in the habbit of enabling the mode, in case YouTube changes how it works.
 
 E.g.
 
