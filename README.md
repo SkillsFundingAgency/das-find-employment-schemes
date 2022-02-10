@@ -143,6 +143,10 @@ _For Example_
 * FluentAssertions
 ```
 
+## User Guide
+
+[User guide](docs/userguide.md)
+
 ## 🐛 Known Issues
 
 _Add any known issues with the project_
