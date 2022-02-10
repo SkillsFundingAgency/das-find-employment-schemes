@@ -92,7 +92,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             return new Model.Content.Content(
                 await GetPages(contentfulClient),
                 await GetSchemes(contentfulClient),
-                await GetSubSchemes(contentfulClient),
                 new Model.Content.Filter(
                     MotivationName,
                     MotivationDescription,
@@ -125,15 +124,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             return await Task.WhenAll(schemes.OrderByDescending(s => s.Size).Select(ToContent));
         }
 
-        private async Task<IEnumerable<Model.Content.SubScheme>> GetSubSchemes(IContentfulClient contentfulClient)
-        {
-            var builder = QueryBuilder<Model.Api.SubScheme>.New.ContentTypeIs("subScheme");
-
-            var apiSubSchemes = await contentfulClient.GetEntries(builder);
-
-            return await Task.WhenAll(apiSubSchemes.Select(ToContent));
-        }
-
         private async Task<IEnumerable<Model.Content.FilterAspect>> GetFilterAspects(
             IContentfulClient contentfulClient,
             string contentfulTypeName,
@@ -156,6 +146,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         private async Task<Model.Content.Scheme> ToContent(Model.Api.Scheme apiScheme)
         {
+            IEnumerable<Model.Content.SubScheme> subSchemes = Enumerable.Empty<Model.Content.SubScheme>();
+            if (apiScheme.SubSchemes != null)
+            {
+                subSchemes = await Task.WhenAll(apiScheme.SubSchemes.Select(ToContent));
+            }
+
             return new Model.Content.Scheme(
                 apiScheme.Name!,
                 (await ToHtmlString(apiScheme.ShortDescription))!,
@@ -165,8 +161,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 apiScheme.Url!,
                 apiScheme.Size,
                 (apiScheme.PayFilterAspects?.Select(f => ToFilterAspectId(f, PayFilterPrefix)) ?? Enumerable.Empty<string>())
-                    .Concat(apiScheme.MotivationsFilterAspects?.Select(f => ToFilterAspectId(f, MotivationsFilterPrefix)) ?? Enumerable.Empty<string>())
-                    .Concat(apiScheme.SchemeLengthFilterAspects?.Select(f => ToFilterAspectId(f, SchemeLengthFilterPrefix)) ?? Enumerable.Empty<string>()),
+                .Concat(apiScheme.MotivationsFilterAspects?.Select(f => ToFilterAspectId(f, MotivationsFilterPrefix)) ?? Enumerable.Empty<string>())
+                .Concat(apiScheme.SchemeLengthFilterAspects?.Select(f => ToFilterAspectId(f, SchemeLengthFilterPrefix)) ?? Enumerable.Empty<string>()),
                 await ToHtmlString(apiScheme.DetailsPageOverride),
                 await ToHtmlString(apiScheme.Description),
                 await ToHtmlString(apiScheme.Cost),
@@ -175,7 +171,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 await ToHtmlString(apiScheme.CaseStudies),
                 apiScheme.OfferHeader,
                 await ToHtmlString(apiScheme.Offer),
-                await ToHtmlString(apiScheme.AdditionalFooter));
+                await ToHtmlString(apiScheme.AdditionalFooter),
+                subSchemes);
         }
 
         private async Task<Model.Content.SubScheme> ToContent(Model.Api.SubScheme apiSubScheme)

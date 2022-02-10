@@ -18,6 +18,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
         // optional
         public Document? DetailsPageOverride { get; set; }
         public Document? Description { get; set; }
+        public List<SubScheme>? SubSchemes { get; set; }
         public Document? Cost { get; set; }
         public Document? Responsibility { get; set; }
         public Document? Benefits { get; set; }

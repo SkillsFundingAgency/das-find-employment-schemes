@@ -34,7 +34,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             GenerateGeneratedContentWarning();
 
             GenerateSchemesContent(content.Schemes);
-            GenerateSubSchemesContent(content.SubSchemes);
 
             GenerateFilterContent(content.MotivationsFilter);
             GenerateFilterContent(content.PayFilter);
@@ -101,7 +100,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 Console.WriteLine($"                {GenerateHtmlString(scheme.CaseStudies)},");
                 Console.WriteLine($"                \"{scheme.OfferHeader}\",");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.Offer)},");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.AdditionalFooter)}");
+                Console.WriteLine($"                {GenerateHtmlString(scheme.AdditionalFooter)},");
+
+                GenerateSubSchemesContent(scheme.SubSchemes);
+
+
                 Console.WriteLine("                ),");
             }
 
@@ -110,17 +113,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
         private static void GenerateSubSchemesContent(IEnumerable<SubScheme> subSchemes)
         {
-            string typeName = GenerateProperty<SubScheme>();
+            string typeName = nameof(SubScheme);
 
+            Console.WriteLine($"                new {typeName}[] {{");
+            
             foreach (var subScheme in subSchemes)
             {
-                Console.WriteLine($"            new {typeName}(\"{subScheme.Title}\",");
-                Console.WriteLine($"                {GenerateHtmlString(subScheme.Summary)},");
-                Console.WriteLine($"                {GenerateHtmlString(subScheme.Content)}");
-                Console.WriteLine("            ),");
+                Console.WriteLine($"                    new {typeName}(\"{subScheme.Title}\",");
+                Console.WriteLine($"                    {GenerateHtmlString(subScheme.Summary)},");
+                Console.WriteLine($"                    {GenerateHtmlString(subScheme.Content)}");
+                Console.WriteLine("                    ),");
             }
 
-            Console.WriteLine(@"        };");
+            Console.WriteLine(@"                }");
         }
 
         private static void GenerateFilterContent(Filter filter)

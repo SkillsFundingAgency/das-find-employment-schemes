@@ -41,7 +41,9 @@ developing a workforce with skills specific to your business
                 new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.apprenticeships.gov.uk/employers/real-stories-employers"" title="""" class=""govuk-link"">how businesses are using incentive payments to hire apprentices</a>.</p>"),
                 "Offer an apprenticeship",
                 new HtmlString(@"<p class=""govuk-body"">Get started with offering an apprenticeship.</p><p class=""govuk-body""><a href=""https://www.apprenticeships.gov.uk/employers/hiring-an-apprentice"" title="""" class=""govuk-link"">Hire an apprentice</a></p><p class=""govuk-body"">Alternatively, call <a href=""tel:08000150400"" title="""" class=""govuk-link"">08000 150 400</a></p>"),
-                new HtmlString(@"<p class=""govuk-body""><strong>Scotland, Wales and Northern Ireland</strong></p><p class=""govuk-body"">If you're an employer, you can contact the:</p><p class=""govuk-body""><a href=""https://www.apprenticeships.scot/"" title="""" class=""govuk-link"">Apprenticeship authority in Scotland</a></p><p class=""govuk-body""><a href=""https://businesswales.gov.wales/skillsgateway/apprenticeships"" title="""" class=""govuk-link"">Apprenticeship authority in Wales</a></p><p class=""govuk-body""><a href=""https://www.nidirect.gov.uk/campaigns/apprenticeships"" title="""" class=""govuk-link"">Apprenticeship authority in Northern Ireland</a></p>")
+                new HtmlString(@"<p class=""govuk-body""><strong>Scotland, Wales and Northern Ireland</strong></p><p class=""govuk-body"">If you're an employer, you can contact the:</p><p class=""govuk-body""><a href=""https://www.apprenticeships.scot/"" title="""" class=""govuk-link"">Apprenticeship authority in Scotland</a></p><p class=""govuk-body""><a href=""https://businesswales.gov.wales/skillsgateway/apprenticeships"" title="""" class=""govuk-link"">Apprenticeship authority in Wales</a></p><p class=""govuk-body""><a href=""https://www.nidirect.gov.uk/campaigns/apprenticeships"" title="""" class=""govuk-link"">Apprenticeship authority in Northern Ireland</a></p>"),
+                new SubScheme[] {
+                }
                 ),
             new Scheme("T Levels: industry placements",
                 new HtmlString(@"<p class=""govuk-body"">Provide a 45-day (315 hours) industry placement for 16 to 19 year-olds, which gives you early access to the brightest young people entering the market and the opportunity to develop your workforce of the future.</p>"),
@@ -61,7 +63,9 @@ developing a workforce with skills specific to your business
                 new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-t-level-industry-placements"" title="""" class=""govuk-link"">how businesses are using T Levels industry placements</a>.</p>"),
                 "Offer an industry placement",
                 new HtmlString(@"<p class=""govuk-body"">Get started with offering an industry placement.</p><p class=""govuk-body""><a href=""https://employers.tlevels.gov.uk/hc/en-gb/requests/new"" title="""" class=""govuk-link"">Take the next steps with T Levels</a></p><p class=""govuk-body"">Alternatively, call <a href=""tel:08000150600"" title="""" class=""govuk-link"">08000 150 600</a> (choose option 4)</p>"),
-                null
+                null,
+                new SubScheme[] {
+                }
                 ),
             new Scheme("Sector-based Work Academy Programme (SWAP)",
                 new HtmlString(@"<p class=""govuk-body"">Up to 6-week placement for benefit claimants for those aged 18 and over designed to help you recruit a workforce with the right skills to sustain and grow your business.</p>"),
@@ -78,7 +82,9 @@ developing a workforce with skills specific to your business
                 new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-sector-based-work-academies"" title="""" class=""govuk-link"">how employers are using sector-based work academy programmes</a>.</p>"),
                 "Offer a SWAP",
                 new HtmlString(@"<p class=""govuk-body"">Contact the Employer Services Line on <a href=""tel:08001690178"" title="""" class=""govuk-link"">0800 169 0178</a></p><p class=""govuk-body"">They will put you in touch with a local Jobcentre Plus employer team.</p>"),
-                null
+                null,
+                new SubScheme[] {
+                }
                 ),
             new Scheme("Skills Bootcamps",
                 new HtmlString(@"<p class=""govuk-body"">Flexible work and training courses for aged 19 and over to fast-track specialist skill development, for existing or new talent for your business.</p>"),
@@ -97,7 +103,9 @@ developing a workforce with skills specific to your business
                 null,
                 "Offer a Skills Bootcamps",
                 new HtmlString(@"<p class=""govuk-body"">Get started with offering Skills Bootcamps and find providers offering courses in your area.</p><p class=""govuk-body""><a href=""https://www.gov.uk/government/publications/find-a-skills-bootcamp"" title="""" class=""govuk-link"">Find Skills Bootcamps in your area</a></p>"),
-                null
+                null,
+                new SubScheme[] {
+                }
                 ),
             new Scheme("Traineeships",
                 new HtmlString(@"<p class=""govuk-body"">A 6-week to 12 months skills development programme that includes an unpaid work placement to help 16- to 24-year-olds prepare for an apprenticeship or employment.</p>"),
@@ -120,7 +128,9 @@ providing a stepping-stone for your future apprentices
                 new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-traineeships"" title="""" class=""govuk-link"">how businesses are using traineeships</a>.</p>"),
                 "Offer a traineeship",
                 new HtmlString(@"<p class=""govuk-body"">Get started with offering a traineeship.</p><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/traineeship-information-for-employers#get-started"" title="""" class=""govuk-link"">Contact the National Apprenticeship Service</a></p><p class=""govuk-body"">Alternatively, call <a href=""tel:08000150600"" title="""" class=""govuk-link"">08000 150 600</a></p>"),
-                null
+                null,
+                new SubScheme[] {
+                }
                 ),
             new Scheme("Supported Internships for learners with an education, health and care plan",
                 new HtmlString(@"<p class=""govuk-body"">An unpaid 6 to 12-month work placement for 16 to 24-year-olds with additional needs, including Special Educational Needs and Disabilities (SEND), supported by a qualified job coach.</p>"),
@@ -137,7 +147,9 @@ providing a stepping-stone for your future apprentices
                 null,
                 "Offer a supported internship",
                 new HtmlString(@"<p class=""govuk-body"">Offer a Supported Internship by contacting the lead for your region from the <a href=""https://www.preparingforadulthood.org.uk/about-us/meet-the-team.htm#Regional%20Leads"" title="""" class=""govuk-link"">Preparing for Adulthood Team</a></p>"),
-                null
+                null,
+                new SubScheme[] {
+                }
                 ),
             new Scheme("Care-Leaver covenant",
                 new HtmlString(@"<p class=""govuk-body"">Help 16 to 25-year-olds who were in local authority care become independent through practical job-related support, in whatever way suits your business.</p>"),
@@ -154,7 +166,9 @@ providing a stepping-stone for your future apprentices
                 new HtmlString(@"<p class=""govuk-body"">Read how <a href=""https://mycovenant.org.uk/covenant-stories/"" title="""" class=""govuk-link"">companies have been making a difference to the lives of care leavers</a></p>"),
                 "Offer a Care Leavers Covenant",
                 new HtmlString(@"<p class=""govuk-body""><a href=""https://mycovenant.org.uk/support-the-covenant/organisation-sign-up/"" title="""" class=""govuk-link"">Find out how to join the Care Leavers Covenant</a> and tailor what opportunities your business would like to offer to care leavers.</p><p class=""govuk-body"">Alternatively, contact the Care Leavers Covenant via telephone on <a href=""tel:08000773557"" title="""" class=""govuk-link"">0800 077 3557</a>.</p>"),
-                null
+                null,
+                new SubScheme[] {
+                }
                 ),
             new Scheme("Employing prisoners and prison leavers",
                 new HtmlString(@"<p class=""govuk-body"">Employ prisoners and prison leavers aged 18 and over to help your business fill skills gaps and develop a loyal and talented workforce.</p>"),
@@ -171,7 +185,9 @@ providing a stepping-stone for your future apprentices
                 new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://newfuturesnetwork.gov.uk/case-studies/#"" title="""" class=""govuk-link"">how businesses are working with serving prisoners and hiring prison leavers</a>.</p>"),
                 "Offer prisoners and prison leavers employment",
                 new HtmlString(@"<p class=""govuk-body""><a href=""https://newfuturesnetwork.gov.uk/register/"" title="""" class=""govuk-link"">Register your interest on the New Futures Network</a>.</p><p class=""govuk-body"">A member of the team will be in touch to discuss the process.</p>"),
-                null
+                null,
+                new SubScheme[] {
+                }
                 ),
             new Scheme("Training outside of employment",
                 new HtmlString(@"<p class=""govuk-body"">Additional ways to train up existing employees through free qualifications, career advice and financial support.</p>"),
@@ -195,16 +211,14 @@ English for Speakers of Other Languages (ESOL)</h2><p class=""govuk-body"">Adult
                 null,
                 "How to offer",
                 null,
-                null
+                null,
+                new SubScheme[] {
+                    new SubScheme("Higher Technical Qualifications (HTQs)",
+                    new HtmlString(@"<p class=""govuk-body"">Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships, and degrees.</p>"),
+                    new HtmlString(@"<p class=""govuk-body"">HTQs have been developed by employers and awarding bodies to help you upskill existing employees and provide a different recruitment pool to hire new talent.</p><p class=""govuk-body"">You can support an employee to undertake an HTQ. The cost is dependent on the course and the provider.</p><p class=""govuk-body"">They are:</p><ul class=""govuk-list govuk-list--bullet""><li>new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)</li><li>approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards</li><li>classroom based and do not require an in-work placement</li></ul><p class=""govuk-body"">The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.</p><p class=""govuk-body"">Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.</p><h3 class=""govuk-heading-m"">Offer a HTQ</h3><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/htqs"" title="""" class=""govuk-link"">Learn more and get started with HTQs.</a></p>")
+                    ),
+                }
                 ),
-        };
-        private IEnumerable<SubScheme>? _subSchemes;
-        public IEnumerable<SubScheme> SubSchemes => _subSchemes ??= new SubScheme[]
-        {
-            new SubScheme("Higher Technical Qualifications (HTQs)",
-                new HtmlString(@"<p class=""govuk-body"">Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships, and degrees.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">HTQs have been developed by employers and awarding bodies to help you upskill existing employees and provide a different recruitment pool to hire new talent.</p><p class=""govuk-body"">You can support an employee to undertake an HTQ. The cost is dependent on the course and the provider.</p><p class=""govuk-body"">They are:</p><ul class=""govuk-list govuk-list--bullet""><li>new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)</li><li>approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards</li><li>classroom based and do not require an in-work placement</li></ul><p class=""govuk-body"">The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.</p><p class=""govuk-body"">Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.</p><h3 class=""govuk-heading-m"">Offer a HTQ</h3><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/htqs"" title="""" class=""govuk-link"">Learn more and get started with HTQs.</a></p>")
-            ),
         };
        private Filter? _motivationsFilter;
         public Filter MotivationsFilter => _motivationsFilter ??= new Filter("motivations", "I want to", new FilterAspect[]

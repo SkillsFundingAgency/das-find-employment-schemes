@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Html;
 
@@ -17,6 +18,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public string Url { get; }
         public HtmlString? DetailsPageOverride { get; }
         public HtmlString? Description { get; }
+        public IEnumerable<SubScheme> SubSchemes { get; }
         public HtmlString? Cost { get; }
         public HtmlString? Responsibility { get; }
         public HtmlString? Benefits { get; }
@@ -34,7 +36,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             IEnumerable<string> filterAspects,
             HtmlString? detailsPageOverride = null,
             HtmlString? description = null, HtmlString? cost = null, HtmlString? responsibility = null, HtmlString? benefits = null,
-            HtmlString? caseStudies = null, string? offerHeader = null, HtmlString? offer = null, HtmlString? additionalFooter = null)
+            HtmlString? caseStudies = null, string? offerHeader = null, HtmlString? offer = null, HtmlString? additionalFooter = null,
+            IEnumerable<SubScheme>? subSchemes = null)
         {
             Name = name;
             ShortDescription = shortDescription;
@@ -45,6 +48,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             Size = size;
             FilterAspects = filterAspects;
             DetailsPageOverride = detailsPageOverride;
+            SubSchemes = subSchemes ?? Enumerable.Empty<SubScheme>();
             Description = description;
             Cost = cost;
             Responsibility = responsibility;
@@ -61,7 +65,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 
         private string SanitizeHtmlId(string unsanitizedId)
         {
-            // only run at startup, so we don't compile
+            //todo: now run online, so we could compile (although not on a fast path)
 
             // strip invalid chars
             string sanitizedHtmlId = Regex.Replace(unsanitizedId, @"[^a-zA-Z0-9-_:\.]", "");
