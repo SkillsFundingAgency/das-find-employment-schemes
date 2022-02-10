@@ -189,6 +189,29 @@ providing a stepping-stone for your future apprentices
                 new SubScheme[] {
                 }
                 ),
+            new Scheme("Free courses and additional training for your employees",
+                new HtmlString(@"<p class=""govuk-body"">Additional ways to train up existing employees through free qualifications, career advice and financial support.</p>"),
+                new HtmlString(@"<p class=""govuk-body"">Courses are fully funded for eligible adults but employees may need time to study and attend classes</p>"),
+                new HtmlString(@"<p class=""govuk-body"">Help improve productivity, and develop a loyal and talented workforce in a rapidly changing labour market</p>"),
+                new HtmlString(@"<p class=""govuk-body"">Length of time can vary</p>"),
+                "free-courses-and-additional-training-for-your-employees", -1000,
+             new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
+                null,
+                new HtmlString(@"<p class=""govuk-body"">Free training, financial support and career advice available to your workforce.</p><p class=""govuk-body"">Some of the benefits of your employees taking a free course or training outside of employment include:</p><ul class=""govuk-list govuk-list--bullet""><li>upskilling your existing employees</li><li>progressing your current employees into higher skilled roles</li><li>filling vacancies or skill shortages within your business</li><li>gaining a workforce with the right knowledge, skills, and behaviours for your company to succeed</li></ul><p class=""govuk-body""></p>"),
+                null,
+                null,
+                null,
+                null,
+                "How to offer",
+                null,
+                null,
+                new SubScheme[] {
+                    new SubScheme("Higher Technical Qualifications (HTQs)",
+                    new HtmlString(@"<p class=""govuk-body"">Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships, and degrees.</p>"),
+                    new HtmlString(@"<p class=""govuk-body"">HTQs have been developed by employers and awarding bodies to help you upskill existing employees and provide a different recruitment pool to hire new talent.</p><p class=""govuk-body"">You can support an employee to undertake an HTQ. The cost is dependent on the course and the provider.</p><p class=""govuk-body"">They are:</p><ul class=""govuk-list govuk-list--bullet""><li>new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)</li><li>approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards</li><li>classroom based and do not require an in-work placement</li></ul><p class=""govuk-body"">The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.</p><p class=""govuk-body"">Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.</p><h3 class=""govuk-heading-m"">Offer a HTQ</h3><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/htqs"" title="""" class=""govuk-link"">Learn more and get started with HTQs.</a></p>")
+                    ),
+                }
+                ),
             new Scheme("Training outside of employment",
                 new HtmlString(@"<p class=""govuk-body"">Additional ways to train up existing employees through free qualifications, career advice and financial support.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Courses are fully funded for eligible adults but employees may need time to study and attend classes</p>"),
@@ -213,10 +236,6 @@ English for Speakers of Other Languages (ESOL)</h2><p class=""govuk-body"">Adult
                 null,
                 null,
                 new SubScheme[] {
-                    new SubScheme("Higher Technical Qualifications (HTQs)",
-                    new HtmlString(@"<p class=""govuk-body"">Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships, and degrees.</p>"),
-                    new HtmlString(@"<p class=""govuk-body"">HTQs have been developed by employers and awarding bodies to help you upskill existing employees and provide a different recruitment pool to hire new talent.</p><p class=""govuk-body"">You can support an employee to undertake an HTQ. The cost is dependent on the course and the provider.</p><p class=""govuk-body"">They are:</p><ul class=""govuk-list govuk-list--bullet""><li>new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)</li><li>approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards</li><li>classroom based and do not require an in-work placement</li></ul><p class=""govuk-body"">The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.</p><p class=""govuk-body"">Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.</p><h3 class=""govuk-heading-m"">Offer a HTQ</h3><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/htqs"" title="""" class=""govuk-link"">Learn more and get started with HTQs.</a></p>")
-                    ),
                 }
                 ),
         };
