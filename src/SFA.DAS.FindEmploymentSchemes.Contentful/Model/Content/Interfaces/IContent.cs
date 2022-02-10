@@ -11,6 +11,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
         /// </summary>
         IEnumerable<Scheme> Schemes { get; }
 
+        IEnumerable<SubScheme> SubSchemes { get; }
+
         Filter MotivationsFilter { get; }
         Filter PayFilter { get; }
         Filter SchemeLengthFilter { get; }

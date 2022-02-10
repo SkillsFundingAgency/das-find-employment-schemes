@@ -92,6 +92,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             return new Model.Content.Content(
                 await GetPages(contentfulClient),
                 await GetSchemes(contentfulClient),
+                await GetSubSchemes(contentfulClient),
                 new Model.Content.Filter(
                     MotivationName,
                     MotivationDescription,
@@ -122,6 +123,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             var schemes = await contentfulClient.GetEntries(builder);
 
             return await Task.WhenAll(schemes.OrderByDescending(s => s.Size).Select(ToContent));
+        }
+
+        private async Task<IEnumerable<Model.Content.SubScheme>> GetSubSchemes(IContentfulClient contentfulClient)
+        {
+            var builder = QueryBuilder<Model.Api.SubScheme>.New.ContentTypeIs("subScheme");
+
+            var apiSubSchemes = await contentfulClient.GetEntries(builder);
+
+            return await Task.WhenAll(apiSubSchemes.Select(ToContent));
         }
 
         private async Task<IEnumerable<Model.Content.FilterAspect>> GetFilterAspects(
@@ -166,6 +176,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 apiScheme.OfferHeader,
                 await ToHtmlString(apiScheme.Offer),
                 await ToHtmlString(apiScheme.AdditionalFooter));
+        }
+
+        private async Task<Model.Content.SubScheme> ToContent(Model.Api.SubScheme apiSubScheme)
+        {
+            return new Model.Content.SubScheme(
+                apiSubScheme.Title!,
+                (await ToHtmlString(apiSubScheme.Summary))!,
+                (await ToHtmlString(apiSubScheme.Content))!);
         }
 
         private Model.Content.FilterAspect ToContent(Model.Api.IFilter apiFilter, string filterPrefix)
