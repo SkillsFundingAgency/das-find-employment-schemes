@@ -91,7 +91,8 @@ Data:
     "PreviewApiKey": "<Ask for key>",
     "SpaceId": "082i50qdtar9",
     "UsePreviewApi": false,
-    "MaxNumberOfRateLimitRetries": 0
+    "MaxNumberOfRateLimitRetries": 0,
+    "Environment", "at"
   }
 }
 ```

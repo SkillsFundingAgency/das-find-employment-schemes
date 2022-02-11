@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Contentful.Core;
+using Contentful.Core.Configuration;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging.Abstractions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
@@ -17,9 +18,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
         {
             var httpClient = new HttpClient();
             var client = new ContentfulClient(httpClient,
-                "",
-                "",
-                "082i50qdtar9");
+                new ContentfulOptions
+                {
+                    SpaceId = "082i50qdtar9",
+                    DeliveryApiKey = "",
+                    Environment = "master"
+                });
 
             var htmlRenderer = ContentService.CreateHtmlRenderer();
 
