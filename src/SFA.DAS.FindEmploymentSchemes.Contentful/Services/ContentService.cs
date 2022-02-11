@@ -179,7 +179,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         {
             return new Model.Content.SubScheme(
                 apiSubScheme.Title!,
-                (await ToHtmlString(apiSubScheme.Summary))!,
+                await ToHtmlString(apiSubScheme.Summary),
                 (await ToHtmlString(apiSubScheme.Content))!);
         }
 
