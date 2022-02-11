@@ -113,6 +113,10 @@ The key technologies used in the project are:
 * FakeItEasy
 ```
 
+## User Guide
+
+[User guide](docs/userguide.md)
+
 ## 🐛 Known Issues
 
 N/A

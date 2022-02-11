@@ -38,6 +38,18 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
     }
 }
 
+@media (max-width: 400px) {
+    table.govuk-table {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    td.govuk-table__cell {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+}
+
 @media (min-width: 40.0625em) {
     .app-header__row,
     .app-header__col {
