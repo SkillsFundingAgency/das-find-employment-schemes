@@ -46,7 +46,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 
             var sb = new StringBuilder();
 
-            sb.Append("<div class=\"govuk-inset-text quote-and-attribution\">");
+            sb.Append("<div class=\"govuk-inset-text\">");
 
             foreach (var subContent in quote!.Content)
             {

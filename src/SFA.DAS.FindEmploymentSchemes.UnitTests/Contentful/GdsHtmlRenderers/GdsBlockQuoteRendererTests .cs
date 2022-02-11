@@ -60,7 +60,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
 
             var html = await renderer.ToHtml(doc);
 
-            Assert.Equal("<div class=\"govuk-inset-text quote-and-attribution\"><p class=\"govuk-body\">&quot;I was so impressed I agreed to be quoted. I really thought the service was great!&quot;</p><p class=\"govuk-body\">&lt;b&gt;Bob ServiceUser&lt;/b&gt;</p><p class=\"govuk-body\">Service Users plc</p></div>", html);
+            Assert.Equal("<div class=\"govuk-inset-text\"><p class=\"govuk-body\">&quot;I was so impressed I agreed to be quoted. I really thought the service was great!&quot;</p><p class=\"govuk-body\">&lt;b&gt;Bob ServiceUser&lt;/b&gt;</p><p class=\"govuk-body\">Service Users plc</p></div>", html);
         }
     }
 }
