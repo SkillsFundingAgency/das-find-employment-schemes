@@ -91,7 +91,8 @@ Data:
     "PreviewApiKey": "<Ask for key>",
     "SpaceId": "082i50qdtar9",
     "UsePreviewApi": false,
-    "MaxNumberOfRateLimitRetries": 0
+    "MaxNumberOfRateLimitRetries": 0,
+    "Environment", "at"
   }
 }
 ```
@@ -112,6 +113,10 @@ The key technologies used in the project are:
 * xUnit
 * FakeItEasy
 ```
+
+## User Guide
+
+[User guide](docs/userguide.md)
 
 ## 🐛 Known Issues
 
