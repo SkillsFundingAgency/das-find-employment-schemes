@@ -17,7 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
 		..\contentful\contentful-export-082i50qdtar9-master.json = ..\contentful\contentful-export-082i50qdtar9-master.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{9F482D72-99C6-4A16-8847-05992F8DC9D1}"
+	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
+		..\docs\UserGuide.md = ..\docs\UserGuide.md
 	EndProjectSection
 EndProject
 Global
