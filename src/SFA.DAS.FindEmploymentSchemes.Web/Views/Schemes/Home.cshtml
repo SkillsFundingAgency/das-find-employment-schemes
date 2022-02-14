@@ -18,9 +18,9 @@
                     <div id="number-of-schemes-box">
                         <h3 id="number-of-schemes-heading" class="govuk-heading-s">Number of Schemes: <span id="number-of-schemes">@Model.Schemes.Count()</span></h3>
                     </div>
-                        @foreach (var filterGroupModel in Model.FilterGroupModels)
+                        @foreach (var filter in Model.Filters)
                         {
-                            @await Html.PartialAsync("_FilterGroupPartial", filterGroupModel)
+                            @await Html.PartialAsync("_FilterGroupPartial", filter)
                         }
                         
                         <a id="clear-filters" class="govuk-link" href="/">Clear filters</a>

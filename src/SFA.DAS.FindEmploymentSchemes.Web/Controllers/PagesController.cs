@@ -1,22 +1,25 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.FindEmploymentSchemes.Web.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class PagesController : Controller
     {
         private readonly ILogger<PagesController> _log;
+        private readonly IContentService _contentService;
 
-        public PagesController(ILogger<PagesController> logger)
+        public PagesController(
+            ILogger<PagesController> logger,
+            IContentService contentService)
         {
             _log = logger;
+            _contentService = contentService;
         }
 
         // we _could_ add cache control parameters to the page content type
@@ -25,13 +28,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         public IActionResult Page(string pageUrl)
         {
             pageUrl = pageUrl.ToLowerInvariant();
-            Page page = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == pageUrl);
 
             switch (pageUrl)
             {
                 case "cookies":
-                    Page analyticsPage = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "analyticscookies");
-                    Page marketingPage = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "marketingcookies");
+                    Page? analyticsPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "analyticscookies");
+                    Page? marketingPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "marketingcookies");
                     return (analyticsPage == null || marketingPage == null
                                 ? NotFound()
                                 : (IActionResult)View("Cookies", new CookiePage(analyticsPage, marketingPage, false)));
@@ -40,6 +42,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
                     throw new NotImplementedException("DEADBEEF-DEAD-BEEF-DEAD-BAAAAAAAAAAD");
             }
 
+            Page? page = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == pageUrl);
             if (page == null)
                 return NotFound();
 
@@ -71,8 +74,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
                                (MarketingCookies == "yes").ToString().ToLower(),
                                options);
 
-            Page analyticsPage = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "analyticscookies");
-            Page marketingPage = SchemesContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "marketingcookies");
+            Page? analyticsPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "analyticscookies");
+            Page? marketingPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "marketingcookies");
             return (analyticsPage == null || marketingPage == null
                         ? NotFound()
                         : (IActionResult)View("Cookies", new CookiePage(analyticsPage, marketingPage, true)));

@@ -1,31 +1,30 @@
-
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class SchemesController : Controller
     {
         private readonly ILogger<SchemesController> _logger;
+        private readonly ISchemesModelService _schemesModelService;
         private readonly IFilterService _filterService;
 
-        public SchemesController(ILogger<SchemesController> logger,
-                                 IFilterService filterService)
+        public SchemesController(
+            ILogger<SchemesController> logger,
+            ISchemesModelService schemesModelService,
+            IFilterService filterService)
         {
             _logger = logger;
+            _schemesModelService = schemesModelService;
             _filterService = filterService;
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Home()
         {
-            return View(_filterService.HomeModel);
+            return View(_schemesModelService.HomeModel);
         }
 
         // if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled
@@ -47,7 +46,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Details(string schemeUrl)
         {
-            if (!_filterService.SchemeDetailsModels.TryGetValue(schemeUrl, out SchemeDetailsModel? schemeDetailsModel))
+            var schemeDetailsModel = _schemesModelService.GetSchemeDetailsModel(schemeUrl);
+            if (schemeDetailsModel == null)
                 return NotFound();
 
             return View(schemeDetailsModel);

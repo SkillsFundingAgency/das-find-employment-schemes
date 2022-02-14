@@ -14,16 +14,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         public int Order { get; set; } = 50;
 
         /// <summary>
-        /// Renders the content to a string.
-        /// </summary>
-        /// <param name="content">The content to render.</param>
-        /// <returns>A GDS horizontal ruler HTML tag.</returns>
-        public string Render(IContent content)
-        {
-            return "<hr class=\"govuk-section-break govuk-section-break--visible\">";
-        }
-
-        /// <summary>
         /// Whether or not this renderer supports the provided content.
         /// </summary>
         /// <param name="content">The content to evaluate.</param>
@@ -34,13 +24,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         }
 
         /// <summary>
-        /// Renders the content asynchronously.
+        /// Renders the content to a string.
         /// </summary>
         /// <param name="content">The content to render.</param>
-        /// <returns>The rendered string.</returns>
+        /// <returns>A GDS horizontal ruler HTML tag.</returns>
         public Task<string> RenderAsync(IContent content)
         {
-            return Task.FromResult(Render(content));
+            return Task.FromResult("<hr class=\"govuk-section-break govuk-section-break--visible\">");
         }
     }
 }
