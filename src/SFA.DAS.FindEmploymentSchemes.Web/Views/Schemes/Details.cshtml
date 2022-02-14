@@ -27,35 +27,37 @@
             <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
             @Model.Scheme.Benefits
 
-            @*todo: show casestudypreamble if there and not null, even if no case studies *@
             @*todo: when move case study content to case study preamble, so can go live with current content *@
 
-            @if (Model.Scheme.CaseStudies.Any())
+            @if (Model.Scheme.CaseStudiesPreamble != null)
             {
                 <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
-                @Model.Scheme.CaseStudiesPreAmble
+                @Model.Scheme.CaseStudiesPreamble
 
-                bool twoOrMoreCaseStudies = Model.Scheme.CaseStudies.Count() > 1;
-
-                foreach (CaseStudy study in Model.Scheme.CaseStudies)
+                @if (Model.Scheme.CaseStudies.Any())
                 {
-                    if (twoOrMoreCaseStudies)
+                    bool twoOrMoreCaseStudies = Model.Scheme.CaseStudies.Count() > 1;
+
+                    foreach (CaseStudy study in Model.Scheme.CaseStudies)
                     {
-                        <details class="govuk-details" data-module="govuk-details">
-                            <summary class="govuk-details__summary">
-                                <span class="govuk-details__summary-text">
-                                    @study.DisplayTitle
-                                </span>
-                            </summary>
-                            <div class="govuk-details__text">
-                                @study.Content
-                            </div>
-                        </details>
-                    }
-                    else
-                    {
-                        <h3 id="scheme-details-h3-case-studies">@study.DisplayTitle</h3>
-                        @study.Content
+                        if (twoOrMoreCaseStudies)
+                        {
+                            <details class="govuk-details" data-module="govuk-details">
+                                <summary class="govuk-details__summary">
+                                    <span class="govuk-details__summary-text">
+                                        @study.DisplayTitle
+                                    </span>
+                                </summary>
+                                <div class="govuk-details__text">
+                                    @study.Content
+                                </div>
+                            </details>
+                        }
+                        else
+                        {
+                            <h3 id="scheme-details-h3-case-studies">@study.DisplayTitle</h3>
+                            @study.Content
+                        }
                     }
                 }
             }

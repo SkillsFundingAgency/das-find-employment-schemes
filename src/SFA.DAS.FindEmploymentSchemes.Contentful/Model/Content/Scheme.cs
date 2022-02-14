@@ -22,7 +22,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public HtmlString? Responsibility { get; }
         public HtmlString? Benefits { get; }
         public IEnumerable<CaseStudy> CaseStudies { get; }
-        public HtmlString? CaseStudiesPreAmble { get; }
+        public HtmlString? CaseStudiesPreamble { get; }
         public string? OfferHeader { get; }
         public HtmlString? Offer { get; }
         public HtmlString? AdditionalFooter { get; }
@@ -35,7 +35,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             string url, int size,
             IEnumerable<string> filterAspects,
             IEnumerable<CaseStudy>? caseStudies,
-            HtmlString? caseStudiesPreAmble,
+            HtmlString? caseStudiesPreamble,
             HtmlString? detailsPageOverride = null,
             HtmlString? description = null, HtmlString? cost = null, HtmlString? responsibility = null, HtmlString? benefits = null,
             string? offerHeader = null, HtmlString? offer = null, HtmlString? additionalFooter = null)
@@ -49,7 +49,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             Size = size;
             FilterAspects = filterAspects;
             CaseStudies = caseStudies ?? Enumerable.Empty<CaseStudy>();
-            CaseStudiesPreAmble = caseStudiesPreAmble;
+            CaseStudiesPreamble = caseStudiesPreamble;
             DetailsPageOverride = detailsPageOverride;
             Description = description;
             Cost = cost;
