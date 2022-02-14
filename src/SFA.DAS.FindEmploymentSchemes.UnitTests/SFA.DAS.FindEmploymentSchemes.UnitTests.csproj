@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.17.0" />
+    <PackageReference Include="CompareNETObjects" Version="4.74.0" />
     <PackageReference Include="FakeItEasy" Version="7.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -22,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator\SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator.csproj" />
     <ProjectReference Include="..\SFA.DAS.FindEmploymentSchemes.Web\SFA.DAS.FindEmploymentSchemes.Web.csproj" />
   </ItemGroup>
 

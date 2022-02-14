@@ -2,6 +2,7 @@
 using AutoFixture;
 using AutoFixture.Kernel;
 using Microsoft.AspNetCore.Html;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using Xunit;
 

@@ -27,30 +27,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         public int Order { get; set; } = 50;
 
         /// <summary>
-        /// Renders the content to a string.
-        /// </summary>
-        /// <param name="content">The content to render.</param>
-        /// <returns>The list as a quote HTML string.</returns>
-        public string Render(IContent content)
-        {
-            var quote = content as Quote;
-
-            var sb = new StringBuilder();
-
-            sb.Append("<div class=\"cx-cta-box\">");
-
-            foreach (var subContent in quote!.Content)
-            {
-                var renderer = _rendererCollection.GetRendererForContent(subContent);
-                sb.Append(renderer.Render(subContent));
-            }
-
-            sb.Append("</div>");
-
-            return sb.ToString();
-        }
-
-        /// <summary>
         /// Whether or not this renderer supports the provided content.
         /// </summary>
         /// <param name="content">The content to evaluate.</param>
@@ -61,14 +37,27 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         }
 
         /// <summary>
-        /// Renders the content asynchronously.
+        /// Renders the content to a string.
         /// </summary>
         /// <param name="content">The content to render.</param>
-        /// <returns>The rendered string.</returns>
-        public Task<string> RenderAsync(IContent content)
+        /// <returns>The list as a quote HTML string.</returns>
+        public async Task<string> RenderAsync(IContent content)
         {
-            return Task.FromResult(Render(content));
+            var quote = content as Quote;
+
+            var sb = new StringBuilder();
+
+            sb.Append("<div class=\"cx-cta-box\">");
+
+            foreach (var subContent in quote!.Content)
+            {
+                var renderer = _rendererCollection.GetRendererForContent(subContent);
+                sb.Append(await renderer.RenderAsync(subContent));
+            }
+
+            sb.Append("</div>");
+
+            return sb.ToString();
         }
     }
-
 }
