@@ -26,11 +26,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         public int Order { get; set; } = 50;
 
         /// <summary>
+        /// Whether or not this renderer supports the provided content.
+        /// </summary>
+        /// <param name="content">The content to evaluate.</param>
+        /// <returns>Returns true if the content is a list, otherwise false.</returns>
+        public bool SupportsContent(IContent content)
+        {
+            return content is List;
+        }
+
+        /// <summary>
         /// Renders the content to a string.
         /// </summary>
         /// <param name="content">The content to render.</param>
         /// <returns>The list as a ul or ol HTML string.</returns>
-        public string Render(IContent content)
+        public async Task<string> RenderAsync(IContent content)
         {
             var list = content as List;
             string listTagType = "ul";
@@ -43,37 +53,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 
             var sb = new StringBuilder();
 
-            sb.Append($"<{listTagType} class =\"{gdsClasses}\">");
+            sb.Append($"<{listTagType} class=\"{gdsClasses}\">");
 
             foreach (var subContent in list.Content)
             {
                 var renderer = _rendererCollection.GetRendererForContent(subContent);
-                sb.Append(renderer.Render(subContent));
+                sb.Append(await renderer.RenderAsync(subContent));
             }
 
             sb.Append($"</{listTagType}>");
 
             return sb.ToString();
-        }
-
-        /// <summary>
-        /// Whether or not this renderer supports the provided content.
-        /// </summary>
-        /// <param name="content">The content to evaluate.</param>
-        /// <returns>Returns true if the content is a list, otherwise false.</returns>
-        public bool SupportsContent(IContent content)
-        {
-            return content is List;
-        }
-
-        /// <summary>
-        /// Renders the content asynchronously.
-        /// </summary>
-        /// <param name="content">The content to render.</param>
-        /// <returns>The rendered string.</returns>
-        public Task<string> RenderAsync(IContent content)
-        {
-            return Task.FromResult(Render(content));
         }
     }
 }

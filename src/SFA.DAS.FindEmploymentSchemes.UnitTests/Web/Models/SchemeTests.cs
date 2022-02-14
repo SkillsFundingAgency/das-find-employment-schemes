@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Html;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
@@ -38,10 +38,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
                     "pay--minimum-wage", "motivations--full-time-role", "motivations--diversity-or-responsibility",
                     "scheme-length--4-months-to-12-months", "scheme-length--a-year-or-more",
                 },
-                new CaseStudy[]
-                {
-                    new CaseStudy("name", "title", new HtmlString(@"<p>Case study content here</p>"))
-                },
+                null,
                 new HtmlString(
                     @"<p>Preamble goes here</p>"),
                 new HtmlString(

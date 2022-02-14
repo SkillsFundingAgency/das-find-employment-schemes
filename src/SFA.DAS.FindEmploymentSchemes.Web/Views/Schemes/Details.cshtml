@@ -25,16 +25,25 @@
             <h2 id="scheme-details-h2-responsibility" class="govuk-heading-m"> Employer responsibilities </h2>
             @Model.Scheme.Responsibility
             <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
-                @Model.Scheme.Benefits
+            @Model.Scheme.Benefits
 
-            @if (Model.Scheme.CaseStudies.Any())
+            @*todo: when move case study content to case study preamble, so can go live with current content *@
+
+            int numberOfCaseStudies = Model.Scheme.CaseStudies.Count();
+
+            @if (Model.Scheme.CaseStudiesPreamble != null || numberOfCaseStudies > 0)
             {
                 <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
-                @Model.Scheme.CaseStudiesPreAmble
 
-                @foreach (CaseStudy study in Model.Scheme.CaseStudies)
+                @if (Model.Scheme.CaseStudiesPreamble != null)
                 {
-                    @if(Model.Scheme.CaseStudies.Length > 1) {
+                    @Model.Scheme.CaseStudiesPreamble
+                }
+
+                foreach (CaseStudy study in Model.Scheme.CaseStudies)
+                {
+                    if (numberOfCaseStudies > 1)
+                    {
                         <details class="govuk-details" data-module="govuk-details">
                             <summary class="govuk-details__summary">
                                 <span class="govuk-details__summary-text">
@@ -45,7 +54,9 @@
                                 @study.Content
                             </div>
                         </details>
-                    } else {
+                    }
+                    else
+                    {
                         <h3 id="scheme-details-h3-case-studies">@study.DisplayTitle</h3>
                         @study.Content
                     }

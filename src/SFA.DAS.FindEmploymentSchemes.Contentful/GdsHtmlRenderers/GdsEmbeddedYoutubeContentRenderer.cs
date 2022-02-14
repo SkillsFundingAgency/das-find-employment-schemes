@@ -9,17 +9,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
     /// </summary>
     public class GdsEmbeddedYoutubeContentRenderer : IContentRenderer
     {
-        private readonly ContentRendererCollection _rendererCollection;
-
-        /// <summary>
-        /// Initializes a new GdsEmbeddedYoutubeContentRenderer
-        /// </summary>
-        /// <param name="rendererCollection">The collection of renderer to use for sub-content.</param>
-        public GdsEmbeddedYoutubeContentRenderer(ContentRendererCollection rendererCollection)
-        {
-            _rendererCollection = rendererCollection;
-        }
-
         /// <summary>
         /// The order of this renderer in the collection.
         /// </summary>
@@ -45,6 +34,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
             return text.StartsWith("<iframe") && text.EndsWith("</iframe>") &&
                    (text.Contains("youtube.com/embed/") || text.Contains("youtube-nocookie.com/embed/"));
         }
+
+        //todo: this doesn't work
 
         /// <summary>
         /// Renders the content raw inside an html p-tag

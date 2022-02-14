@@ -1,10 +1,8 @@
-﻿
-using Contentful.Core.Models;
-using SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator;
+﻿using Contentful.Core.Models;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
 {
@@ -13,8 +11,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
         [Fact]
         public async Task ToHtml_GdsGdsCtaBoxRendererTests()
         {
-            //TODO: swap this over to ContentService.CreateHtmlRenderer() when merging later
-            HtmlRenderer renderer = Program.CreateHtmlRenderer();
+            var renderer = ContentService.CreateHtmlRenderer();
             var doc = new Document
             {
                 Content = new List<IContent>
@@ -27,8 +24,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
                             {
                                 Content = new List<IContent>
                                 {
-                                    new Text
-                                    {
+                            new Text
+                            {
                                         Value = "<cta>This is a"
                                     }
                                 }

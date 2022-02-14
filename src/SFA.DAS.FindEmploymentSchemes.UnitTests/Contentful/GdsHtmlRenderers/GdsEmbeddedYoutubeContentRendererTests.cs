@@ -1,10 +1,8 @@
-﻿
-using Contentful.Core.Models;
-using SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator;
+﻿using Contentful.Core.Models;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
 {
@@ -14,8 +12,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
         public async Task ToHtml_GdsEmbeddedYoutubeContentRendererTests()
         {
             string youtubeValue = "  <iframe>  abcdef...https://youtube.com/embed/something...vwxyz   </iframe>  ";
-            //TODO: swap this over to ContentService.CreateHtmlRenderer() when merging later
-            HtmlRenderer renderer = Program.CreateHtmlRenderer();
+            var renderer = ContentService.CreateHtmlRenderer();
             Document doc = new Document
             {
                 Content = new List<IContent>

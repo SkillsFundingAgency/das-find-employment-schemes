@@ -1,52 +1,138 @@
-﻿
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FakeItEasy;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
-
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
     public class PagesControllerTests
     {
-        [Theory]
-        [ClassData(typeof(PagesControllerTestData))]
-        public void PagesController_Page(string expectedTitle, string pageUrl)
-        {
-            ILogger<PagesController> logger = A.Fake<ILogger<PagesController>>();
-            PagesController controller = new PagesController(logger);
-            Page expectedPage = A.Fake<Page>(x => x.WithArgumentsForConstructor(() => new Page(expectedTitle, pageUrl, null)));
+        public ILogger<PagesController> Logger { get; set; }
+        public IPageService PageService { get; set; }
+        public IContentService ContentService { get; set; }
+        public PagesController PagesController { get; set; }
 
-            IActionResult result = controller.Page(pageUrl);
-            Assert.True(result is ViewResult);
+        public PagesControllerTests()
+        {
+            Logger = A.Fake<ILogger<PagesController>>();
+            PageService = A.Fake<IPageService>();
+            ContentService = A.Fake<IContentService>();
+
+            PagesController = new PagesController(Logger, ContentService, PageService);
         }
 
-        [Theory]
-        [InlineData(null, "doesnt-exist")]
-        [InlineData(null, "this-one-neither")]
-        public void PagesController_PageNotFound(string expectedTitle, string pageUrl)
+        [Fact]
+        public void Page_KnownPageUrlReturnsViewResultWithDefaultViewTest()
         {
-            ILogger<PagesController> logger = A.Fake<ILogger<PagesController>>();
-            PagesController controller = new PagesController(logger);
-            Page expectedPage = A.Fake<Page>(x => x.WithArgumentsForConstructor(() => new Page(expectedTitle, pageUrl, null)));
+            const string pageUrl = "pageUrl";
 
-            IActionResult result = controller.Page(pageUrl);
-            Assert.True(result is NotFoundResult);
+            A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
+                .Returns((null, new Page("title", "url", null)));
+
+            // act
+            IActionResult result = PagesController.Page(pageUrl);
+
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.Null(viewResult.ViewName);
         }
-    }
 
-    public class PagesControllerTestData : IEnumerable<object[]>
-    {
-        public IEnumerator<object[]> GetEnumerator()
+        [Fact]
+        public void Page_NonDefaultViewNameTest()
         {
-            yield return new object[] { "accessibility-statement-title", "accessibility-statement" };
-            yield return new object[] { "cookies-title", "cookies" };
-            yield return new object[] { "privacy-notice-title", "privacy-notice" };
+            const string pageUrl = "pageUrl";
+            const string nonDefaultViewName = "nonDefaultViewName";
+
+            A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
+                .Returns((nonDefaultViewName, new Page("title", "url", null)));
+
+            // act
+            IActionResult result = PagesController.Page(pageUrl);
+
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.Equal(nonDefaultViewName, viewResult.ViewName);
         }
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        [Fact]
+        public void Page_UnknownPageUrlReturnsNotFoundTest()
+        {
+            const string pageUrl = "unknown-page";
+
+            A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
+                .Returns((null, null));
+
+            // act
+            IActionResult result = PagesController.Page(pageUrl);
+
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task PagePreview_UpdatesPreviewContentTest()
+        {
+            // act
+            await PagesController.PagePreview("");
+
+            A.CallTo(() => ContentService.UpdatePreview())
+                .MustHaveHappenedOnceExactly();
+        }
+
+        [Fact]
+        public async Task PagePreview_KnownPageUrlReturnsViewResultWithPageViewTest()
+        {
+            const string pageUrl = "pageUrl";
+
+            A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
+                .Returns((null, new Page("title", "url", null)));
+
+            // act
+            IActionResult result = await PagesController.PagePreview(pageUrl);
+
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.Equal("Page", viewResult.ViewName);
+        }
+
+        [Fact]
+        public async Task PagePreview_NonDefaultViewNameTest()
+        {
+            const string pageUrl = "pageUrl";
+            const string nonDefaultViewName = "nonDefaultViewName";
+
+            A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
+                .Returns((nonDefaultViewName, new Page("title", "url", null)));
+
+            // act
+            IActionResult result = await PagesController.PagePreview(pageUrl);
+
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.Equal(nonDefaultViewName, viewResult.ViewName);
+        }
+
+        [Fact]
+        public async Task PagePreview_UnknownPageUrlReturnsNotFoundTest()
+        {
+            const string pageUrl = "unknown-page";
+
+            A.CallTo(() => PageService.Page(pageUrl, A<IContent>._))
+                .Returns((null, null));
+
+            // act
+            IActionResult result = await PagesController.PagePreview(pageUrl);
+
+            Assert.IsType<NotFoundResult>(result);
+        }
     }
 }

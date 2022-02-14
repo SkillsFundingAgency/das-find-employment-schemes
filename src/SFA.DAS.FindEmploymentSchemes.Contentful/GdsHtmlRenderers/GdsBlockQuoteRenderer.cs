@@ -40,7 +40,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         /// </summary>
         /// <param name="content">The content to render.</param>
         /// <returns>The block quote as a quote HTML string.</returns>
-        public string Render(IContent content)
+        public async Task<string> RenderAsync(IContent content)
         {
             var quote = content as Quote;
 
@@ -51,22 +51,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
             foreach (var subContent in quote!.Content)
             {
                 var renderer = _rendererCollection.GetRendererForContent(subContent);
-                sb.Append(renderer.Render(subContent));
+                sb.Append(await renderer.RenderAsync(subContent));
             }
 
             sb.Append("</div>");
 
             return sb.ToString();
-        }
-
-        /// <summary>
-        /// Renders the content asynchronously.
-        /// </summary>
-        /// <param name="content">The content to render.</param>
-        /// <returns>The rendered string.</returns>
-        public Task<string> RenderAsync(IContent content)
-        {
-            return Task.FromResult(Render(content));
         }
     }
 }
