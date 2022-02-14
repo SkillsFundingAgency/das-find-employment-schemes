@@ -42,6 +42,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             GenerateFilterContent(content.SchemeLengthFilter);
 
             GeneratePagesContent(content.Pages);
+            GenerateCaseStudyPagesContent(content.CaseStudyPages);
 
             Console.WriteLine(Closing());
         }
@@ -60,6 +61,42 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             Console.WriteLine(@"        };");
         }
+
+        private static void GenerateCaseStudyPagesContent(IEnumerable<CaseStudyPage> caseStudyPages)
+        {
+            string typeName = GenerateProperty<CaseStudyPage>();
+
+            foreach (var caseStudyPage in caseStudyPages)
+            {
+                Console.WriteLine($"            new {typeName}(\"{caseStudyPage.Title}\",");
+                Console.WriteLine($"                \"{caseStudyPage.Url}\",");
+                Console.WriteLine($"                Schemes.First(x => x.Name == \"{caseStudyPage.Scheme.Name}\"),");
+                Console.WriteLine($"                {GenerateHtmlString(caseStudyPage.Content)}");
+                Console.WriteLine("            ),");
+            }
+
+            Console.WriteLine(@"        };");
+        }
+
+        //private static async Task GenerateCaseStudyPagesContent(ContentfulClient client, HtmlRenderer htmlRenderer)
+        //{
+        //    var builder = QueryBuilder<CaseStudyPage>.New.ContentTypeIs("caseStudyPage");
+        //    var pages = await client.GetEntries<CaseStudyPage>(builder);
+
+        //    Console.WriteLine(@"        public static readonly IEnumerable<CaseStudyPage> CaseStudyPages = new[]
+        //{");
+
+        //    foreach (CaseStudyPage page in pages)
+        //    {
+        //        Console.WriteLine($"new CaseStudyPage(\"{page.Title}\",");
+        //        Console.WriteLine($"\"{page.Url}\",");
+        //        Console.WriteLine($"Schemes.FirstOrDefault(x => x.Name == \"{page?.Scheme?.Name}\"),");
+        //        Console.WriteLine($"{await AsHtmlString(page?.Content, htmlRenderer)}");
+        //        Console.WriteLine("),");
+        //    }
+
+        //    Console.WriteLine(@"        };");
+        //}
 
         private static void GenerateSchemesContent(IEnumerable<Scheme> schemes)
         {
@@ -145,6 +182,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
         private static string Preamble()
         {
             return @"using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;

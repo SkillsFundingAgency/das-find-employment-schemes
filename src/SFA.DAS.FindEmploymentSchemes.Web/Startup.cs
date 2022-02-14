@@ -63,6 +63,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             });
 
             services.AddSingleton<IPageService, PageService>();
+            services.AddSingleton<ICaseStudyPageService, CaseStudyPageService>();
 
             services.AddSingleton<IFilterService, FilterService>()
                 .AddSingleton<ISchemesModelService, SchemesModelService>();
@@ -140,6 +141,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     name: "page",
                     pattern: "page/{pageUrl}",
                     defaults: new { controller = "Pages", action = "Page" });
+
+                endpoints.MapControllerRoute(
+                    name: "casestudypage",
+                    pattern: "case-study/{pageUrl}",
+                    defaults: new { controller = "CaseStudies", action = "CaseStudyPage" });
 
                 endpoints.MapControllerRoute(
                     name: "schemes",
