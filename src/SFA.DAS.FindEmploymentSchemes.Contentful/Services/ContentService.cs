@@ -239,6 +239,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 }
             };
             var htmlRenderer = new HtmlRenderer(htmlRendererOptions);
+            htmlRenderer.AddRenderer(new GdsEmbeddedYoutubeContentRenderer());
             htmlRenderer.AddRenderer(new GdsCtaContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsHeadingRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsHorizontalRulerContentRenderer());
