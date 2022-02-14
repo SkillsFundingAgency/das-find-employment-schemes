@@ -86,7 +86,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         var scriptSrc = builder.AddScriptSrc()
                             .Self()
-                            .From(new[] {cdnUrl, "https://tagmanager.google.com", "https://www.google-analytics.com/", "https://www.googletagmanager.com" })
+                            .From(new[] {cdnUrl, "https://tagmanager.google.com", "https://www.google-analytics.com/", "https://www.googletagmanager.com", "https://acdn.adnxs.com" })
                             // this is needed for gtm
                             .UnsafeEval()
                             .UnsafeInline();
@@ -108,7 +108,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .Self();
 
                         builder.AddFrameSrc()
-                            .From("https://www.googletagmanager.com");
+                            .From(new[] { "https://*.fls.doubleclick.net", "https://www.googletagmanager.com" });
 
                         if (env.IsDevelopment())
                         {
