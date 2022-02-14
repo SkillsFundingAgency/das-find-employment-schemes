@@ -67,7 +67,7 @@ developing a workforce with skills specific to your business
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
-                null,
+                new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-t-level-industry-placements"" title="""" class=""govuk-link"">how businesses are using T Levels industry placements</a>.</p>"),
                 null,
                 new HtmlString(@"<p class=""govuk-body"">T Levels are qualifications for students aged 16 to 19 who have finished GCSEs. They are a 2-year qualification and the equivalent to studying 3 A levels.</p><p class=""govuk-body"">They have been designed with employers, to give them the skilled workforce they need by helping young people develop their knowledge, attitude and practical skills to thrive in the workplace.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay wages and cover expenses such as travel and living costs.</p>"),
@@ -88,7 +88,7 @@ developing a workforce with skills specific to your business
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
-                null,
+                new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-sector-based-work-academies"" title="""" class=""govuk-link"">how employers are using sector-based work academy programmes</a>.</p>"),
                 null,
                 new HtmlString(@"<p class=""govuk-body"">Sector-based Work Academy Programmes (SWAPs) help prepare those receiving unemployment benefits to apply for jobs in a different area of work.</p><p class=""govuk-body"">Placements run up to 6 weeks and are designed to help you recruit a workforce with the right skills to sustain and grow your business.</p><p class=""govuk-body"">They are tailored to meet your recruitment needs, including pre-employment training, a work experience placement, and your guarantee of a job interview for participants.</p><p class=""govuk-body"">Jobcentre Plus manages SWAPs in England and Scotland.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p>"),
@@ -189,7 +189,7 @@ of the course.</p><p class=""govuk-body"">
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
-                null,
+                new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-traineeships"" title="""" class=""govuk-link"">how businesses are using traineeships</a>.</p>"),
                 null,
                 new HtmlString(@"<p class=""govuk-body"">A traineeship is a work based skills development programme that includes a work placement.</p><p class=""govuk-body"">The full programme can last from 6 weeks up to 1 year, though most traineeships last for between 6-weeks and 12-weeks.</p><p class=""govuk-body"">Your business needs to be able to offer a safe, meaningful and high-quality work experience placement of at least 70 hours to 240 hours.</p><p class=""govuk-body"">You will work with a training provider to design what is included in the programme.</p><p class=""govuk-body"">Trainees can gain English, maths, digital and work-related qualifications which can lead them on to:</p><ul class=""govuk-list govuk-list--bullet""><li>an apprenticeship</li><li>work</li><li>further education</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay the wages and any payments for expenses such as travel and living costs.
@@ -232,7 +232,7 @@ providing a stepping-stone for your future apprentices
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
-                null,
+                new HtmlString(@"<p class=""govuk-body"">Read how <a href=""https://mycovenant.org.uk/covenant-stories/"" title="""" class=""govuk-link"">companies have been making a difference to the lives of care leavers</a></p>"),
                 null,
                 new HtmlString(@"<p class=""govuk-body"">The Care-leaver Covenant is a way companies can support 16 to 25-year-olds leaving care to become independent.</p><p class=""govuk-body"">Organisations can pledge support including apprenticeships, work experience or free or discounted goods or services.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs related to the practical offer your business makes to care leavers.</p>"),
@@ -251,7 +251,7 @@ providing a stepping-stone for your future apprentices
              new string[] {                "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
-                null,
+                new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://newfuturesnetwork.gov.uk/case-studies/#"" title="""" class=""govuk-link"">how businesses are working with serving prisoners and hiring prison leavers</a>.</p>"),
                 null,
                 new HtmlString(@"<p class=""govuk-body"">New Futures Network (NFN) arranges partnerships between prisons and employers in England and Wales. These partnerships help you:</p><ul class=""govuk-list govuk-list--bullet""><li>fill skills gaps in your business</li><li>reduce recruitment costs</li><li>increase staff retention</li><li>transform prison leavers&#39; lives</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs. If you recruit someone you must pay <a href=""https://www.gov.uk/national-minimum-wage-rates"" title="""" class=""govuk-link"">the minimum wage</a>.</p>"),

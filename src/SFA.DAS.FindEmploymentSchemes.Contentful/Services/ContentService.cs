@@ -164,7 +164,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                     .Concat(apiScheme.MotivationsFilterAspects?.Select(f => ToFilterAspectId(f, MotivationsFilterPrefix)) ?? Enumerable.Empty<string>())
                     .Concat(apiScheme.SchemeLengthFilterAspects?.Select(f => ToFilterAspectId(f, SchemeLengthFilterPrefix)) ?? Enumerable.Empty<string>()),
                 caseStudies,
-                await ToHtmlString(apiScheme.CaseStudiesPreamble),
+                await ToHtmlString(apiScheme.CaseStudies),
                 await ToHtmlString(apiScheme.DetailsPageOverride),
                 await ToHtmlString(apiScheme.Description),
                 await ToHtmlString(apiScheme.Cost),
