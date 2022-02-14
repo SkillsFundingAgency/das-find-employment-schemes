@@ -19,7 +19,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
     public class ContentServiceTests
     {
         public Fixture Fixture { get; }
+        public IContentfulClientFactory ContentfulClientFactory { get; set; }
         public IContentfulClient ContentfulClient { get; set; }
+        public IContentfulClient PreviewContentfulClient { get; set; }
         public HtmlRenderer HtmlRenderer { get; set; }
         public ILogger<ContentService> Logger { get; set; }
         public ContentfulCollection<Page> PagesCollection { get; set; }
@@ -40,10 +42,18 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             //    new TypeRelay(
             //        typeof(IContent),
             //        typeof(Paragraph)));
-            
+
+            ContentfulClientFactory = A.Fake<IContentfulClientFactory>();
             ContentfulClient = A.Fake<IContentfulClient>();
+            PreviewContentfulClient = A.Fake<IContentfulClient>();
             HtmlRenderer = A.Fake<HtmlRenderer>();
             Logger = A.Fake<ILogger<ContentService>>();
+
+            A.CallTo(() => ContentfulClientFactory.ContentfulClient)
+                .Returns(ContentfulClient);
+
+            A.CallTo(() => ContentfulClientFactory.PreviewContentfulClient)
+                .Returns(PreviewContentfulClient);
 
             PagesCollection = new ContentfulCollection<Page> { Items = Array.Empty<Page>() };
             A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Page>>.Ignored, A<CancellationToken>.Ignored))
@@ -63,7 +73,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
                 .Returns(FiltersCollection);
 
-            ContentService = new ContentService(ContentfulClient, HtmlRenderer, Logger);
+            ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
 
             CompareLogic = new CompareLogic();
         }

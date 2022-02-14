@@ -25,9 +25,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                     Environment = "master"
                 });
 
+            var contenfulClientFactory = new ContentfulClientFactory(new[] {client});
+
             var htmlRenderer = ContentService.CreateHtmlRenderer();
 
-            var contentService = new ContentService(client, htmlRenderer, new NullLogger<ContentService>());
+            var contentService = new ContentService(contenfulClientFactory, htmlRenderer, new NullLogger<ContentService>());
 
             var content = await contentService.Update();
 

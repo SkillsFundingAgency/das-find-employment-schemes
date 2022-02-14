@@ -7,7 +7,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
     public interface IContentService
     {
         event EventHandler<EventArgs>? ContentUpdated;
+        event EventHandler<EventArgs>? PreviewContentUpdated;
+
         IContent Content { get; }
+        IContent? PreviewContent { get; }
+
         Task<IContent> Update();
+        Task<IContent> UpdatePreview();
     }
 }

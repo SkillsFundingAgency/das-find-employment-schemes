@@ -13,6 +13,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Extensions;
 using SFA.DAS.FindEmploymentSchemes.Web.Security;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
+using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.StartupServices;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web
@@ -60,6 +61,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     assetPipeline.AddCssBundle("/css/site.css", "/css/site.css");
                 }
             });
+
+            services.AddSingleton<IPageService, PageService>();
+
             services.AddSingleton<IFilterService, FilterService>()
                 .AddSingleton<ISchemesModelService, SchemesModelService>();
 
@@ -141,6 +145,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     name: "schemes",
                     pattern: "schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "Details" });
+
+                endpoints.MapControllerRoute(
+                    name: "page-preview",
+                    pattern: "preview/page/{pageUrl}",
+                    defaults: new { controller = "Pages", action = "PagePreview" });
+
+                endpoints.MapControllerRoute(
+                    name: "schemes-preview",
+                    pattern: "preview/schemes/{schemeUrl}",
+                    defaults: new { controller = "Schemes", action = "DetailsPreview" });
             });
         }
     }
