@@ -146,6 +146,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         private async Task<Model.Content.Scheme> ToContent(Model.Api.Scheme apiScheme)
         {
+            IEnumerable<Model.Content.CaseStudy> caseStudies = Enumerable.Empty<Model.Content.CaseStudy>();
+            if (apiScheme.CaseStudyReferences != null)
+            {
+                caseStudies = await Task.WhenAll(apiScheme.CaseStudyReferences.Select(ToContent));
+            }
+
             IEnumerable<Model.Content.SubScheme> subSchemes = Enumerable.Empty<Model.Content.SubScheme>();
             if (apiScheme.SubSchemes != null)
             {
@@ -161,14 +167,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 apiScheme.Url!,
                 apiScheme.Size,
                 (apiScheme.PayFilterAspects?.Select(f => ToFilterAspectId(f, PayFilterPrefix)) ?? Enumerable.Empty<string>())
-                .Concat(apiScheme.MotivationsFilterAspects?.Select(f => ToFilterAspectId(f, MotivationsFilterPrefix)) ?? Enumerable.Empty<string>())
-                .Concat(apiScheme.SchemeLengthFilterAspects?.Select(f => ToFilterAspectId(f, SchemeLengthFilterPrefix)) ?? Enumerable.Empty<string>()),
+                    .Concat(apiScheme.MotivationsFilterAspects?.Select(f => ToFilterAspectId(f, MotivationsFilterPrefix)) ?? Enumerable.Empty<string>())
+                    .Concat(apiScheme.SchemeLengthFilterAspects?.Select(f => ToFilterAspectId(f, SchemeLengthFilterPrefix)) ?? Enumerable.Empty<string>()),
+                caseStudies,
+                await ToHtmlString(apiScheme.CaseStudies),
                 await ToHtmlString(apiScheme.DetailsPageOverride),
                 await ToHtmlString(apiScheme.Description),
                 await ToHtmlString(apiScheme.Cost),
                 await ToHtmlString(apiScheme.Responsibility),
                 await ToHtmlString(apiScheme.Benefits),
-                await ToHtmlString(apiScheme.CaseStudies),
                 apiScheme.OfferHeader,
                 await ToHtmlString(apiScheme.Offer),
                 await ToHtmlString(apiScheme.AdditionalFooter),
@@ -186,6 +193,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         private Model.Content.FilterAspect ToContent(Model.Api.IFilter apiFilter, string filterPrefix)
         {
             return new Model.Content.FilterAspect(ToFilterAspectId(apiFilter, filterPrefix), apiFilter.Description!);
+        }
+
+        private async Task<Model.Content.CaseStudy> ToContent(Model.Api.CaseStudy apiCaseStudy)
+        {
+            //todo: check all are mandatory in contentful
+            return new Model.Content.CaseStudy(
+                apiCaseStudy.Name!,
+                apiCaseStudy.DisplayTitle!,
+                (await ToHtmlString(apiCaseStudy.Description))!);
         }
 
         private static string ToFilterAspectId(Model.Api.IFilter filter, string filterPrefix)
@@ -238,6 +254,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 }
             };
             var htmlRenderer = new HtmlRenderer(htmlRendererOptions);
+            htmlRenderer.AddRenderer(new GdsEmbeddedYoutubeContentRenderer());
             htmlRenderer.AddRenderer(new GdsCtaContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsHeadingRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsHorizontalRulerContentRenderer());

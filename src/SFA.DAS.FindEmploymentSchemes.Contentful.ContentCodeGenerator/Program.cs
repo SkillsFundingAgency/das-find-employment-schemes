@@ -96,12 +96,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 Console.Write($"                {string.Join(", ", scheme.FilterAspects.Select(f => $"\"{f}\""))}");
                 Console.WriteLine("             },");
 
+                //todo: will have to support existing case study content until new content is available for release
+                GenerateCaseStudies(scheme.CaseStudies);
+
+                Console.WriteLine($"                {GenerateHtmlString(scheme.CaseStudiesPreamble)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.DetailsPageOverride)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.Description)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.Cost)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.Responsibility)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.Benefits)},");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.CaseStudies)},");
                 Console.WriteLine($"                \"{scheme.OfferHeader}\",");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.Offer)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.AdditionalFooter)},");
@@ -146,6 +149,23 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             }
 
             Console.WriteLine("        });");
+        }
+
+        private static void GenerateCaseStudies(IEnumerable<CaseStudy> caseStudies)
+        {
+            string typeName = nameof(CaseStudy);
+
+            Console.WriteLine($"                new {typeName}[] {{");
+
+            foreach (var caseStudy in caseStudies)
+            {
+                Console.WriteLine($"                    new {typeName}(\"{caseStudy.Name}\",");
+                Console.WriteLine($"                    \"{caseStudy.DisplayTitle}\",");
+                Console.WriteLine($"                    {GenerateHtmlString(caseStudy.Content)}");
+                Console.WriteLine("                    ),");
+            }
+
+            Console.WriteLine(@"                },");
         }
 
         private static string Preamble()

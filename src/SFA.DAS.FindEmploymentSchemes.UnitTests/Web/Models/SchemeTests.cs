@@ -40,6 +40,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
                 },
                 null,
                 new HtmlString(
+                    @"<p>Preamble goes here</p>"),
+                new HtmlString(
                     @"<p>Applies to England</p><p>Apprenticeships are for those aged 16 or over and combine working with studying to gain skills and knowledge in a job role.</p><p>Apprentices can be new or current employees.</p><p>Your apprentice must:</p><ul class =""govuk-list govuk-list--bullet""><li>work with experienced staff</li><li>learn skills relevant to your organisation</li><li>get time for training or study during their working week (at least 20% of their normal working hours)</li></ul><p></p>"),
                 new HtmlString(
                     @"<p>You must pay apprentices <a href=""https://www.gov.uk/national-minimum-wage-rates"" title="""" class=""govuk-link"">the minimum wage</a>.</p><p>You may have to contribute 5% of the apprentice's training and assessment costs - depending on the size of your business and the age of your apprentice.</p>"),
