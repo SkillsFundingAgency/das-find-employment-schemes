@@ -83,7 +83,9 @@ The ordering of the filter aspects associated with a scheme is of no import.
 
 ##### Case studies (edit box)
 
-The old way of entering case studies content. Has been replaced by adding case study references, and this field will eventually be removed.
+Case study content.
+
+If both case study content is supplied _and_ case study items are referenced, this content is rendered above the referenced case studies, as a preamble.
 
 ##### Case studies (references)
 
