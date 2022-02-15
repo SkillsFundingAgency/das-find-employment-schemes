@@ -83,26 +83,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             Console.WriteLine(@"        };");
         }
 
-        //private static async Task GenerateCaseStudyPagesContent(ContentfulClient client, HtmlRenderer htmlRenderer)
-        //{
-        //    var builder = QueryBuilder<CaseStudyPage>.New.ContentTypeIs("caseStudyPage");
-        //    var pages = await client.GetEntries<CaseStudyPage>(builder);
-
-        //    Console.WriteLine(@"        public static readonly IEnumerable<CaseStudyPage> CaseStudyPages = new[]
-        //{");
-
-        //    foreach (CaseStudyPage page in pages)
-        //    {
-        //        Console.WriteLine($"new CaseStudyPage(\"{page.Title}\",");
-        //        Console.WriteLine($"\"{page.Url}\",");
-        //        Console.WriteLine($"Schemes.FirstOrDefault(x => x.Name == \"{page?.Scheme?.Name}\"),");
-        //        Console.WriteLine($"{await AsHtmlString(page?.Content, htmlRenderer)}");
-        //        Console.WriteLine("),");
-        //    }
-
-        //    Console.WriteLine(@"        };");
-        //}
-
         private static void GenerateSchemesContent(IEnumerable<Scheme> schemes)
         {
             string typeName = GenerateProperty<Scheme>();

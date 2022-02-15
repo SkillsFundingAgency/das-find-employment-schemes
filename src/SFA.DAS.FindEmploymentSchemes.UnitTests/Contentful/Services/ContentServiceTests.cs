@@ -25,6 +25,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         public HtmlRenderer HtmlRenderer { get; set; }
         public ILogger<ContentService> Logger { get; set; }
         public ContentfulCollection<Page> PagesCollection { get; set; }
+        public ContentfulCollection<CaseStudyPage> CaseStudyPagesCollection { get; set; }
         public ContentfulCollection<Scheme> SchemesCollection { get; set; }
         public ContentfulCollection<Filter> FiltersCollection { get; set; }
         public ContentService ContentService { get; set; }
@@ -58,6 +59,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             PagesCollection = new ContentfulCollection<Page> { Items = Array.Empty<Page>() };
             A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Page>>.Ignored, A<CancellationToken>.Ignored))
                 .Returns(PagesCollection);
+
+            CaseStudyPagesCollection = new ContentfulCollection<CaseStudyPage> { Items = Array.Empty<CaseStudyPage>() };
+            A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<CaseStudyPage>>.Ignored, A<CancellationToken>.Ignored))
+                .Returns(CaseStudyPagesCollection);
 
             SchemesCollection = new ContentfulCollection<Scheme> { Items = Array.Empty<Scheme>() };
             A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Scheme>>.Ignored, A<CancellationToken>.Ignored))
@@ -95,25 +100,24 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         //    Assert.Equal(100, actualSchemes[2].Size);
         //}
 
-        //todo: this
-        //[Theory]
-        //[InlineData("pay--the-name", "the name")]
-        //[InlineData("pay--thename", "thename")]
-        //[InlineData("pay--the-name", "the-name")]
-        ////todo: stop double spaces, so code doesn't get confused with prefix/name separator?
-        //[InlineData("pay--the--name", "the  name")]
-        //[InlineData("pay--", "")]
-        //[InlineData("pay--1234567890-qwertyuiop-asdfghjkl-zxcvbnm", "1234567890 qwertyuiop asdfghjkl zxcvbnm")]
-        //public async Task Update_FilterIdTests(string expectedFilterAspectId, string filterName)
-        //{
-        //    var filters = Fixture.CreateMany<Filter>(1).ToList();
-        //    filters.First().Name = filterName;
-        //    FiltersCollection.Items = filters;
+        [Theory]
+        [InlineData("pay--the-name", "the name")]
+        [InlineData("pay--thename", "thename")]
+        [InlineData("pay--the-name", "the-name")]
+        //todo: stop double spaces, so code doesn't get confused with prefix/name separator?
+        [InlineData("pay--the--name", "the  name")]
+        [InlineData("pay--", "")]
+        [InlineData("pay--1234567890-qwertyuiop-asdfghjkl-zxcvbnm", "1234567890 qwertyuiop asdfghjkl zxcvbnm")]
+        public async Task Update_FilterIdTests(string expectedFilterAspectId, string filterName)
+        {
+            var filters = Fixture.CreateMany<Filter>(1).ToList();
+            filters.First().Name = filterName;
+            FiltersCollection.Items = filters;
 
-        //    var content = await ContentService.Update();
+            var content = await ContentService.Update();
 
-        //    Assert.Equal(expectedFilterAspectId, content.PayFilter.Aspects.First().Id);
-        //}
+            Assert.Equal(expectedFilterAspectId, content.PayFilter.Aspects.First().Id);
+        }
 
         // Contentful's .net library is not very test friendly: HtmlRenderer.ToHtml can't be mocked
         // we'd have to introduce a level of indirection to test this

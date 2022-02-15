@@ -1,10 +1,9 @@
-﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
 {
     public interface IContent
-{
+    {
         IEnumerable<Page> Pages { get; }
         IEnumerable<CaseStudyPage> CaseStudyPages { get; }
 
