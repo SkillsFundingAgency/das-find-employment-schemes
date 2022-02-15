@@ -161,6 +161,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     name: "schemes-preview",
                     pattern: "preview/schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "DetailsPreview" });
+
+                endpoints.MapControllerRoute(
+                    name: "casestudypage-preview",
+                    pattern: "preview/case-study/{pageUrl}",
+                    defaults: new { controller = "CaseStudies", action = "CaseStudyPagePreview" });
             });
         }
     }

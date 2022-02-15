@@ -53,7 +53,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> PagePreview(string pageUrl)
+        public async Task<IActionResult> CaseStudyPagePreview(string pageUrl)
         {
             var previewContent = await _contentService.UpdatePreview();
 
