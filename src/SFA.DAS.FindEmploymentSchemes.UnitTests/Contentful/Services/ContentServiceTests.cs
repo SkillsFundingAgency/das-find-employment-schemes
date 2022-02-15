@@ -161,16 +161,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.True(compareResult.AreEqual);
         }
 
-        //todo: this
-        //[Fact]
-        //public async Task Content_IsNotGeneratedContentAfterUpdate()
-        //{
-        //    await ContentService.Update();
+        [Fact]
+        public async Task Content_IsNotGeneratedContentAfterUpdate()
+        {
+            await ContentService.Update();
 
-        //    var compareResult = CompareLogic.Compare(new GeneratedContent(), ContentService.Content);
+            var compareResult = CompareLogic.Compare(new GeneratedContent(), ContentService.Content);
 
-        //    Assert.False(compareResult.AreEqual);
-        //}
+            Assert.False(compareResult.AreEqual);
+        }
 
         [Fact]
         public async Task CreateHtmlRenderer_RenderingNullContent()
