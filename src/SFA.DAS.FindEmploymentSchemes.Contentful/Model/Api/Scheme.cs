@@ -22,6 +22,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
         public Document? Responsibility { get; set; }
         public Document? Benefits { get; set; }
         public Document? CaseStudies { get; set; }
+        public List<CaseStudy>? CaseStudyReferences { get; set; }
         public string? OfferHeader { get; set; }
         public Document? Offer { get; set; }
         public Document? AdditionalFooter { get; set; }

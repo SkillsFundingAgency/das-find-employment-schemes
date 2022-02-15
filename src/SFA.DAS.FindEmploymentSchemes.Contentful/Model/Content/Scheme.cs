@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Html;
 
@@ -20,7 +21,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public HtmlString? Cost { get; }
         public HtmlString? Responsibility { get; }
         public HtmlString? Benefits { get; }
-        public HtmlString? CaseStudies { get; }
+        public IEnumerable<CaseStudy> CaseStudies { get; }
+        public HtmlString? CaseStudiesPreamble { get; }
         public string? OfferHeader { get; }
         public HtmlString? Offer { get; }
         public HtmlString? AdditionalFooter { get; }
@@ -32,9 +34,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public Scheme(string name, HtmlString shortDescription, HtmlString shortCost, HtmlString shortBenefits, HtmlString shortTime,
             string url, int size,
             IEnumerable<string> filterAspects,
+            IEnumerable<CaseStudy>? caseStudies,
+            HtmlString? caseStudiesPreamble,
             HtmlString? detailsPageOverride = null,
             HtmlString? description = null, HtmlString? cost = null, HtmlString? responsibility = null, HtmlString? benefits = null,
-            HtmlString? caseStudies = null, string? offerHeader = null, HtmlString? offer = null, HtmlString? additionalFooter = null)
+            string? offerHeader = null, HtmlString? offer = null, HtmlString? additionalFooter = null)
         {
             Name = name;
             ShortDescription = shortDescription;
@@ -44,12 +48,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             Url = url;
             Size = size;
             FilterAspects = filterAspects;
+            CaseStudies = caseStudies ?? Enumerable.Empty<CaseStudy>();
+            CaseStudiesPreamble = caseStudiesPreamble;
             DetailsPageOverride = detailsPageOverride;
             Description = description;
             Cost = cost;
             Responsibility = responsibility;
             Benefits = benefits;
-            CaseStudies = caseStudies;
             OfferHeader = offerHeader;
             Offer = offer;
             AdditionalFooter = additionalFooter;
