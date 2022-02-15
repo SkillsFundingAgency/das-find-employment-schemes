@@ -5,6 +5,7 @@ using FakeItEasy;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
@@ -17,7 +18,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         [ClassData(typeof(FilterServiceTestData))]
         public void ApplyFilters_Result(IEnumerable<Scheme> expectedSchemes, SchemeFilterViewModel filters)
         {
-            IFilterService service = A.Fake<IFilterService>();
+            FilterService service = A.Fake<FilterService>();
             HomeModel model = A.Fake<HomeModel>(x => x.WithArgumentsForConstructor(() => new HomeModel(null, expectedSchemes, null, false)));
             A.CallTo(() => service.ApplyFilter(filters)).Returns(model);
 
