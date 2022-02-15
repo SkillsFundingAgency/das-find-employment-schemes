@@ -111,7 +111,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .Self();
 
                         builder.AddFrameSrc()
-                            .From("https://www.googletagmanager.com");
+                            .From(new[] {"https://www.googletagmanager.com", "https://www.youtube-nocookie.com"});
 
                         if (env.IsDevelopment())
                         {

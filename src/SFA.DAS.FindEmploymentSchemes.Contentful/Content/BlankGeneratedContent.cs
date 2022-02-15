@@ -12,6 +12,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
     {
         public IEnumerable<Page> Pages { get; } = Array.Empty<Page>();
         public IEnumerable<Scheme> Schemes { get; } = Array.Empty<Scheme>();
+        public IEnumerable<SubScheme> SubSchemes { get; } = Array.Empty<SubScheme>();
         public Filter MotivationsFilter { get; } = new Filter(null!, null!, null!);
         public Filter PayFilter { get; } = new Filter(null!, null!, null!);
         public Filter SchemeLengthFilter { get; } = new Filter(null!, null!, null!);

@@ -1,0 +1,28 @@
+﻿@model (string, int, SubScheme)
+
+@* if we wanted to reuse this, we could use an IAccordionSection interface for the model, rather than using SubScheme *@
+@* but we'll leave it as SubScheme for now, to avoid unnecessary memory allocations, or polluting the content model with view interfaces *@
+
+@{
+    var subScheme = Model.Item3;
+    string titleId = $"{Model.Item1}-title-{Model.Item2}";
+}
+
+<div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+        <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="@titleId">
+                @subScheme.Title
+            </span>
+        </h2>
+        @if (subScheme.Summary != null && !string.IsNullOrWhiteSpace(subScheme.Summary.Value))
+        {
+            <div class="govuk-accordion__section-summary govuk-body">
+                @subScheme.Summary
+            </div>
+        }
+    </div>
+    <div class="govuk-accordion__section-content" aria-labelledby="@titleId">
+        @subScheme.Content
+    </div>
+</div>
