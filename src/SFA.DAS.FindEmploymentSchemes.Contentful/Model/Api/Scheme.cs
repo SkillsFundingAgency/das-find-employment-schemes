@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using Contentful.Core.Models;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 {
     [DebuggerDisplay("{Name}")]
+    [ExcludeFromCodeCoverage]
     public class Scheme
     {
         // mandatory

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Html;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 {
+    [ExcludeFromCodeCoverage]
     public class Page
     {
         public string Title { get; }
