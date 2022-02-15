@@ -167,6 +167,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         }
 
         [Fact]
+        public void PreviewContent_IsNullBeforeUpdate()
+        {
+            Assert.Null(ContentService.PreviewContent);
+        }
+
+        [Fact]
         public async Task CreateHtmlRenderer_RenderingNullContent()
         {
             var renderer = ContentService.CreateHtmlRenderer();
