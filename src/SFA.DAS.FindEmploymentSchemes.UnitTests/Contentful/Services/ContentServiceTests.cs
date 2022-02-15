@@ -10,6 +10,7 @@ using FakeItEasy;
 using KellermanSoftware.CompareNetObjects;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using Xunit;
@@ -112,6 +113,28 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             var content = await ContentService.Update();
 
             Assert.Equal(expectedFilterAspectId, content.PayFilter.Aspects.First().Id);
+        }
+
+        [Fact]
+        public async Task Update_MissingContentfulClientThrowsExceptionTest()
+        {
+            A.CallTo(() => ContentfulClientFactory.ContentfulClient)
+                .Returns(null);
+
+            ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
+
+            await Assert.ThrowsAsync<ContentServiceException>(() => ContentService.Update());
+        }
+
+        [Fact]
+        public async Task UpdatePreview_MissingContentfulClientThrowsExceptionTest()
+        {
+            A.CallTo(() => ContentfulClientFactory.PreviewContentfulClient)
+                .Returns(null);
+
+            ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
+
+            await Assert.ThrowsAsync<ContentServiceException>(() => ContentService.UpdatePreview());
         }
 
         // Contentful's .net library is not very test friendly: HtmlRenderer.ToHtml can't be mocked
