@@ -1,14 +1,17 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FakeItEasy;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -18,14 +21,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         [ClassData(typeof(FilterServiceTestData))]
         public void ApplyFilters_Result(IEnumerable<Scheme> expectedSchemes, SchemeFilterViewModel filters)
         {
-            FilterService service = A.Fake<FilterService>();
+            IContentService contentService = A.Fake<IContentService>();
+            ISchemesModelService schemesModelService = A.Fake<ISchemesModelService>();
+
+            FilterService service = new FilterService(contentService, schemesModelService);
             HomeModel model = A.Fake<HomeModel>(x => x.WithArgumentsForConstructor(() => new HomeModel(null, expectedSchemes, null, false)));
-            A.CallTo(() => service.ApplyFilter(filters)).Returns(model);
+            A.CallTo(() => contentService.Content).Returns(new GeneratedContent());
 
             HomeModel result = service.ApplyFilter(filters);
-            HashSet<Scheme> expected = new HashSet<Scheme>(expectedSchemes);
-            HashSet<Scheme> applied = new HashSet<Scheme>(result.Schemes);
-            Assert.True(expected.SetEquals(applied));
+            Assert.True(expectedSchemes.Count() == result.Schemes.Count());
         }
 
         public class FilterServiceTestData : IEnumerable<object[]>
