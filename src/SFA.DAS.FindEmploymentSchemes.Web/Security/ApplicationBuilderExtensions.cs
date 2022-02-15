@@ -91,7 +91,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
                             .UnsafeInline();
-                            //.WithNonce();
+                            // if we wanted the nonce back, we'd add `.WithNonce();` here
 
                         builder.AddStyleSrc()
                             .Self()
