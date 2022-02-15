@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 {
+    [ExcludeFromCodeCoverage]
     public static class ApplicationBuilderExtensions
     {
         /// <summary>
@@ -91,7 +93,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
                             .UnsafeInline();
-                            //.WithNonce();
+                            // if we wanted the nonce back, we'd add `.WithNonce();` here
 
                         builder.AddStyleSrc()
                             .Self()
@@ -109,7 +111,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .Self();
 
                         builder.AddFrameSrc()
-                            .From("https://www.googletagmanager.com");
+                            .From(new[] {"https://www.googletagmanager.com", "https://www.youtube-nocookie.com"});
 
                         if (env.IsDevelopment())
                         {

@@ -194,6 +194,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 caseStudies = await Task.WhenAll(apiScheme.CaseStudyReferences.Select(ToContent));
             }
 
+            IEnumerable<Model.Content.SubScheme> subSchemes = Enumerable.Empty<Model.Content.SubScheme>();
+            if (apiScheme.SubSchemes != null)
+            {
+                subSchemes = await Task.WhenAll(apiScheme.SubSchemes.Select(ToContent));
+            }
+
             return new Model.Content.Scheme(
                 apiScheme.Name!,
                 (await ToHtmlString(apiScheme.ShortDescription))!,
@@ -214,7 +220,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 await ToHtmlString(apiScheme.Benefits),
                 apiScheme.OfferHeader,
                 await ToHtmlString(apiScheme.Offer),
-                await ToHtmlString(apiScheme.AdditionalFooter));
+                await ToHtmlString(apiScheme.AdditionalFooter),
+                subSchemes);
+        }
+
+        private async Task<Model.Content.SubScheme> ToContent(Model.Api.SubScheme apiSubScheme)
+        {
+            return new Model.Content.SubScheme(
+                apiSubScheme.Title!,
+                await ToHtmlString(apiSubScheme.Summary),
+                (await ToHtmlString(apiSubScheme.Content))!);
         }
 
         private Model.Content.FilterAspect ToContent(Model.Api.IFilter apiFilter, string filterPrefix)

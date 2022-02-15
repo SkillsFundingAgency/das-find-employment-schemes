@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 {
+    [ExcludeFromCodeCoverage]
     public class Content : IContent
     {
         public Content(

@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using Contentful.Core.Models;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 {
     [DebuggerDisplay("{Name}")]
+    [ExcludeFromCodeCoverage]
     public class Scheme
     {
         // mandatory
@@ -18,6 +20,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
         // optional
         public Document? DetailsPageOverride { get; set; }
         public Document? Description { get; set; }
+        public List<SubScheme>? SubSchemes { get; set; }
         public Document? Cost { get; set; }
         public Document? Responsibility { get; set; }
         public Document? Benefits { get; set; }

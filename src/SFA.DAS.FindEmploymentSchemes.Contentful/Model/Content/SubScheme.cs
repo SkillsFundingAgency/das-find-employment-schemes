@@ -1,19 +1,17 @@
 ﻿using Microsoft.AspNetCore.Html;
-using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 {
-    [ExcludeFromCodeCoverage]
-    public class Page
+    public class SubScheme
     {
         public string Title { get; }
-        public string Url { get; }
+        public HtmlString? Summary { get; }
         public HtmlString Content { get; }
 
-        public Page(string title, string url, HtmlString content)
+        public SubScheme(string title, HtmlString? summary, HtmlString content)
         {
             Title = title;
-            Url = url;
+            Summary = summary;
             Content = content;
         }
     }
