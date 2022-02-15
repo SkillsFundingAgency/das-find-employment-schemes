@@ -1,4 +1,5 @@
 ﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {

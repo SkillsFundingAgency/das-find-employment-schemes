@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions
 {
     [Serializable]
+    [ExcludeFromCodeCoverage]
     public class ConfigurationMissingException : Exception
     {
         public ConfigurationMissingException()

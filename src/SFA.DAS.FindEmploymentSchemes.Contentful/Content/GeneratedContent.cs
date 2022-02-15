@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
 {
+    [ExcludeFromCodeCoverage]
     public class GeneratedContent : IContent
     {
         private IEnumerable<Scheme>? _schemes;
