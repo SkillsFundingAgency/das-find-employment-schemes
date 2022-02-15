@@ -2,7 +2,7 @@ trigger:
   batch: true
   branches:
     include:
-      - "*"
+      - "main"
 
 variables:
 - name: SolutionBaseName
@@ -22,12 +22,12 @@ resources:
   - repository: das-platform-building-blocks
     type: github
     name: SkillsFundingAgency/das-platform-building-blocks
-    ref: refs/tags/0.4.29
+    ref: refs/tags/0.4.34
     endpoint: SkillsFundingAgency
   - repository: das-platform-automation
     type: github
     name: SkillsFundingAgency/das-platform-automation
-    ref: refs/tags/4.5.11
+    ref: refs/tags/4.5.14
     endpoint: SkillsFundingAgency
   pipelines:
   - pipeline: das-employer-config
@@ -50,6 +50,7 @@ stages:
   variables:
   - group: DevTest Management Resources
   - group: AT DevTest Shared Resources
+  - group: AT das-find-employment-schemes
   jobs:
   - template: pipeline-templates/job/deploy.yml
     parameters:
@@ -62,6 +63,7 @@ stages:
   variables:
   - group: DevTest Management Resources
   - group: TEST DevTest Shared Resources
+  - group: TEST das-find-employment-schemes
   jobs:
   - template: pipeline-templates/job/deploy.yml
     parameters:
@@ -74,6 +76,7 @@ stages:
   variables:
   - group: DevTest Management Resources
   - group: TEST2 DevTest Shared Resources
+  - group: TEST2 das-find-employment-schemes
   jobs:
   - template: pipeline-templates/job/deploy.yml
     parameters:
@@ -112,6 +115,7 @@ stages:
   variables:
   - group: MO Management Resources
   - group: MO Shared Resources
+  - group: MO das-find-employment-schemes
   jobs:
   - template: pipeline-templates/job/deploy.yml
     parameters:
@@ -124,6 +128,7 @@ stages:
   variables:
   - group: DevTest Management Resources
   - group: DEMO DevTest Shared Resources
+  - group: DEMO das-find-employment-schemes
   jobs:
   - template: pipeline-templates/job/deploy.yml
     parameters:
