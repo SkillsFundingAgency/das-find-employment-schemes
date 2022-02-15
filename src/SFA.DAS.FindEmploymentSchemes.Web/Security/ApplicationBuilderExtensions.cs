@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 {
+    [ExcludeFromCodeCoverage]
     public static class ApplicationBuilderExtensions
     {
         /// <summary>
