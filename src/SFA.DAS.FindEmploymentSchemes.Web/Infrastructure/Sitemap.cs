@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using AspNetCore.SEOHelper.Sitemap;
@@ -8,6 +9,8 @@ using Microsoft.Extensions.Options;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Infrastructure
 {
+    //todo: code is untestable as is. need to refactor to introduce a level of indirection to CreateSitemapXML
+    [ExcludeFromCodeCoverage]
     public class Sitemap : ISitemap
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
