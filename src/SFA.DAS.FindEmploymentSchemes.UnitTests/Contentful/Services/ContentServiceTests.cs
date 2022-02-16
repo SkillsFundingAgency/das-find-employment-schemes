@@ -91,6 +91,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             CompareLogic = new CompareLogic();
         }
 
+        private const string ExpectedContent = "<h2>Gobble</h2>";
         private Document SampleDocument()
         {
             return new Document
@@ -165,6 +166,24 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 
             Assert.NotNull(content.Pages);
             Assert.Equal(numberOfPages, content.Pages.Count());
+        }
+
+        [Fact]
+        public async Task Update_PageMappedTest()
+        {
+            const int numberOfPages = 1;
+
+            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+
+            var content = await ContentService.Update();
+
+            var actualPage = content.Pages.FirstOrDefault();
+            Assert.NotNull(actualPage);
+
+            var expectedSourcePage = PagesCollection.Items.First();
+            Assert.Equal(expectedSourcePage.Title, actualPage.Title);
+            Assert.Equal(expectedSourcePage.Url, actualPage.Url);
+            Assert.Equal(ExpectedContent, actualPage.Content.Value);
         }
 
         [Fact]
