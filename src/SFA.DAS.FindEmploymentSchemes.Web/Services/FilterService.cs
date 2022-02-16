@@ -21,7 +21,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             _schemesModelService = schemesModelService;
         }
 
-        public virtual HomeModel ApplyFilter(SchemeFilterViewModel filters)
+        public HomeModel ApplyFilter(SchemeFilterViewModel filters)
         {
             var content = _contentService.Content;
 
