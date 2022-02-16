@@ -187,6 +187,44 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         }
 
         [Fact]
+        public async Task Update_SameNumberOfCaseStudyPagesTest()
+        {
+            const int numberOfCaseStudyPages = 3;
+
+            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
+
+            Fixture.Inject(SchemesCollection.Items.First());
+            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+
+            var content = await ContentService.Update();
+
+            Assert.NotNull(content.CaseStudyPages);
+            Assert.Equal(numberOfCaseStudyPages, content.CaseStudyPages.Count());
+        }
+
+        [Fact]
+        public async Task Update_CaseStudyPageMappedTest()
+        {
+            const int numberOfCaseStudyPages = 1;
+
+            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
+
+            Fixture.Inject(SchemesCollection.Items.First());
+            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+
+            var content = await ContentService.Update();
+
+            var actualCaseStudyPage = content.CaseStudyPages.FirstOrDefault();
+            Assert.NotNull(actualCaseStudyPage);
+
+            var expectedSourceCaseStudyPage = CaseStudyPagesCollection.Items.First();
+            Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
+            Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
+            Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
+            Assert.Equal(ExpectedContent, actualCaseStudyPage.Content.Value);
+        }
+
+        [Fact]
         public async Task Update_SameNumberOfSchemesTest()
         {
             const int numberOfSchemes = 3;
