@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
+using AutoFixture.Kernel;
 using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
@@ -20,6 +22,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
     public class ContentServiceTests
     {
         public Fixture Fixture { get; }
+        public Document Document { get; }
         public IContentfulClientFactory ContentfulClientFactory { get; set; }
         public IContentfulClient ContentfulClient { get; set; }
         public IContentfulClient PreviewContentfulClient { get; set; }
@@ -35,14 +38,16 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             Fixture = new Fixture();
 
-            //Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
-            //    .ForEach(b => Fixture.Behaviors.Remove(b));
-            //Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+            Document = SampleDocument();
 
-            //Fixture.Customizations.Add(
-            //    new TypeRelay(
-            //        typeof(IContent),
-            //        typeof(Paragraph)));
+            Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+                .ForEach(b => Fixture.Behaviors.Remove(b));
+            Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
+            Fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(IContent),
+                    typeof(Paragraph)));
 
             ContentfulClientFactory = A.Fake<IContentfulClientFactory>();
             ContentfulClient = A.Fake<IContentfulClient>();
@@ -77,6 +82,22 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
 
             CompareLogic = new CompareLogic();
+        }
+
+        private Document SampleDocument()
+        {
+            return new Document
+            {
+                NodeType = "heading-2",
+                Data = new GenericStructureData(),
+                Content = new List<IContent>
+                {
+                    new Heading2
+                    {
+                        Content = new List<IContent> {new Text {Value = "Gobble"}}
+                    }
+                }
+            };
         }
 
         //[Fact]
@@ -124,6 +145,26 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
 
             await Assert.ThrowsAsync<ContentServiceException>(() => ContentService.Update());
+        }
+
+        [Fact]
+        public async Task Update_SameNumberOfPagesTest()
+        {
+            const int numberOfPages = 3;
+
+            var pages = Fixture.CreateMany<Page>(numberOfPages);
+
+            foreach (var page in pages)
+            {
+                page.Content = Document;
+            }
+
+            PagesCollection.Items = pages;
+
+            var content = await ContentService.Update();
+
+            Assert.NotNull(content.Pages);
+            Assert.Equal(numberOfPages, content.Pages.Count());
         }
 
         [Fact]
