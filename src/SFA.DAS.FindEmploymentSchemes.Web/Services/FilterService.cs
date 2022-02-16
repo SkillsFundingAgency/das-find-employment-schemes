@@ -9,8 +9,6 @@ using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
-    // unit tests for this service are being worked on in a separate PR
-    [ExcludeFromCodeCoverage]
     public class FilterService : IFilterService
     {
         private readonly IContentService _contentService;
