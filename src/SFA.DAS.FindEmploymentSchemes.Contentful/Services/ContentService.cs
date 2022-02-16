@@ -89,9 +89,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         private async Task<IContent> Update(IContentfulClient contentfulClient)
         {
+            var schemes = await GetSchemes(contentfulClient);
+
             return new Model.Content.Content(
                 await GetPages(contentfulClient),
-                await GetSchemes(contentfulClient),
+                await GetCaseStudyPages(contentfulClient, schemes),
+                schemes,
                 new Model.Content.Filter(
                     MotivationName,
                     MotivationDescription,
@@ -106,13 +109,41 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                     await GetFilterAspects(contentfulClient, SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix)));
         }
 
+        private void LogErrors<T>(ContentfulCollection<T> contentfulCollection)
+        {
+            //todo: log errors
+            //todo: show error when previewing
+
+            //if (!contentfulCollection.Errors.Any())
+            //    return;
+
+            ////todo: log SystemProperties.Type?
+            //_logger.LogWarning($"Errors received fetching {nameof(T)}'s.");
+
+            //foreach (var errorDetails in contentfulCollection.Errors.Select(e => e.Details))
+            //{
+            //    _logger.LogWarning($"Id:{errorDetails.Id}, LinkType:{errorDetails.LinkType}, Type:{errorDetails.Type}");
+            //}
+        }
+
         private async Task<IEnumerable<Model.Content.Page>> GetPages(IContentfulClient contentfulClient)
         {
             var builder = QueryBuilder<Model.Api.Page>.New.ContentTypeIs("page");
 
             var apiPages = await contentfulClient.GetEntries(builder);
+            LogErrors(apiPages);
 
             return await Task.WhenAll(apiPages.Select(ToContent));
+        }
+
+        private async Task<IEnumerable<Model.Content.CaseStudyPage>> GetCaseStudyPages(IContentfulClient contentfulClient, IEnumerable<Model.Content.Scheme> schemes)
+        {
+            var builder = QueryBuilder<Model.Api.CaseStudyPage>.New.ContentTypeIs("caseStudyPage").Include(1);
+
+            var apiCaseStudyPages = await contentfulClient.GetEntries(builder);
+            LogErrors(apiCaseStudyPages);
+
+            return await Task.WhenAll(apiCaseStudyPages.Select(csp => ToContent(csp, schemes)));
         }
 
         private async Task<IEnumerable<Model.Content.Scheme>> GetSchemes(IContentfulClient contentfulClient)
@@ -120,6 +151,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             var builder = QueryBuilder<Model.Api.Scheme>.New.ContentTypeIs("scheme").Include(1);
 
             var schemes = await contentfulClient.GetEntries(builder);
+            LogErrors(schemes);
 
             return await Task.WhenAll(schemes.OrderByDescending(s => s.Size).Select(ToContent));
         }
@@ -132,6 +164,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             var builder = QueryBuilder<Model.Api.Filter>.New.ContentTypeIs(contentfulTypeName);
 
             var filterAspects = await contentfulClient.GetEntries(builder);
+            LogErrors(filterAspects);
 
             return filterAspects.OrderBy(f => f.Order).Select(f => ToContent(f, filterPrefix));
         }
@@ -142,6 +175,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 apiPage.Title!,
                 apiPage.Url!,
                 (await ToHtmlString(apiPage.Content))!);
+        }
+
+        private async Task<Model.Content.CaseStudyPage> ToContent(Model.Api.CaseStudyPage apiCaseStudyPage, IEnumerable<Model.Content.Scheme> schemes)
+        {
+            return new Model.Content.CaseStudyPage(
+                apiCaseStudyPage.Title!,
+                apiCaseStudyPage.Url!,
+                schemes.First(x => x.Name == apiCaseStudyPage.Scheme!.Name),
+                (await ToHtmlString(apiCaseStudyPage.Content))!);
         }
 
         private async Task<Model.Content.Scheme> ToContent(Model.Api.Scheme apiScheme)
@@ -261,6 +303,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             htmlRenderer.AddRenderer(new GdsHyperlinkContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsListContentRenderer(htmlRenderer.Renderers));
             htmlRenderer.AddRenderer(new GdsParagraphRenderer(htmlRenderer.Renderers));
+            htmlRenderer.AddRenderer(new GdsBlockQuoteRenderer(htmlRenderer.Renderers));
 
             return htmlRenderer;
         }

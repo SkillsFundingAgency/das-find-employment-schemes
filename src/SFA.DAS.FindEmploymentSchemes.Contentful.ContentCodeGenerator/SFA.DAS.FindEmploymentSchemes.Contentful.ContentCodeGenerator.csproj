@@ -9,10 +9,12 @@
 	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
 	  <WarningsNotAsErrors>S125</WarningsNotAsErrors>
 	  <NoWarn>S1135</NoWarn>
+	  <UserSecretsId>40bda939-659a-4503-bc3a-567b79bae4f0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="contentful.csharp" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.22" />
   </ItemGroup>
 
   <ItemGroup>

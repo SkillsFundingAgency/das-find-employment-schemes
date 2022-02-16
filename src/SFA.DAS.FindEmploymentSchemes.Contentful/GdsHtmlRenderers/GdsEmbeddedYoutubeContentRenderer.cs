@@ -12,7 +12,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         /// <summary>
         /// The order of this renderer in the collection.
         /// </summary>
-        public int Order { get; set; } = 40;
+        public int Order { get; set; } = 30;
 
         /// <summary>
         /// Whether or not this renderer supports the provided content.
