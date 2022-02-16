@@ -40,6 +40,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 
             Document = SampleDocument();
 
+            Fixture.Inject(SampleDocument());
+
             Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
                 .ForEach(b => Fixture.Behaviors.Remove(b));
             Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
@@ -152,19 +154,25 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfPages = 3;
 
-            var pages = Fixture.CreateMany<Page>(numberOfPages);
-
-            foreach (var page in pages)
-            {
-                page.Content = Document;
-            }
-
-            PagesCollection.Items = pages;
+            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
 
             var content = await ContentService.Update();
 
             Assert.NotNull(content.Pages);
             Assert.Equal(numberOfPages, content.Pages.Count());
+        }
+
+        [Fact]
+        public async Task Update_SameNumberOfSchemesTest()
+        {
+            const int numberOfSchemes = 3;
+
+            SchemesCollection.Items = Fixture.CreateMany<Scheme>(numberOfSchemes);
+
+            var content = await ContentService.Update();
+
+            Assert.NotNull(content.Schemes);
+            Assert.Equal(numberOfSchemes, content.Schemes.Count());
         }
 
         [Fact]
