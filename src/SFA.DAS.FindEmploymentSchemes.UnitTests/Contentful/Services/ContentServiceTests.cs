@@ -238,6 +238,41 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         }
 
         [Fact]
+        public async Task Update_SchemeMappedTest()
+        {
+            const int numberOfSchemes = 1;
+
+            SchemesCollection.Items = Fixture.CreateMany<Scheme>(numberOfSchemes);
+
+            var content = await ContentService.Update();
+
+            var actualScheme = content.Schemes.FirstOrDefault();
+            Assert.NotNull(actualScheme);
+
+            //todo: should really copy item before ContentService.Update() (or pick out fields), in case they get mutated
+            // or even better add a test to check that they don't get mutated
+            var expectedSourceScheme = SchemesCollection.Items.First();
+            Assert.Equal(expectedSourceScheme.Url, actualScheme.Url);
+            Assert.Equal(expectedSourceScheme.Name, actualScheme.Name);
+            Assert.Equal(expectedSourceScheme.OfferHeader, actualScheme.OfferHeader);
+            Assert.Equal(expectedSourceScheme.Size, actualScheme.Size);
+            //todo: different content per field to check mapping
+            Assert.Equal(ExpectedContent, actualScheme.AdditionalFooter.Value);
+            Assert.Equal(ExpectedContent, actualScheme.Benefits.Value);
+            Assert.Equal(ExpectedContent, actualScheme.CaseStudiesPreamble.Value);
+            Assert.Equal(ExpectedContent, actualScheme.Cost.Value);
+            Assert.Equal(ExpectedContent, actualScheme.Description.Value);
+            Assert.Equal(ExpectedContent, actualScheme.DetailsPageOverride.Value);
+            Assert.Equal(ExpectedContent, actualScheme.Offer.Value);
+            Assert.Equal(ExpectedContent, actualScheme.Responsibility.Value);
+            Assert.Equal(ExpectedContent, actualScheme.ShortBenefits.Value);
+            Assert.Equal(ExpectedContent, actualScheme.ShortCost.Value);
+            Assert.Equal(ExpectedContent, actualScheme.ShortDescription.Value);
+            Assert.Equal(ExpectedContent, actualScheme.ShortTime.Value);
+            //todo: enumerable fields
+        }
+
+        [Fact]
         public async Task UpdatePreview_MissingContentfulClientThrowsExceptionTest()
         {
             A.CallTo(() => ContentfulClientFactory.PreviewContentfulClient)
