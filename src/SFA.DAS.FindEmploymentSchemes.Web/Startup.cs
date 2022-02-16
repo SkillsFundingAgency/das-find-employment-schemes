@@ -65,6 +65,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             });
 
             services.AddSingleton<IPageService, PageService>();
+            services.AddSingleton<ICaseStudyPageService, CaseStudyPageService>();
 
             services.AddSingleton<IFilterService, FilterService>()
                 .AddSingleton<ISchemesModelService, SchemesModelService>();
@@ -144,6 +145,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     defaults: new { controller = "Pages", action = "Page" });
 
                 endpoints.MapControllerRoute(
+                    name: "casestudypage",
+                    pattern: "case-study/{pageUrl}",
+                    defaults: new { controller = "CaseStudies", action = "CaseStudyPage" });
+
+                endpoints.MapControllerRoute(
                     name: "schemes",
                     pattern: "schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "Details" });
@@ -157,6 +163,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     name: "schemes-preview",
                     pattern: "preview/schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "DetailsPreview" });
+
+                endpoints.MapControllerRoute(
+                    name: "casestudypage-preview",
+                    pattern: "preview/case-study/{pageUrl}",
+                    defaults: new { controller = "CaseStudies", action = "CaseStudyPagePreview" });
             });
         }
     }

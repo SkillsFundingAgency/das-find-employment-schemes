@@ -9,12 +9,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
     {
         public Content(
             IEnumerable<Page> pages,
+            IEnumerable<CaseStudyPage> caseStudyPages,
             IEnumerable<Scheme> schemes,
             Filter motivationsFilter,
             Filter payFilter,
             Filter schemeLengthFilter)
         {
             Pages = pages;
+            CaseStudyPages = caseStudyPages;
             Schemes = schemes;
             MotivationsFilter = motivationsFilter;
             PayFilter = payFilter;
@@ -22,6 +24,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         }
 
         public IEnumerable<Page> Pages { get; }
+        public IEnumerable<CaseStudyPage> CaseStudyPages { get; }
         public IEnumerable<Scheme> Schemes { get; }
         public Filter MotivationsFilter { get; }
         public Filter PayFilter { get; }

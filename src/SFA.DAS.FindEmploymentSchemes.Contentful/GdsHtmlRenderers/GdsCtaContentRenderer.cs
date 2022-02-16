@@ -6,7 +6,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 {
     /// <summary>
     /// A renderer for a call to action box.
-    /// We re-appropriate block quotes from the rich text editor and turn them into call to action boxes.
     /// </summary>
     public class GdsCtaContentRenderer : IContentRenderer
     {
@@ -24,17 +23,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         /// <summary>
         /// The order of this renderer in the collection.
         /// </summary>
-        public int Order { get; set; } = 50;
-
-        /// <summary>
-        /// Whether or not this renderer supports the provided content.
-        /// </summary>
-        /// <param name="content">The content to evaluate.</param>
-        /// <returns>Returns true if the content is a quote, otherwise false.</returns>
-        public bool SupportsContent(IContent content)
-        {
-            return content is Quote;
-        }
+        public int Order { get; set; } = 40;
 
         /// <summary>
         /// Renders the content to a string.
@@ -44,20 +33,36 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         public async Task<string> RenderAsync(IContent content)
         {
             var quote = content as Quote;
+            StringBuilder sb = new StringBuilder("<section class=\"cx-cta-box\">");
 
-            var sb = new StringBuilder();
-
-            sb.Append("<div class=\"cx-cta-box\">");
-
-            foreach (var subContent in quote!.Content)
+            foreach (IContent subContent in quote!.Content)
             {
-                var renderer = _rendererCollection.GetRendererForContent(subContent);
-                sb.Append(await renderer.RenderAsync(subContent));
+                sb.Append(await _rendererCollection
+                    .GetRendererForContent(subContent)
+                    .RenderAsync(subContent));
             }
 
-            sb.Append("</div>");
+            sb.Append("</section>");
+            return sb.ToString()
+                     .Replace("<cta>", "")
+                     .Replace("</cta>", "")
+                     .Replace("&lt;cta&gt;", "")
+                     .Replace("&lt;/cta&gt;", "");
+        }
 
-            return sb.ToString();
+        /// <summary>
+        /// Whether or not this renderer supports the provided content.
+        /// </summary>
+        /// <param name="content">The content to evaluate.</param>
+        /// <returns>Returns true if the content is a quote, otherwise false.</returns>
+        public bool SupportsContent(IContent content)
+        {
+            if (!(content is Quote))
+                return false;
+
+            var quote = content as Quote;
+            var para = quote!.Content[0] as Paragraph;
+            return para!.Content[0] is Text && ((Text)para!.Content[0]).Value.Trim().StartsWith("<cta>");
         }
     }
 }

@@ -29,6 +29,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         public HtmlRenderer HtmlRenderer { get; set; }
         public ILogger<ContentService> Logger { get; set; }
         public ContentfulCollection<Page> PagesCollection { get; set; }
+        public ContentfulCollection<CaseStudyPage> CaseStudyPagesCollection { get; set; }
         public ContentfulCollection<Scheme> SchemesCollection { get; set; }
         public ContentfulCollection<Filter> FiltersCollection { get; set; }
         public ContentService ContentService { get; set; }
@@ -66,6 +67,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             PagesCollection = new ContentfulCollection<Page> { Items = Array.Empty<Page>() };
             A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Page>>.Ignored, A<CancellationToken>.Ignored))
                 .Returns(PagesCollection);
+
+            CaseStudyPagesCollection = new ContentfulCollection<CaseStudyPage> { Items = Array.Empty<CaseStudyPage>() };
+            A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<CaseStudyPage>>.Ignored, A<CancellationToken>.Ignored))
+                .Returns(CaseStudyPagesCollection);
 
             SchemesCollection = new ContentfulCollection<Scheme> { Items = Array.Empty<Scheme>() };
             A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Scheme>>.Ignored, A<CancellationToken>.Ignored))

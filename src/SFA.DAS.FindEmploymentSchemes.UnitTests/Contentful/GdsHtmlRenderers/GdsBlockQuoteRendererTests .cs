@@ -6,10 +6,10 @@ using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
 {
-    public class GdsCtaBoxRendererTests
+    public class GdsBlockQuoteRendererTests
     {
         [Fact]
-        public async Task ToHtml_GdsGdsCtaBoxRendererTests()
+        public async Task ToHtml_GdsBlockQuoteRendererTests()
         {
             var renderer = ContentService.CreateHtmlRenderer();
             var doc = new Document
@@ -24,9 +24,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
                             {
                                 Content = new List<IContent>
                                 {
-                            new Text
-                            {
-                                        Value = "<cta>This is a"
+                                    new Text
+                                    {
+                                        Value = "\"I was so impressed I agreed to be quoted. I really thought the service was great!\""
                                     }
                                 }
                             },
@@ -36,7 +36,17 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
                                 {
                                     new Text
                                     {
-                                        Value = "Call To Action"
+                                        Value = "<b>Bob ServiceUser</b>"
+                                    }
+                                }
+                            },
+                            new Paragraph
+                            {
+                                Content = new List<IContent>
+                                {
+                                    new Text
+                                    {
+                                        Value = "Service Users plc"
                                     }
                                 }
                             }
@@ -47,7 +57,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
 
             var html = await renderer.ToHtml(doc);
 
-            Assert.Equal("<section class=\"cx-cta-box\"><p class=\"govuk-body\">This is a</p><p class=\"govuk-body\">Call To Action</p></section>", html);
+            Assert.Equal("<div class=\"govuk-inset-text\"><p class=\"govuk-body\">&quot;I was so impressed I agreed to be quoted. I really thought the service was great!&quot;</p><p class=\"govuk-body\">&lt;b&gt;Bob ServiceUser&lt;/b&gt;</p><p class=\"govuk-body\">Service Users plc</p></div>", html);
         }
     }
 }

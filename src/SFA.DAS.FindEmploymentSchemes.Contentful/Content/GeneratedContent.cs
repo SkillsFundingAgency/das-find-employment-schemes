@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
 {
-    [ExcludeFromCodeCoverage]
     public class GeneratedContent : IContent
     {
         //  _    _                                _
@@ -53,7 +52,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 new HtmlString(@"<p class=""govuk-body"">Apprenticeships can benefit your business by:</p><ul class=""govuk-list govuk-list--bullet""><li>
 developing a workforce with skills specific to your business
 </li><li>allowing existing employees to pass on their knowledge with your next generation of employees
-</li><li>providing you with a motivated and fast-developing workforce</li><li>offering you <a href=""https://help.apprenticeships.education.gov.uk/hc/en-gb/articles/360022029039-Incentive-payment-for-hiring-a-new-apprentice-check-who-is-eligible"" title="""" class=""govuk-link"">incentive payments</a> of up to &#163;3,000 per apprentice </li></ul><p class=""govuk-body"">
+</li><li>providing you with a motivated and fast-developing workforce</li></ul><p class=""govuk-body"">
 </p><p class=""govuk-body"">Find out <a href=""https://www.apprenticeships.gov.uk/"" title="""" class=""govuk-link"">how apprenticeships can benefit your business</a>.</p>"),
                 "Offer an apprenticeship",
                 new HtmlString(@"<p class=""govuk-body"">Get started with offering an apprenticeship.</p><p class=""govuk-body""><a href=""https://www.apprenticeships.gov.uk/employers/hiring-an-apprentice"" title="""" class=""govuk-link"">Hire an apprentice</a></p><p class=""govuk-body"">Alternatively, call <a href=""tel:08000150400"" title="""" class=""govuk-link"">08000 150 400</a></p>"),
@@ -289,15 +288,8 @@ providing a stepping-stone for your future apprentices
                 new CaseStudy[] {
                 },
                 null,
-                new HtmlString(@"<p class=""govuk-body"">Free training, financial support and career advice available to your workforce.&#160;&#160;</p><p class=""govuk-body"">Some of the benefits of your employees taking a free course or training outside of employment include:&#160;&#160;</p><ul class=""govuk-list govuk-list--bullet""><li>upskilling your existing employees&#160;</li><li>progressing your current employees into higher skilled roles&#160;</li><li>filling vacancies or skill shortages within your business&#160;&#160;</li><li>gaining a workforce with the right knowledge, skills, and behaviours for your company to succeed&#160;
-</li></ul><h2 class=""govuk-heading-l"">Higher Technical Qualifications (HTQs)&#160;</h2><p class=""govuk-body""></p><p class=""govuk-body"">Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships, and degrees.&#160;&#160;</p><p class=""govuk-body"">HTQs have been developed by employers and awarding bodies to help you upskill existing employees and provide a different recruitment pool to hire new talent.&#160;</p><p class=""govuk-body"">You can support an employee to undertake an HTQ. The cost is dependent on the course and the provider. &#160;&#160;</p><p class=""govuk-body"">They are:&#160;</p><ul class=""govuk-list govuk-list--bullet""><li>new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)&#160;</li><li>approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards&#160;</li><li>classroom based and do not require an in-work placement &#160;</li></ul><p class=""govuk-body"">The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.&#160;</p><p class=""govuk-body"">Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.&#160;</p><h2 class=""govuk-heading-l"">Offer HTQs&#160;</h2><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/htqs"" title="""" class=""govuk-link"">Learn more and get started with HTQs</a>.ÿ&#160;&#160;</p><h2 class=""govuk-heading-l""></h2><h2 class=""govuk-heading-l"">Free training for basic skills (English, maths and digital)</h2><p class=""govuk-body"">Free English, maths, digital courses and qualifications for adults. </p><h2 class=""govuk-heading-l"">
-English and maths entitlement</h2><p class=""govuk-body"">In England, any adult who does not already have a level 2 qualification (GCSE grade 4 or equivalent) in English or maths is legally entitled to fully funded study up to level 2.&#160;</p><p class=""govuk-body"">Your workforce gets the potential to progress and your business increases its productivity.</p><h2 class=""govuk-heading-l"">
-
-English for Speakers of Other Languages (ESOL)</h2><p class=""govuk-body"">Adults can be fully or part-funded to study for ESOL qualifications from entry-level to level 2.&#160;</p><p class=""govuk-body"">ESOL improves English language skills which provides a clear return for individuals and the economy.&#160;</p><p class=""govuk-body"">Full-funding is available through the Adult Education Budget (AEB) if individuals:</p><ul class=""govuk-list govuk-list--bullet""><li>are unemployed, looking for work and in receipt of certain benefits</li><li>in low-wage employment&#160;</li></ul><p class=""govuk-body"">Some AEB-eligible learners can have up to 50% of the course cost paid for through a Government contribution.</p><p class=""govuk-body"">In 9 Mayoral Combined Authorities (MCAs), AEB funding is allocated locally as well as in the Greater London Authority (GLA). Therefore in these areas, eligibility may differ.
-
-</p><h2 class=""govuk-heading-l"">Free digital training</h2><p class=""govuk-body"">Any adult with low digital skills is entitled to fully funded essential digital skills qualifications, at entry-level and level 1. These equip adults with the full range of essential digital skills needed for life, work and further study.&#160;</p><p class=""govuk-body"">Funding for other digital skills qualifications may also be available but this will depend on local training providers.</p><p class=""govuk-body"">Find out more about free training courses at <a href=""https://skillsforlife.campaign.gov.uk"" title="""" class=""govuk-link"">skills for life. </a></p><h2 class=""govuk-heading-l"">
-</h2><h2 class=""govuk-heading-l"">Free qualifications for adults</h2><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free level 3 qualifications</a> are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.</p><p class=""govuk-body"">A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p class=""govuk-body"">The <a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">Free Courses for jobs</a> offer and the qualification list has been developed with industry, and will be regularly reviewed. </p><p class=""govuk-body""></p><h2 class=""govuk-heading-l"">National Careers Service</h2><p class=""govuk-body"">The National Careers Service is free to use and can help you explore work and skill opportunities for your workforce.&#160;</p><p class=""govuk-body"">Find out more about the <a href=""https://nationalcareers.service.gov.uk/"" title="""" class=""govuk-link"">National Careers Service and how to contact them</a>.</p><p class=""govuk-body""></p>"),
                 null,
+                new HtmlString(@"<p class=""govuk-body"">Free training, financial support and career advice available to your workforce.</p><p class=""govuk-body"">Some of the benefits of your employees taking a free course or training outside of employment include:</p><ul class=""govuk-list govuk-list--bullet""><li>upskilling your existing employees</li><li>progressing your current employees into higher skilled roles</li><li>filling vacancies or skill shortages within your business</li><li>gaining a workforce with the right knowledge, skills, and behaviours for your company to succeed</li></ul><p class=""govuk-body""></p>"),
                 null,
                 null,
                 null,
@@ -319,14 +311,14 @@ English for Speakers of Other Languages (ESOL)</h2><p class=""govuk-body"">Adult
                     ),
                     new SubScheme("Free level 3 qualifications for adults",
                     null,
-                    new HtmlString(@"<p class=""govuk-body"">Free level 3 qualifications are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.</p><p class=""govuk-body"">A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p class=""govuk-body"">The Free Courses for jobs offer and the qualification list has been developed with industry and will be regularly reviewed.</p>")
+                    new HtmlString(@"<p class=""govuk-body"">Free level 3 qualifications are government-funded courses for any adult aged 19 and over, who are looking to achieve a full level 3 qualification. You can also apply for the course if you have done a level 3 qualification before if you are unemployed or earning below national minimum wage.</p><p class=""govuk-body"">A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.</p><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/free-courses-for-jobs"" title="""" class=""govuk-link"">The Free Courses for jobs</a> offer and the qualification list has been developed with industry and will be regularly reviewed.</p>")
                     ),
                     new SubScheme("National Careers Service",
                     null,
                     new HtmlString(@"<p class=""govuk-body"">The National Careers Service is free to use and can help you explore work and skill opportunities for your workforce.</p><p class=""govuk-body"">Find out more about <a href=""https://nationalcareers.service.gov.uk/"" title="""" class=""govuk-link"">the National Careers Service and how to contact them</a>.</p>")
                     ),
                 }
-                )
+                ),
         };
        private Filter? _motivationsFilter;
         public Filter MotivationsFilter => _motivationsFilter ??= new Filter("motivations", "I want to", new FilterAspect[]
@@ -426,6 +418,10 @@ website to find out what it does with your information.</p><h2 class=""govuk-hea
 information about you from the other website. You should read the privacy policy of 
 the website you came from to find out more about this.</p>")
             ),
+        };
+        private IEnumerable<CaseStudyPage>? _caseStudyPages;
+        public IEnumerable<CaseStudyPage> CaseStudyPages => _caseStudyPages ??= new CaseStudyPage[]
+        {
         };
     }
 }
