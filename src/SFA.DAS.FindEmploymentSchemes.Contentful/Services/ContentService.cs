@@ -114,16 +114,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             //todo: log errors
             //todo: show error when previewing
 
-            //if (!contentfulCollection.Errors.Any())
-            //    return;
+#if log_errors
+            if (!contentfulCollection.Errors.Any())
+                return;
 
-            ////todo: log SystemProperties.Type?
-            //_logger.LogWarning($"Errors received fetching {nameof(T)}'s.");
+            //todo: log SystemProperties.Type?
+            _logger.LogWarning($"Errors received fetching {nameof(T)}'s.");
 
-            //foreach (var errorDetails in contentfulCollection.Errors.Select(e => e.Details))
-            //{
-            //    _logger.LogWarning($"Id:{errorDetails.Id}, LinkType:{errorDetails.LinkType}, Type:{errorDetails.Type}");
-            //}
+            foreach (var errorDetails in contentfulCollection.Errors.Select(e => e.Details))
+            {
+                _logger.LogWarning($"Id:{errorDetails.Id}, LinkType:{errorDetails.LinkType}, Type:{errorDetails.Type}");
+            }
+#endif
         }
 
         private async Task<IEnumerable<Model.Content.Page>> GetPages(IContentfulClient contentfulClient)
