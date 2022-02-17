@@ -92,7 +92,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             CompareLogic = new CompareLogic();
         }
 
-        private (Document, string) SampleDocumentAndExpectedContent()
+        private (Document, string) SampleDocumentAndExpectedContent(int differentiator = 0)
         {
             return (new Document
             {
@@ -102,10 +102,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
                 {
                     new Heading2
                     {
-                        Content = new List<IContent> {new Text {Value = "Gobble"}}
+                        Content = new List<IContent> {new Text {Value = $"Gobble{differentiator}" } }
                     }
                 }
-            }, "<h2>Gobble</h2>");
+            }, $"<h2>Gobble{differentiator}</h2>");
         }
 
         //[Fact]
@@ -240,9 +240,38 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         [Fact]
         public async Task Update_SchemeMappedTest()
         {
-            const int numberOfSchemes = 1;
+            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
 
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(numberOfSchemes);
+            var scheme = SchemesCollection.Items.First();
+            int differentiator = 0;
+            Document document;
+            string expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
+                expectedShortBenefits, expectedShortCost, expectedShortDescription, expectedShortTime;
+
+            (document, expectedAdditionalFooter) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.AdditionalFooter = document;
+            (document, expectedBenefits) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.Benefits = document;
+            (document, expectedCaseStudiesPreamble) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.CaseStudies = document;
+            (document, expectedCost) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.Cost = document;
+            (document, expectedDescription) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.Description = document;
+            (document, expectedDetailsPageOverride) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.DetailsPageOverride = document;
+            (document, expectedOffer) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.Offer = document;
+            (document, expectedResponsibility) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.Responsibility = document;
+            (document, expectedShortBenefits) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.ShortBenefits = document;
+            (document, expectedShortCost) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.ShortCost = document;
+            (document, expectedShortDescription) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.ShortDescription = document;
+            (document, expectedShortTime) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.ShortTime = document;
 
             var content = await ContentService.Update();
 
@@ -256,19 +285,18 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.Equal(expectedSourceScheme.Name, actualScheme.Name);
             Assert.Equal(expectedSourceScheme.OfferHeader, actualScheme.OfferHeader);
             Assert.Equal(expectedSourceScheme.Size, actualScheme.Size);
-            //todo: different content per field to check mapping
-            Assert.Equal(ExpectedContent, actualScheme.AdditionalFooter.Value);
-            Assert.Equal(ExpectedContent, actualScheme.Benefits.Value);
-            Assert.Equal(ExpectedContent, actualScheme.CaseStudiesPreamble.Value);
-            Assert.Equal(ExpectedContent, actualScheme.Cost.Value);
-            Assert.Equal(ExpectedContent, actualScheme.Description.Value);
-            Assert.Equal(ExpectedContent, actualScheme.DetailsPageOverride.Value);
-            Assert.Equal(ExpectedContent, actualScheme.Offer.Value);
-            Assert.Equal(ExpectedContent, actualScheme.Responsibility.Value);
-            Assert.Equal(ExpectedContent, actualScheme.ShortBenefits.Value);
-            Assert.Equal(ExpectedContent, actualScheme.ShortCost.Value);
-            Assert.Equal(ExpectedContent, actualScheme.ShortDescription.Value);
-            Assert.Equal(ExpectedContent, actualScheme.ShortTime.Value);
+            Assert.Equal(expectedAdditionalFooter, actualScheme.AdditionalFooter.Value);
+            Assert.Equal(expectedBenefits, actualScheme.Benefits.Value);
+            Assert.Equal(expectedCaseStudiesPreamble, actualScheme.CaseStudiesPreamble.Value);
+            Assert.Equal(expectedCost, actualScheme.Cost.Value);
+            Assert.Equal(expectedDescription, actualScheme.Description.Value);
+            Assert.Equal(expectedDetailsPageOverride, actualScheme.DetailsPageOverride.Value);
+            Assert.Equal(expectedOffer, actualScheme.Offer.Value);
+            Assert.Equal(expectedResponsibility, actualScheme.Responsibility.Value);
+            Assert.Equal(expectedShortBenefits, actualScheme.ShortBenefits.Value);
+            Assert.Equal(expectedShortCost, actualScheme.ShortCost.Value);
+            Assert.Equal(expectedShortDescription, actualScheme.ShortDescription.Value);
+            Assert.Equal(expectedShortTime, actualScheme.ShortTime.Value);
             //todo: enumerable fields
         }
 
