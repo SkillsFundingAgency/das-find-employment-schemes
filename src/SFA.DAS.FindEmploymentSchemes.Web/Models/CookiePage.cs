@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {
+    [ExcludeFromCodeCoverage]
     public class CookiePage : Page
     {
         public bool ShowMessage { get; }

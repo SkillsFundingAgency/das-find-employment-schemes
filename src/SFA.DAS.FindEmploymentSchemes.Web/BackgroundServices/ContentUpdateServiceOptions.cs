@@ -1,5 +1,8 @@
-﻿namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
+    [ExcludeFromCodeCoverage]
     public class ContentUpdateServiceOptions
     {
         /// <summary>

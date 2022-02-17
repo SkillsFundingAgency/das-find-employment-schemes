@@ -1,5 +1,4 @@
-﻿using SFA.DAS.FindEmploymentSchemes.Web.Models;
-using System;
+﻿using System;
 using System.Linq;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
