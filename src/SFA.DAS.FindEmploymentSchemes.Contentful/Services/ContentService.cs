@@ -1,4 +1,5 @@
-﻿using Contentful.Core;
+﻿
+using Contentful.Core;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,7 +11,9 @@ using System;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
+
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
@@ -78,11 +81,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             if (_previewContentfulClient == null)
                 throw new ContentServiceException("Can't update preview content without a preview ContentfulClient.");
 
-            var previewContent = await Update(_previewContentfulClient);
-            PreviewContent = previewContent;
+            PreviewContentErrors previewErrors = await PreviewContentErrors(_previewContentfulClient);
+            IContent? previewContent = null;
 
-            _logger.LogInformation("Publishing PreviewContentUpdated event");
-            PreviewContentUpdated?.Invoke(this, EventArgs.Empty);
+            if (!previewErrors.Errors.Any())
+            {
+                previewContent = await Update(_previewContentfulClient);
+                PreviewContent = previewContent;
+
+                _logger.LogInformation("Publishing PreviewContentUpdated event");
+                PreviewContentUpdated?.Invoke(this, EventArgs.Empty);
+            }
 
             return previewContent;
         }
@@ -107,6 +116,30 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                     SchemeLengthName,
                     SchemeLengthDescription,
                     await GetFilterAspects(contentfulClient, SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix)));
+        }
+
+        private async Task<Model.Content.PreviewContentErrors> PreviewContentErrors(IContentfulClient contentfulClient)
+        {
+            //var schemes = await GetSchemes(contentfulClient);
+
+            return new Model.Content.PreviewContentErrors(
+                await GetErrors(contentfulClient)
+                //await GetPages(contentfulClient),
+                //await GetCaseStudyPages(contentfulClient, schemes),
+                //scheme,
+                //new Model.Content.Filter(
+                //    MotivationName,
+                //    MotivationDescription,
+                //    await GetFilterAspects(contentfulClient, MotivationsFilterContentfulTypeName, MotivationsFilterPrefix)),
+                //new Model.Content.Filter(
+                //    PayName,
+                //    PayDescription,
+                //    await GetFilterAspects(contentfulClient, PayFilterContentfulTypeName, PayFilterPrefix)),
+                //new Model.Content.Filter(
+                //    SchemeLengthName,
+                //    SchemeLengthDescription,
+                //    await GetFilterAspects(contentfulClient, SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix))
+            );
         }
 
         private void LogErrors<T>(ContentfulCollection<T> contentfulCollection)
@@ -145,7 +178,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             var apiCaseStudyPages = await contentfulClient.GetEntries(builder);
             LogErrors(apiCaseStudyPages);
 
-            return await Task.WhenAll(apiCaseStudyPages.Select(csp => ToContent(csp, schemes)));
+            return await Task.WhenAll(apiCaseStudyPages.Where(csp => csp != null && csp?.Scheme != null && csp?.Title != null && csp?.Url != null)
+                                                       .Select(csp => ToContent(csp, schemes)));
         }
 
         private async Task<IEnumerable<Model.Content.Scheme>> GetSchemes(IContentfulClient contentfulClient)
