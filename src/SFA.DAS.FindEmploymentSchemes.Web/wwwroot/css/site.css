@@ -122,6 +122,10 @@ body.js-enabled .app-show-on-mobile-no-js {
     background: #b1b4b6;
 }
 
+.app-scheme-titles {
+    padding: 0;
+}
+
 @media (max-width: 40.0600em) {
     #scheme-home-filter-header {
         /* stop heading from overlapping close button */
