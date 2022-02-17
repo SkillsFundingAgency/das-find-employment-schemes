@@ -353,6 +353,138 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.Equal(numberOfPages, content.Pages.Count());
         }
 
+        [Fact]
+        public async Task UpdatePreview_PageMappedTest()
+        {
+            const int numberOfPages = 1;
+
+            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+
+            var content = await ContentService.UpdatePreview();
+
+            var actualPage = content.Pages.FirstOrDefault();
+            Assert.NotNull(actualPage);
+
+            var expectedSourcePage = PagesCollection.Items.First();
+            Assert.Equal(expectedSourcePage.Title, actualPage.Title);
+            Assert.Equal(expectedSourcePage.Url, actualPage.Url);
+            Assert.Equal(ExpectedContent, actualPage.Content.Value);
+        }
+
+        [Fact]
+        public async Task UpdatePreview_SameNumberOfCaseStudyPagesTest()
+        {
+            const int numberOfCaseStudyPages = 3;
+
+            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
+
+            Fixture.Inject(SchemesCollection.Items.First());
+            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+
+            var content = await ContentService.UpdatePreview();
+
+            Assert.NotNull(content.CaseStudyPages);
+            Assert.Equal(numberOfCaseStudyPages, content.CaseStudyPages.Count());
+        }
+
+        [Fact]
+        public async Task UpdatePreview_CaseStudyPageMappedTest()
+        {
+            const int numberOfCaseStudyPages = 1;
+
+            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
+
+            Fixture.Inject(SchemesCollection.Items.First());
+            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+
+            var content = await ContentService.UpdatePreview();
+
+            var actualCaseStudyPage = content.CaseStudyPages.FirstOrDefault();
+            Assert.NotNull(actualCaseStudyPage);
+
+            var expectedSourceCaseStudyPage = CaseStudyPagesCollection.Items.First();
+            Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
+            Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
+            Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
+            Assert.Equal(ExpectedContent, actualCaseStudyPage.Content.Value);
+        }
+
+        [Fact]
+        public async Task UpdatePreview_SameNumberOfSchemesTest()
+        {
+            const int numberOfSchemes = 3;
+
+            SchemesCollection.Items = Fixture.CreateMany<Scheme>(numberOfSchemes);
+
+            var content = await ContentService.UpdatePreview();
+
+            Assert.NotNull(content.Schemes);
+            Assert.Equal(numberOfSchemes, content.Schemes.Count());
+        }
+
+        [Fact]
+        public async Task UpdatePreview_SchemeMappedTest()
+        {
+            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
+
+            var scheme = SchemesCollection.Items.First();
+            int differentiator = 0;
+            Document document;
+            string expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
+                expectedShortBenefits, expectedShortCost, expectedShortDescription, expectedShortTime;
+
+            (document, expectedAdditionalFooter) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.AdditionalFooter = document;
+            (document, expectedBenefits) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.Benefits = document;
+            (document, expectedCaseStudiesPreamble) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.CaseStudies = document;
+            (document, expectedCost) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.Cost = document;
+            (document, expectedDescription) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.Description = document;
+            (document, expectedDetailsPageOverride) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.DetailsPageOverride = document;
+            (document, expectedOffer) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.Offer = document;
+            (document, expectedResponsibility) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.Responsibility = document;
+            (document, expectedShortBenefits) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.ShortBenefits = document;
+            (document, expectedShortCost) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.ShortCost = document;
+            (document, expectedShortDescription) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.ShortDescription = document;
+            (document, expectedShortTime) = SampleDocumentAndExpectedContent(++differentiator);
+            scheme.ShortTime = document;
+
+            var content = await ContentService.UpdatePreview();
+
+            var actualScheme = content.Schemes.FirstOrDefault();
+            Assert.NotNull(actualScheme);
+
+            //todo: should really copy item before ContentService.Update() (or pick out fields), in case they get mutated
+            // or even better add a test to check that they don't get mutated
+            var expectedSourceScheme = SchemesCollection.Items.First();
+            Assert.Equal(expectedSourceScheme.Url, actualScheme.Url);
+            Assert.Equal(expectedSourceScheme.Name, actualScheme.Name);
+            Assert.Equal(expectedSourceScheme.OfferHeader, actualScheme.OfferHeader);
+            Assert.Equal(expectedSourceScheme.Size, actualScheme.Size);
+            Assert.Equal(expectedAdditionalFooter, actualScheme.AdditionalFooter.Value);
+            Assert.Equal(expectedBenefits, actualScheme.Benefits.Value);
+            Assert.Equal(expectedCaseStudiesPreamble, actualScheme.CaseStudiesPreamble.Value);
+            Assert.Equal(expectedCost, actualScheme.Cost.Value);
+            Assert.Equal(expectedDescription, actualScheme.Description.Value);
+            Assert.Equal(expectedDetailsPageOverride, actualScheme.DetailsPageOverride.Value);
+            Assert.Equal(expectedOffer, actualScheme.Offer.Value);
+            Assert.Equal(expectedResponsibility, actualScheme.Responsibility.Value);
+            Assert.Equal(expectedShortBenefits, actualScheme.ShortBenefits.Value);
+            Assert.Equal(expectedShortCost, actualScheme.ShortCost.Value);
+            Assert.Equal(expectedShortDescription, actualScheme.ShortDescription.Value);
+            Assert.Equal(expectedShortTime, actualScheme.ShortTime.Value);
+            //todo: enumerable fields
+        }
+
         // Contentful's .net library is not very test friendly: HtmlRenderer.ToHtml can't be mocked
         // we'd have to introduce a level of indirection to test this
         // or we _could_ make ToHtmlString in ContentService public and test it directly
