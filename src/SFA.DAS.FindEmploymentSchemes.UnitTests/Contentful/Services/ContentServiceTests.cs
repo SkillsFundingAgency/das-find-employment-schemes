@@ -66,30 +66,37 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
                 .Returns(PreviewContentfulClient);
 
             PagesCollection = new ContentfulCollection<Page> { Items = Array.Empty<Page>() };
-            A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Page>>.Ignored, A<CancellationToken>.Ignored))
+            CaseStudyPagesCollection = new ContentfulCollection<CaseStudyPage> { Items = Array.Empty<CaseStudyPage>() };
+            SchemesCollection = new ContentfulCollection<Scheme> { Items = Array.Empty<Scheme>() };
+            FiltersCollection = new ContentfulCollection<Filter> { Items = Array.Empty<Filter>() };
+
+            SetupContentfulClientCalls(ContentfulClient);
+            SetupContentfulClientCalls(PreviewContentfulClient);
+
+            ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
+
+            CompareLogic = new CompareLogic();
+        }
+
+        private void SetupContentfulClientCalls(IContentfulClient contentfulClient)
+        {
+            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Page>>.Ignored, A<CancellationToken>.Ignored))
                 .Returns(PagesCollection);
 
-            CaseStudyPagesCollection = new ContentfulCollection<CaseStudyPage> { Items = Array.Empty<CaseStudyPage>() };
-            A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<CaseStudyPage>>.Ignored, A<CancellationToken>.Ignored))
+            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<CaseStudyPage>>.Ignored, A<CancellationToken>.Ignored))
                 .Returns(CaseStudyPagesCollection);
 
-            SchemesCollection = new ContentfulCollection<Scheme> { Items = Array.Empty<Scheme>() };
-            A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Scheme>>.Ignored, A<CancellationToken>.Ignored))
+            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Scheme>>.Ignored, A<CancellationToken>.Ignored))
                 .Returns(SchemesCollection);
 
-            FiltersCollection = new ContentfulCollection<Filter> { Items = Array.Empty<Filter>() };
             //A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
             //    .Returns(payFiltersCollection).Once()
             //    .Then
             //    .Returns(new ContentfulCollection<Filter>());
 
             // decouples us from the order of fetching filters
-            A.CallTo(() => ContentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
+            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
                 .Returns(FiltersCollection);
-
-            ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
-
-            CompareLogic = new CompareLogic();
         }
 
         private (Document, string) SampleDocumentAndExpectedContent(int differentiator = 0)
@@ -153,6 +160,17 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
 
             await Assert.ThrowsAsync<ContentServiceException>(() => ContentService.Update());
+        }
+
+        [Fact]
+        public async Task Update_ContentUpdatedEventIsRaisedTest()
+        {
+            bool eventWasRaised = false;
+            ContentService.ContentUpdated += (sender, args) => { eventWasRaised = true; };
+
+            var content = await ContentService.Update();
+
+            Assert.True(eventWasRaised);
         }
 
         [Fact]
@@ -309,6 +327,17 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
 
             await Assert.ThrowsAsync<ContentServiceException>(() => ContentService.UpdatePreview());
+        }
+
+        [Fact]
+        public async Task UpdatePreview_PreviewContentUpdatedEventIsRaisedTest()
+        {
+            bool eventWasRaised = false;
+            ContentService.PreviewContentUpdated += (sender, args) => { eventWasRaised = true; };
+
+            var content = await ContentService.UpdatePreview();
+
+            Assert.True(eventWasRaised);
         }
 
         // Contentful's .net library is not very test friendly: HtmlRenderer.ToHtml can't be mocked
