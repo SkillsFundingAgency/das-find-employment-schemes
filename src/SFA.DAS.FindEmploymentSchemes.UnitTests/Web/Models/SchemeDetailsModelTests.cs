@@ -10,27 +10,44 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
 {
     public class SchemeDetailsModelTests
     {
-        [Fact]
-        public void Constructor()
+        public Fixture Fixture { get; set; }
+        public Scheme[] Schemes { get; set; }
+
+        public SchemeDetailsModelTests()
         {
-            var fixture = new Fixture();
-            fixture.Customizations.Add(
+            Fixture = new Fixture();
+            Fixture.Customizations.Add(
                 new TypeRelay(
                     typeof(IHtmlContent),
                     typeof(HtmlString)));
 
-            var schemes = fixture.CreateMany<Scheme>(5).ToArray();
+            Schemes = Fixture.CreateMany<Scheme>(5).ToArray();
+        }
 
+        [Fact]
+        public void Scheme_IsCorrectTest()
+        {
             const int selectedScheme = 2;
 
-            var schemeUrl = schemes[selectedScheme].Url;
-            var expectedOtherSchemes = schemes.Take(selectedScheme).Concat(schemes.Skip(selectedScheme+1));
+            var schemeUrl = Schemes[selectedScheme].Url;
 
             //Act
-            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes);
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes);
 
-            Assert.Equal(schemes[2], schemeDetailsModel.Scheme);
-            Assert.Equal(expectedOtherSchemes, schemeDetailsModel.OtherSchemes);
+            Assert.Equal(Schemes[2], schemeDetailsModel.Scheme);
+        }
+
+        [Fact]
+        public void Schemes_AreCorrectTest()
+        {
+            var fixture = new Fixture();
+
+            var schemeUrl = Schemes[0].Url;
+
+            //Act
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes);
+
+            Assert.Equal(Schemes, schemeDetailsModel.Schemes);
         }
     }
 }
