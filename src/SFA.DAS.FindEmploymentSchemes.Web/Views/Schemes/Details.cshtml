@@ -83,9 +83,9 @@
             }
         }
     </div>
-    <div id="scheme-details-inner-one-third" class="govuk-grid-column-one-third">
-        <h3 id="scheme-details-inner-h3" class="govuk-heading-m">Explore schemes</h3>
-        <ul id="scheme-details-inner-ul" class="govuk-list">
+    <div class="govuk-grid-column-one-third">
+        <h3 class="govuk-heading-m">Explore schemes</h3>
+        <ul id="explore-schemes" class="govuk-list">
             @foreach (Scheme scheme in Model.Schemes)
             {
                 <li id="scheme-details-inner-li-@scheme.HtmlId">

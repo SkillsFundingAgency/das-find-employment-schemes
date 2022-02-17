@@ -201,3 +201,7 @@ body.js-enabled .app-show-on-mobile-no-js {
         padding: 20px;
     }
 }
+
+@media (min-width: 40.0625em) {
+    #explore-schemes li { margin-bottom: 10px; }
+}
