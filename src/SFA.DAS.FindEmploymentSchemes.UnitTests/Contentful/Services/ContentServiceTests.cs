@@ -22,7 +22,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
     public class ContentServiceTests
     {
         public Fixture Fixture { get; }
-        public Document Document { get; }
+        public Document Document { get; set; }
+        public string ExpectedContent { get; set; }
         public IContentfulClientFactory ContentfulClientFactory { get; set; }
         public IContentfulClient ContentfulClient { get; set; }
         public IContentfulClient PreviewContentfulClient { get; set; }
@@ -39,9 +40,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             Fixture = new Fixture();
 
-            Document = SampleDocument();
+            (Document, ExpectedContent) = SampleDocumentAndExpectedContent();
 
-            Fixture.Inject(SampleDocument());
+            Fixture.Inject(Document);
 
             Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
                 .ForEach(b => Fixture.Behaviors.Remove(b));
@@ -91,10 +92,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             CompareLogic = new CompareLogic();
         }
 
-        private const string ExpectedContent = "<h2>Gobble</h2>";
-        private Document SampleDocument()
+        private (Document, string) SampleDocumentAndExpectedContent()
         {
-            return new Document
+            return (new Document
             {
                 NodeType = "heading-2",
                 Data = new GenericStructureData(),
@@ -105,7 +105,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
                         Content = new List<IContent> {new Text {Value = "Gobble"}}
                     }
                 }
-            };
+            }, "<h2>Gobble</h2>");
         }
 
         //[Fact]
