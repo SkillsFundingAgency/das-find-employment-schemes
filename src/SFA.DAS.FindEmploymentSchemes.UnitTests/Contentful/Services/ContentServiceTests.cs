@@ -340,6 +340,19 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.True(eventWasRaised);
         }
 
+        [Fact]
+        public async Task UpdatePreview_SameNumberOfPagesTest()
+        {
+            const int numberOfPages = 3;
+
+            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+
+            var content = await ContentService.UpdatePreview();
+
+            Assert.NotNull(content.Pages);
+            Assert.Equal(numberOfPages, content.Pages.Count());
+        }
+
         // Contentful's .net library is not very test friendly: HtmlRenderer.ToHtml can't be mocked
         // we'd have to introduce a level of indirection to test this
         // or we _could_ make ToHtmlString in ContentService public and test it directly
