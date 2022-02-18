@@ -201,3 +201,14 @@ body.js-enabled .app-show-on-mobile-no-js {
         padding: 20px;
     }
 }
+
+@media (min-width: 40.0625em) {
+    #explore-schemes li { margin-bottom: 10px; }
+    .explore-schemes-current-scheme {
+        font-weight: 600;
+        color: #1d70b8;
+        margin-left: -14px;
+        padding-left: 10px;
+        border-left: 4px solid #1d70b8;
+    }
+}
