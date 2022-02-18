@@ -1,31 +1,37 @@
-
-using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
-using SFA.DAS.FindEmploymentSchemes.Web.Services;
+using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class SchemesController : Controller
     {
         private readonly ILogger<SchemesController> _logger;
+        private readonly ISchemesModelService _schemesModelService;
         private readonly IFilterService _filterService;
+        private readonly IContentService _contentService;
 
-        public SchemesController(ILogger<SchemesController> logger,
-                                 IFilterService filterService)
+        public SchemesController(
+            ILogger<SchemesController> logger,
+            ISchemesModelService schemesModelService,
+            IFilterService filterService,
+            IContentService contentService)
         {
             _logger = logger;
+            _schemesModelService = schemesModelService;
             _filterService = filterService;
+            _contentService = contentService;
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Home()
         {
-            return View(_filterService.HomeModel);
+            return View(_schemesModelService.HomeModel);
         }
 
         // if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled
@@ -47,10 +53,28 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Details(string schemeUrl)
         {
-            if (!_filterService.SchemeDetailsModels.TryGetValue(schemeUrl, out SchemeDetailsModel? schemeDetailsModel))
+            var schemeDetailsModel = _schemesModelService.GetSchemeDetailsModel(schemeUrl);
+            if (schemeDetailsModel == null)
                 return NotFound();
 
             return View(schemeDetailsModel);
+        }
+
+        public async Task<IActionResult> DetailsPreview(string schemeUrl)
+        {
+            var previewContent = await _contentService.UpdatePreview();
+
+            SchemeDetailsModel model;
+            try
+            {
+                model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+
+            return View("Details", model);
         }
     }
 }

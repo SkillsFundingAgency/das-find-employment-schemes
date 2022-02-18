@@ -2,7 +2,7 @@
   "profiles": {
     "SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator": {
       "commandName": "Project",
-      "commandLineArgs": ">..\\..\\..\\..\\SFA.DAS.FindEmploymentSchemes.Web\\Content\\SchemesContent.cs"
+      "commandLineArgs": ">..\\\\..\\\\..\\\\..\\\\SFA.DAS.FindEmploymentSchemes.Contentful\\\\Content\\\\GeneratedContent.cs"
     }
   }
 }

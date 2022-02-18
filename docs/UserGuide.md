@@ -59,9 +59,19 @@ The editor has help text for each field, but some fields require more explanatio
 
 ##### Details page override
 
-Any content in the 'Details Page Override' field, overrides the usual composition of the scheme details page from the normal set of fields, such as 'Description' and 'Cost'.
+Any content in the 'Details Page Override' field overrides the usual composition of the scheme details page, from the normal set of fields, such as 'Description' and 'Cost'.
 
-Instead the main content of the scheme details page is taken from this field. It is used when the required content for the scheme doesn't match the usual format, such as the content for 'Training outside of employment'.
+Instead the main content of the scheme details page is taken from this field. It can be used when the required content for the scheme doesn't match the usual format.
+
+No current scheme uses the details page override, it was introduced for a scheme that's now been replaced for one that uses sub schemes, but the facility remains in case it is needed.
+
+##### Sub schemes
+
+If any sub schemes are added to a scheme, they are rendered in an accordion on the details page below the description. The other usual scheme detail headers (such as cost and benefit) are not rendered if a scheme references a sub scheme.
+
+The website rendering order, is determined by the order of the referenced sub schemes on the scheme edit page.
+
+See the 'Free courses and additional training for your employees' scheme as an example.
 
 ##### Additional footer
 
@@ -83,15 +93,23 @@ The ordering of the filter aspects associated with a scheme is of no import.
 
 ##### Case studies (edit box)
 
-The old way of entering case studies content. Has been replaced by adding case study references, and this field will eventually be removed.
+Case study content.
+
+If both case study content is supplied _and_ case study items are referenced, this content is rendered above the referenced case studies, as a preamble.
 
 ##### Case studies (references)
 
 The case studies associated with the scheme, which are rendered as part of the scheme details page.
 
-If a single case study is associated with a scheme, it is rendered inline. If more than one case study is associated with a scheme, the case studies are rendered in an accordion.
+If a single case study is associated with a scheme, it is rendered inline. If more than one case study is associated with a scheme, the case studies are rendered using the GDS details component.
 
-The website rendering order is determined by the order of the referenced case study items, on the scheme edit page.
+The website rendering order, is determined by the order of the referenced case study items on the scheme edit page.
+
+### Sub scheme
+
+Blocks of content that can be referenced and rendered as part of the scheme details page.
+
+The sub schemes are rendered in an accordion below the scheme description.
 
 ### Case study
 

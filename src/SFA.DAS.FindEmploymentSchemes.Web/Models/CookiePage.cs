@@ -1,16 +1,20 @@
-﻿
+﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using System.Diagnostics.CodeAnalysis;
+
 namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {
+    [ExcludeFromCodeCoverage]
     public class CookiePage : Page
     {
-        public bool ShowMessage { get; set; }
-        public Page AnalyticsPage { get; set; }
-        public Page MarketingPage { get; set; }
+        public bool ShowMessage { get; }
+        public Page AnalyticsPage { get; }
+        public Page MarketingPage { get; }
+
         public CookiePage(Page analyticsPage, Page marketingPage, bool showMessage) : base(analyticsPage.Title, "cookies", analyticsPage.Content)
         {
-            this.ShowMessage = showMessage;
-            this.AnalyticsPage = analyticsPage;
-            this.MarketingPage = marketingPage;
+            ShowMessage = showMessage;
+            AnalyticsPage = analyticsPage;
+            MarketingPage = marketingPage;
         }
     }
 }

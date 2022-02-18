@@ -12,7 +12,7 @@
         "id": "scheme",
         "type": "ContentType",
         "createdAt": "2021-11-29T14:35:22.062Z",
-        "updatedAt": "2022-01-05T15:45:13.087Z",
+        "updatedAt": "2022-02-14T13:21:47.848Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -20,8 +20,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 5,
-        "publishedAt": "2022-01-05T15:45:13.087Z",
+        "publishedVersion": 21,
+        "publishedAt": "2022-02-14T13:21:47.848Z",
         "firstPublishedAt": "2021-11-29T14:35:22.532Z",
         "createdBy": {
           "sys": {
@@ -37,8 +37,8 @@
             "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         },
-        "publishedCounter": 3,
-        "version": 6,
+        "publishedCounter": 11,
+        "version": 22,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -244,6 +244,28 @@
           "omitted": false
         },
         {
+          "id": "subSchemes",
+          "name": "Sub Schemes",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "subScheme"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
           "id": "cost",
           "name": "Cost",
           "type": "RichText",
@@ -333,35 +355,6 @@
         {
           "id": "caseStudies",
           "name": "Case Studies",
-          "type": "RichText",
-          "localized": false,
-          "required": false,
-          "validations": [
-            {
-              "enabledMarks": [
-                "bold"
-              ],
-              "message": "Only bold marks are allowed"
-            },
-            {
-              "enabledNodeTypes": [
-                "ordered-list",
-                "unordered-list",
-                "hyperlink"
-              ],
-              "message": "Only ordered list, unordered list, and link to Url nodes are allowed"
-            },
-            {
-              "nodes": {
-              }
-            }
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "caseStudiesPreamble",
-          "name": "Case Studies Preamble",
           "type": "RichText",
           "localized": false,
           "required": false,
@@ -526,6 +519,35 @@
           "localized": false,
           "required": true,
           "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "additionalFooter",
+          "name": "Additional Footer",
+          "type": "RichText",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "enabledMarks": [
+                "bold"
+              ],
+              "message": "Only bold marks are allowed"
+            },
+            {
+              "enabledNodeTypes": [
+                "heading-3",
+                "hr",
+                "hyperlink"
+              ],
+              "message": "Only heading 3, horizontal rule, and link to Url nodes are allowed"
+            },
+            {
+              "nodes": {
+              }
+            }
           ],
           "disabled": false,
           "omitted": false
@@ -1033,6 +1055,270 @@
           "omitted": false
         }
       ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "caseStudyPage",
+        "type": "ContentType",
+        "createdAt": "2022-01-25T16:35:25.696Z",
+        "updatedAt": "2022-02-11T12:06:41.646Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 7,
+        "publishedAt": "2022-02-11T12:06:41.646Z",
+        "firstPublishedAt": "2022-01-25T16:35:25.925Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        },
+        "publishedCounter": 4,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        }
+      },
+      "displayField": "title",
+      "name": "Case Study Page",
+      "description": "",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "url",
+          "name": "Url",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "content",
+          "name": "Content",
+          "type": "RichText",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "enabledMarks": [
+                "bold",
+                "code",
+                "italic"
+              ],
+              "message": "Only bold, code, and italic marks are allowed"
+            },
+            {
+              "enabledNodeTypes": [
+                "heading-1",
+                "heading-2",
+                "heading-3",
+                "ordered-list",
+                "unordered-list",
+                "hr",
+                "blockquote",
+                "hyperlink"
+              ],
+              "message": "Only heading 1, heading 2, heading 3, ordered list, unordered list, horizontal rule, quote, and link to Url nodes are allowed"
+            },
+            {
+              "nodes": {
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "scheme",
+          "name": "Scheme",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkContentType": [
+                "scheme"
+              ],
+              "message": "Must refer to a valid Scheme"
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "subScheme",
+        "type": "ContentType",
+        "createdAt": "2022-02-10T13:59:33.344Z",
+        "updatedAt": "2022-02-10T14:05:16.843Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 3,
+        "publishedAt": "2022-02-10T14:05:16.843Z",
+        "firstPublishedAt": "2022-02-10T13:59:33.973Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 4,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        }
+      },
+      "displayField": "title",
+      "name": "Sub Scheme",
+      "description": "A sub scheme to display on the scheme details page",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "summary",
+          "name": "Summary",
+          "type": "RichText",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "enabledMarks": [
+                "bold"
+              ],
+              "message": "Only bold marks are allowed"
+            },
+            {
+              "enabledNodeTypes": [
+                "hyperlink"
+              ],
+              "message": "Only link to Url nodes are allowed"
+            },
+            {
+              "nodes": {
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "content",
+          "name": "Content",
+          "type": "RichText",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "enabledMarks": [
+                "bold",
+                "italic"
+              ],
+              "message": "Only bold and italic marks are allowed"
+            },
+            {
+              "enabledNodeTypes": [
+                "heading-1",
+                "heading-2",
+                "heading-3",
+                "ordered-list",
+                "unordered-list",
+                "hr",
+                "blockquote",
+                "hyperlink"
+              ],
+              "message": "Only heading 1, heading 2, heading 3, ordered list, unordered list, horizontal rule, quote, and link to Url nodes are allowed"
+            },
+            {
+              "nodes": {
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
     }
   ],
   "tags": [
@@ -1049,7 +1335,7 @@
             "linkType": "Space"
           }
         },
-        "version": 6,
+        "version": 22,
         "createdAt": "2021-11-29T14:35:22.711Z",
         "createdBy": {
           "sys": {
@@ -1058,7 +1344,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2022-01-05T15:45:13.716Z",
+        "updatedAt": "2022-02-14T13:21:48.363Z",
         "updatedBy": {
           "sys": {
             "id": "4pVUkUPNV3AY8fZRIusvyB",
@@ -1081,6 +1367,37 @@
           }
         }
       },
+      "sidebar": [
+        {
+          "settings": {
+          },
+          "widgetId": "publication-widget",
+          "widgetNamespace": "sidebar-builtin"
+        },
+        {
+          "settings": {
+          },
+          "widgetId": "content-preview-widget",
+          "widgetNamespace": "sidebar-builtin"
+        },
+        {
+          "settings": {
+          },
+          "widgetId": "incoming-links-widget",
+          "widgetNamespace": "sidebar-builtin"
+        },
+        {
+          "settings": {
+          },
+          "widgetId": "versions-widget",
+          "widgetNamespace": "sidebar-builtin"
+        },
+        {
+          "disabled": true,
+          "widgetId": "translation-widget",
+          "widgetNamespace": "sidebar-builtin"
+        }
+      ],
       "controls": [
         {
           "fieldId": "name",
@@ -1147,6 +1464,17 @@
           "widgetNamespace": "builtin"
         },
         {
+          "fieldId": "subSchemes",
+          "settings": {
+            "helpText": "Sub schemes to display in an accordion, rather than the usual scheme fields.",
+            "bulkEditing": false,
+            "showLinkEntityAction": true,
+            "showCreateEntityAction": true
+          },
+          "widgetId": "entryLinksEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
           "fieldId": "cost",
           "settings": {
             "helpText": "The 'Employer costs' description on the scheme details page. If none provided, defaults to 'No costs.'"
@@ -1173,15 +1501,7 @@
         {
           "fieldId": "caseStudies",
           "settings": {
-            "helpText": "The Case studies, as shown on the details page (will be obsoleted by phase 2)"
-          },
-          "widgetId": "richTextEditor",
-          "widgetNamespace": "builtin"
-        },
-        {
-          "fieldId": "caseStudiesPreamble",
-          "settings": {
-            "helpText": "The preamble in the Case Studies section before the actual case studies are rendered (phase 2)"
+            "helpText": "The case studies content, as shown on the details page. If there are referenced case studies, will be shown above the case studies."
           },
           "widgetId": "richTextEditor",
           "widgetNamespace": "builtin"
@@ -1189,7 +1509,7 @@
         {
           "fieldId": "caseStudyReferences",
           "settings": {
-            "helpText": "The case studies associated with this scheme (phase 2)",
+            "helpText": "The case studies associated with this scheme.",
             "bulkEditing": false,
             "showLinkEntityAction": true,
             "showCreateEntityAction": true
@@ -1252,6 +1572,14 @@
             "helpText": "The relative size of this scheme compared to others. Used to order the schemes on the home and filter pages. The number of citizens on the scheme is a good number to use."
           },
           "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "additionalFooter",
+          "settings": {
+            "helpText": "Additional content to display in the footer section on the scheme details page."
+          },
+          "widgetId": "richTextEditor",
           "widgetNamespace": "builtin"
         }
       ]
@@ -1627,6 +1955,187 @@
           "widgetNamespace": "builtin"
         }
       ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "082i50qdtar9",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 8,
+        "createdAt": "2022-01-25T16:35:26.015Z",
+        "createdBy": {
+          "sys": {
+            "id": "17EKu6CdcxDO3oCMOU7xw7",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2022-02-11T12:06:42.126Z",
+        "updatedBy": {
+          "sys": {
+            "id": "17EKu6CdcxDO3oCMOU7xw7",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "caseStudyPage",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "title",
+          "settings": {
+            "helpText": "The title of the page."
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "url",
+          "settings": {
+            "helpText": "The url path fragment for this page."
+          },
+          "widgetId": "slugEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "content",
+          "settings": {
+            "helpText": "The page content."
+          },
+          "widgetId": "richTextEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "scheme",
+          "settings": {
+            "helpText": "Parent scheme",
+            "showLinkEntityAction": true,
+            "showCreateEntityAction": false
+          },
+          "widgetId": "entryLinkEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "082i50qdtar9",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 4,
+        "createdAt": "2022-02-10T13:59:34.075Z",
+        "createdBy": {
+          "sys": {
+            "id": "4pVUkUPNV3AY8fZRIusvyB",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2022-02-10T14:05:17.312Z",
+        "updatedBy": {
+          "sys": {
+            "id": "4pVUkUPNV3AY8fZRIusvyB",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "subScheme",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "sidebar": [
+        {
+          "settings": {
+          },
+          "widgetId": "publication-widget",
+          "widgetNamespace": "sidebar-builtin"
+        },
+        {
+          "settings": {
+          },
+          "widgetId": "content-preview-widget",
+          "widgetNamespace": "sidebar-builtin"
+        },
+        {
+          "settings": {
+          },
+          "widgetId": "incoming-links-widget",
+          "widgetNamespace": "sidebar-builtin"
+        },
+        {
+          "settings": {
+          },
+          "widgetId": "versions-widget",
+          "widgetNamespace": "sidebar-builtin"
+        },
+        {
+          "disabled": true,
+          "widgetId": "translation-widget",
+          "widgetNamespace": "sidebar-builtin"
+        }
+      ],
+      "controls": [
+        {
+          "fieldId": "title",
+          "settings": {
+            "helpText": "The title of this sub scheme."
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "summary",
+          "settings": {
+            "helpText": "Summary content that is displayed under the title, whether the section is open or closed."
+          },
+          "widgetId": "richTextEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "content",
+          "settings": {
+            "helpText": "The section content that is only visible when the section is open."
+          },
+          "widgetId": "richTextEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
     }
   ],
   "entries": [
@@ -1996,7 +2505,7 @@
         "id": "1KC8dVK5fYMNvb7vPqaUYP",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:25.584Z",
-        "updatedAt": "2021-12-16T15:58:04.965Z",
+        "updatedAt": "2022-01-26T15:16:16.026Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -2004,8 +2513,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 14,
-        "publishedAt": "2021-12-16T15:58:04.965Z",
+        "publishedVersion": 34,
+        "publishedAt": "2022-01-26T15:16:16.026Z",
         "firstPublishedAt": "2021-11-29T14:35:29.696Z",
         "createdBy": {
           "sys": {
@@ -2021,8 +2530,8 @@
             "id": "17EKu6CdcxDO3oCMOU7xw7"
           }
         },
-        "publishedCounter": 4,
-        "version": 15,
+        "publishedCounter": 8,
+        "version": 35,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -2104,7 +2613,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Helps you increase your capacity and productivity whilst developing a loyal and talented workforce",
+                    "value": "Provides a stepping stone for your future apprentices or employees to gain valuable skills relevant to your business. \n",
                     "nodeType": "text"
                   }
                 ],
@@ -2366,7 +2875,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Employers must provide:",
+                    "value": "Employers need to provide:",
                     "nodeType": "text"
                   }
                 ],
@@ -2522,7 +3031,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Traineeships have seen big increases as businesses recover from the pandemic and are expected to double to around 40,000 per year.",
+                    "value": "Traineeships can benefit your business by:",
                     "nodeType": "text"
                   }
                 ],
@@ -2535,9 +3044,104 @@
                   {
                     "data": {
                     },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "\rproviding a stepping-stone for your future apprentices\r",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "allowing you to test out a new position in your business without committing to full time hires\r",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "helping your business attract a new generation of talent\r",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "offering financial incentives of up to £1,000 per trainee",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  }
+                ],
+                "nodeType": "unordered-list"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
                     "marks": [
                     ],
-                    "value": "\rIncentive payments are available for businesses offering traineeship work placements.\n\nFind out ",
+                    "value": "Find out ",
                     "nodeType": "text"
                   },
                   {
@@ -2562,6 +3166,21 @@
                     "marks": [
                     ],
                     "value": ".",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
                     "nodeType": "text"
                   }
                 ],
@@ -2946,7 +3565,7 @@
         "id": "28pcyrQCHGNfDXYQjRqan",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:25.816Z",
-        "updatedAt": "2022-01-06T16:10:05.202Z",
+        "updatedAt": "2022-02-11T16:34:19.917Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -2954,8 +3573,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 8,
-        "publishedAt": "2022-01-06T16:10:05.202Z",
+        "publishedVersion": 96,
+        "publishedAt": "2022-02-11T16:34:19.917Z",
         "firstPublishedAt": "2021-11-29T14:35:30.014Z",
         "createdBy": {
           "sys": {
@@ -2971,8 +3590,8 @@
             "id": "7dYxUVTD7eDpB5ejE8uItu"
           }
         },
-        "publishedCounter": 3,
-        "version": 9,
+        "publishedCounter": 12,
+        "version": 97,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -3006,7 +3625,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Flexible work and training courses for aged 19 and over to fast-track specialist skill development, for existing or new talent for your business.",
+                    "value": "Flexible training courses for aged 19 and over to fast-track specialist skill development, for existing or new talent for your business.",
                     "nodeType": "text"
                   }
                 ],
@@ -3030,7 +3649,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "No cost unless self-employed",
+                    "value": "Cost is dependent on the size of your business. There is no cost to the employer if the learner is not currently employed by you.",
                     "nodeType": "text"
                   }
                 ],
@@ -3054,7 +3673,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Helps future-proof your business in a rapidly changing labour market and recruit staff with the right training and skills from the outset",
+                    "value": " A new starter will be trained in a specialist skill specific to your business and be highly motivated by a guaranteed an interview afterwards.\n\n",
                     "nodeType": "text"
                   }
                 ],
@@ -3078,7 +3697,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "12 to 16-weeks",
+                    "value": "up to 16-weeks",
                     "nodeType": "text"
                   }
                 ],
@@ -3105,7 +3724,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Skills Bootcamps offer free, flexible courses of up to 16 weeks for adults aged 19 or over and who are either in work, self-employed, recently unemployed or returning to work after a break.",
+                    "value": "Skills Bootcamps are free, flexible courses of up to 16 weeks for adults aged 19 or over. They give people the opportunity to build up valuable sector-specific skills based on local employer demand and provide a direct path to a job on completion. ",
                     "nodeType": "text"
                   }
                 ],
@@ -3120,7 +3739,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "They give people the opportunity to build up valuable sector-specific skills based on local employer demand in areas including digital, construction and green skills.",
+                    "value": "Skills Bootcamps are primarily aimed at delivering flexible training at levels 3-5 (medium to higher level technical skills) and are co-designed with employers to respond to their skills shortages. ",
                     "nodeType": "text"
                   }
                 ],
@@ -3135,7 +3754,283 @@
                     },
                     "marks": [
                     ],
-                    "value": "They provide a direct path to a job on completion.",
+                    "value": "This training is for adults who are either in work, self-employed, recently unemployed or returning to work after a break. Skills Bootcamps are also open to serving prisoners due to be released within 6 months of completing a Skills Bootcamp and those on temporary release.\n",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Skills Bootcamps are available in:",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "digital courses such as digital marketing or coding",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "technical training in skills like engineering or welding",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "green skills like solar energy",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "construction",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "logistics\n(HGV driving)",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  }
+                ],
+                "nodeType": "unordered-list"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Employers can work with providers to develop and deliver Skills Bootcamps to help them fill skill shortage vacancies. Employers can also apply to be a part of the Skills Bootcamp programme if the model suits their business need. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Invitation to Tender for the further procurement of Skills Bootcamps during FY22/23 (Wave\n3) is now live and can be accessed here: ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://www.contractsfinder.service.gov.uk/Notice/6e5dce5a-c772-4e75-ab9c-d6bd5da0f878"
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "marks": [
+                        ],
+                        "value": "Call for competition: Wave 3 Skills Bootcamps Procurement consisting of 7 defined Lots - Contracts Finder",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "\n\n\n\n\n\n\n\n",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": ". ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "\n\n\n\n\n\n\n\n\n\n",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "\n\n\n\n\n\n\n\n\n\n",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
                     "nodeType": "text"
                   }
                 ],
@@ -3159,7 +4054,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Employers who want to use Skills Bootcamps for their existing employees contribute 30% of the cost.",
+                    "value": "There is no cost to employers who want to get\ninvolved in co-designing Skills Bootcamps to recruit new employees. ",
                     "nodeType": "text"
                   }
                 ],
@@ -3174,7 +4069,37 @@
                     },
                     "marks": [
                     ],
-                    "value": "Existing employees may need time to study and attend classes depending on their working hours and status and the flexibility of the course.",
+                    "value": "Employers who want to use Skills Bootcamps for\ntheir existing employees contribute 30% of the cost if they are a large\nemployer, or 10% if they are a small to medium employer (SME). ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Existing employees may need time to study and\nattend classes depending on their working hours and status and the flexibility\nof the course.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "\n\n\n\n\n\n",
                     "nodeType": "text"
                   }
                 ],
@@ -3198,7 +4123,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Employers must provide:",
+                    "value": "Employers need to provide:",
                     "nodeType": "text"
                   }
                 ],
@@ -3332,7 +4257,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "They help you:",
+                    "value": "They help your business:",
                     "nodeType": "text"
                   }
                 ],
@@ -3355,7 +4280,7 @@
                             },
                             "marks": [
                             ],
-                            "value": "develop a loyal and talented workforce with the skills you need",
+                            "value": "develop a loyal and talented workforce with the skills you need quickly",
                             "nodeType": "text"
                           }
                         ],
@@ -3443,7 +4368,7 @@
                             },
                             "marks": [
                             ],
-                            "value": "get access to a pipeline of skilled adults at no cost by working with existing Skills Bootcamp providers ",
+                            "value": "get access to a pipeline of skilled adults by working with existing Skills Bootcamp providers ",
                             "nodeType": "text"
                           }
                         ],
@@ -3692,7 +4617,7 @@
         "id": "6pHHPXKaSNyGmGNGWqOB26",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:25.933Z",
-        "updatedAt": "2022-01-06T16:06:40.108Z",
+        "updatedAt": "2022-01-19T16:38:05.795Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -3700,8 +4625,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 17,
-        "publishedAt": "2022-01-06T16:06:40.108Z",
+        "publishedVersion": 39,
+        "publishedAt": "2022-01-19T16:38:05.795Z",
         "firstPublishedAt": "2021-11-29T14:35:29.383Z",
         "createdBy": {
           "sys": {
@@ -3717,8 +4642,8 @@
             "id": "7dYxUVTD7eDpB5ejE8uItu"
           }
         },
-        "publishedCounter": 7,
-        "version": 18,
+        "publishedCounter": 9,
+        "version": 40,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -3800,7 +4725,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Industry placements can save on many of the costs associated with recruitment",
+                    "value": "Allows you to grow your workforce in the short-term with little or no cost and scout future talent in your area.\r\n",
                     "nodeType": "text"
                   }
                 ],
@@ -3929,7 +4854,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Employers must provide:",
+                    "value": "Employers need to provide:",
                     "nodeType": "text"
                   }
                 ],
@@ -4100,22 +5025,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Incentive payments are available for every T Level student a business hosts on a high-quality industry placement.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              },
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "T Levels can support:",
+                    "value": "T Levels can support your business:",
                     "nodeType": "text"
                   }
                 ],
@@ -4138,7 +5048,7 @@
                             },
                             "marks": [
                             ],
-                            "value": "you to build a pipeline of entry-level positions",
+                            "value": "you to build a pipeline of entry-level positions with £1,000 incentive payments for employers hosting placements between 27 May 2021 and 31 July 2022",
                             "nodeType": "text"
                           }
                         ],
@@ -4160,7 +5070,7 @@
                             },
                             "marks": [
                             ],
-                            "value": "the next generation of workers entering your industry to succeed",
+                            "value": "evaluate future talent",
                             "nodeType": "text"
                           }
                         ],
@@ -4182,7 +5092,7 @@
                             },
                             "marks": [
                             ],
-                            "value": "you with recruitment, improve innovation and increase your organisation’s productivity",
+                            "value": "with recruitment, improve innovation and increase your organisation’s productivity",
                             "nodeType": "text"
                           }
                         ],
@@ -4204,7 +5114,7 @@
                             },
                             "marks": [
                             ],
-                            "value": "you to fill skills shortages ",
+                            "value": "to fill skills shortages ",
                             "nodeType": "text"
                           }
                         ],
@@ -4226,7 +5136,7 @@
                             },
                             "marks": [
                             ],
-                            "value": "your local community and improve diversity",
+                            "value": "to support your local community and improve diversity",
                             "nodeType": "text"
                           }
                         ],
@@ -4248,7 +5158,7 @@
                             },
                             "marks": [
                             ],
-                            "value": "your existing staff gain management and mentoring skills",
+                            "value": "to provide existing staff gain management and mentoring skills",
                             "nodeType": "text"
                           }
                         ],
@@ -4524,7 +5434,7 @@
         "id": "5EB80Hvm6Xql7NR56k9Msu",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:26.631Z",
-        "updatedAt": "2021-12-16T16:02:10.358Z",
+        "updatedAt": "2022-01-19T16:33:51.354Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -4532,8 +5442,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 10,
-        "publishedAt": "2021-12-16T16:02:10.358Z",
+        "publishedVersion": 14,
+        "publishedAt": "2022-01-19T16:33:51.354Z",
         "firstPublishedAt": "2021-11-29T14:35:30.920Z",
         "createdBy": {
           "sys": {
@@ -4546,16 +5456,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "17EKu6CdcxDO3oCMOU7xw7"
+            "id": "7dYxUVTD7eDpB5ejE8uItu"
           }
         },
-        "publishedCounter": 3,
-        "version": 11,
+        "publishedCounter": 5,
+        "version": 15,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "17EKu6CdcxDO3oCMOU7xw7"
+            "id": "7dYxUVTD7eDpB5ejE8uItu"
           }
         },
         "contentType": {
@@ -4746,7 +5656,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Employers must provide:",
+                    "value": "Employers will provide:",
                     "nodeType": "text"
                   }
                 ],
@@ -5792,7 +6702,7 @@
         "id": "4c6ZO0uPEfZ2SkNXwyI5Yz",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:26.651Z",
-        "updatedAt": "2021-12-13T10:58:31.162Z",
+        "updatedAt": "2022-01-20T11:44:35.602Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -5800,8 +6710,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 7,
-        "publishedAt": "2021-12-13T10:58:31.162Z",
+        "publishedVersion": 17,
+        "publishedAt": "2022-01-20T11:44:35.602Z",
         "firstPublishedAt": "2021-11-29T14:35:30.626Z",
         "createdBy": {
           "sys": {
@@ -5814,16 +6724,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "4pVUkUPNV3AY8fZRIusvyB"
+            "id": "7dYxUVTD7eDpB5ejE8uItu"
           }
         },
-        "publishedCounter": 3,
-        "version": 8,
+        "publishedCounter": 6,
+        "version": 18,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "4pVUkUPNV3AY8fZRIusvyB"
+            "id": "7dYxUVTD7eDpB5ejE8uItu"
           }
         },
         "contentType": {
@@ -5852,7 +6762,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "An unpaid 6 to 12-month work placement for 16 to 24-year-olds with additional needs supported by a qualified job coach.",
+                    "value": "An unpaid 6 to 12-month work placement for 16 to 24-year-olds with additional needs, including Special Educational Needs and Disabilities (SEND), supported by a qualified job coach.",
                     "nodeType": "text"
                   }
                 ],
@@ -5900,7 +6810,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Allows you to shape a job role that suits your business and the needs of the supported intern and increases your confidence of employing individuals with additional needs",
+                    "value": "Increases your confidence and ability to employ individuals with additional needs, improving and expanding your business’ recruitment prospects.",
                     "nodeType": "text"
                   }
                 ],
@@ -6083,7 +6993,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Employers must provide:",
+                    "value": "Employers provide:",
                     "nodeType": "text"
                   }
                 ],
@@ -6482,467 +7392,10 @@
             "id": "082i50qdtar9"
           }
         },
-        "id": "2Kn1cdzTF9hZ8P9worrvwI",
-        "type": "Entry",
-        "createdAt": "2021-11-29T14:35:26.665Z",
-        "updatedAt": "2022-01-06T16:12:13.348Z",
-        "environment": {
-          "sys": {
-            "id": "master",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "publishedVersion": 8,
-        "publishedAt": "2022-01-06T16:12:13.348Z",
-        "firstPublishedAt": "2021-11-29T14:35:31.866Z",
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "4pVUkUPNV3AY8fZRIusvyB"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
-          }
-        },
-        "publishedCounter": 3,
-        "version": 9,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
-          }
-        },
-        "contentType": {
-          "sys": {
-            "type": "Link",
-            "linkType": "ContentType",
-            "id": "scheme"
-          }
-        }
-      },
-      "fields": {
-        "name": {
-          "en-US": "Higher Technical Qualifications (HTQs)"
-        },
-        "shortDescription": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "Level 4 or 5 qualifications, for those 18 and over, with no work placement but flexible for employees to study while working.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "shortCost": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "Free government scheme but you may have your own business costs",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "shortBenefits": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "Developed by employers to upskill existing employees, provide a different recruitment pool to hire new talent and help your company succeed",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "shortTime": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "1 to 2 years",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "url": {
-          "en-US": "higher-technical-qualifications"
-        },
-        "description": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships and degrees.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              },
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "They are:",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              },
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "content": [
-                      {
-                        "data": {
-                        },
-                        "content": [
-                          {
-                            "data": {
-                            },
-                            "marks": [
-                            ],
-                            "value": "new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)",
-                            "nodeType": "text"
-                          }
-                        ],
-                        "nodeType": "paragraph"
-                      }
-                    ],
-                    "nodeType": "list-item"
-                  },
-                  {
-                    "data": {
-                    },
-                    "content": [
-                      {
-                        "data": {
-                        },
-                        "content": [
-                          {
-                            "data": {
-                            },
-                            "marks": [
-                            ],
-                            "value": "approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards",
-                            "nodeType": "text"
-                          }
-                        ],
-                        "nodeType": "paragraph"
-                      }
-                    ],
-                    "nodeType": "list-item"
-                  }
-                ],
-                "nodeType": "unordered-list"
-              },
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              },
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "cost": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "You may choose to pay for an employee to undertake a HTQ. Costs will vary depending on the course and provider.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "responsibility": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "Most HTQs do not require an in-work placement.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "benefits": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "HTQs have been developed by employers and awarding bodies to help you upskill existing employees and provide a different recruitment pool to hire new talent.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              },
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "They help your workforce have the right knowledge, skills and behaviours for your company to succeed.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "offerHeader": {
-          "en-US": "Offer HTQs"
-        },
-        "offer": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {
-                      "uri": "https://www.gov.uk/guidance/htqs"
-                    },
-                    "content": [
-                      {
-                        "data": {
-                        },
-                        "marks": [
-                        ],
-                        "value": "Learn more and get started with HTQs",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
-                  },
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": ".",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "motivationsFilterAspects": {
-          "en-US": [
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "5d15DvwavKxJAVCdNwXy3D"
-              }
-            }
-          ]
-        },
-        "schemeLengthFilterAspects": {
-          "en-US": [
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "qJ5WXof1ShSTOqhPdwSou"
-              }
-            }
-          ]
-        },
-        "payFilterAspects": {
-          "en-US": [
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "bkfb6QmwqtKxSiAs2cP3B"
-              }
-            }
-          ]
-        },
-        "size": {
-          "en-US": -500
-        }
-      }
-    },
-    {
-      "metadata": {
-        "tags": [
-        ]
-      },
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "082i50qdtar9"
-          }
-        },
         "id": "6YMOVJcUS66vdhyP4q9CAs",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:26.665Z",
-        "updatedAt": "2022-01-05T15:51:47.670Z",
+        "updatedAt": "2022-02-15T10:02:30.727Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -6950,8 +7403,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 11,
-        "publishedAt": "2022-01-05T15:51:47.670Z",
+        "publishedVersion": 64,
+        "publishedAt": "2022-02-15T10:02:30.727Z",
         "firstPublishedAt": "2021-11-29T14:35:32.181Z",
         "createdBy": {
           "sys": {
@@ -6964,16 +7417,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "4pVUkUPNV3AY8fZRIusvyB"
+            "id": "7dYxUVTD7eDpB5ejE8uItu"
           }
         },
-        "publishedCounter": 5,
-        "version": 12,
+        "publishedCounter": 14,
+        "version": 65,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "4pVUkUPNV3AY8fZRIusvyB"
+            "id": "7dYxUVTD7eDpB5ejE8uItu"
           }
         },
         "contentType": {
@@ -7050,7 +7503,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "You develop a motivated, skilled and qualified workforce",
+                    "value": "You develop a motivated, skilled and qualified workforce with knowledge of your business",
                     "nodeType": "text"
                   }
                 ],
@@ -7146,7 +7599,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Your apprentice must:",
+                    "value": "Apprentices:",
                     "nodeType": "text"
                   }
                 ],
@@ -7258,7 +7711,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "You must pay apprentices ",
+                    "value": "Apprentices are paid ",
                     "nodeType": "text"
                   },
                   {
@@ -7321,7 +7774,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Employers must provide:",
+                    "value": "Employers need to provide:",
                     "nodeType": "text"
                   }
                 ],
@@ -7453,7 +7906,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Employers must also have:",
+                    "value": "Employers need to have:",
                     "nodeType": "text"
                   }
                 ],
@@ -7521,7 +7974,95 @@
                     },
                     "marks": [
                     ],
-                    "value": "Incentive payments are available for each apprentice a business takes on as a new employee.\r\n",
+                    "value": "Apprenticeships can benefit your business by:",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "\rdeveloping a workforce with skills specific to your business\r",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "allowing existing employees to pass on their knowledge with your next generation of employees\r",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "providing you with a motivated and fast-developing workforce",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  }
+                ],
+                "nodeType": "unordered-list"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "\r",
                     "nodeType": "text"
                   }
                 ],
@@ -7584,54 +8125,6 @@
                     },
                     "marks": [
                     ],
-                    "value": "Read about ",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {
-                      "uri": "https://www.apprenticeships.gov.uk/employers/real-stories-employers"
-                    },
-                    "content": [
-                      {
-                        "data": {
-                        },
-                        "marks": [
-                        ],
-                        "value": "how businesses are using incentive payments to hire apprentices",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
-                  },
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": ".",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "caseStudiesPreamble": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
                     "value": "Read how other businesses have used an apprenticeship scheme",
                     "nodeType": "text"
                   }
@@ -7649,6 +8142,20 @@
                 "type": "Link",
                 "linkType": "Entry",
                 "id": "4I3FDDLhg7tAVuOP5CLvGZ"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "6gfMgPA6rNHg9z2Moq6nxm"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "42ugZj8YTk3YTThGh4KrhZ"
               }
             }
           ]
@@ -7807,6 +8314,165 @@
         },
         "size": {
           "en-US": 403000
+        },
+        "additionalFooter": {
+          "en-US": {
+            "data": {
+            },
+            "content": [
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "value": "Scotland, Wales and Northern Ireland",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "If you’re an employer, you can contact the:",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://www.apprenticeships.scot/"
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "marks": [
+                        ],
+                        "value": "Apprenticeship authority in Scotland",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://businesswales.gov.wales/skillsgateway/apprenticeships"
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "marks": [
+                        ],
+                        "value": "Apprenticeship authority in Wales",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://www.nidirect.gov.uk/campaigns/apprenticeships"
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "marks": [
+                        ],
+                        "value": "Apprenticeship authority in Northern Ireland",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
         }
       }
     },
@@ -7826,7 +8492,7 @@
         "id": "4JUzFMHxOugZ7iaAaTR8LE",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:26.702Z",
-        "updatedAt": "2022-01-06T16:11:27.470Z",
+        "updatedAt": "2022-01-19T16:33:41.240Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -7834,8 +8500,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 7,
-        "publishedAt": "2022-01-06T16:11:27.470Z",
+        "publishedVersion": 15,
+        "publishedAt": "2022-01-19T16:33:41.240Z",
         "firstPublishedAt": "2021-11-29T14:35:31.230Z",
         "createdBy": {
           "sys": {
@@ -7851,8 +8517,8 @@
             "id": "7dYxUVTD7eDpB5ejE8uItu"
           }
         },
-        "publishedCounter": 3,
-        "version": 8,
+        "publishedCounter": 5,
+        "version": 16,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -7934,7 +8600,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Helping prisoners and prison leavers find employment",
+                    "value": "Access a workforce that is highly motivated to grow through work",
                     "nodeType": "text"
                   }
                 ],
@@ -8074,7 +8740,7 @@
                             },
                             "marks": [
                             ],
-                            "value": "transform prison leavers lives",
+                            "value": "transform prison leavers' lives",
                             "nodeType": "text"
                           }
                         ],
@@ -8167,7 +8833,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Employers must provide:",
+                    "value": "Employers need to provide:",
                     "nodeType": "text"
                   }
                 ],
@@ -8490,1313 +9156,6 @@
             "id": "082i50qdtar9"
           }
         },
-        "id": "2wNANLVwtGMNIvIJjFfqQK",
-        "type": "Entry",
-        "createdAt": "2021-11-29T14:35:26.760Z",
-        "updatedAt": "2022-01-06T16:14:22.024Z",
-        "environment": {
-          "sys": {
-            "id": "master",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "publishedVersion": 33,
-        "publishedAt": "2022-01-06T11:09:44.347Z",
-        "firstPublishedAt": "2021-11-29T14:35:31.553Z",
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "4pVUkUPNV3AY8fZRIusvyB"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "2xtrVfHbvHb45HT1DhKYqH"
-          }
-        },
-        "publishedCounter": 3,
-        "version": 36,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "41EYmms4dbiOF2g9WoeruT"
-          }
-        },
-        "contentType": {
-          "sys": {
-            "type": "Link",
-            "linkType": "ContentType",
-            "id": "scheme"
-          }
-        }
-      },
-      "fields": {
-        "name": {
-          "en-US": "Training outside of employment"
-        },
-        "shortDescription": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "Additional ways to train up existing employees through free qualifications, career advice and financial support.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "shortCost": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "Courses are fully funded for eligible adults but employees may need time to study and attend classes",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "shortBenefits": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "Help improve productivity, and develop a loyal and talented workforce in a rapidly changing labour market",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "shortTime": {
-          "en-US": {
-            "data": {
-            },
-            "content": [
-              {
-                "data": {
-                },
-                "content": [
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": "Length of time can vary",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "document"
-          }
-        },
-        "url": {
-          "en-US": "training-outside-of-employment"
-        },
-        "detailsPageOverride": {
-          "en-US": {
-            "nodeType": "document",
-            "data": {
-            },
-            "content": [
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Career advice, free level 3 qualifications, and financial support for level 4 and 5 qualifications are all available through Government initiatives for your workforce.",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "heading-2",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Basic skills (English, maths and digital)",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Free English, maths, digital courses and qualifications for adults. ",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "heading-2",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "\nEnglish and maths entitlement",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "In England, any adult who does not already have a level 2 qualification (GCSE grade 4 or equivalent) in English or maths is legally entitled to fully funded study up to level 2. ",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Your workforce gets the potential to progress and your business increases its productivity.",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "heading-2",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "\n\nEnglish for Speakers of Other Languages (ESOL)",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Adults can be fully or part-funded to study for ESOL qualifications from entry-level to level 2. ",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "ESOL improves English language skills which provides a clear return for individuals and the economy. ",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Full-funding is available through the Adult Education Budget (AEB) if individuals:",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "unordered-list",
-                "content": [
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "are unemployed, looking for work and in receipt of certain benefits",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "in low-wage employment ",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Some AEB-eligible learners can have up to 50% of the course cost paid for through a Government contribution.",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "In 9 Mayoral Combined Authorities (MCAs), AEB funding is allocated locally as well as in the Greater London Authority (GLA). Therefore in these areas, eligibility may differ.\n\n",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "heading-2",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Digital entitlement",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Any adult with low digital skills is entitled to fully funded essential digital skills qualifications, at entry-level and level 1. These equip adults with the full range of essential digital skills needed for life, work and further study. ",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Funding for other digital skills qualifications may also be available but this will depend on local training providers.",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "heading-2",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "\nBenefits of free basic skills qualifications ",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "\r\nWithout your business needing to fund the training, they help you:",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "unordered-list",
-                "content": [
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "develop the talent pool in your business",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "ensure your entire workforce is digitally literate ",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "ensure your workforce has the English, maths and digital skills they need ",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "progress your current employees into higher skilled roles",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "offer free qualifications to adults",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "heading-2",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Free qualifications for adults",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "hyperlink",
-                    "content": [
-                      {
-                        "nodeType": "text",
-                        "value": "Free level 3 qualifications",
-                        "marks": [
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                      "uri": "https://www.gov.uk/guidance/free-courses-for-jobs"
-                    }
-                  },
-                  {
-                    "nodeType": "text",
-                    "value": " are government-funded courses for any adult aged 19 and over, who are looking to achieve their first full level 3 qualification or earning below national minimum wage.",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Without needing to fund the training yourself, they help you:",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "unordered-list",
-                "content": [
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "develop the talent pool in your business",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "progress your current employees into higher skilled roles",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "The ",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "hyperlink",
-                    "content": [
-                      {
-                        "nodeType": "text",
-                        "value": "Free Courses for jobs",
-                        "marks": [
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                      "uri": "https://www.gov.uk/guidance/free-courses-for-jobs"
-                    }
-                  },
-                  {
-                    "nodeType": "text",
-                    "value": " offer and the qualification list has been developed with industry, and will be regularly reviewed. ",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "heading-3",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Benefits of free level 3 qualifications",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Read the ",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "hyperlink",
-                    "content": [
-                      {
-                        "nodeType": "text",
-                        "value": "LinkedIn Workplace Learning",
-                        "marks": [
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                      "uri": "https://learning.linkedin.com/content/dam/me/business/en-us/amp/learning-solutions/images/workplace-learning-report-2019/pdf/workplace-learning-report-2019.pdf"
-                    }
-                  },
-                  {
-                    "nodeType": "text",
-                    "value": " report 2019 for information on developing a loyal and talented workforce.",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "blockquote",
-                "content": [
-                  {
-                    "nodeType": "paragraph",
-                    "content": [
-                      {
-                        "nodeType": "text",
-                        "value": "Offer free qualifications to adults",
-                        "marks": [
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "paragraph",
-                    "content": [
-                      {
-                        "nodeType": "text",
-                        "value": "Upskill your workforce by helping your employees ",
-                        "marks": [
-                        ],
-                        "data": {
-                        }
-                      },
-                      {
-                        "nodeType": "hyperlink",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "find a free level 3 qualification",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                          "uri": "https://www.gov.uk/government/publications/find-a-free-level-3-qualification"
-                        }
-                      },
-                      {
-                        "nodeType": "text",
-                        "value": ".",
-                        "marks": [
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "heading-2",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "National Careers Service",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "The National Careers Service can help you:",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "unordered-list",
-                "content": [
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "explore work and skills opportunities for your workforce including those offered as part of the skills recovery package.",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "carry out skills needs analysis for your business to understand gaps and find solutions.",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "find skilled people to fill current vacancies in your organisation.",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "heading-3",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Employer costs",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "The National Careers Service is free to use.",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "heading-3",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "Benefits of National Careers Service",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "The National Careers Service can help you:",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "unordered-list",
-                "content": [
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "futureproof your business for the future labour market",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "help to develop your current workforce and supplement with talented individuals who have the skills you need",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "increase your resilience and productivity",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "list-item",
-                    "content": [
-                      {
-                        "nodeType": "paragraph",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "take part in national virtual jobs fairs",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "blockquote",
-                "content": [
-                  {
-                    "nodeType": "paragraph",
-                    "content": [
-                      {
-                        "nodeType": "text",
-                        "value": "Use the National Careers Service to support your workforce",
-                        "marks": [
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  },
-                  {
-                    "nodeType": "paragraph",
-                    "content": [
-                      {
-                        "nodeType": "text",
-                        "value": "Find out more about the ",
-                        "marks": [
-                        ],
-                        "data": {
-                        }
-                      },
-                      {
-                        "nodeType": "hyperlink",
-                        "content": [
-                          {
-                            "nodeType": "text",
-                            "value": "National Careers Service and how to contact them",
-                            "marks": [
-                            ],
-                            "data": {
-                            }
-                          }
-                        ],
-                        "data": {
-                          "uri": "https://nationalcareers.service.gov.uk/"
-                        }
-                      },
-                      {
-                        "nodeType": "text",
-                        "value": ".",
-                        "marks": [
-                        ],
-                        "data": {
-                        }
-                      }
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              },
-              {
-                "nodeType": "paragraph",
-                "content": [
-                  {
-                    "nodeType": "text",
-                    "value": "",
-                    "marks": [
-                    ],
-                    "data": {
-                    }
-                  }
-                ],
-                "data": {
-                }
-              }
-            ]
-          }
-        },
-        "offerHeader": {
-          "en-US": "How to offer"
-        },
-        "motivationsFilterAspects": {
-          "en-US": [
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "4y7ulNISz3LSOL7CRb9zGO"
-              }
-            },
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "chkbJWBuT28eUxOZu6MEu"
-              }
-            },
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "5d15DvwavKxJAVCdNwXy3D"
-              }
-            }
-          ]
-        },
-        "schemeLengthFilterAspects": {
-          "en-US": [
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "qJ5WXof1ShSTOqhPdwSou"
-              }
-            },
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "4pILEC7IgjhmbRGf9cMYXb"
-              }
-            },
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "3Y1jSQmh3ADhlXJRA1X2tC"
-              }
-            }
-          ]
-        },
-        "payFilterAspects": {
-          "en-US": [
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "1dYxDk5G2rWyLZb2XFk5Ox"
-              }
-            },
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "bkfb6QmwqtKxSiAs2cP3B"
-              }
-            }
-          ]
-        },
-        "size": {
-          "en-US": -1000
-        }
-      }
-    },
-    {
-      "metadata": {
-        "tags": [
-        ]
-      },
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "082i50qdtar9"
-          }
-        },
         "id": "4t8Ke4Jt00yG0zZWhbN6oe",
         "type": "Entry",
         "createdAt": "2021-12-06T11:15:08.732Z",
@@ -10071,7 +9430,7 @@
         "id": "3klMS4bzzPiFRl65ZNKM5D",
         "type": "Entry",
         "createdAt": "2021-12-08T11:46:01.545Z",
-        "updatedAt": "2021-12-14T15:31:20.524Z",
+        "updatedAt": "2022-01-18T10:41:03.269Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -10079,8 +9438,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 33,
-        "publishedAt": "2021-12-14T15:31:20.524Z",
+        "publishedVersion": 45,
+        "publishedAt": "2022-01-18T10:41:03.269Z",
         "firstPublishedAt": "2021-12-08T14:24:15.362Z",
         "createdBy": {
           "sys": {
@@ -10096,8 +9455,8 @@
             "id": "17EKu6CdcxDO3oCMOU7xw7"
           }
         },
-        "publishedCounter": 2,
-        "version": 34,
+        "publishedCounter": 5,
+        "version": 46,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -10115,10 +9474,10 @@
       },
       "fields": {
         "title": {
-          "en-US": "Cookies"
+          "en-US": "AnalyticsCookies"
         },
         "url": {
-          "en-US": "cookies"
+          "en-US": "analyticscookies"
         },
         "content": {
           "en-US": {
@@ -11216,7 +10575,7 @@
         "id": "4I3FDDLhg7tAVuOP5CLvGZ",
         "type": "Entry",
         "createdAt": "2022-01-05T15:47:43.723Z",
-        "updatedAt": "2022-01-05T15:51:06.196Z",
+        "updatedAt": "2022-01-18T15:09:56.995Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -11224,8 +10583,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 22,
-        "publishedAt": "2022-01-05T15:51:06.196Z",
+        "publishedVersion": 25,
+        "publishedAt": "2022-01-18T15:09:56.995Z",
         "firstPublishedAt": "2022-01-05T15:51:06.196Z",
         "createdBy": {
           "sys": {
@@ -11238,16 +10597,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "4pVUkUPNV3AY8fZRIusvyB"
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
           }
         },
-        "publishedCounter": 1,
-        "version": 23,
+        "publishedCounter": 2,
+        "version": 26,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "4pVUkUPNV3AY8fZRIusvyB"
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
           }
         },
         "contentType": {
@@ -11294,7 +10653,7 @@
                 "content": [
                   {
                     "nodeType": "text",
-                    "value": "We plan...",
+                    "value": "We plan to continue to offer apprenticeship opportunities in 2021 and will be recruiting for the role of Customer Experience Assistant to work at the new stations in the Crossrail tunnel, and we will also be using the new 'Redundancy Support Service for Apprentices', who have been made redundant, for future apprenticeship opportunities, supporting those that have lost their job and giving them a new start.",
                     "marks": [
                     ],
                     "data": {
@@ -11328,12 +10687,1893 @@
                       }
                     ],
                     "data": {
-                      "uri": "https://example.com"
+                      "uri": "https://www.gov.uk/government/case-studies/how-employers-are-making-the-most-of-apprenticeship-incentives"
                     }
                   },
                   {
                     "nodeType": "text",
                     "value": "",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "775btO9shcMZurVbepJuCH",
+        "type": "Entry",
+        "createdAt": "2022-01-18T10:39:25.357Z",
+        "updatedAt": "2022-01-18T10:40:29.598Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 5,
+        "publishedAt": "2022-01-18T10:40:29.598Z",
+        "firstPublishedAt": "2022-01-18T10:40:29.598Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 6,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "page"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "MarketingCookies"
+        },
+        "url": {
+          "en-US": "marketingcookies"
+        },
+        "content": {
+          "en-US": {
+            "nodeType": "document",
+            "data": {
+            },
+            "content": [
+              {
+                "nodeType": "heading-2",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Cookies that help with our communications and marketing",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Some of our pages may contain content from other sites, like YouTube, which may set their own cookies. These sites are sometimes called 'third party' services. This tells us how many people are seeing the content and whether it's useful.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "We also share information about your use of our pages with our social media and advertising partners (for example, Facebook) to help us improve the relevancy of advertising campaigns you receive from us.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "They may set cookies that you can turn off. Find out more about how to ",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  },
+                  {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "turn off these cookies",
+                        "marks": [
+                        ],
+                        "data": {
+                        }
+                      }
+                    ],
+                    "data": {
+                      "uri": "https://ico.org.uk/your-data-matters/online/cookies/"
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": ".",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "In addition, if you share a link to one of our pages, the service you share it on (for example, Facebook) may set a cookie. We have no control over cookies set on other websites - you can turn them off, but not through us.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "6gfMgPA6rNHg9z2Moq6nxm",
+        "type": "Entry",
+        "createdAt": "2022-01-18T15:11:37.008Z",
+        "updatedAt": "2022-01-18T15:13:03.435Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 5,
+        "publishedAt": "2022-01-18T15:13:03.435Z",
+        "firstPublishedAt": "2022-01-18T15:13:03.435Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 6,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "caseStudy"
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "en-US": "Apprenticeships - employer"
+        },
+        "displayTitle": {
+          "en-US": "Smith & Williamson"
+        },
+        "description": {
+          "en-US": {
+            "nodeType": "document",
+            "data": {
+            },
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Smith & Williamson is among the ten largest firms of accountants in the UK. With a workforce of 1800, Smith and Williamson has 124 apprentices, in roles including Assurance & Business Services, Business Tax and Private Client Tax. The firm merged with Tilney Group in September 2020 and is now part of the Tilney Smith and Williamson Group.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "42ugZj8YTk3YTThGh4KrhZ",
+        "type": "Entry",
+        "createdAt": "2022-01-18T15:13:41.456Z",
+        "updatedAt": "2022-01-18T15:14:52.884Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 7,
+        "publishedAt": "2022-01-18T15:14:52.884Z",
+        "firstPublishedAt": "2022-01-18T15:14:52.884Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "17EKu6CdcxDO3oCMOU7xw7"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "caseStudy"
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "en-US": "Apprenticeships - what is the service video"
+        },
+        "displayTitle": {
+          "en-US": "What is the Apprenticeship service?"
+        },
+        "description": {
+          "en-US": {
+            "nodeType": "document",
+            "data": {
+            },
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/xWUFLAAc4TY\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "1949pQ3SXNCgbedQFgwTsX",
+        "type": "Entry",
+        "createdAt": "2022-02-10T14:01:38.864Z",
+        "updatedAt": "2022-02-10T14:07:13.218Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 15,
+        "publishedAt": "2022-02-10T14:07:13.218Z",
+        "firstPublishedAt": "2022-02-10T14:04:51.547Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 16,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "subScheme"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Higher Technical Qualifications (HTQs)"
+        },
+        "summary": {
+          "en-US": {
+            "data": {
+            },
+            "content": [
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Higher Technical Qualifications (HTQs) are a high-quality addition to technical training routes, alongside apprenticeships, traineeships, and degrees.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        },
+        "content": {
+          "en-US": {
+            "nodeType": "document",
+            "data": {
+            },
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "HTQs have been developed by employers and awarding bodies to help you upskill existing employees and provide a different recruitment pool to hire new talent.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "You can support an employee to undertake an HTQ. The cost is dependent on the course and the provider.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "They are:",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "unordered-list",
+                "content": [
+                  {
+                    "nodeType": "list-item",
+                    "content": [
+                      {
+                        "nodeType": "paragraph",
+                        "content": [
+                          {
+                            "nodeType": "text",
+                            "value": "new and existing Level 4 and 5 qualifications (such as Higher National Diplomas, Foundation Degrees, Diploma Higher Education)",
+                            "marks": [
+                            ],
+                            "data": {
+                            }
+                          }
+                        ],
+                        "data": {
+                        }
+                      }
+                    ],
+                    "data": {
+                    }
+                  },
+                  {
+                    "nodeType": "list-item",
+                    "content": [
+                      {
+                        "nodeType": "paragraph",
+                        "content": [
+                          {
+                            "nodeType": "text",
+                            "value": "approved by the Institute for Apprenticeships and Technical Education, against employer-led occupational standards",
+                            "marks": [
+                            ],
+                            "data": {
+                            }
+                          }
+                        ],
+                        "data": {
+                        }
+                      }
+                    ],
+                    "data": {
+                    }
+                  },
+                  {
+                    "nodeType": "list-item",
+                    "content": [
+                      {
+                        "nodeType": "paragraph",
+                        "content": [
+                          {
+                            "nodeType": "text",
+                            "value": "classroom based and do not require an in-work placement",
+                            "marks": [
+                            ],
+                            "data": {
+                            }
+                          }
+                        ],
+                        "data": {
+                        }
+                      }
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "The first Digital HTQs will be available for teaching from 2022, leading to higher-level occupations like Network Engineer, Software Developer and Data Analyst.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Health and Science and Construction qualifications will be available for teaching from 2023, with a full roll-out of further industrial sectors over a four-year period.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "heading-3",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Offer a HTQ",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  },
+                  {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "Learn more and get started with HTQs.",
+                        "marks": [
+                        ],
+                        "data": {
+                        }
+                      }
+                    ],
+                    "data": {
+                      "uri": "https://www.gov.uk/guidance/htqs"
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "DL52u9krlCFOxEUCLJTbJ",
+        "type": "Entry",
+        "createdAt": "2022-02-10T15:22:08.485Z",
+        "updatedAt": "2022-02-11T11:25:51.101Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 27,
+        "publishedAt": "2022-02-11T11:25:51.101Z",
+        "firstPublishedAt": "2022-02-10T15:27:05.137Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 28,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "scheme"
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "en-US": "Free courses and additional training for your employees"
+        },
+        "shortDescription": {
+          "en-US": {
+            "data": {
+            },
+            "content": [
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Additional ways to train up existing employees through free qualifications, career advice and financial support.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        },
+        "shortCost": {
+          "en-US": {
+            "data": {
+            },
+            "content": [
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Courses are fully funded for eligible adults but employees may need time to study and attend classes",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        },
+        "shortBenefits": {
+          "en-US": {
+            "data": {
+            },
+            "content": [
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Help improve productivity, and develop a loyal and talented workforce in a rapidly changing labour market",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        },
+        "shortTime": {
+          "en-US": {
+            "data": {
+            },
+            "content": [
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Length of time can vary",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        },
+        "url": {
+          "en-US": "free-courses-and-additional-training-for-your-employees"
+        },
+        "description": {
+          "en-US": {
+            "data": {
+            },
+            "content": [
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Free training, financial support and career advice available to your workforce.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Some of the benefits of your employees taking a free course or training outside of employment include:",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "upskilling your existing employees",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "progressing your current employees into higher skilled roles",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "filling vacancies or skill shortages within your business",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "gaining a workforce with the right knowledge, skills, and behaviours for your company to succeed",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  }
+                ],
+                "nodeType": "unordered-list"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        },
+        "subSchemes": {
+          "en-US": [
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "1949pQ3SXNCgbedQFgwTsX"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "eQlIiVtG0Dyffc5KjJWpZ"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "6Tcl5HPWzOH30lYiTLB0J0"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "4GHwWxewCclJw9uvweSWwk"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "1GfrUODrmDCDunTUiC8V2D"
+              }
+            }
+          ]
+        },
+        "offerHeader": {
+          "en-US": "How to offer"
+        },
+        "motivationsFilterAspects": {
+          "en-US": [
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "4y7ulNISz3LSOL7CRb9zGO"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "chkbJWBuT28eUxOZu6MEu"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "5d15DvwavKxJAVCdNwXy3D"
+              }
+            }
+          ]
+        },
+        "schemeLengthFilterAspects": {
+          "en-US": [
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "qJ5WXof1ShSTOqhPdwSou"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "4pILEC7IgjhmbRGf9cMYXb"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "3Y1jSQmh3ADhlXJRA1X2tC"
+              }
+            }
+          ]
+        },
+        "payFilterAspects": {
+          "en-US": [
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "1dYxDk5G2rWyLZb2XFk5Ox"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "bkfb6QmwqtKxSiAs2cP3B"
+              }
+            }
+          ]
+        },
+        "size": {
+          "en-US": -1000
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "eQlIiVtG0Dyffc5KjJWpZ",
+        "type": "Entry",
+        "createdAt": "2022-02-11T11:09:18.615Z",
+        "updatedAt": "2022-02-11T11:13:49.675Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 19,
+        "publishedAt": "2022-02-11T11:13:49.675Z",
+        "firstPublishedAt": "2022-02-11T11:13:49.675Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 20,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "subScheme"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Free training for basic skills (English, maths and digital)"
+        },
+        "summary": {
+          "en-US": {
+            "data": {
+            },
+            "content": [
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Free English, maths, digital courses, and qualifications for adults.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        },
+        "content": {
+          "en-US": {
+            "data": {
+            },
+            "content": [
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "English and maths entitlement",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "heading-3"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "In England, any adult who does not already have a level 2 qualification (GCSE grade 4 or equivalent) in English or maths is legally entitled to fully funded study up to level 2. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Your workforce gets the potential to progress, and your business increases its productivity.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "English for Speakers of Other Languages (ESOL)",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "heading-3"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Adults can be fully or part-funded to study for ESOL qualifications from entry-level to level 2.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "ESOL improves English language skills which provides a clear return for individuals and the economy. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Full-funding is available through the Adult Education Budget (AEB) if individuals:",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "are unemployed, looking for work and in receipt of certain benefits",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {
+                    },
+                    "content": [
+                      {
+                        "data": {
+                        },
+                        "content": [
+                          {
+                            "data": {
+                            },
+                            "marks": [
+                            ],
+                            "value": "in low-wage employment ",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  }
+                ],
+                "nodeType": "unordered-list"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Some AEB-eligible learners can have up to 50% of the course cost paid for through a Government contribution.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "In 9 Mayoral Combined Authorities (MCAs), AEB funding is allocated locally as well as in the Greater London Authority (GLA). Therefore, in these areas, eligibility may differ. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "6Tcl5HPWzOH30lYiTLB0J0",
+        "type": "Entry",
+        "createdAt": "2022-02-11T11:19:11.587Z",
+        "updatedAt": "2022-02-11T11:20:27.354Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 6,
+        "publishedAt": "2022-02-11T11:20:27.354Z",
+        "firstPublishedAt": "2022-02-11T11:20:27.354Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 7,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "subScheme"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Free digital training"
+        },
+        "content": {
+          "en-US": {
+            "nodeType": "document",
+            "data": {
+            },
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Any adult with low digital skills is entitled to fully funded essential digital skills qualifications, at entry-level and level 1. These equip adults with the full range of essential digital skills needed for life, work, and further study. ",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Funding for other digital skills qualifications may also be available but this will depend on local training providers.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Find out more about free training courses at ",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  },
+                  {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "skills for life",
+                        "marks": [
+                        ],
+                        "data": {
+                        }
+                      }
+                    ],
+                    "data": {
+                      "uri": "https://skillsforlife.campaign.gov.uk/"
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": ".",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "4GHwWxewCclJw9uvweSWwk",
+        "type": "Entry",
+        "createdAt": "2022-02-11T11:20:35.963Z",
+        "updatedAt": "2022-02-14T10:00:10.580Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 15,
+        "publishedAt": "2022-02-14T10:00:10.580Z",
+        "firstPublishedAt": "2022-02-11T11:21:29.228Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7dYxUVTD7eDpB5ejE8uItu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 16,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7dYxUVTD7eDpB5ejE8uItu"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "subScheme"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Free level 3 qualifications for adults"
+        },
+        "content": {
+          "en-US": {
+            "nodeType": "document",
+            "data": {
+            },
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Free level 3 qualifications are government-funded courses for any adult aged 19 and over, who are looking to achieve a full level 3 qualification. You can also apply for the course if you have done a level 3 qualification before if you are unemployed or earning below national minimum wage.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "A full level 3 qualification is equivalent to an advanced technical certificate, diploma, or A levels.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  },
+                  {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "The Free Courses for jobs",
+                        "marks": [
+                        ],
+                        "data": {
+                        }
+                      }
+                    ],
+                    "data": {
+                      "uri": "https://www.gov.uk/guidance/free-courses-for-jobs"
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " offer and the qualification list has been developed with industry and will be regularly reviewed.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "1GfrUODrmDCDunTUiC8V2D",
+        "type": "Entry",
+        "createdAt": "2022-02-11T11:23:35.223Z",
+        "updatedAt": "2022-02-11T11:24:39.213Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 6,
+        "publishedAt": "2022-02-11T11:24:39.213Z",
+        "firstPublishedAt": "2022-02-11T11:24:39.213Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 7,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "subScheme"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "National Careers Service"
+        },
+        "content": {
+          "en-US": {
+            "nodeType": "document",
+            "data": {
+            },
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "The National Careers Service is free to use and can help you explore work and skill opportunities for your workforce.",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Find out more about ",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  },
+                  {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "the National Careers Service and how to contact them",
+                        "marks": [
+                        ],
+                        "data": {
+                        }
+                      }
+                    ],
+                    "data": {
+                      "uri": "https://nationalcareers.service.gov.uk/"
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": ".",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  }
+                ],
+                "data": {
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "082i50qdtar9"
+          }
+        },
+        "id": "1qD8WvH8ysLW0DIqsoW73B",
+        "type": "Entry",
+        "createdAt": "2022-02-11T15:49:41.139Z",
+        "updatedAt": "2022-02-11T15:59:13.083Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 7,
+        "publishedAt": "2022-02-11T15:59:13.083Z",
+        "firstPublishedAt": "2022-02-11T15:49:55.535Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "page"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Environment"
+        },
+        "url": {
+          "en-US": "environment"
+        },
+        "content": {
+          "en-US": {
+            "nodeType": "document",
+            "data": {
+            },
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "master",
                     "marks": [
                     ],
                     "data": {
@@ -11613,396 +12853,6 @@
       "sys": {
         "type": "Role",
         "id": "5SubKddszprVtaqX0lgUqS",
-        "version": 0,
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "082i50qdtar9"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "1QgMBORvoTZdA5TH1UiSNa"
-          }
-        },
-        "createdAt": "2021-11-16T14:02:27Z",
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "1QgMBORvoTZdA5TH1UiSNa"
-          }
-        },
-        "updatedAt": "2021-11-16T14:02:27Z"
-      }
-    },
-    {
-      "name": "Freelancer",
-      "description": "Allows only editing of content they created themselves",
-      "policies": [
-        {
-          "effect": "allow",
-          "actions": [
-            "create"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Entry"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "effect": "allow",
-          "actions": [
-            "create"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Asset"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "effect": "allow",
-          "actions": [
-            "read"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Entry"
-                ]
-              },
-              {
-                "equals": [
-                  {
-                    "doc": "sys.createdBy.sys.id"
-                  },
-                  "User.current()"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "effect": "allow",
-          "actions": [
-            "update"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Entry"
-                ]
-              },
-              {
-                "equals": [
-                  {
-                    "doc": "sys.createdBy.sys.id"
-                  },
-                  "User.current()"
-                ]
-              },
-              {
-                "paths": [
-                  {
-                    "doc": "fields.%.%"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "effect": "allow",
-          "actions": [
-            "delete"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Entry"
-                ]
-              },
-              {
-                "equals": [
-                  {
-                    "doc": "sys.createdBy.sys.id"
-                  },
-                  "User.current()"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "effect": "allow",
-          "actions": [
-            "read"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Asset"
-                ]
-              },
-              {
-                "equals": [
-                  {
-                    "doc": "sys.createdBy.sys.id"
-                  },
-                  "User.current()"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "effect": "allow",
-          "actions": [
-            "update"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Asset"
-                ]
-              },
-              {
-                "equals": [
-                  {
-                    "doc": "sys.createdBy.sys.id"
-                  },
-                  "User.current()"
-                ]
-              },
-              {
-                "paths": [
-                  {
-                    "doc": "fields.%.%"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "effect": "allow",
-          "actions": [
-            "delete"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Asset"
-                ]
-              },
-              {
-                "equals": [
-                  {
-                    "doc": "sys.createdBy.sys.id"
-                  },
-                  "User.current()"
-                ]
-              }
-            ]
-          }
-        }
-      ],
-      "permissions": {
-        "ContentModel": [
-          "read"
-        ],
-        "Settings": [
-        ],
-        "ContentDelivery": [
-        ],
-        "Environments": [
-        ],
-        "EnvironmentAliases": [
-        ],
-        "Tags": [
-        ]
-      },
-      "sys": {
-        "type": "Role",
-        "id": "5SuFEI8pFRRqOAPOWJmpYC",
-        "version": 0,
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "082i50qdtar9"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "1QgMBORvoTZdA5TH1UiSNa"
-          }
-        },
-        "createdAt": "2021-11-16T14:02:27Z",
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "1QgMBORvoTZdA5TH1UiSNa"
-          }
-        },
-        "updatedAt": "2021-11-16T14:02:27Z"
-      }
-    },
-    {
-      "name": "Translator",
-      "description": "Allows editing of localized fields in the specified language",
-      "policies": [
-        {
-          "effect": "allow",
-          "actions": [
-            "read"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Entry"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "effect": "allow",
-          "actions": [
-            "read"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Asset"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "effect": "allow",
-          "actions": [
-            "update"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Entry"
-                ]
-              },
-              {
-                "paths": [
-                  {
-                    "doc": "fields.%.%"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "effect": "allow",
-          "actions": [
-            "update"
-          ],
-          "constraint": {
-            "and": [
-              {
-                "equals": [
-                  {
-                    "doc": "sys.type"
-                  },
-                  "Asset"
-                ]
-              },
-              {
-                "paths": [
-                  {
-                    "doc": "fields.%.%"
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ],
-      "permissions": {
-        "ContentModel": [
-          "read"
-        ],
-        "Settings": [
-        ],
-        "ContentDelivery": [
-        ],
-        "Environments": [
-        ],
-        "EnvironmentAliases": [
-        ],
-        "Tags": [
-        ]
-      },
-      "sys": {
-        "type": "Role",
-        "id": "5SvdjFiW7puRlkV60eLPA6",
         "version": 0,
         "space": {
           "sys": {

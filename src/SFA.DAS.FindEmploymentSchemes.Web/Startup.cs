@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -8,14 +7,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AspNetCore.SEOHelper;
 using SFA.DAS.Configuration.AzureTableStorage;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Extensions;
+using SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices;
 using SFA.DAS.FindEmploymentSchemes.Web.Extensions;
-using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
 using SFA.DAS.FindEmploymentSchemes.Web.Security;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
-
+using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
+using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Web.StartupServices;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         private readonly IWebHostEnvironment _currentEnvironment;
@@ -60,8 +64,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                 }
             });
 
-            services.GenerateSitemap(Configuration, _currentEnvironment);
-            services.AddScoped<IFilterService, FilterService>();
+            services.AddSingleton<IPageService, PageService>();
+            services.AddSingleton<ICaseStudyPageService, CaseStudyPageService>();
+
+            services.AddSingleton<IFilterService, FilterService>()
+                .AddSingleton<ISchemesModelService, SchemesModelService>();
+
+            services.Configure<ContentUpdateServiceOptions>(Configuration.GetSection("ContentUpdates"));
+
+            services.AddContentService(Configuration)
+                .AddHostedService<ContentUpdateService>();
+
+            services.Configure<EndpointsOptions>(Configuration.GetSection("Endpoints"));
+
+            services.AddTransient<ISitemap, Sitemap>()
+                .AddHostedService<SitemapGeneratorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -128,9 +145,29 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     defaults: new { controller = "Pages", action = "Page" });
 
                 endpoints.MapControllerRoute(
+                    name: "casestudypage",
+                    pattern: "case-study/{pageUrl}",
+                    defaults: new { controller = "CaseStudies", action = "CaseStudyPage" });
+
+                endpoints.MapControllerRoute(
                     name: "schemes",
                     pattern: "schemes/{schemeUrl}",
                     defaults: new { controller = "Schemes", action = "Details" });
+
+                endpoints.MapControllerRoute(
+                    name: "page-preview",
+                    pattern: "preview/page/{pageUrl}",
+                    defaults: new { controller = "Pages", action = "PagePreview" });
+
+                endpoints.MapControllerRoute(
+                    name: "schemes-preview",
+                    pattern: "preview/schemes/{schemeUrl}",
+                    defaults: new { controller = "Schemes", action = "DetailsPreview" });
+
+                endpoints.MapControllerRoute(
+                    name: "casestudypage-preview",
+                    pattern: "preview/case-study/{pageUrl}",
+                    defaults: new { controller = "CaseStudies", action = "CaseStudyPagePreview" });
             });
         }
     }

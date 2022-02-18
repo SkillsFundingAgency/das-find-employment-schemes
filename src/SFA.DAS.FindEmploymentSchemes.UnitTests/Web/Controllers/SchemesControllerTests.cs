@@ -1,152 +1,176 @@
-﻿
-using System;
-using System.Collections;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Linq;
+using AutoFixture;
+using AutoFixture.Kernel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FakeItEasy;
+using Microsoft.AspNetCore.Html;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
-using SFA.DAS.FindEmploymentSchemes.Web.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
-using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
-
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
     public class SchemesControllerTests
     {
-        [Theory]
-        [ClassData(typeof(SchemesControllerTestsHomeTestData))]
-        public void SchemesController_Home(IEnumerable<Scheme> expectedSchemes)
+        public ILogger<SchemesController> Logger { get; set; }
+        public HomeModel HomeModel { get; set; }
+        public ISchemesModelService SchemesModelService { get; set; }
+        public IFilterService FilterService { get; set; }
+        public IContentService ContentService { get; set; }
+        public SchemeFilterViewModel SchemeFilterViewModel { get; set; }
+
+        public SchemesController SchemesController { get; set; }
+
+        public SchemesControllerTests()
         {
-            ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
-            IFilterService service = A.Fake<IFilterService>();
-            A.CallTo(service)
-             .Where(a => a.Method.Name.Equals("get_HomeModel"))
-             .WithReturnType<HomeModel>()
-             .ReturnsLazily(() => new HomeModel(null, expectedSchemes, null));
+            Logger = A.Fake<ILogger<SchemesController>>();
+            FilterService = A.Fake<IFilterService>();
+            SchemesModelService = A.Fake<ISchemesModelService>();
+            ContentService = A.Fake<ContentService>();
 
-            SchemesController controller = new SchemesController(logger, service);
-            Assert.NotNull(controller);
+            HomeModel = new HomeModel(null!, null!, null!);
 
-            IActionResult result = controller.Home();
-            Assert.True(result is ViewResult);
-            ViewResult vr = (ViewResult)result;
-            Assert.True(!(vr.Model is null) && vr.Model is HomeModel);
+            A.CallTo(() => SchemesModelService.HomeModel)
+                .Returns(HomeModel);
 
-            HomeModel homeModel = (HomeModel)vr.Model;
-            HashSet<Scheme> expected = new HashSet<Scheme>(expectedSchemes);
-            HashSet<Scheme> fromView = new HashSet<Scheme>(homeModel.Schemes);
-            Assert.True(expected.SetEquals(fromView));
+            SchemesController = new SchemesController(Logger, SchemesModelService, FilterService, ContentService);
+
+            SchemeFilterViewModel = new SchemeFilterViewModel(new string[] {}, new string[] {}, new string[] {});
         }
 
-        [Theory]
-        [ClassData(typeof(SchemesControllerTestsFilteredHomeTestData))]
-        public void SchemesController_FilteredHome(IEnumerable<Scheme> expectedSchemes, SchemeFilterViewModel filters)
+        [Fact]
+        public void Home_DefaultViewTest()
         {
-            ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
-            IFilterService service = A.Fake<IFilterService>();
-            HomeModel expectedHomeModel = A.Fake<HomeModel>(x=> x.WithArgumentsForConstructor(() => new HomeModel(null, expectedSchemes, null, false)));
+            // act
+            IActionResult result = SchemesController.Home();
 
-            A.CallTo(() => service.ApplyFilter(filters))
-             .Returns(expectedHomeModel);
-
-            SchemesController controller = new SchemesController(logger, service);
-            Assert.NotNull(controller);
-
-            IActionResult result = controller.Home(filters, "");
-            Assert.True(result is ViewResult);
-            ViewResult vr = (ViewResult)result;
-            Assert.True(!(vr.Model is null) && vr.Model is HomeModel);
-
-            HomeModel homeModel = (HomeModel)vr.Model;
-            HashSet<Scheme> expected = new HashSet<Scheme>(expectedSchemes);
-            HashSet<Scheme> fromView = new HashSet<Scheme>(homeModel.Schemes);
-            Assert.True(expected.SetEquals(fromView));
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.Null(viewResult.ViewName);
         }
 
-        [Theory]
-        [ClassData(typeof(SchemesControllerTestsDetailsTestData))]
-        public void SchemesController_Details(SchemeDetailsModel expectedDetails, string schemeUrl)
+        [Fact]
+        public void Home_HomeModelIsUsedTest()
         {
-            ILogger<SchemesController> logger = A.Fake<ILogger<SchemesController>>();
-            IFilterService service = A.Fake<IFilterService>();
-            Dictionary<string, SchemeDetailsModel> dictionary = new Dictionary<string, SchemeDetailsModel>();
-            dictionary.Add(schemeUrl, expectedDetails);
+            // act
+            IActionResult result = SchemesController.Home();
 
-            A.CallTo(service)
-             .Where(a => a.Method.Name.Equals("get_SchemeDetailsModels"))
-             .WithReturnType<IReadOnlyDictionary<string, SchemeDetailsModel>>()
-             .ReturnsLazily(() => new ReadOnlyDictionary<string, SchemeDetailsModel>(dictionary));
-
-            SchemesController controller = new SchemesController(logger, service);
-            Assert.NotNull(controller);
-
-            IActionResult result = controller.Details(schemeUrl);
-            Assert.True(result is ViewResult);
-            ViewResult vr = (ViewResult)result;
-            Assert.True(!(vr.Model is null) && vr.Model is SchemeDetailsModel);
-
-            SchemeDetailsModel detailsModel = (SchemeDetailsModel)vr.Model;
-            Assert.True(expectedDetails.Scheme.Name == detailsModel.Scheme.Name);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.NotNull(viewResult.Model);
+            Assert.IsType<HomeModel>(viewResult.Model);
+            Assert.Equal(HomeModel, viewResult.Model);
         }
-    }
 
-    public class SchemesControllerTestsHomeTestData : IEnumerable<object[]>
-    {
-        public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] { SchemesContent.Schemes };
-        }
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
-
-    public class SchemesControllerTestsFilteredHomeTestData : IEnumerable<object[]>
-    {
-        public IEnumerator<object[]> GetEnumerator()
+        [Fact]
+        public void PostHome_FilteredHomeModelIsUsedTest()
         {
-            string fourToTwelveMonths = "scheme-length--4-months-to-12-months";
-            string yearOrMore = "scheme-length--a-year-or-more";
-            string unpaid = "pay--unpaid";
+            var filteredHomeModel = new HomeModel(null!, null!, null!);
 
-            yield return new object[] {
-                    SchemesContent.Schemes,
-                    new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { })
-                };
-            yield return new object[] {
-                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths }, new string[] { })
-                };
-            yield return new object[] {
-                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { yearOrMore }, new string[] { } )
-                };
-            yield return new object[] {
-                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(unpaid)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { unpaid })
-                };
-            yield return new object[] {
-                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore) && s.FilterAspects.Contains(unpaid)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { yearOrMore }, new string[] { unpaid })
-                };
-            yield return new object[] {
-                    SchemesContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths, yearOrMore }, new string[] { })
-                };
-        }
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
+            A.CallTo(() => FilterService.ApplyFilter(SchemeFilterViewModel))
+                .Returns(filteredHomeModel);
 
-    public class SchemesControllerTestsDetailsTestData : IEnumerable<object[]>
-    {
-        public IEnumerator<object[]> GetEnumerator() {
-            foreach(Scheme S in SchemesContent.Schemes) {
-                yield return new object[] { new SchemeDetailsModel(S.Url, SchemesContent.Schemes), S.Url };
-            }
+            // act
+            IActionResult result = SchemesController.Home(SchemeFilterViewModel, "");
+
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.NotNull(viewResult.Model);
+            Assert.IsType<HomeModel>(viewResult.Model);
+            Assert.Equal(filteredHomeModel, viewResult.Model);
         }
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+#if Too_much_interals_set_up_for_value
+        [Fact]
+        public void PostHome_ShowFilterRedirectsToHomeTest()
+        {
+            var httpContext = A.Fake<HttpContext>();
+            var httpResponse = A.Fake<HttpResponse>();
+
+            A.CallTo(() => httpContext.Response)
+                .Returns(httpResponse);
+
+            SchemesController.ControllerContext = new ControllerContext(new ActionContext(httpContext, new RouteData(), new ControllerActionDescriptor()));
+
+            // act
+            SchemesController.Home(SchemeFilterViewModel, "filter");
+
+            A.CallTo(() => httpResponse.Redirect("/"))
+                .MustHaveHappenedOnceExactly();
+        }
+#endif
+
+        [Fact]
+        public void Details_KnownSchemeUrlReturnsViewResultWithDefaultViewTest()
+        {
+            var fixture = new Fixture();
+            fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(IHtmlContent),
+                    typeof(HtmlString)));
+
+            var schemes = fixture.CreateMany<Scheme>(2).ToArray();
+
+            string schemeUrl = schemes.First().Url;
+
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes);
+
+            A.CallTo(() => SchemesModelService.GetSchemeDetailsModel(schemeUrl))
+                .Returns(schemeDetailsModel);
+
+            // act
+            IActionResult result = SchemesController.Details(schemeUrl);
+
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.Null(viewResult.ViewName);
+        }
+
+        [Fact]
+        public void Details_KnownSchemeUrlReturnsViewWithCorrectModelTest()
+        {
+            var fixture = new Fixture();
+            fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(IHtmlContent),
+                    typeof(HtmlString)));
+
+            var schemes = fixture.CreateMany<Scheme>(2).ToArray();
+
+            string schemeUrl = schemes.First().Url;
+
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes);
+
+            A.CallTo(() => SchemesModelService.GetSchemeDetailsModel(schemeUrl))
+                .Returns(schemeDetailsModel);
+
+            // act
+            IActionResult result = SchemesController.Details(schemeUrl);
+
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.Equal(schemeDetailsModel, viewResult.Model);
+        }
+
+        [Fact]
+        public void Details_UnknownSchemeUrlReturnsNotFoundTest()
+        {
+            const string schemeUrl = "unknown-scheme";
+
+            A.CallTo(() => SchemesModelService.GetSchemeDetailsModel(schemeUrl))
+                .Returns(null);
+
+            // act
+            IActionResult result = SchemesController.Details(schemeUrl);
+
+            Assert.IsType<NotFoundResult>(result);
+        }
     }
 }
