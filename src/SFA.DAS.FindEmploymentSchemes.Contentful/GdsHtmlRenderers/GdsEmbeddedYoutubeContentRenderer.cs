@@ -1,4 +1,5 @@
-﻿using Contentful.Core.Models;
+﻿using System.Linq;
+using Contentful.Core.Models;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,16 +22,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         /// <returns>Returns true if the content is a paragraph, contains only an iframe and refers to a youtube embedded url, otherwise false.</returns>
         public bool SupportsContent(IContent content)
         {
-            if (!(content is Paragraph))
+            if (!(content is Paragraph paragraph))
                 return false;
 
-            Paragraph paragraph = (Paragraph)content;
             if (paragraph.Content.Count != 1 || !(paragraph.Content[0] is Text))
                 return false;
 
-            string text = ((Text)paragraph.Content[0])
-                                          .Value
-                                          .Trim();
+            string text = ((Text)paragraph.Content[0]).Value.Trim();
+
             return text.StartsWith("<iframe") && text.EndsWith("</iframe>") &&
                    (text.Contains("youtube.com/embed/") || text.Contains("youtube-nocookie.com/embed/"));
         }
@@ -42,31 +41,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         /// </summary>
         /// <param name="content">The content to render.</param>
         /// <returns>The p-tag as a string.</returns>
-        public string Render(IContent content)
+        public Task<string> RenderAsync(IContent content)
         {
             var paragraph = content as Paragraph;
             var sb = new StringBuilder();
-            sb.Append("<p class=\"govuk-body\">");
+            sb.Append("<p class=\"govuk-body\"><div class=\"app-video-container\">");
 
-            foreach (var subContent in paragraph!.Content)
-            {
-                sb.Append(((Text)paragraph.Content[0])
-                                          .Value
-                                          .Replace("youtube.com/embed/", "youtube-nocookie.com/embed/", System.StringComparison.InvariantCultureIgnoreCase));
-            }
+            var subContent = paragraph!.Content.FirstOrDefault() as Text;
 
-            sb.Append("</p>");
-            return sb.ToString();
-        }
+            sb.Append(subContent!.Value.Replace("youtube.com/embed/", "youtube-nocookie.com/embed/", System.StringComparison.InvariantCultureIgnoreCase));
 
-        /// <summary>
-        /// Renders the content asynchronously.
-        /// </summary>
-        /// <param name="content">The content to render.</param>
-        /// <returns>The rendered string.</returns>
-        public Task<string> RenderAsync(IContent content)
-        {
-            return Task.FromResult(Render(content));
+            sb.Append("</div></p>");
+            return Task.FromResult(sb.ToString());
         }
     }
 }

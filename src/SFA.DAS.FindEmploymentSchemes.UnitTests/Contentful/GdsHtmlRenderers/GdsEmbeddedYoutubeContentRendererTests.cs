@@ -31,7 +31,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
             };
 
             var html = await renderer.ToHtml(doc);
-            Assert.Equal($"<p class=\"govuk-body\">{youtubeValue.Replace("youtube.com", "youtube-nocookie.com")}</p>", html);
+            Assert.Equal($"<p class=\"govuk-body\"><div class=\"app-video-container\">{youtubeValue.Replace("youtube.com", "youtube-nocookie.com")}</div></p>", html);
         }
     }
 }
