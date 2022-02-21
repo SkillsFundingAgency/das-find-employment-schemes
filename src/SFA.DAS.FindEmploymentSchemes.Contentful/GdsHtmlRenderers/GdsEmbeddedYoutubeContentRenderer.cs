@@ -1,7 +1,8 @@
-﻿using System.Linq;
-using Contentful.Core.Models;
+﻿using Contentful.Core.Models;
 using System.Text;
 using System.Threading.Tasks;
+using System;
+using System.Text.RegularExpressions;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 {
@@ -43,16 +44,75 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         /// <returns>The p-tag as a string.</returns>
         public Task<string> RenderAsync(IContent content)
         {
-            var paragraph = content as Paragraph;
+            string? iframe = ((Text)((Paragraph)content).Content[0]).Value;
+
+            string aspectRatio = AspectRatio(iframe);
+
             var sb = new StringBuilder();
-            sb.Append("<p class=\"govuk-body\"><div class=\"app-video-container\">");
+            //sb.Append($"<p class=\"govuk-body\"><div class=\"app-video-container app-video-ratio-{ratio}\">");
+            sb.Append($"<p class=\"govuk-body\"><div class=\"app-video-container\" style=\"--aspect-ratio: {aspectRatio}%\">");
 
-            var subContent = paragraph!.Content.FirstOrDefault() as Text;
-
-            sb.Append(subContent!.Value.Replace("youtube.com/embed/", "youtube-nocookie.com/embed/", System.StringComparison.InvariantCultureIgnoreCase));
+            sb.Append(iframe.Replace("youtube.com/embed/", "youtube-nocookie.com/embed/", StringComparison.InvariantCultureIgnoreCase));
 
             sb.Append("</div></p>");
             return Task.FromResult(sb.ToString());
         }
+
+        //todo: test videos of different aspect ratios & different browsers
+
+        //todo: how does it behave in ie? how to test? how to have a ie only fallback
+        //https://caniuse.com/css-variables
+        //https://stackoverflow.com/questions/11173106/apply-style-only-on-ies
+
+        //bootstrap ratio
+        // https://getbootstrap.com/docs/5.1/helpers/ratio/#about
+        // https://stackoverflow.com/questions/14436155/how-to-create-inline-style-with-before-and-after
+
+        static string AspectRatio(string iframe)
+        {
+            const string defaultRatio = "16x9";
+
+            var match = Regex.Match(iframe, "height\\s*=\\s*\"([\\d]+)");
+            if (!match.Success)
+                return defaultRatio;
+
+            int height = int.Parse(match.Groups[1].Value);
+
+            match = Regex.Match(iframe, "width\\s*=\\s*\"([\\d]+)");
+            if (!match.Success)
+                return defaultRatio;
+
+            int width = int.Parse(match.Groups[1].Value);
+
+            float aspectRatio = (height*100) / (float)width;
+            return aspectRatio.ToString("0.00");
+        }
+
+        // check inline style ok with wgac. if not have standard ratio classes
+
+        //static string Ratio(string iframe)
+        //{
+        //    const string defaultRatio = "16x9";
+
+        //    var match = Regex.Match(iframe, "height\\s*=\\s*\"([\\d]+)");
+        //    if (!match.Success)
+        //        return defaultRatio;
+
+        //    int height = int.Parse(match.Groups[1].Value);
+        //    match = Regex.Match(iframe, "weight\\s*=\\s*\"([\\d]+)");
+        //    if (!match.Success)
+        //        return defaultRatio;
+
+        //    int width = int.Parse(match.Groups[1].Value);
+
+        //    int gcd = GreatestCommonDenominator(width, height);
+
+        //    return $"{width / gcd}x{height / gcd}";
+        //}
+
+        //static int GreatestCommonDenominator(int a, int b)
+        //{
+        //    return b == 0 ? Math.Abs(a) : GreatestCommonDenominator(b, a % b);
+        //}
     }
 }

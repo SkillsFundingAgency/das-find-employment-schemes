@@ -129,14 +129,16 @@ body.js-enabled .app-show-on-mobile-no-js {
 .app-video-container {
     position: relative;
     width: 100%;
+    --aspect-ratio: 56.25%;
 }
 
-.app-video-container::before {
-    display: block;
-    /*todo: calc ratio*/
-    padding-top: 56.25%;
-    content: "";
-}
+    .app-video-container::before {
+        display: block;
+        /*todo: calc ratio*/
+        /*    padding-top: 56.25%;*/
+        padding-top: var(--aspect-ratio);
+        content: "";
+    }
 
 .app-video-container > * {
     position: absolute;
