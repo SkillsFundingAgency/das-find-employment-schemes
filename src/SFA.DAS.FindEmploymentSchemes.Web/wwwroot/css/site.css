@@ -127,18 +127,18 @@ body.js-enabled .app-show-on-mobile-no-js {
 }
 
 .app-video-container {
-    overflow: hidden;
     position: relative;
     width: 100%;
 }
 
-.app-video-container::after {
-    padding-top: 56.25%;
+.app-video-container::before {
     display: block;
-    content: '';
+    /*todo: calc ratio*/
+    padding-top: 56.25%;
+    content: "";
 }
 
-.app-video-container iframe {
+.app-video-container > * {
     position: absolute;
     top: 0;
     left: 0;
