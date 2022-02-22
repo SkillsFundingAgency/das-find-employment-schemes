@@ -65,7 +65,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 
         static string AspectRatio(string iframe)
         {
-            const string defaultRatio = "16x9";
+            const string defaultRatio = "56.25";
 
             var match = Regex.Match(iframe, "height\\s*=\\s*\"([\\d]+)");
             if (!match.Success)

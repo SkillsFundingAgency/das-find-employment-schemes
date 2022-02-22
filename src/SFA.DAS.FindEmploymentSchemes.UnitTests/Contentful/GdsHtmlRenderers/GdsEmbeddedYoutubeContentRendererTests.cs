@@ -59,6 +59,32 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
             Assert.Equal(expectedHtml, html);
         }
 
+        [Fact]
+        public async Task ToHtml_GdsEmbeddedYoutubeContentRenderer_AspectRatio_NoWidthTests()
+        {
+            string sourceParagraphText = "<iframe height=\"100\" src=\"https://www.youtube-nocookie.com/embed/03gpzFZadcQ\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";
+            string expectedHtml = "<p class=\"govuk-body\"><div class=\"app-video-container\" style=\"--aspect-ratio: 56.25%\"><iframe height=\"100\" src=\"https://www.youtube-nocookie.com/embed/03gpzFZadcQ\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div></p>";
+
+            var document = CreateYouTubeDocument(sourceParagraphText);
+
+            var html = await HtmlRenderer.ToHtml(document);
+
+            Assert.Equal(expectedHtml, html);
+        }
+
+        [Fact]
+        public async Task ToHtml_GdsEmbeddedYoutubeContentRenderer_AspectRatio_NoHeightTests()
+        {
+            string sourceParagraphText = "<iframe width=\"100\" src=\"https://www.youtube-nocookie.com/embed/03gpzFZadcQ\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";
+            string expectedHtml = "<p class=\"govuk-body\"><div class=\"app-video-container\" style=\"--aspect-ratio: 56.25%\"><iframe width=\"100\" src=\"https://www.youtube-nocookie.com/embed/03gpzFZadcQ\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div></p>";
+
+            var document = CreateYouTubeDocument(sourceParagraphText);
+
+            var html = await HtmlRenderer.ToHtml(document);
+
+            Assert.Equal(expectedHtml, html);
+        }
+
         private Document CreateYouTubeDocument(string embeddedYouTube)
         {
             return new Document
