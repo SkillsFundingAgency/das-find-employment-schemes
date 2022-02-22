@@ -57,7 +57,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
             var sb = new StringBuilder();
             sb.Append($"<p class=\"govuk-body\"><div class=\"app-video-container\" style=\"--aspect-ratio: {aspectRatio}%\">");
 
-            sb.Append(iframe.Replace("youtube.com/embed/", "youtube-nocookie.com/embed/", StringComparison.InvariantCultureIgnoreCase));
+            sb.Append(iframe.Replace("youtube.com/embed/", "youtube-nocookie.com/embed/", StringComparison.InvariantCultureIgnoreCase).Trim());
 
             sb.Append("</div></p>");
             return Task.FromResult(sb.ToString());
