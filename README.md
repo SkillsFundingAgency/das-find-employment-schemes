@@ -11,9 +11,7 @@ Provides a portal for employers to see all training schemes available to them ac
 
 ## How It Works
 
-![Architecture](docs/Front Door Arch Update Delay.drawio.png)
-
-[Local Store Strategy](docs/Local Store Strategy.md)
+![Architecture](docs/Find Employer Schemes Architecture.drawio.png)
 
 _Add a description of how the project works technically, this should give new developers an insight into the how the project hangs together, the core concepts in-use and the high-level features that it provides_
 
