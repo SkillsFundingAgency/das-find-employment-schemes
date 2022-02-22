@@ -77,7 +77,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
                     }
                 }
             };
-
         }
     }
 }
