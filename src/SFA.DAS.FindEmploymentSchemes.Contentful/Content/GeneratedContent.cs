@@ -63,7 +63,7 @@ developing a workforce with skills specific to your business
             new Scheme("T Levels: industry placements",
                 new HtmlString(@"<p class=""govuk-body"">Provide a 45-day (315 hours) industry placement for 16 to 19 year-olds, which gives you early access to the brightest young people entering the market and the opportunity to develop your workforce of the future.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Allows you to grow your workforce in the short-term with little or no cost and scout future talent in your area.
+                new HtmlString(@"<p class=""govuk-body"">Allows you to grow your workforce in the short-term with little or no cost and scout future talent in your area
 </p>"),
                 new HtmlString(@"<p class=""govuk-body"">Short term 45-day industry placement</p>"),
                 "t-levels-industry-placements", 72000,
@@ -107,8 +107,8 @@ developing a workforce with skills specific to your business
                 ),
             new Scheme("Skills Bootcamps",
                 new HtmlString(@"<p class=""govuk-body"">Flexible training courses for aged 19 and over to fast-track specialist skill development, for existing or new talent for your business.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Cost is dependent on the size of your business. There is no cost to the employer if the learner is not currently employed by you.</p>"),
-                new HtmlString(@"<p class=""govuk-body""> A new starter will be trained in a specialist skill specific to your business and be highly motivated by a guaranteed an interview afterwards.
+                new HtmlString(@"<p class=""govuk-body"">Cost is dependent on the size of your business. There is no cost to the employer if the learner is not currently employed by you</p>"),
+                new HtmlString(@"<p class=""govuk-body""> A new starter will be trained in a specialist skill specific to your business and be highly motivated by a guaranteed interview afterwards
 
 </p>"),
                 new HtmlString(@"<p class=""govuk-body"">up to 16-weeks</p>"),
@@ -191,8 +191,7 @@ of the course.</p><p class=""govuk-body"">
             new Scheme("Traineeships",
                 new HtmlString(@"<p class=""govuk-body"">A 6-week to 12 months skills development programme that includes an unpaid work placement to help 16- to 24-year-olds prepare for an apprenticeship or employment.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Provides a stepping stone for your future apprentices or employees to gain valuable skills relevant to your business. 
-</p>"),
+                new HtmlString(@"<p class=""govuk-body"">Provides a stepping stone for your future apprentices or employees to gain valuable skills relevant to your business</p>"),
                 new HtmlString(@"<p class=""govuk-body"">70 to 240 hours work placement</p>"),
                 "traineeships", 43000,
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
@@ -217,8 +216,8 @@ providing a stepping-stone for your future apprentices
                 ),
             new Scheme("Supported Internships for learners with an education, health and care plan",
                 new HtmlString(@"<p class=""govuk-body"">An unpaid 6 to 12-month work placement for 16 to 24-year-olds with additional needs, including Special Educational Needs and Disabilities (SEND), supported by a qualified job coach.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Increases your confidence and ability to employ individuals with additional needs, improving and expanding your business' recruitment prospects.</p>"),
+                new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
+                new HtmlString(@"<p class=""govuk-body"">Increases your confidence and ability to employ individuals with additional needs, improving and expanding your business' recruitment prospects</p>"),
                 new HtmlString(@"<p class=""govuk-body"">6 to 12-months</p>"),
                 "supported-internships", 20000,
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--4-months-to-12-months"             },
@@ -252,7 +251,7 @@ providing a stepping-stone for your future apprentices
                 new HtmlString(@"<p class=""govuk-body"">Employers will provide:</p><ul class=""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>practical help that makes a difference to the life of a care leaver</li></ul><p class=""govuk-body""></p>"),
                 new HtmlString(@"<p class=""govuk-body"">You create and support a diverse and loyal workforce for your business.</p>"),
                 "Offer a Care Leavers Covenant",
-                new HtmlString(@"<p class=""govuk-body""><a href=""https://mycovenant.org.uk/support-the-covenant/organisation-sign-up/"" title="""" class=""govuk-link"">Find out how to join the Care Leavers Covenant</a> and tailor what opportunities your business would like to offer to care leavers.</p><p class=""govuk-body"">Alternatively, contact the Care Leavers Covenant via telephone on <a href=""tel:08000773557"" title="""" class=""govuk-link"">0800 077 3557</a>.</p>"),
+                new HtmlString(@"<p class=""govuk-body""><a href=""https://mycovenant.org.uk/support-the-covenant/organisation-sign-up/"" title="""" class=""govuk-link"">Find out how to join the Care Leavers Covenant</a> and tailor what opportunities your business would like to offer to care leavers.</p><p class=""govuk-body"">Alternatively, contact the Care Leavers Covenant via telephone on 0800 077 3557</p>"),
                 null,
                 new SubScheme[] {
                 }
