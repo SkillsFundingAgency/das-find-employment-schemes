@@ -1,4 +1,5 @@
-﻿@model CaseStudyPage
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
+@model CaseStudyPage
 
 @{
     ViewData["Title"] = Model.Title.Substring(0, Math.Min(Model.Title.Length, 64));;
@@ -6,7 +7,7 @@
 
 @section BreadCrumbs {
     <a href="/" class="govuk-back-link">Home</a>
-    <a href="@Url.Action("Details", "Schemes", new { schemeUrl = Model.Scheme.Url })" class="govuk-back-link">@Model.Scheme.Name</a>
+    <a href="@Url.Action("Details", "Schemes", new { schemeUrl = Model?.Scheme?.Url })" class="govuk-back-link">@Model?.Scheme?.Name</a>
 }
 
 <div class="govuk-grid-row">

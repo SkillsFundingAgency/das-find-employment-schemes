@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
-using System.Threading.Tasks;
+
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
@@ -37,14 +41,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> CaseStudyPagePreview(string pageUrl)
         {
-            var previewContent = await _contentService.UpdatePreview();
+            IPreviewContent previewContent = await _contentService.UpdatePreviewCaseStudyPageContent(pageUrl);
 
             var (viewName, caseStudyPage) = _caseStudyPageService.CaseStudyPage(pageUrl, previewContent);
 
             if (caseStudyPage == null)
                 return NotFound();
 
-            return View(viewName ?? "CaseStudyPage", caseStudyPage);
+            return View(viewName ?? "CaseStudyPagePreview", new CaseStudyPagePreview(caseStudyPage, previewContent.CaseStudyPagesErrors));
         }
     }
 }

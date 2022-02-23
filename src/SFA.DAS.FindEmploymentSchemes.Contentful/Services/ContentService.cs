@@ -13,6 +13,10 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
+using ContentScheme = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Scheme;
+using ContentPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Page;
+using ContentCaseStudyPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.CaseStudyPage;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
@@ -40,7 +44,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         private const string PayDescription = "I can offer";
 
         public event EventHandler<EventArgs>? ContentUpdated;
-        public event EventHandler<EventArgs>? PreviewContentUpdated;
+        //public event EventHandler<EventArgs>? PreviewContentUpdated;
 
         public ContentService(
             IContentfulClientFactory contentfulClientFactory,
@@ -56,7 +60,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         public static readonly IContent GeneratedContent = new GeneratedContent();
 
         public IContent Content { get; private set; } = GeneratedContent;
-        public IContent? PreviewContent { get; private set; }
+        public IPreviewContent? PreviewContent { get; private set; }
 
         public async Task<IContent> Update()
         {
@@ -74,27 +78,34 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             return content;
         }
 
-        public async Task<IContent> UpdatePreview()
+
+
+
+
+        // TODO: Replace and delete me!
+        public async Task<IPreviewContent> UpdatePreview()
         {
             _logger.LogInformation("Updating preview content");
 
             if (_previewContentfulClient == null)
                 throw new ContentServiceException("Can't update preview content without a preview ContentfulClient.");
 
-            PreviewContentErrors previewErrors = await PreviewContentErrors(_previewContentfulClient);
-            IContent? previewContent = null;
+            IPreviewContent previewContent = await UpdatePreviewCaseStudyPageContent(""); // _previewContentfulClient);
+            //IContent? previewContent = null;
 
-            if (!previewErrors.Errors.Any())
-            {
-                previewContent = await Update(_previewContentfulClient);
-                PreviewContent = previewContent;
+            //if (!previewContent.Errors.Any())
+            //{
+            //    previewContent = await Update(_previewContentfulClient);
+            PreviewContent = previewContent;
 
-                _logger.LogInformation("Publishing PreviewContentUpdated event");
-                PreviewContentUpdated?.Invoke(this, EventArgs.Empty);
-            }
+            //    _logger.LogInformation("Publishing PreviewContentUpdated event");
+            //    PreviewContentUpdated?.Invoke(this, EventArgs.Empty);
+            //}
 
             return previewContent;
         }
+
+
 
         private async Task<IContent> Update(IContentfulClient contentfulClient)
         {
@@ -118,28 +129,32 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                     await GetFilterAspects(contentfulClient, SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix)));
         }
 
-        private async Task<Model.Content.PreviewContentErrors> PreviewContentErrors(IContentfulClient contentfulClient)
+        public async Task<IPreviewContent> UpdatePreviewCaseStudyPageContent(string url)
         {
-            //var schemes = await GetSchemes(contentfulClient);
+            _logger.LogInformation($"Updating content for Case Study Page with url \"{url}\"");
+            if (_contentfulClient == null)
+                throw new ContentServiceException("Can't preview case study page content without a ContentfulClient.");
+            if (_previewContentfulClient == null)
+                throw new ContentServiceException("Can't preview content without a PreviewContentfulClient.");
 
-            return new Model.Content.PreviewContentErrors(
-                await GetErrors(contentfulClient)
-                //await GetPages(contentfulClient),
-                //await GetCaseStudyPages(contentfulClient, schemes),
-                //scheme,
-                //new Model.Content.Filter(
-                //    MotivationName,
-                //    MotivationDescription,
-                //    await GetFilterAspects(contentfulClient, MotivationsFilterContentfulTypeName, MotivationsFilterPrefix)),
-                //new Model.Content.Filter(
-                //    PayName,
-                //    PayDescription,
-                //    await GetFilterAspects(contentfulClient, PayFilterContentfulTypeName, PayFilterPrefix)),
-                //new Model.Content.Filter(
-                //    SchemeLengthName,
-                //    SchemeLengthDescription,
-                //    await GetFilterAspects(contentfulClient, SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix))
+            IEnumerable<Scheme> schemes = await GetSchemes(_contentfulClient);
+
+            IPreviewContent previewContent = new Model.Content.PreviewContent(
+                Enumerable.Empty<Model.Content.Page>(),
+                Enumerable.Empty<CaseStudyPage>(),
+                Enumerable.Empty<PreviewContentError> (),
+                schemes,
+                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
+                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
+                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>())
             );
+            GetPreviewCaseStudyPages(ref previewContent, _previewContentfulClient, schemes, url);
+            return previewContent;
+        }
+
+        private IEnumerable<PreviewContentError> GetPreviewErrors<T>(ContentfulCollection<T> contentfulCollection)
+        {
+            return contentfulCollection.Errors.Select(e => new PreviewContentError(e.Details.Id, e.Details.Type, e.Details.LinkType));
         }
 
         private void LogErrors<T>(ContentfulCollection<T> contentfulCollection)
@@ -171,16 +186,53 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             return await Task.WhenAll(apiPages.Select(ToContent));
         }
 
-        private async Task<IEnumerable<Model.Content.CaseStudyPage>> GetCaseStudyPages(IContentfulClient contentfulClient, IEnumerable<Model.Content.Scheme> schemes)
+
+
+
+
+
+
+        private async Task<IEnumerable<ContentCaseStudyPage>> GetCaseStudyPages(IContentfulClient contentfulClient, IEnumerable<Model.Content.Scheme> schemes)
+        {
+            //var builder = QueryBuilder<Model.Api.CaseStudyPage>.New.ContentTypeIs("caseStudyPage").Include(1);
+
+            //ContentfulCollection<Model.Api.CaseStudyPage> apiCaseStudyPages = await contentfulClient.GetEntries(builder);
+            //LogErrors(apiCaseStudyPages);
+            //return await CaseStudyPagesToContent(apiCaseStudyPages, schemes);
+
+            ContentfulCollection<Model.Api.CaseStudyPage> apiData = await GetCaseStudyPagesApi(contentfulClient);
+            return await CaseStudyPagesToContent(apiData, schemes, false);
+        }
+
+        private void GetPreviewCaseStudyPages(ref IPreviewContent previewContent, IContentfulClient contentfulClient, IEnumerable<Model.Content.Scheme> schemes, string url = "")
+        {
+            ContentfulCollection<Model.Api.CaseStudyPage> apiData = GetCaseStudyPagesApi(contentfulClient, url).Result;
+            previewContent.CaseStudyPages = CaseStudyPagesToContent(apiData, schemes, true).Result;
+            previewContent.CaseStudyPagesErrors = GetPreviewErrors(apiData);
+            //return previewContent;
+        }
+
+        private async Task<ContentfulCollection<Model.Api.CaseStudyPage>> GetCaseStudyPagesApi(IContentfulClient contentfulClient, string url = "") //, IEnumerable<Model.Content.Scheme> schemes)
         {
             var builder = QueryBuilder<Model.Api.CaseStudyPage>.New.ContentTypeIs("caseStudyPage").Include(1);
-
-            var apiCaseStudyPages = await contentfulClient.GetEntries(builder);
-            LogErrors(apiCaseStudyPages);
-
-            return await Task.WhenAll(apiCaseStudyPages.Where(csp => csp != null && csp?.Scheme != null && csp?.Title != null && csp?.Url != null)
-                                                       .Select(csp => ToContent(csp, schemes)));
+            if (!string.IsNullOrWhiteSpace(url))
+                builder = builder.FieldEquals(x => x.Url, url);
+            ContentfulCollection<Model.Api.CaseStudyPage> apiCaseStudyPages = await contentfulClient.GetEntries(builder);
+            return apiCaseStudyPages;
         }
+
+        private Task<ContentCaseStudyPage[]> CaseStudyPagesToContent(ContentfulCollection<Model.Api.CaseStudyPage> caseStudyPages, IEnumerable<Model.Content.Scheme> schemes, bool includeInvalidContent = false)
+        {
+            return Task.WhenAll(caseStudyPages.Where(csp => includeInvalidContent || (csp != null && csp?.Scheme != null && csp?.Title != null && csp?.Url != null))
+                                              .Select(csp => ToContent(csp, schemes)));
+        }
+
+
+
+
+
+
+
 
         private async Task<IEnumerable<Model.Content.Scheme>> GetSchemes(IContentfulClient contentfulClient)
         {
@@ -213,12 +265,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 (await ToHtmlString(apiPage.Content))!);
         }
 
-        private async Task<Model.Content.CaseStudyPage> ToContent(Model.Api.CaseStudyPage apiCaseStudyPage, IEnumerable<Model.Content.Scheme> schemes)
+        private async Task<ContentCaseStudyPage> ToContent(Model.Api.CaseStudyPage apiCaseStudyPage, IEnumerable<Model.Content.Scheme> schemes)
         {
-            return new Model.Content.CaseStudyPage(
+            //ContentScheme scheme = schemes.FirstOrDefault(x => x.Name == apiCaseStudyPage?.Scheme?.Name); // apiCaseStudyPage.Scheme!.Name)
+            return new ContentCaseStudyPage(
                 apiCaseStudyPage.Title!,
                 apiCaseStudyPage.Url!,
-                schemes.First(x => x.Name == apiCaseStudyPage.Scheme!.Name),
+                schemes.FirstOrDefault(x => x.Name == apiCaseStudyPage?.Scheme?.Name),
                 (await ToHtmlString(apiCaseStudyPage.Content))!);
         }
 

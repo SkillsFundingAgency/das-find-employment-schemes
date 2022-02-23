@@ -1,0 +1,41 @@
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
+@model CaseStudyPagePreview
+
+@{
+    ViewData["Title"] = Model?.Title?.Substring(0, Math.Min(Model?.Title?.Length ?? 64, 64));
+}
+
+@section BreadCrumbs {
+    <a href="/" class="govuk-back-link">Home</a>
+    <a href="@Url.Action("Details", "Schemes", new { schemeUrl = Model?.Scheme?.Url })" class="govuk-back-link">@Model?.Scheme?.Name</a>
+}
+
+@section PreviewErrors {
+    @if (@Model.Errors.Any() || Model.Scheme == null || Model.Scheme.Url == null) {
+        <h3>Errors</h3>
+        <ul>
+            @if (Model.Scheme == null) {
+                <li>Scheme must be selected before publishing</li>
+            } else if (Model.Scheme.Url == null) {
+                <li>Scheme url cannot be found</li>
+            }
+            @foreach (PreviewContentError error in @Model.Errors) {
+                <li>
+                    Id:       @error.Id
+                    Type:     @error.Type
+                    LinkType: @error.LinkType
+                </li>
+            }
+        </ul>
+    }
+}
+
+<div class="govuk-grid-row">
+    <div id="scheme-details-outer" class="govuk-grid-row">
+        <div id="case-study-inner-two-thirds" class="govuk-grid-column-two-thirds">
+            @Model.Content
+        </div>
+        <div id="case-study-inner-one-third" class="govuk-grid-column-one-third">
+        </div>
+    </div>
+</div>

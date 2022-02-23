@@ -4,6 +4,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
 {
     public interface IPreviewContent : IContent
     {
-        IEnumerable<PreviewContentErrors> Errors { get; }
+        new IEnumerable<CaseStudyPage> CaseStudyPages { get; set; }
+        IEnumerable<PreviewContentError> CaseStudyPagesErrors { get; set; }
     }
 }
