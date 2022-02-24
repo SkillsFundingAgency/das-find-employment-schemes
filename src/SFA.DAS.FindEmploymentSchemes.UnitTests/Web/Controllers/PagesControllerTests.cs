@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using FakeItEasy;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
@@ -13,18 +12,16 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
     public class PagesControllerTests
     {
-        public ILogger<PagesController> Logger { get; set; }
         public IPageService PageService { get; set; }
         public IContentService ContentService { get; set; }
         public PagesController PagesController { get; set; }
 
         public PagesControllerTests()
         {
-            Logger = A.Fake<ILogger<PagesController>>();
             PageService = A.Fake<IPageService>();
             ContentService = A.Fake<IContentService>();
 
-            PagesController = new PagesController(Logger, ContentService, PageService);
+            PagesController = new PagesController(ContentService, PageService);
         }
 
         [Fact]
