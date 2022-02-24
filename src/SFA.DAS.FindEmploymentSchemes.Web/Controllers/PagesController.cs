@@ -1,13 +1,16 @@
-﻿using System;
+﻿
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
@@ -43,14 +46,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> PagePreview(string pageUrl)
         {
-            var previewContent = await _contentService.UpdatePreview();
+            IPreviewContent previewContent = await Task.FromResult(_contentService.UpdatePreviewPageContent(pageUrl));
 
             var (viewName, page) = _pageService.Page(pageUrl, previewContent);
 
             if (page == null)
                 return NotFound();
 
-            return View(viewName ?? "Page", page);
+            return View(viewName ?? "Page", new PagePreview(page, previewContent.PagesErrors));
         }
 
         [HttpPost]

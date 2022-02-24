@@ -18,5 +18,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         Task<IContent> Update();
         Task<IPreviewContent> UpdatePreview();
         Task<IPreviewContent> UpdatePreviewCaseStudyPageContent(string url);
+        IPreviewContent UpdatePreviewPageContent(string url);
     }
 }

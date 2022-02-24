@@ -1,15 +1,36 @@
-﻿@model Page
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
+@model PagePreview
 
 @{
-    ViewData["Title"] = Model.Title.Substring(0, Math.Min(Model.Title.Length, 64));;
+    ViewData["Title"] = Model?.Title?.Substring(0, Math.Min(Model?.Title?.Length ?? 64, 64));
 }
 
 @section BreadCrumbs {
     <a href="/" class="govuk-back-link">Home</a>
 }
 
+@section PreviewErrors {
+    @if ((Model?.Errors != null && Model.Errors.Any()) || string.IsNullOrWhiteSpace(Model?.Title)) {
+        <h3>Errors</h3>
+        <ul>
+            @if (string.IsNullOrWhiteSpace(Model.Title)) {
+                <li>Title must not be blank</li>
+            }
+            @if (Model?.Errors != null) {
+                @foreach (PreviewContentError error in Model.Errors) {
+                    <li>
+                        Id:       @error.Id
+                        Type:     @error.Type
+                        LinkType: @error.LinkType
+                    </li>
+                }
+            }
+        </ul>
+    }
+}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        @Model.Content
+        @Model?.Content
     </div>
 </div>

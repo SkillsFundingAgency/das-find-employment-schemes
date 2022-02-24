@@ -11,9 +11,12 @@
 }
 
 @section PreviewErrors {
-    @if ((Model?.Errors != null && Model.Errors.Any()) || string.IsNullOrWhiteSpace(Model?.Scheme?.Url)) {
+    @if ((Model?.Errors != null && Model.Errors.Any()) || string.IsNullOrWhiteSpace(Model?.Scheme?.Url) || string.IsNullOrWhiteSpace(Model?.Title)) {
         <h3>Errors</h3>
         <ul>
+            @if (string.IsNullOrWhiteSpace(Model.Title)) {
+                <li>Title must not be blank</li>
+            }
             @if (Model?.Scheme == null) {
                 <li>Scheme must be selected before publishing</li>
             } else if (Model.Scheme.Url == null) {
