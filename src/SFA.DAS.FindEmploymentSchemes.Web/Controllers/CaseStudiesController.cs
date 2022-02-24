@@ -35,7 +35,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (caseStudyPage == null)
                 return NotFound();
 
-            return View(viewName, caseStudyPage);
+            return View(viewName, new CaseStudyPagePreview(caseStudyPage));
         }
 
         [HttpGet]
@@ -48,7 +48,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (caseStudyPage == null)
                 return NotFound();
 
-            return View(viewName ?? "CaseStudyPagePreview", new CaseStudyPagePreview(caseStudyPage, previewContent.CaseStudyPagesErrors));
+            return View(viewName ?? "CaseStudyPage", new CaseStudyPagePreview(caseStudyPage, previewContent.CaseStudyPagesErrors));
         }
     }
 }

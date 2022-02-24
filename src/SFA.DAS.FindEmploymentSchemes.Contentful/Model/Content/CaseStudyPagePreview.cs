@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Html;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-
+using System.Linq;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 {
@@ -16,6 +16,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         {
             Errors = errors;
         }
+
+        public CaseStudyPagePreview(CaseStudyPage caseStudyPage)
+                    : base(caseStudyPage.Title, caseStudyPage.Url, caseStudyPage.Scheme, caseStudyPage.Content)
+        {
+            Errors = Enumerable.Empty<PreviewContentError>();
+        }
+
         public CaseStudyPagePreview(CaseStudyPage caseStudyPage, IEnumerable<PreviewContentError> errors)
                     : base(caseStudyPage.Title, caseStudyPage.Url, caseStudyPage.Scheme, caseStudyPage.Content)
         {

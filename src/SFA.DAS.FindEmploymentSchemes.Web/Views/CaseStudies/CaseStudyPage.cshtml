@@ -1,8 +1,8 @@
 ﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
-@model CaseStudyPage
+@model CaseStudyPagePreview
 
 @{
-    ViewData["Title"] = Model.Title.Substring(0, Math.Min(Model.Title.Length, 64));;
+    ViewData["Title"] = Model?.Title?.Substring(0, Math.Min(Model?.Title?.Length ?? 64, 64));
 }
 
 @section BreadCrumbs {
@@ -10,10 +10,32 @@
     <a href="@Url.Action("Details", "Schemes", new { schemeUrl = Model?.Scheme?.Url })" class="govuk-back-link">@Model?.Scheme?.Name</a>
 }
 
+@section PreviewErrors {
+    @if ((Model?.Errors != null && Model.Errors.Any()) || string.IsNullOrWhiteSpace(Model?.Scheme?.Url)) {
+        <h3>Errors</h3>
+        <ul>
+            @if (Model?.Scheme == null) {
+                <li>Scheme must be selected before publishing</li>
+            } else if (Model.Scheme.Url == null) {
+                <li>Scheme url cannot be found</li>
+            }
+            @if (Model?.Errors != null) {
+                @foreach (PreviewContentError error in Model.Errors) {
+                    <li>
+                        Id:       @error.Id
+                        Type:     @error.Type
+                        LinkType: @error.LinkType
+                    </li>
+                }
+            }
+        </ul>
+    }
+}
+
 <div class="govuk-grid-row">
     <div id="scheme-details-outer" class="govuk-grid-row">
         <div id="case-study-inner-two-thirds" class="govuk-grid-column-two-thirds">
-            @Model.Content
+            @Model?.Content
         </div>
         <div id="case-study-inner-one-third" class="govuk-grid-column-one-third">
         </div>
