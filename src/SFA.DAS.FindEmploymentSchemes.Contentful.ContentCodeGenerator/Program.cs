@@ -40,7 +40,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             var content = await contentService.Update();
 
-            Console.Write(Preamble());
+            GeneratePreamble();
 
             GenerateGeneratedContentWarning();
 
@@ -192,9 +192,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             Console.WriteLine(@"                },");
         }
 
-        private static string Preamble()
+        private static void GeneratePreamble()
         {
-            return @"using System.Collections.Generic;
+            Console.WriteLine(@"using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
@@ -203,8 +203,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
 {
     public class GeneratedContent : IContent
-    {
-";
+    {");
         }
 
         private static string Closing()
