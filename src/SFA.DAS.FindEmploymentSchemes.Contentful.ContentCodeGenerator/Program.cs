@@ -233,5 +233,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
 
             return $"new HtmlString(@\"{content.Value.Replace("\"", "\"\"")}\")";
         }
+
+        private Program()
+        {
+        }
     }
 }
