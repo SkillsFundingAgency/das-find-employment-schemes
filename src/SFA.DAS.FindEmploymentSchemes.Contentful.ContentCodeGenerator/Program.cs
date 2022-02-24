@@ -53,7 +53,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             GeneratePagesContent(content.Pages);
             GenerateCaseStudyPagesContent(content.CaseStudyPages);
 
-            Console.WriteLine(Closing());
+            GenerateClosing();
         }
 
         private static void GenerateGeneratedContentWarning()
@@ -206,10 +206,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
     {");
         }
 
-        private static string Closing()
+        private static void GenerateClosing()
         {
-            return @"    }
-}";
+            Console.WriteLine(@"    }
+}");
         }
 
         //todo: rename EnumerableProperty?
