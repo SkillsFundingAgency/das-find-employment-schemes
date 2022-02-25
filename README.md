@@ -2,16 +2,16 @@
 
 <img src="https://avatars.githubusercontent.com/u/9841374?s=200&v=4" align="right" alt="UK Government logo">
 
-[![Build Status](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_apis/build/status/das-find-employment-schemes?repoName=SkillsFundingAgency%2Fdas-find-employment-schemes&branchName=refs%2Fpull%2F75%2Fmerge)](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_build/latest?definitionId=2686&repoName=SkillsFundingAgency%2Fdas-find-employment-schemes&branchName=refs%2Fpull%2F75%2Fmerge)
+[![Build Status](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_apis/build/status/das-find-employment-schemes?repoName=SkillsFundingAgency%2Fdas-find-employment-schemes)
 [![Trello Project](https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white)](https://trello.com/b/7rko6qQ2/cx-employers-beta)
-[![Confluence Project](https://img.shields.io/badge/Confluence-Project-blue)](https://skillsfundingagency.atlassian.net/wiki/spaces/_pageurl_) (TODO: Update)
+[![Confluence Project](https://img.shields.io/badge/Confluence-Project-blue)](https://skillsfundingagency.atlassian.net/wiki/spaces/NDL/pages/3507748939/CX+Employers)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?longCache=true&style=flat-square)](https://en.wikipedia.org/wiki/MIT_License)
 
 Provides a portal for employers to see all training schemes available to them across government.
 
 ## How It Works
 
-![Architecture](docs/Find Employer Schemes Architecture.drawio.png)
+![Architecture](docs/Find%20Employer%20Schemes%20Architecture.drawio.png)
 
 _Add a description of how the project works technically, this should give new developers an insight into the how the project hangs together, the core concepts in-use and the high-level features that it provides_
 
