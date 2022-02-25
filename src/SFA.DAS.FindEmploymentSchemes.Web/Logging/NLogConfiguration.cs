@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Microsoft.ApplicationInsights.NLogTarget;
 using NLog;
@@ -9,6 +10,7 @@ using SFA.DAS.NLog.Targets.Redis.DotNetCore;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Logging
 {
+    [ExcludeFromCodeCoverage]
     public class NLogConfiguration
     {
         public void ConfigureNLog(string minimumLogLevel)
