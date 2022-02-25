@@ -126,6 +126,34 @@ body.js-enabled .app-show-on-mobile-no-js {
     padding: 0;
 }
 
+.app-video-container {
+    position: relative;
+    width: 100%;
+    --aspect-ratio: 56.25%;
+}
+
+.app-video-container::before {
+    display: block;
+    padding-top: var(--aspect-ratio);
+    content: "";
+}
+
+.app-video-container > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* IE only. IE doesn't support CSS variables. */
+/* youtube videos work on IE, but are forced into a 16:9 ratio */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .app-video-container::before {
+        padding-top: 56.25% !important;
+    }
+}
+
 @media (max-width: 40.0600em) {
     #scheme-home-filter-header {
         /* stop heading from overlapping close button */
