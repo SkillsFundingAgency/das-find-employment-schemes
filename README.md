@@ -4,14 +4,14 @@
 
 [![Build Status](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_apis/build/status/das-find-employment-schemes)]
 [![Trello Project](https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white)](https://trello.com/b/7rko6qQ2/cx-employers-beta)
-[![Confluence Project](https://img.shields.io/badge/Confluence-Project-blue)](https://skillsfundingagency.atlassian.net/wiki/spaces/_pageurl_) (TODO: Update)
+[![Confluence Project](https://img.shields.io/badge/Confluence-Project-blue)](https://skillsfundingagency.atlassian.net/wiki/spaces/NDL/pages/3507748939/CX+Employers)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?longCache=true&style=flat-square)](https://en.wikipedia.org/wiki/MIT_License)
 
 Provides a portal for employers to see all training schemes available to them across government.
 
 ## How It Works
 
-![Architecture](docs/Find Employer Schemes Architecture.drawio.png)
+![Architecture](docs/Find%20Employer%20Schemes%20Architecture.drawio.png)
 
 ## 🚀 Installation
 

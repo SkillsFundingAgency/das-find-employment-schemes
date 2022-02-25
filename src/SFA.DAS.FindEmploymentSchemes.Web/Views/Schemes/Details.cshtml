@@ -88,8 +88,16 @@
         <ul id="explore-schemes" class="govuk-list">
             @foreach (Scheme scheme in Model.Schemes)
             {
-                <li id="scheme-details-inner-li-@scheme.HtmlId" class="@(scheme==Model.Scheme?"explore-schemes-current-scheme":"")">
-                    <a id="scheme-details-inner-link-@scheme.HtmlId" asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                bool currentScheme = scheme == Model.Scheme;
+                <li id="scheme-details-inner-li-@scheme.HtmlId" class="@(currentScheme ? "explore-schemes-current-scheme" : "")">
+                    @if (currentScheme)
+                    {
+                        @scheme.Name
+                    }
+                    else
+                    {
+                        <a id="scheme-details-inner-link-@scheme.HtmlId" asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                    }
                 </li>
             }
         </ul>
