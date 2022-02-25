@@ -131,7 +131,7 @@
         <ul id="explore-schemes" class="govuk-list">
             @foreach (Scheme scheme in Model?.Schemes ?? Enumerable.Empty<Scheme>())
             {
-                bool currentScheme = scheme == Model.Scheme;
+                bool currentScheme = scheme == Model?.Scheme;
                 <li id="scheme-details-inner-li-@scheme.HtmlId" class="@(currentScheme ? "explore-schemes-current-scheme" : "")">
                     @if (currentScheme)
                     {
