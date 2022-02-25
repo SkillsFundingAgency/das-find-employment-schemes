@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             FilterService = A.Fake<IFilterService>();
             SchemesModelService = A.Fake<ISchemesModelService>();
-            ContentService = A.Fake<ContentService>();
+            ContentService = A.Fake<IContentService>();
 
             HomeModel = new HomeModel(null!, null!, null!);
 
@@ -168,6 +169,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             IActionResult result = SchemesController.Details(schemeUrl);
 
             Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task DetailsPreview_UpdatesPreviewContentTest()
+        {
+            await SchemesController.DetailsPreview("");
+
+            A.CallTo(() => ContentService.UpdatePreview())
+                .MustHaveHappenedOnceExactly();
         }
     }
 }
