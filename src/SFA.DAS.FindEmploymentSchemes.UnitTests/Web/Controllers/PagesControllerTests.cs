@@ -82,7 +82,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // act
             await PagesController.PagePreview("");
 
-            A.CallTo(() => ContentService.UpdatePreview())
+            A.CallTo(() => ContentService.UpdatePreviewPageContent(""))
                 .MustHaveHappenedOnceExactly();
         }
 
