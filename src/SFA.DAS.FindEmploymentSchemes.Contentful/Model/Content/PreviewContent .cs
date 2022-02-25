@@ -16,18 +16,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             IEnumerable<CaseStudyPage>? caseStudyPages,
             IEnumerable<PreviewContentError> caseStudyPagesErrors,
             IEnumerable<Scheme> schemes,
+            IEnumerable<PreviewContentError> schemesErrors,
             Filter motivationsFilter,
             Filter payFilter,
-            Filter schemeLengthFilter) : base(pages ?? new Page[] {}, caseStudyPages ?? new CaseStudyPage[] {}, schemes, motivationsFilter, payFilter, schemeLengthFilter)
+            Filter schemeLengthFilter) : base(pages ?? new Page[] {}, caseStudyPages ?? new CaseStudyPage[] {}, schemes ?? new Scheme[] { }, motivationsFilter, payFilter, schemeLengthFilter)
         {
+            SchemesErrors = schemesErrors;
             PagesErrors = pagesErrors;
             CaseStudyPagesErrors = caseStudyPagesErrors;
         }
 
+        public IEnumerable<PreviewContentError> SchemesErrors { get; set; }
         public IEnumerable<PreviewContentError> PagesErrors { get; set; }
         public IEnumerable<PreviewContentError> CaseStudyPagesErrors { get; set; }
-        public IEnumerable<PreviewContentError> Errors => PagesErrors.Union(CaseStudyPagesErrors);
+        public IEnumerable<PreviewContentError> Errors => SchemesErrors.Union(PagesErrors).Union(CaseStudyPagesErrors);
 
+        IEnumerable<Scheme>? IPreviewContent.Schemes { get; set; }
         IEnumerable<Page>? IPreviewContent.Pages { get; set; }
         IEnumerable<CaseStudyPage>? IPreviewContent.CaseStudyPages { get; set; }
     }

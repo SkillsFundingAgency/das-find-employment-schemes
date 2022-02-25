@@ -16,7 +16,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         IPreviewContent? PreviewContent { get; }
 
         Task<IContent> Update();
-        Task<IPreviewContent> UpdatePreview();
+        Task<IContent> UpdatePreview();
+        Task<IPreviewContent> UpdatePreviewSchemeContent(string url);
         Task<IPreviewContent> UpdatePreviewCaseStudyPageContent(string url);
         IPreviewContent UpdatePreviewPageContent(string url);
     }

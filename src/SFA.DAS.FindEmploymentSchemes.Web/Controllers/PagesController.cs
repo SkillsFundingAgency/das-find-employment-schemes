@@ -40,7 +40,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (page == null)
                 return NotFound();
 
-            return View(viewName, page);
+            return View(viewName, page is CookiePage ? page : new PagePreview(page));
         }
 
         [HttpGet]

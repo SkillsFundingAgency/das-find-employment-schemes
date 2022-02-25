@@ -13,7 +13,7 @@
     @if ((Model?.Errors != null && Model.Errors.Any()) || string.IsNullOrWhiteSpace(Model?.Title)) {
         <h3>Errors</h3>
         <ul>
-            @if (string.IsNullOrWhiteSpace(Model.Title)) {
+            @if (string.IsNullOrWhiteSpace(Model?.Title)) {
                 <li>Title must not be blank</li>
             }
             @if (Model?.Errors != null) {
