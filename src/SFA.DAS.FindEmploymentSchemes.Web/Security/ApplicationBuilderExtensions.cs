@@ -89,7 +89,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         var scriptSrc = builder.AddScriptSrc()
                             .Self()
-                            .From(new[] { cdnUrl, "https://tagmanager.google.com", "https://www.google-analytics.com/", "https://www.googletagmanager.com", "https://acdn.adnxs.com", "https://www.youtube-nocookie.com" })
+                            .From(new[]
+                            {
+                                cdnUrl,
+                                "https://tagmanager.google.com",
+                                "https://www.google-analytics.com/",
+                                "https://www.googletagmanager.com",
+                                "https://acdn.adnxs.com",
+                                "https://www.youtube-nocookie.com"
+                            })
                             // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
                             .UnsafeInline();
@@ -111,7 +119,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .Self();
 
                         builder.AddFrameSrc()
-                            .From(new[] {"https://www.googletagmanager.com", "https://www.youtube-nocookie.com"});
+                            .From(new[]
+                            {
+                                "https://www.googletagmanager.com",
+                                "https://www.youtube-nocookie.com",
+                                "https://2673654.fls.doubleclick.net"
+                            });
 
                         if (env.IsDevelopment())
                         {
