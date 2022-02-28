@@ -1,6 +1,6 @@
 
 h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1, etc {*/
-    font-family: arial !important;
+    font-family: arial, sans-serif !important;
 }
 
 .app-header {
@@ -225,7 +225,6 @@ body.js-enabled .app-show-on-mobile-no-js {
     .cx-cta-box {
         margin-bottom: 20px;
         margin-top: 40px;
-        padding-bottom: 25px;
         padding: 20px;
     }
 }

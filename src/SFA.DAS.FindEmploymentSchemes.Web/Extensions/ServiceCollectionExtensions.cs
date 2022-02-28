@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
@@ -6,6 +7,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Logging;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Extensions
 {
+    [ExcludeFromCodeCoverage]
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddNLog(this IServiceCollection serviceCollection, IConfiguration configuration)

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using System.Threading.Tasks;
@@ -10,16 +9,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
     {
         private readonly ICaseStudyPageService _caseStudyPageService;
         private readonly IContentService _contentService;
-        private readonly ILogger<CaseStudiesController> _log;
 
         public CaseStudiesController(
             ICaseStudyPageService caseStudyPageService,
-            IContentService contentService,
-            ILogger<CaseStudiesController> logger)
+            IContentService contentService)
         {
             _caseStudyPageService = caseStudyPageService;
             _contentService = contentService;
-            _log = logger;
         }
 
         [HttpGet]

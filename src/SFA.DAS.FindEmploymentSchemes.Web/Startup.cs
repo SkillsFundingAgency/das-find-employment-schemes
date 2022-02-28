@@ -47,7 +47,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
         {
             services.AddNLog(Configuration)
                     .AddHealthChecks();
-            //services.AddApplicationInsightsTelemetry();
+#if do_we_need_this
+            services.AddApplicationInsightsTelemetry();
+#endif
 #if DEBUG
             services.AddControllersWithViews()
                     .AddRazorRuntimeCompilation();
