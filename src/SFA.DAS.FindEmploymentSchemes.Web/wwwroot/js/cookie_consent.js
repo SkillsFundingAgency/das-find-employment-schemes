@@ -1,16 +1,16 @@
 ﻿
-setCookie = function (name, value, options) {
+function setCookie(name, value, options) {
 
     if (typeof options === 'undefined') {
         options = {}
     }
 
-    var cookieString = name + '=' + value + '; path=/;SameSite=None'
+    var cookieString = name + '=' + value + '; path=/;SameSite=None';
 
     if (options.days) {
-        var date = new Date()
-        date.setTime(date.getTime() + (options.days * 24 * 60 * 60 * 1000))
-        cookieString = cookieString + '; expires=' + date.toGMTString()
+        var date = new Date();
+        date.setTime(date.getTime() + (options.days * 24 * 60 * 60 * 1000));
+        cookieString = cookieString + '; expires=' + date.toGMTString();
     }
 
     if (!options.domain) {
@@ -18,10 +18,10 @@ setCookie = function (name, value, options) {
     }
 
     if (document.location.protocol === 'https:') {
-        cookieString = cookieString + '; Secure'
+        cookieString = cookieString + '; Secure';
     }
 
-    document.cookie = cookieString + ';domain=' + options.domain
+    document.cookie = cookieString + ';domain=' + options.domain;
 }
 
 $(document).ready(function () {

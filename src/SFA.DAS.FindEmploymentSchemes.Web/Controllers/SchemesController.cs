@@ -15,18 +15,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class SchemesController : Controller
     {
-        private readonly ILogger<SchemesController> _logger;
         private readonly ISchemesModelService _schemesModelService;
         private readonly IFilterService _filterService;
         private readonly IContentService _contentService;
 
         public SchemesController(
-            ILogger<SchemesController> logger,
             ISchemesModelService schemesModelService,
             IFilterService filterService,
             IContentService contentService)
         {
-            _logger = logger;
             _schemesModelService = schemesModelService;
             _filterService = filterService;
             _contentService = contentService;

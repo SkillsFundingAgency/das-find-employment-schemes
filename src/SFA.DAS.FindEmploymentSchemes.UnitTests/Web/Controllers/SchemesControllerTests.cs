@@ -1,8 +1,8 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using FakeItEasy;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
@@ -17,7 +17,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
     public class SchemesControllerTests
     {
-        public ILogger<SchemesController> Logger { get; set; }
         public HomeModel HomeModel { get; set; }
         public ISchemesModelService SchemesModelService { get; set; }
         public IFilterService FilterService { get; set; }
@@ -28,17 +27,16 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
         public SchemesControllerTests()
         {
-            Logger = A.Fake<ILogger<SchemesController>>();
             FilterService = A.Fake<IFilterService>();
             SchemesModelService = A.Fake<ISchemesModelService>();
-            ContentService = A.Fake<ContentService>();
+            ContentService = A.Fake<IContentService>();
 
             HomeModel = new HomeModel(null!, null!, null!);
 
             A.CallTo(() => SchemesModelService.HomeModel)
                 .Returns(HomeModel);
 
-            SchemesController = new SchemesController(Logger, SchemesModelService, FilterService, ContentService);
+            SchemesController = new SchemesController(SchemesModelService, FilterService, ContentService);
 
             SchemeFilterViewModel = new SchemeFilterViewModel(new string[] {}, new string[] {}, new string[] {});
         }
@@ -171,6 +169,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             IActionResult result = SchemesController.Details(schemeUrl);
 
             Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task DetailsPreview_UpdatesPreviewContentTest()
+        {
+            await SchemesController.DetailsPreview("");
+
+            A.CallTo(() => ContentService.UpdatePreview())
+                .MustHaveHappenedOnceExactly();
         }
     }
 }
