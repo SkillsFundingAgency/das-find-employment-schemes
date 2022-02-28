@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
@@ -16,16 +15,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class PagesController : Controller
     {
-        private readonly ILogger<PagesController> _log;
         private readonly IContentService _contentService;
         private readonly IPageService _pageService;
 
         public PagesController(
-            ILogger<PagesController> logger,
             IContentService contentService,
             IPageService pageService)
         {
-            _log = logger;
             _contentService = contentService;
             _pageService = pageService;
         }
