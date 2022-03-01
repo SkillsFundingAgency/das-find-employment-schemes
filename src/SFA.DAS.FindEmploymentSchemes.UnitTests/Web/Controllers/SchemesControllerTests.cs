@@ -176,7 +176,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             await SchemesController.DetailsPreview("");
 
-            A.CallTo(() => ContentService.UpdatePreview())
+            A.CallTo(() => ContentService.UpdatePreviewSchemeContent(""))
                 .MustHaveHappenedOnceExactly();
         }
     }
