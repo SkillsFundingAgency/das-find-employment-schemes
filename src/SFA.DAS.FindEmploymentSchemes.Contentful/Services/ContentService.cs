@@ -84,8 +84,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             return content;
         }
 
-
-        // TODO: Replace and delete me!
         public async Task<IContent> UpdatePreview()
         {
             _logger.LogInformation("Updating preview content");
@@ -100,8 +98,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             PreviewContentUpdated?.Invoke(this, EventArgs.Empty);
             return previewContent;
         }
-
-
 
         private async Task<IContent> Update(IContentfulClient contentfulClient)
         {
@@ -128,12 +124,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         public async Task<IPreviewContent> UpdatePreviewCaseStudyPageContent(string url)
         {
             _logger.LogInformation($"Updating content for Case Study Page with url \"{url}\"");
-            if (_contentfulClient == null)
-                throw new ContentServiceException("Can't preview case study page content without a ContentfulClient.");
             if (_previewContentfulClient == null)
                 throw new ContentServiceException("Can't preview content without a PreviewContentfulClient.");
 
-            IEnumerable<Scheme> schemes = await GetSchemes(_contentfulClient);
+            IEnumerable<Scheme> schemes = await GetSchemes(_previewContentfulClient);
             return GetPreviewCaseStudyPages(_previewContentfulClient, schemes, url);
         }
 
@@ -149,12 +143,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         public async Task<IPreviewContent> UpdatePreviewSchemeContent(string url)
         {
             _logger.LogInformation($"Updating content for Scheme with url \"{url}\"");
-            if (_contentfulClient == null)
-                throw new ContentServiceException("Can't preview scheme content without a ContentfulClient.");
             if (_previewContentfulClient == null)
                 throw new ContentServiceException("Can't preview content without a PreviewContentfulClient.");
 
-            IEnumerable<Scheme> schemes = await GetSchemes(_contentfulClient);
+            IEnumerable<Scheme> schemes = await GetSchemes(_previewContentfulClient);
             IPreviewContent previewContent = GetPreviewSchemes(_previewContentfulClient, url);
             IEnumerable<Scheme> previewSchemes = ((IContent)previewContent).Schemes;
 
