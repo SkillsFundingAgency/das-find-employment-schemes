@@ -41,6 +41,8 @@
                 </form>
             }
             <a id="filter-schemes" class="govuk-button govuk-button--secondary das-js-show--inline" href="#scheme-filter" data-text-show="Filter schemes" data-text-hide="Hide filter">Filter schemes</a>
+            @*todo vertical bar??*@
+            <a id="compare-schemes" class="govuk-button govuk-button--secondary" asp-route="scheme-comparison">Compare schemes in a table</a>
         </div>
         @foreach (var scheme in Model.Schemes)
         {
