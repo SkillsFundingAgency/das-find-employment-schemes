@@ -1,4 +1,6 @@
-﻿
+﻿@*todo own model?*@
+@model IEnumerable<Scheme>
+
 @section BreadCrumbs {
     <a href="/" class="govuk-back-link">Home</a>
 }
@@ -17,14 +19,17 @@
                     <div id="schemes-hint" class="govuk-hint">
                         Select all that apply.
                     </div>
-                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="scheme" name="scheme" type="checkbox" value="carcasses">
-                            <label class="govuk-label govuk-checkboxes__label" for="scheme">
-                                Waste from animal carcasses
-                            </label>
+                    @foreach (var scheme in Model)
+                    {
+                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="@scheme.HtmlId" name="schemes" type="checkbox" value="@scheme.HtmlId">
+                                <label class="govuk-label govuk-checkboxes__label" for="@scheme.HtmlId">
+                                    @scheme.Name
+                                </label>
+                            </div>
                         </div>
-                    </div>
+                    }
 
                 </fieldset>
             </div>

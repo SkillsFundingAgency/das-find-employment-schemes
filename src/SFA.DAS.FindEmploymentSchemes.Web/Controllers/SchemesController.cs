@@ -79,7 +79,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         public IActionResult Comparison()
         {
-            return View();
+            return View(_schemesModelService.HomeModel.Schemes);
         }
     }
 }
