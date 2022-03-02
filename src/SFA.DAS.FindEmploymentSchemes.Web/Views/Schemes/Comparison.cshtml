@@ -5,10 +5,33 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">Which schemes would you like to compare in more detail?</h1>
 
-        Select all that apply
+        <form method="post">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="schemes-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            Which schemes would you like to compare in more detail?
+                        </h1>
+                    </legend>
+                    <div id="schemes-hint" class="govuk-hint">
+                        Select all that apply.
+                    </div>
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="scheme" name="scheme" type="checkbox" value="carcasses">
+                            <label class="govuk-label govuk-checkboxes__label" for="scheme">
+                                Waste from animal carcasses
+                            </label>
+                        </div>
+                    </div>
 
-        Continue
+                </fieldset>
+            </div>
+            
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
     </div>
 </div>
