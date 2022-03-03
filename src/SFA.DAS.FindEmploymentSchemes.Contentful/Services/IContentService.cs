@@ -1,7 +1,6 @@
 ﻿
 using System;
 using System.Threading.Tasks;
-//using Contentful.Core;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 
 
@@ -13,7 +12,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         event EventHandler<EventArgs>? PreviewContentUpdated;
 
         IContent Content { get; }
-        //IPreviewContent? PreviewContent { get; }
         IContent? PreviewContent { get; }
 
         Task<IContent> Update();

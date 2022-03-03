@@ -10,7 +10,7 @@
     <a href="@Url.Action("Details", "Schemes", new { schemeUrl = Model?.Scheme?.Url })" class="govuk-back-link">@Model?.Scheme?.Name</a>
 }
 
-@if (@*(Model?.Errors != null && Model.Errors.Any()) ||*@ string.IsNullOrWhiteSpace(Model?.Scheme?.Url) || string.IsNullOrWhiteSpace(Model?.Title)) {
+@if (string.IsNullOrWhiteSpace(Model?.Scheme?.Url) || string.IsNullOrWhiteSpace(Model?.Title)) {
     @section PreviewErrors {
         <h3>Errors</h3>
         <ul>
@@ -22,15 +22,6 @@
             } else if (Model.Scheme.Url == null) {
                 <li>Scheme url cannot be found</li>
             }
-            @* if (Model?.Errors != null) { *@
-            @*     @foreach (PreviewContentError error in Model.Errors) { *@
-            @*         <li> *@
-            @*             Id:       @error.Id *@
-            @*             Type:     @error.Type *@
-            @*             LinkType: @error.LinkType *@
-            @*         </li> *@
-            @*     } *@
-            @* } *@
         </ul>
     }
 } else {

@@ -9,22 +9,13 @@
     <a href="/" class="govuk-back-link">Home</a>
 }
 
-@if (@*(Model?.Errors != null && Model.Errors.Any()) ||*@ string.IsNullOrWhiteSpace(Model?.Title)) {
+@if (string.IsNullOrWhiteSpace(Model?.Title)) {
     @section PreviewErrors {
         <h3>Errors</h3>
         <ul>
             @if (string.IsNullOrWhiteSpace(Model?.Title)) {
                 <li>Title must not be blank</li>
             }
-            @*  if (Model?.Errors != null) { *@
-            @*     @foreach (PreviewContentError error in Model.Errors) { *@
-            @*         <li> *@
-            @*             Id:       @error.Id *@
-            @*             Type:     @error.Type *@
-            @*             LinkType: @error.LinkType *@
-            @*         </li> *@
-            @*     } *@
-            @* } *@
         </ul>
     }
 } else {
