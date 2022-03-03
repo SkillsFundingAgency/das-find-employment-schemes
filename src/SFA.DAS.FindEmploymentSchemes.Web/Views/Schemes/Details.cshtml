@@ -8,15 +8,15 @@
     <a id="scheme-details-breadcrumb-back-link" href="/" class="govuk-back-link">Home</a>
 }
 
-@section PreviewErrors {
-    @if ( (Model?.Errors != null && Model.Errors.Any()) || 
-          string.IsNullOrWhiteSpace(Model?.Scheme?.Url?.ToString()) ||
-          string.IsNullOrWhiteSpace(Model?.Scheme?.Name?.ToString()) ||
-          string.IsNullOrWhiteSpace(Model?.Scheme?.ShortDescription?.ToString()) ||
-          string.IsNullOrWhiteSpace(Model?.Scheme?.ShortBenefits?.ToString()) ||
-          string.IsNullOrWhiteSpace(Model?.Scheme?.ShortTime?.ToString()) ||
-          Model?.Scheme?.Size == null || Model?.Scheme?.Size == 0
-         ) {
+@if ( @*(Model?.Errors != null && Model.Errors.Any()) || *@
+        string.IsNullOrWhiteSpace(Model?.Scheme?.Url?.ToString()) ||
+        string.IsNullOrWhiteSpace(Model?.Scheme?.Name?.ToString()) ||
+        string.IsNullOrWhiteSpace(Model?.Scheme?.ShortDescription?.ToString()) ||
+        string.IsNullOrWhiteSpace(Model?.Scheme?.ShortBenefits?.ToString()) ||
+        string.IsNullOrWhiteSpace(Model?.Scheme?.ShortTime?.ToString()) ||
+        Model?.Scheme?.Size == null || Model?.Scheme?.Size == 0
+        ) {
+    @section PreviewErrors {
 
         <h3>Errors</h3>
         <ul>
@@ -38,18 +38,18 @@
             @if (Model?.Scheme?.Size == null || Model?.Scheme?.Size == 0) {
                 <li>Size must not be blank</li>
             }
-            @if (Model?.Errors != null) {
-                @foreach (PreviewContentError error in Model.Errors) {
-                    <li>
-                        Id:       @error.Id
-                        Type:     @error.Type
-                        LinkType: @error.LinkType
-                    </li>
-                }
-            }
+            @*  @if (Model?.Errors != null) { *@
+            @*    @foreach (PreviewContentError error in Model.Errors) { *@
+            @*        <li> *@
+            @*            Id:       @error.Id *@
+            @*            Type:     @error.Type *@
+            @*            LinkType: @error.LinkType *@
+            @*        </li> *@
+            @*    } *@
+            @*  } *@
         </ul>
     }
-}
+} else {
 
 <div id="scheme-details-outer" class="govuk-grid-row">
     <div id="scheme-details-inner-two-thirds" class="govuk-grid-column-two-thirds">
@@ -146,6 +146,8 @@
         </ul>
     </div>
 </div>
+
+}
 
 @section AdditionalFooter {
     @Model?.Scheme?.AdditionalFooter

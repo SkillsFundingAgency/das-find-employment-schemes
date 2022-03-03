@@ -21,7 +21,7 @@ using ContentFilterAspect = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Conte
 using ApiScheme = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Scheme;
 using ApiPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Page;
 using ApiFilter = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Filter;
-using PreviewContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.PreviewContent;
+//using PreviewContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.PreviewContent;
 using ApiCaseStudyPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.CaseStudyPage;
 
 
@@ -66,7 +66,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         public static readonly IContent GeneratedContent = new GeneratedContent();
 
         public IContent Content { get; private set; } = GeneratedContent;
-        public IPreviewContent? PreviewContent { get; private set; }
+        //public IPreviewContent? PreviewContent { get; private set; }
+        public IContent? PreviewContent { get; private set; }
 
         public async Task<IContent> Update()
         {
@@ -91,12 +92,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             if (_previewContentfulClient == null)
                 throw new ContentServiceException("Can't update preview content without a preview ContentfulClient.");
 
-            IContent previewContent = await Update(_previewContentfulClient);
-            PreviewContent = previewContent as PreviewContent;
+            //IContent previewContent = await Update(_previewContentfulClient);
+            //PreviewContent = previewContent as PreviewContent;
+            PreviewContent = await Update(_previewContentfulClient);
 
             _logger.LogInformation("Publishing PreviewContentUpdated event");
             PreviewContentUpdated?.Invoke(this, EventArgs.Empty);
-            return previewContent;
+            return PreviewContent;
         }
 
         private async Task<IContent> Update(IContentfulClient contentfulClient)
@@ -121,46 +123,46 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                     await GetFilterAspects(contentfulClient, SchemeLengthFilterContentfulTypeName, SchemeLengthFilterPrefix)));
         }
 
-        public async Task<IPreviewContent> UpdatePreviewCaseStudyPageContent(string url)
-        {
-            _logger.LogInformation($"Updating content for Case Study Page with url \"{url}\"");
-            if (_previewContentfulClient == null)
-                throw new ContentServiceException("Can't preview content without a PreviewContentfulClient.");
+        //public async Task<IPreviewContent> UpdatePreviewCaseStudyPageContent(string url)
+        //{
+        //    _logger.LogInformation($"Updating content for Case Study Page with url \"{url}\"");
+        //    if (_previewContentfulClient == null)
+        //        throw new ContentServiceException("Can't preview content without a PreviewContentfulClient.");
 
-            IEnumerable<Scheme> schemes = await GetSchemes(_previewContentfulClient);
-            return GetPreviewCaseStudyPages(_previewContentfulClient, schemes, url);
-        }
+        //    IEnumerable<Scheme> schemes = await GetSchemes(_previewContentfulClient);
+        //    return GetPreviewCaseStudyPages(_previewContentfulClient, schemes, url);
+        //}
 
-        public IPreviewContent UpdatePreviewPageContent(string url)
-        {
-            _logger.LogInformation($"Updating content for Page with url \"{url}\"");
-            if (_previewContentfulClient == null)
-                throw new ContentServiceException("Can't preview content without a PreviewContentfulClient.");
+        //public IPreviewContent UpdatePreviewPageContent(string url)
+        //{
+        //    _logger.LogInformation($"Updating content for Page with url \"{url}\"");
+        //    if (_previewContentfulClient == null)
+        //        throw new ContentServiceException("Can't preview content without a PreviewContentfulClient.");
 
-            return GetPreviewPages(_previewContentfulClient, url);
-        }
+        //    return GetPreviewPages(_previewContentfulClient, url);
+        //}
 
-        public async Task<IPreviewContent> UpdatePreviewSchemeContent(string url)
-        {
-            _logger.LogInformation($"Updating content for Scheme with url \"{url}\"");
-            if (_previewContentfulClient == null)
-                throw new ContentServiceException("Can't preview content without a PreviewContentfulClient.");
+        //public async Task<IPreviewContent> UpdatePreviewSchemeContent(string url)
+        //{
+        //    _logger.LogInformation($"Updating content for Scheme with url \"{url}\"");
+        //    if (_previewContentfulClient == null)
+        //        throw new ContentServiceException("Can't preview content without a PreviewContentfulClient.");
 
-            IEnumerable<Scheme> schemes = await GetSchemes(_previewContentfulClient);
-            IPreviewContent previewContent = GetPreviewSchemes(_previewContentfulClient, url);
-            IEnumerable<Scheme> previewSchemes = ((IContent)previewContent).Schemes;
+        //    IEnumerable<Scheme> schemes = await GetSchemes(_previewContentfulClient);
+        //    IPreviewContent previewContent = GetPreviewSchemes(_previewContentfulClient, url);
+        //    IEnumerable<Scheme> previewSchemes = ((IContent)previewContent).Schemes;
 
-            if (!string.IsNullOrWhiteSpace(url) && previewSchemes != null && previewSchemes.Count() == 1)
-                previewContent.Schemes = schemes.Where(s => s.Url != url)
-                                                .Append(previewSchemes.First())
-                                                .OrderBy(s => s.Size);
-            return previewContent;
-        }
+        //    if (!string.IsNullOrWhiteSpace(url) && previewSchemes != null && previewSchemes.Count() == 1)
+        //        previewContent.Schemes = schemes.Where(s => s.Url != url)
+        //                                        .Append(previewSchemes.First())
+        //                                        .OrderBy(s => s.Size);
+        //    return previewContent;
+        //}
 
-        private IEnumerable<PreviewContentError> GetPreviewErrors<T>(ContentfulCollection<T> contentfulCollection)
-        {
-            return contentfulCollection.Errors.Select(e => new PreviewContentError(e.Details.Id, e.Details.Type, e.Details.LinkType));
-        }
+        //private IEnumerable<PreviewContentError> GetPreviewErrors<T>(ContentfulCollection<T> contentfulCollection)
+        //{
+        //    return contentfulCollection.Errors.Select(e => new PreviewContentError(e.Details.Id, e.Details.Type, e.Details.LinkType));
+        //}
 
         private void LogErrors<T>(ContentfulCollection<T> contentfulCollection)
         {
@@ -184,70 +186,70 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         private async Task<IEnumerable<ContentPage>> GetPages(IContentfulClient contentfulClient)
         {
             ContentfulCollection<ApiPage> apiData = await GetPagesApi(contentfulClient);
-            return await PagesToContent(apiData, false);
+            return await PagesToContent(apiData, contentfulClient.IsPreviewClient);
         }
 
         private async Task<IEnumerable<ContentCaseStudyPage>> GetCaseStudyPages(IContentfulClient contentfulClient, IEnumerable<ContentScheme> schemes)
         {
             ContentfulCollection<ApiCaseStudyPage> apiData = await GetCaseStudyPagesApi(contentfulClient);
-            return await CaseStudyPagesToContent(apiData, schemes, false);
+            return await CaseStudyPagesToContent(apiData, schemes, contentfulClient.IsPreviewClient);
         }
         private async Task<IEnumerable<ContentScheme>> GetSchemes(IContentfulClient contentfulClient)
         {
             ContentfulCollection<ApiScheme> apiData = await GetSchemesApi(contentfulClient);
-            return await SchemesToContent(apiData, false);
+            return await SchemesToContent(apiData, contentfulClient.IsPreviewClient);
         }
 
-        private IPreviewContent GetPreviewCaseStudyPages(IContentfulClient contentfulClient, IEnumerable<ContentScheme> schemes, string url = "")
-        {
-            ContentfulCollection<ApiCaseStudyPage> apiData = GetCaseStudyPagesApi(contentfulClient, url).Result;
+        //private IPreviewContent GetPreviewCaseStudyPages(IContentfulClient contentfulClient, IEnumerable<ContentScheme> schemes, string url = "")
+        //{
+        //    ContentfulCollection<ApiCaseStudyPage> apiData = GetCaseStudyPagesApi(contentfulClient, url).Result;
 
-            return new PreviewContent(
-                Enumerable.Empty<ContentPage>(),
-                Enumerable.Empty<PreviewContentError>(),
-                CaseStudyPagesToContent(apiData, schemes, true).Result,
-                GetPreviewErrors(apiData),
-                schemes,
-                Enumerable.Empty<PreviewContentError>(),
-                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
-                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
-                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>())
-            );
-        }
+        //    return new PreviewContent(
+        //        Enumerable.Empty<ContentPage>(),
+        //        Enumerable.Empty<PreviewContentError>(),
+        //        CaseStudyPagesToContent(apiData, schemes, true).Result,
+        //        GetPreviewErrors(apiData),
+        //        schemes,
+        //        Enumerable.Empty<PreviewContentError>(),
+        //        new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
+        //        new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
+        //        new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>())
+        //    );
+        //}
 
-        private IPreviewContent GetPreviewPages(IContentfulClient contentfulClient, string url = "")
-        {
-            ContentfulCollection<ApiPage> apiData = GetPagesApi(contentfulClient, url).Result;
+        //private IPreviewContent GetPreviewPages(IContentfulClient contentfulClient, string url = "")
+        //{
+        //    ContentfulCollection<ApiPage> apiData = GetPagesApi(contentfulClient, url).Result;
 
-            return new PreviewContent(
-                PagesToContent(apiData, true).Result,
-                GetPreviewErrors(apiData),
-                Enumerable.Empty<ContentCaseStudyPage>(),
-                Enumerable.Empty<PreviewContentError>(),
-                Enumerable.Empty<ContentScheme>(),
-                Enumerable.Empty<PreviewContentError>(),
-                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
-                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
-                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>())
-            );
-        }
+        //    return new PreviewContent(
+        //        PagesToContent(apiData, true).Result,
+        //        GetPreviewErrors(apiData),
+        //        Enumerable.Empty<ContentCaseStudyPage>(),
+        //        Enumerable.Empty<PreviewContentError>(),
+        //        Enumerable.Empty<ContentScheme>(),
+        //        Enumerable.Empty<PreviewContentError>(),
+        //        new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
+        //        new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
+        //        new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>())
+        //    );
+        //}
 
-        private IPreviewContent GetPreviewSchemes(IContentfulClient contentfulClient, string url = "")
-        {
-            ContentfulCollection<ApiScheme> apiData = GetSchemesApi(contentfulClient, url).Result;
+        //private IPreviewContent GetPreviewSchemes(IContentfulClient contentfulClient, string url = "")
+        //{
+        //    ContentfulCollection<ApiScheme> apiData = GetSchemesApi(contentfulClient, url).Result;
 
-            return new PreviewContent(
-                Enumerable.Empty<ContentPage>(),
-                Enumerable.Empty<PreviewContentError>(),
-                Enumerable.Empty<ContentCaseStudyPage>(),
-                Enumerable.Empty<PreviewContentError>(),
-                SchemesToContent(apiData, true).Result,
-                GetPreviewErrors(apiData),
-                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
-                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
-                new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>())
-            );
-        }
+        //    return new PreviewContent(
+        //        Enumerable.Empty<ContentPage>(),
+        //        Enumerable.Empty<PreviewContentError>(),
+        //        Enumerable.Empty<ContentCaseStudyPage>(),
+        //        Enumerable.Empty<PreviewContentError>(),
+        //        SchemesToContent(apiData, true).Result,
+        //        GetPreviewErrors(apiData),
+        //        new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
+        //        new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>()),
+        //        new Model.Content.Filter(MotivationName, MotivationDescription, Enumerable.Empty<FilterAspect>())
+        //    );
+        //}
 
         private async Task<ContentfulCollection<ApiCaseStudyPage>> GetCaseStudyPagesApi(IContentfulClient contentfulClient, string url = "")
         {
@@ -258,20 +260,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             return apiCaseStudyPages;
         }
 
-        private async Task<ContentfulCollection<ApiPage>> GetPagesApi(IContentfulClient contentfulClient, string url = "")
+        private async Task<ContentfulCollection<ApiPage>> GetPagesApi(IContentfulClient contentfulClient) //, string url = "")
         {
             var builder = QueryBuilder<ApiPage>.New.ContentTypeIs("page").Include(1);
-            if (!string.IsNullOrWhiteSpace(url))
-                builder = builder.FieldEquals(x => x.Url, url);
             ContentfulCollection<ApiPage> apiPages = await contentfulClient.GetEntries(builder);
             return apiPages;
         }
 
-        private async Task<ContentfulCollection<ApiScheme>> GetSchemesApi(IContentfulClient contentfulClient, string url = "")
+        private async Task<ContentfulCollection<ApiScheme>> GetSchemesApi(IContentfulClient contentfulClient) //, string url = "")
         {
             var builder = QueryBuilder<ApiScheme>.New.ContentTypeIs("scheme").Include(1);
-            if (!string.IsNullOrWhiteSpace(url))
-                builder = builder.FieldEquals(x => x.Url, url);
             ContentfulCollection<ApiScheme> apiSchemes = await contentfulClient.GetEntries(builder);
             return apiSchemes;
         }

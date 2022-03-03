@@ -26,7 +26,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                     throw new NotImplementedException("DEADBEEF-DEAD-BEEF-DEAD-BAAAAAAAAAAD");
             }
 
-            return (null, content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == pageUrl));
+            return (null, content.Pages.FirstOrDefault(p => p?.Url?.ToLowerInvariant() == pageUrl));
         }
     }
 }

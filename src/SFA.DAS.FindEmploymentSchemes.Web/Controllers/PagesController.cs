@@ -36,20 +36,20 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (page == null)
                 return NotFound();
 
-            return View(viewName, page is CookiePage ? page : new PagePreview(page));
+            return View(viewName, page);
         }
 
         [HttpGet]
         public async Task<IActionResult> PagePreview(string pageUrl)
         {
-            IPreviewContent previewContent = await Task.FromResult(_contentService.UpdatePreviewPageContent(pageUrl));
+            IContent previewContent = await _contentService.UpdatePreview();
 
             var (viewName, page) = _pageService.Page(pageUrl, previewContent);
 
             if (page == null)
                 return NotFound();
 
-            return View(viewName ?? "Page", new PagePreview(page, previewContent.PagesErrors));
+            return View(viewName ?? "Page", page);
         }
 
         [HttpPost]

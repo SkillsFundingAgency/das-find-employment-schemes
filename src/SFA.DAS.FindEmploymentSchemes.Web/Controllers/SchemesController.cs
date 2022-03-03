@@ -2,7 +2,6 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
@@ -62,12 +61,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         public async Task<IActionResult> DetailsPreview(string schemeUrl)
         {
-            IPreviewContent previewContent = await _contentService.UpdatePreviewSchemeContent(schemeUrl);
+            IContent previewContent = await _contentService.UpdatePreview();
             SchemeDetailsModel model;
 
             try
             {
-                model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes ?? new Scheme[] {});
+                model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes);
             }
             catch (Exception)
             {
