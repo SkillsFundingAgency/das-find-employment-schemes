@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
 using ContentScheme = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Scheme;
 using ContentPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Page;
@@ -155,23 +154,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             return await SchemesToContent(apiData, contentfulClient.IsPreviewClient);
         }
 
-        private async Task<ContentfulCollection<ApiCaseStudyPage>> GetCaseStudyPagesApi(IContentfulClient contentfulClient, string url = "")
+        private async Task<ContentfulCollection<ApiCaseStudyPage>> GetCaseStudyPagesApi(IContentfulClient contentfulClient)
         {
             var builder = QueryBuilder<ApiCaseStudyPage>.New.ContentTypeIs("caseStudyPage").Include(1);
-            if (!string.IsNullOrWhiteSpace(url))
-                builder = builder.FieldEquals(x => x.Url, url);
             ContentfulCollection<ApiCaseStudyPage> apiCaseStudyPages = await contentfulClient.GetEntries(builder);
             return apiCaseStudyPages;
         }
 
-        private async Task<ContentfulCollection<ApiPage>> GetPagesApi(IContentfulClient contentfulClient) //, string url = "")
+        private async Task<ContentfulCollection<ApiPage>> GetPagesApi(IContentfulClient contentfulClient)
         {
             var builder = QueryBuilder<ApiPage>.New.ContentTypeIs("page").Include(1);
             ContentfulCollection<ApiPage> apiPages = await contentfulClient.GetEntries(builder);
             return apiPages;
         }
 
-        private async Task<ContentfulCollection<ApiScheme>> GetSchemesApi(IContentfulClient contentfulClient) //, string url = "")
+        private async Task<ContentfulCollection<ApiScheme>> GetSchemesApi(IContentfulClient contentfulClient)
         {
             var builder = QueryBuilder<ApiScheme>.New.ContentTypeIs("scheme").Include(1);
             ContentfulCollection<ApiScheme> apiSchemes = await contentfulClient.GetEntries(builder);
