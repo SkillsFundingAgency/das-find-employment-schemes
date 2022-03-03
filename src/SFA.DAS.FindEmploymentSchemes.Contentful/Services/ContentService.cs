@@ -89,11 +89,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             if (_previewContentfulClient == null)
                 throw new ContentServiceException("Can't update preview content without a preview ContentfulClient.");
 
-            PreviewContent = await Update(_previewContentfulClient);
+            IContent previewContent = await Update(_previewContentfulClient);
+            PreviewContent = previewContent;
 
             _logger.LogInformation("Publishing PreviewContentUpdated event");
             PreviewContentUpdated?.Invoke(this, EventArgs.Empty);
-            return PreviewContent;
+            return previewContent;
         }
 
         private async Task<IContent> Update(IContentfulClient contentfulClient)
