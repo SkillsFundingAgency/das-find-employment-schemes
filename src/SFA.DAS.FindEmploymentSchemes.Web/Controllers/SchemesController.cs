@@ -1,4 +1,6 @@
+
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -6,6 +8,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
+
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
@@ -85,7 +88,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [HttpPost]
         public IActionResult Comparison(string[] schemes)
         {
-            throw new NotImplementedException();
+            return View("ComparisonResults", _schemesModelService.HomeModel.Schemes.Where(x => schemes.Contains(x.HtmlId)));
         }
     }
 }
