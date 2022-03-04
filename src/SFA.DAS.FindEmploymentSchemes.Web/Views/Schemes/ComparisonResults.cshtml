@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Scheme>
 
 @section BreadCrumbs {
-    <a href="/" class="govuk-back-link">Home</a>
+    <a href="javascript:history.back()" class="govuk-back-link">Back</a>
 }
 
 <div class="govuk-grid-row">
@@ -45,5 +45,8 @@
                 }
             </tbody>
         </table>
+        <p class="govuk-body">
+            <a href="/" class="govuk-link"> Return to list of all schemes </a>
+        </p>
     </div>
 </div>
