@@ -1,5 +1,4 @@
-﻿
-using Contentful.Core;
+﻿using Contentful.Core;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,7 +20,6 @@ using ApiScheme = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Scheme;
 using ApiPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Page;
 using ApiFilter = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Filter;
 using ApiCaseStudyPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.CaseStudyPage;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
