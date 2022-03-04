@@ -16,7 +16,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         {
         }
 
-        private async Task<IEnumerable<Scheme>> Get(IContentfulClient contentfulClient)
+        private async Task<IEnumerable<Scheme>> GetAll(IContentfulClient contentfulClient)
         {
             ContentfulCollection<ApiScheme> apiData = await GetSchemesApi(contentfulClient);
             return await SchemesToContent(apiData, contentfulClient.IsPreviewClient);
