@@ -58,9 +58,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
                 (await ToHtmlString(apiScheme.ShortTime))!,
                 apiScheme.Url!,
                 apiScheme.Size,
-                (apiScheme.PayFilterAspects?.Select(f => ToFilterAspectId(f, PayFilterPrefix)) ?? Enumerable.Empty<string>())
+                (apiScheme.PayFilterAspects?.Select(f => ToFilterAspectId(f, PayFilterService.Prefix)) ?? Enumerable.Empty<string>())
                     .Concat(apiScheme.MotivationsFilterAspects?.Select(f => ToFilterAspectId(f, MotivationFilterService.Prefix)) ?? Enumerable.Empty<string>())
-                    .Concat(apiScheme.SchemeLengthFilterAspects?.Select(f => ToFilterAspectId(f, SchemeLengthFilterPrefix)) ?? Enumerable.Empty<string>()),
+                    .Concat(apiScheme.SchemeLengthFilterAspects?.Select(f => ToFilterAspectId(f, SchemeLengthFilterService.Prefix)) ?? Enumerable.Empty<string>()),
                 caseStudies,
                 await ToHtmlString(apiScheme.CaseStudies),
                 await ToHtmlString(apiScheme.DetailsPageOverride),
