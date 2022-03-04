@@ -238,3 +238,9 @@ body.js-enabled .app-show-on-mobile-no-js {
         border-left: 4px solid #1d70b8;
     }
 }
+
+.app-preview-errors {
+    border-width: 2px;
+    border-color: crimson;
+    background-color: lightcoral;
+}

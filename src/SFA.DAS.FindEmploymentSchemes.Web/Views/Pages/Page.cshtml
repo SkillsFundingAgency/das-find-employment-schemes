@@ -1,29 +1,44 @@
-﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
-@model Page
+﻿@model Page
 
 @{
-    ViewData["Title"] = Model?.Title?.Substring(0, Math.Min(Model?.Title?.Length ?? 64, 64));
+    bool hasTitle = !string.IsNullOrWhiteSpace(Model.Title);
+    if (hasTitle)
+    {
+        ViewData["Title"] = Model.Title.Substring(0, Math.Min(Model.Title.Length, 64));
+    }
 }
 
 @section BreadCrumbs {
     <a href="/" class="govuk-back-link">Home</a>
 }
 
-@if (string.IsNullOrWhiteSpace(Model?.Title)) {
-    @section PreviewErrors {
+@*todo check for blank content*@
+@*todo can't preview item with null url*@
+@*todo borrow bootstrap error css*@
+@*todo should never show on main site. do we enforce that with a non-preview bool in model??*@
+@if (!hasTitle || Model.Content == null) {
+@section PreviewErrors {
+@*    todo partial with ienumerable htmlstring errors?*@
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full app-preview-errors">
         <h3>Errors</h3>
-        <ul>
-            @if (string.IsNullOrWhiteSpace(Model?.Title)) {
-                <li>Title must not be blank</li>
-            }
-        </ul>
+            <ul>
+                @if (!hasTitle)
+                {
+                    <li>Title must not be blank</li>
+                }
+                @if (Model.Content == null)
+                {
+                    <li>Content must not be blank</li>
+                }
+            </ul>
+        </div>
+    </div>
     }
-} else {
+}
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        @Model?.Content
+        @Model.Content
     </div>
 </div>
-
-}

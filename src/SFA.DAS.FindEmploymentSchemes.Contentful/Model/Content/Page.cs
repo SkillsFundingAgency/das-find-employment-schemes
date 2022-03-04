@@ -6,6 +6,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
     [ExcludeFromCodeCoverage]
     public class Page
     {
+        //todo: change all content fields to nullable
         public string Title { get; }
         public string Url { get; }
         public HtmlString Content { get; }

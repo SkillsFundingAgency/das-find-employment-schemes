@@ -32,6 +32,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         private Task<Page[]> PagesToContent(ContentfulCollection<ApiPage> pages, bool includeInvalidContent = false)
         {
             return Task.WhenAll(pages.Where(p => includeInvalidContent
+                                                 //todo: needed? either preview, where bypassed or non-preview, where shouldn't happen
                                                  || (p != null && p?.Title != null && p?.Url != null))
                 .Select(ToContent));
         }
