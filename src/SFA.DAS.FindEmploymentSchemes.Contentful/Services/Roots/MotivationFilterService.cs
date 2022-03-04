@@ -1,9 +1,10 @@
 ﻿using Contentful.Core.Models;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 {
-    public class MotivationFilterService : FilterService
+    public class MotivationFilterService : FilterService, IMotivationFilterService
     {
         private const string Name = "motivations";
         private const string Description = "I want to";

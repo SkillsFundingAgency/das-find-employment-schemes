@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FakeItEasy;
@@ -10,8 +9,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
-
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {

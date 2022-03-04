@@ -4,10 +4,10 @@ using AutoFixture.Kernel;
 using FakeItEasy;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services

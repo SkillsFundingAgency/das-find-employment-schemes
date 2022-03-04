@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Contentful.Core.Search;
 using System.Linq;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using ApiPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Page;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 {
-    public class PageService : ContentRootService
+    public class PageService : ContentRootService, IPageService
     {
         public PageService(HtmlRenderer htmlRenderer) : base(htmlRenderer)
         {

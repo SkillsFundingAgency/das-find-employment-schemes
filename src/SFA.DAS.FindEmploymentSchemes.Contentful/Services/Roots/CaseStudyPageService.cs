@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Contentful.Core.Search;
 using System.Linq;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using ApiCaseStudyPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.CaseStudyPage;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 {
-    public class CaseStudyPageService : ContentRootService
+    public class CaseStudyPageService : ContentRootService, ICaseStudyPageService
     {
         public CaseStudyPageService(HtmlRenderer htmlRenderer) : base(htmlRenderer)
         {
         }
 
-        private async Task<IEnumerable<CaseStudyPage>> GetAll(IContentfulClient contentfulClient, IEnumerable<Scheme> schemes)
+        public async Task<IEnumerable<CaseStudyPage>> GetAll(
+            IContentfulClient contentfulClient, IEnumerable<Scheme> schemes)
         {
             ContentfulCollection<ApiCaseStudyPage> apiData = await GetCaseStudyPagesApi(contentfulClient);
             return await CaseStudyPagesToContent(apiData, schemes, contentfulClient.IsPreviewClient);

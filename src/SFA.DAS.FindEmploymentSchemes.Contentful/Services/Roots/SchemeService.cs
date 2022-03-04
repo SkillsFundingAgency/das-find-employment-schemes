@@ -5,18 +5,19 @@ using Contentful.Core.Search;
 using Contentful.Core;
 using System.Threading.Tasks;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base;
 using ApiScheme = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Scheme;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 {
-    public class SchemeService : ContentRootService
+    public class SchemeService : ContentRootService, ISchemeService
     {
         public SchemeService(HtmlRenderer htmlRenderer) : base(htmlRenderer)
         {
         }
 
-        private async Task<IEnumerable<Scheme>> GetAll(IContentfulClient contentfulClient)
+        public async Task<IEnumerable<Scheme>> GetAll(IContentfulClient contentfulClient)
         {
             ContentfulCollection<ApiScheme> apiData = await GetSchemesApi(contentfulClient);
             return await SchemesToContent(apiData, contentfulClient.IsPreviewClient);

@@ -2,13 +2,13 @@
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices;
 using System.Threading.Tasks;
 using FakeItEasy;
 using Xunit;
 using System.Globalization;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.BackgroundServices
 {

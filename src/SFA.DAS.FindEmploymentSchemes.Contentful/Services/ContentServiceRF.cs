@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
@@ -12,6 +14,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
     {
         private readonly IContentfulClient? _contentfulClient;
         private readonly IContentfulClient? _previewContentfulClient;
+        private readonly ISchemeService _schemeService;
+        private readonly IPageService _pageService;
+        private readonly ICaseStudyPageService _caseStudyPageService;
+        private readonly IMotivationFilterService _motivationFilterService;
+        private readonly IPayFilterService _payFilterService;
+        private readonly ISchemeLengthFilterService _schemeLengthFilterService;
         private readonly ILogger<ContentService> _logger;
 
         public event EventHandler<EventArgs>? ContentUpdated;
@@ -19,10 +27,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         public ContentServiceRF(
             IContentfulClientFactory contentfulClientFactory,
+            ISchemeService schemeService,
+            IPageService pageService,
+            ICaseStudyPageService caseStudyPageService,
+            IMotivationFilterService motivationFilterService,
+            IPayFilterService payFilterService,
+            ISchemeLengthFilterService schemeLengthFilterService,
             ILogger<ContentService> logger)
         {
             _contentfulClient = contentfulClientFactory.ContentfulClient;
             _previewContentfulClient = contentfulClientFactory.PreviewContentfulClient;
+            _schemeService = schemeService;
+            _pageService = pageService;
+            _caseStudyPageService = caseStudyPageService;
+            _motivationFilterService = motivationFilterService;
+            _payFilterService = payFilterService;
+            _schemeLengthFilterService = schemeLengthFilterService;
             _logger = logger;
         }
 
@@ -62,9 +82,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             return previewContent;
         }
 
-        private Task<IContent> Update(IContentfulClient contentfulClient)
+        private async Task<IContent> Update(IContentfulClient contentfulClient)
         {
-            throw new NotImplementedException();
+            var schemes = await _schemeService.GetAll(contentfulClient);
+
+            return new Model.Content.Content(
+                await _pageService.GetAll(contentfulClient),
+                await _caseStudyPageService.GetAll(contentfulClient, schemes),
+                schemes,
+                await _motivationFilterService.Get(contentfulClient),
+                await _payFilterService.Get(contentfulClient),
+                await _schemeLengthFilterService.Get(contentfulClient));
         }
     }
 }

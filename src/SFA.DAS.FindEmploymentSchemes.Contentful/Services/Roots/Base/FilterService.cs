@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using Contentful.Core.Models;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Contentful.Core.Search;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using ApiFilter = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Filter;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
 {
-    public class FilterService : ContentRootService
+    public class FilterService : ContentRootService, IFilterService
     {
         private readonly string _name;
         private readonly string _description;
