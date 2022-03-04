@@ -4,13 +4,13 @@ using System;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
-using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
+using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
-    public class ContentServiceRF
+    public class ContentServiceRF :IContentService
     {
         private readonly IContentfulClient? _contentfulClient;
         private readonly IContentfulClient? _previewContentfulClient;
