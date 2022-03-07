@@ -4,6 +4,7 @@ using Contentful.Core.Models;
 using Contentful.Core.Search;
 using Contentful.Core;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base;
@@ -13,28 +14,28 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 {
     public class SchemeService : ContentRootService, ISchemeService
     {
-        public SchemeService(HtmlRenderer htmlRenderer) : base(htmlRenderer)
+        private readonly ILogger<SchemeService> _logger;
+
+        public SchemeService(
+            HtmlRenderer htmlRenderer,
+            ILogger<SchemeService> logger) : base(htmlRenderer)
         {
+            _logger = logger;
         }
 
         public async Task<IEnumerable<Scheme>> GetAll(IContentfulClient contentfulClient)
         {
-            ContentfulCollection<ApiScheme> apiData = await GetSchemesApi(contentfulClient);
-            return await SchemesToContent(apiData, contentfulClient.IsPreviewClient);
+            ContentfulCollection<ApiScheme> schemes = await GetSchemesApi(contentfulClient);
+
+            return await Task.WhenAll(FilterValidUrl(schemes, _logger)
+                .OrderByDescending(s => s.Size)
+                .Select(ToContent));
         }
 
         private Task<ContentfulCollection<ApiScheme>> GetSchemesApi(IContentfulClient contentfulClient)
         {
             var builder = QueryBuilder<ApiScheme>.New.ContentTypeIs("scheme").Include(1);
             return contentfulClient.GetEntries(builder);
-        }
-
-        //todo: IsValid method (in api scheme?)
-        private Task<Scheme[]> SchemesToContent(ContentfulCollection<ApiScheme> schemes, bool includeInvalidContent = false)
-        {
-            return Task.WhenAll(schemes.Where(s => includeInvalidContent || (s != null && s?.Name != null && s?.ShortDescription != null && s?.ShortBenefits != null && s?.ShortTime != null && s?.Size != null && s?.Url != null))
-                .OrderByDescending(s => s.Size)
-                .Select(ToContent));
         }
 
         private async Task<Scheme> ToContent(ApiScheme apiScheme)

@@ -1,60 +1,56 @@
 @model SchemeDetailsModel
 
 @{
-    ViewData["Title"] = Model?.Scheme?.Name?.Substring(0, Math.Min(Model?.Scheme?.Name?.Length ?? 64, 64));
+    var errors = new List<HtmlString>();
+    bool hasName = !string.IsNullOrWhiteSpace(Model.Scheme.Name);
+    if (hasName)
+    {
+        ViewData["Title"] = Model.Scheme.Name![..Math.Min(Model.Scheme.Name!.Length, 64)];
+    }
+    else
+    {
+        errors.Add(new HtmlString("Name must not be blank"));
+    }
+    if (Model.Scheme.ShortDescription == null)
+    {
+        errors.Add(new HtmlString("Short description must not be blank"));
+    }
+    if (Model.Scheme.ShortCost == null)
+    {
+        errors.Add(new HtmlString("Short cost must not be blank"));
+    }
+    if (Model.Scheme.ShortBenefits == null)
+    {
+        errors.Add(new HtmlString("Short benefits must not be blank"));
+    }
+    if (Model.Scheme.ShortTime == null)
+    {
+        errors.Add(new HtmlString("Short time must not be blank"));
+    }
 }
 
 @section BreadCrumbs {
     <a id="scheme-details-breadcrumb-back-link" href="/" class="govuk-back-link">Home</a>
 }
 
-@if (string.IsNullOrWhiteSpace(Model?.Scheme?.Url?.ToString()) ||
-     string.IsNullOrWhiteSpace(Model?.Scheme?.Name?.ToString()) ||
-     string.IsNullOrWhiteSpace(Model?.Scheme?.ShortDescription?.ToString()) ||
-     string.IsNullOrWhiteSpace(Model?.Scheme?.ShortBenefits?.ToString()) ||
-     string.IsNullOrWhiteSpace(Model?.Scheme?.ShortTime?.ToString()) ||
-     Model?.Scheme?.Size == null || Model?.Scheme?.Size == 0
-    ) {
-    @section PreviewErrors {
-
-        <h3>Errors</h3>
-        <ul>
-            @if (string.IsNullOrWhiteSpace(Model?.Scheme?.Url?.ToString())) {
-                <li>Url must not be blank</li>
-            }
-            @if (string.IsNullOrWhiteSpace(Model?.Scheme?.Name?.ToString())) {
-                <li>Name must not be blank</li>
-            }
-            @if (string.IsNullOrWhiteSpace(Model?.Scheme?.ShortDescription?.ToString())) {
-                <li>ShortDescription must not be blank</li>
-            }
-            @if (string.IsNullOrWhiteSpace(Model?.Scheme?.ShortBenefits?.ToString())) {
-                <li>ShortBenefits must not be blank</li>
-            }
-            @if (string.IsNullOrWhiteSpace(Model?.Scheme?.ShortTime?.ToString())) {
-                <li>ShortTime must not be blank</li>
-            }
-            @if (Model?.Scheme?.Size == null || Model?.Scheme?.Size == 0) {
-                <li>Size must not be blank</li>
-            }
-        </ul>
-    }
-} else {
+@section PreviewErrors {
+    @await Html.PartialAsync("_PreviewErrorsPartial", errors)
+}
 
 <div id="scheme-details-outer" class="govuk-grid-row">
     <div id="scheme-details-inner-two-thirds" class="govuk-grid-column-two-thirds">
         <h1 id="scheme-details-h1" class="govuk-heading-l">
-            @Model?.Scheme?.Name
+            @Model.Scheme.Name
         </h1>
-        @if (Model?.Scheme?.DetailsPageOverride != null)
+        @if (Model.Scheme.DetailsPageOverride != null)
         {
-            @Model?.Scheme?.DetailsPageOverride
+            @Model.Scheme.DetailsPageOverride
         }
         else
         {
-            @Model?.Scheme?.Description
+            @Model.Scheme.Description
 
-            if (Model?.Scheme?.SubSchemes != null && Model.Scheme.SubSchemes.Any())
+            if (Model.Scheme.SubSchemes.Any())
             {
                 <div class="govuk-accordion" data-module="govuk-accordion" id="sub-scheme-accordion">
 
@@ -70,23 +66,20 @@
             else
             {
             <h2 id="scheme-details-h2-cost" class="govuk-heading-m"> Employer cost </h2>
-            @Model?.Scheme?.Cost  
+            @Model.Scheme.Cost  
             <h2 id="scheme-details-h2-responsibility" class="govuk-heading-m"> Employer responsibilities </h2>
-            @Model?.Scheme?.Responsibility
-            <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model?.Scheme?.Name</h2>
-            @Model?.Scheme?.Benefits
-            int numberOfCaseStudies = Model?.Scheme?.CaseStudies?.Count() ?? 0;
+            @Model.Scheme.Responsibility
+            <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
+            @Model.Scheme.Benefits
+            int numberOfCaseStudies = Model.Scheme.CaseStudies.Count();
 
-            @if (Model?.Scheme?.CaseStudiesPreamble != null || numberOfCaseStudies > 0)
+            @if (Model.Scheme.CaseStudiesPreamble != null || numberOfCaseStudies > 0)
             {
                 <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
 
-                @if (Model?.Scheme?.CaseStudiesPreamble != null)
-                {
-                    @Model?.Scheme?.CaseStudiesPreamble
-                }
+                @Model.Scheme.CaseStudiesPreamble
 
-                foreach (CaseStudy study in Model?.Scheme?.CaseStudies ?? Enumerable.Empty<CaseStudy>())
+                foreach (CaseStudy study in Model.Scheme.CaseStudies)
                 {
                     if (numberOfCaseStudies > 1)
                     {
@@ -110,8 +103,8 @@
             }
 
             <section id="scheme-details-section-offer-header" class="cx-cta-box">
-                <h2 id="scheme-details-h2-offer-header" class="govuk-heading-m">@Model?.Scheme?.OfferHeader</h2>
-                @Model?.Scheme?.Offer
+                <h2 id="scheme-details-h2-offer-header" class="govuk-heading-m">@Model.Scheme.OfferHeader</h2>
+                @Model.Scheme.Offer
             </section>
         }
         }
@@ -119,9 +112,9 @@
 	<div class="govuk-grid-column-one-third">
 		<h3 class="govuk-heading-m">Explore schemes</h3>
         <ul id="explore-schemes" class="govuk-list">
-            @foreach (Scheme scheme in Model?.Schemes ?? Enumerable.Empty<Scheme>())
+            @foreach (Scheme scheme in Model.Schemes)
             {
-                bool currentScheme = scheme == Model?.Scheme;
+                bool currentScheme = scheme == Model.Scheme;
                 <li id="scheme-details-inner-li-@scheme.HtmlId" class="@(currentScheme ? "explore-schemes-current-scheme" : "")">
                     @if (currentScheme)
                     {
@@ -137,8 +130,6 @@
     </div>
 </div>
 
-}
-
 @section AdditionalFooter {
-    @Model?.Scheme?.AdditionalFooter
+    @Model.Scheme.AdditionalFooter
 }

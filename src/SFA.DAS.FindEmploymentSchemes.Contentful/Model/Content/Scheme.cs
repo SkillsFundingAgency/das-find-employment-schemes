@@ -6,16 +6,27 @@ using Microsoft.AspNetCore.Html;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 {
-    //todo: interface?
-    //todo: revisit for c#9
     public class Scheme
     {
-        public string Name { get; }
-        public HtmlString ShortDescription { get; }
-        public HtmlString ShortCost { get; }
-        public HtmlString ShortBenefits { get; }
-        public HtmlString ShortTime { get; }
+        /// <summary>
+        /// Should always be valid. We filter out schemes with invalid urls, as they aren't navigable.
+        /// </summary>
         public string Url { get; }
+
+        // these are mandatory in Contentful, and should never be null for a published scheme
+        #region Mandatory in Contentful
+
+        public string? Name { get; }
+        public HtmlString? ShortDescription { get; }
+        public HtmlString? ShortCost { get; }
+        public HtmlString? ShortBenefits { get; }
+        public HtmlString? ShortTime { get; }
+
+        #endregion Mandatory in Contentful
+
+        // these are option in Contentful, and can be null for a published scheme
+        #region Optional in Contentful
+
         public HtmlString? DetailsPageOverride { get; }
         public HtmlString? Description { get; }
         public IEnumerable<SubScheme> SubSchemes { get; }
@@ -27,12 +38,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public string? OfferHeader { get; }
         public HtmlString? Offer { get; }
         public HtmlString? AdditionalFooter { get; }
+
+        #endregion Optional in Contentful
+
         // when we display the matching schemes on the filter page, we'll sort largest to smallest
         public int Size { get; }
         public IEnumerable<string> FilterAspects { get; }
         public string HtmlId { get; }
 
-        public Scheme(string name, HtmlString shortDescription, HtmlString shortCost, HtmlString shortBenefits, HtmlString shortTime,
+        public Scheme(string? name, HtmlString? shortDescription, HtmlString? shortCost, HtmlString? shortBenefits, HtmlString? shortTime,
             string url, int size,
             IEnumerable<string> filterAspects,
             IEnumerable<CaseStudy>? caseStudies = null,

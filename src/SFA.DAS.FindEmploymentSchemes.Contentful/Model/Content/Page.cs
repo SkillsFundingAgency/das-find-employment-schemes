@@ -6,11 +6,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
     [ExcludeFromCodeCoverage]
     public class Page
     {
-        // all of these are mandatory in Contentful, and should never be null for a published page.
-        // all can be null when previewing a page, except we filter out pages with null urls, as they can't be previewed due to routing.
-        public string? Title { get; }
+        /// <summary>
+        /// Should always be valid. We filter out pages with invalid urls, as they aren't navigable.
+        /// </summary>
         public string Url { get; }
+
+        // these are mandatory in Contentful, and should never be null for a published page
+        #region Mandatory in Contentful
+
+        public string? Title { get; }
         public HtmlString? Content { get; }
+
+        #endregion Mandatory in Contentful
 
         public Page(string? title, string url, HtmlString? content)
         {
