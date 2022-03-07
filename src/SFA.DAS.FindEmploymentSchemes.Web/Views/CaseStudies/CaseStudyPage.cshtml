@@ -1,13 +1,26 @@
 ﻿@model CaseStudyPage
 
 @{
+    var errors = new List<HtmlString>();
     bool hasTitle = !string.IsNullOrWhiteSpace(Model.Title);
     if (hasTitle)
     {
         ViewData["Title"] = Model.Title![..Math.Min(Model.Title!.Length, 64)];
     }
+    else
+    {
+        errors.Add(new HtmlString("Title must not be blank"));
+    }
     // note: schemes without urls will have already been filtered out
     bool hasValidScheme = Model.Scheme?.Name != null;
+    if (!hasValidScheme)
+    {
+        errors.Add(new HtmlString("Scheme must be selected and have been given an URL and name before publishing"));
+    }
+    if (Model.Content == null)
+    {
+        errors.Add(new HtmlString("Content must not be blank"));
+    }
 }
 
 @section BreadCrumbs {
@@ -18,35 +31,15 @@
     }
 }
 
-@if (!hasTitle || !hasValidScheme || Model.Content == null)
+@section PreviewErrors
 {
-    @section PreviewErrors
-    {
-        <h3>Errors</h3>
-        <ul>
-            @if (!hasTitle)
-            {
-                <li>Title must not be blank</li>
-            }
-            @if (!hasValidScheme)
-            {
-                <li>Scheme must be selected and have been given an URL and name before publishing</li>
-            }
-            @if (Model.Content == null)
-            {
-                <li>Content must not be blank</li>
-            }
-        </ul>
-    }
+    @await Html.PartialAsync("_PreviewErrorsPartial", errors)
 }
 
 <div class="govuk-grid-row">
     <div id="scheme-details-outer" class="govuk-grid-row">
         <div id="case-study-inner-two-thirds" class="govuk-grid-column-two-thirds">
             @Model.Content
-        </div>
-        @*todo: is this needed?*@
-        <div id="case-study-inner-one-third" class="govuk-grid-column-one-third">
         </div>
     </div>
 </div>

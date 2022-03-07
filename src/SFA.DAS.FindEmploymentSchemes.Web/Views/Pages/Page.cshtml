@@ -1,10 +1,20 @@
 ﻿@model Page
 
 @{
+    var errors = new List<HtmlString>();
     bool hasTitle = !string.IsNullOrWhiteSpace(Model.Title);
     if (hasTitle)
     {
         ViewData["Title"] = Model.Title![..Math.Min(Model.Title!.Length, 64)];
+    }
+    else
+    {
+        errors.Add(new HtmlString("Title must not be blank"));
+    }
+
+    if (Model.Content == null)
+    {
+        errors.Add(new HtmlString("Content must not be blank"));
     }
 }
 
@@ -12,27 +22,9 @@
     <a href="/" class="govuk-back-link">Home</a>
 }
 
-@*todo borrow bootstrap error css*@
-@*todo should never show on main site. do we enforce that with a non-preview bool in model??*@
-@if (!hasTitle || Model.Content == null) {
-@section PreviewErrors {
-@*    todo partial with ienumerable htmlstring errors?*@
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full app-preview-errors">
-        <h3>Errors</h3>
-            <ul>
-                @if (!hasTitle)
-                {
-                    <li>Title must not be blank</li>
-                }
-                @if (Model.Content == null)
-                {
-                    <li>Content must not be blank</li>
-                }
-            </ul>
-        </div>
-    </div>
-    }
+@section PreviewErrors
+{
+    @await Html.PartialAsync("_PreviewErrorsPartial", errors)
 }
 
 <div class="govuk-grid-row">
