@@ -95,7 +95,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             {
                 Console.WriteLine($"            new {typeName}(\"{caseStudyPage.Title}\",");
                 Console.WriteLine($"                \"{caseStudyPage.Url}\",");
-                Console.WriteLine($"                Schemes.First(x => x.Name == \"{caseStudyPage.Scheme.Name}\"),");
+                Console.WriteLine($"                Schemes.First(x => x.Name == \"{caseStudyPage.Scheme!.Name}\"),");
                 Console.WriteLine($"                {GenerateHtmlString(caseStudyPage.Content)}");
                 Console.WriteLine("            ),");
             }

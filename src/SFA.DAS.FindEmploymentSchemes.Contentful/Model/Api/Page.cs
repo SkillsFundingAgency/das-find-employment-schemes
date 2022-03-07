@@ -4,11 +4,6 @@ using Contentful.Core.Models;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 {
-    public interface IRootContent
-    {
-        public string? Url { get; }
-    }
-
     [DebuggerDisplay("{Title}")]
     [ExcludeFromCodeCoverage]
     public class Page : IRootContent

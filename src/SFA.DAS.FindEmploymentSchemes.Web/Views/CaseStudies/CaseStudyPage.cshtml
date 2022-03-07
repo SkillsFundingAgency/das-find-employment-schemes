@@ -1,39 +1,52 @@
-﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
-@model CaseStudyPage
+﻿@model CaseStudyPage
 
 @{
-    ViewData["Title"] = Model?.Title?.Substring(0, Math.Min(Model?.Title?.Length ?? 64, 64));
+    bool hasTitle = !string.IsNullOrWhiteSpace(Model.Title);
+    if (hasTitle)
+    {
+        ViewData["Title"] = Model.Title![..Math.Min(Model.Title!.Length, 64)];
+    }
+    // note: schemes without urls will have already been filtered out
+    bool hasValidScheme = Model.Scheme?.Name != null;
 }
 
 @section BreadCrumbs {
     <a href="/" class="govuk-back-link">Home</a>
-    <a href="@Url.Action("Details", "Schemes", new { schemeUrl = Model?.Scheme?.Url })" class="govuk-back-link">@Model?.Scheme?.Name</a>
+    @if (hasValidScheme)
+    {
+        <a href="@Url.Action("Details", "Schemes", new {schemeUrl = Model.Scheme!.Url})" class="govuk-back-link">@Model.Scheme!.Name</a>
+    }
 }
 
-@if (string.IsNullOrWhiteSpace(Model?.Scheme?.Url) || string.IsNullOrWhiteSpace(Model?.Title)) {
-    @section PreviewErrors {
+@if (!hasTitle || !hasValidScheme || Model.Content == null)
+{
+    @section PreviewErrors
+    {
         <h3>Errors</h3>
         <ul>
-            @if (string.IsNullOrWhiteSpace(Model?.Title)) {
+            @if (!hasTitle)
+            {
                 <li>Title must not be blank</li>
             }
-            @if (Model?.Scheme == null) {
-                <li>Scheme must be selected before publishing</li>
-            } else if (Model.Scheme.Url == null) {
-                <li>Scheme url cannot be found</li>
+            @if (!hasValidScheme)
+            {
+                <li>Scheme must be selected and have been given an URL and name before publishing</li>
+            }
+            @if (Model.Content == null)
+            {
+                <li>Content must not be blank</li>
             }
         </ul>
     }
-} else {
+}
 
 <div class="govuk-grid-row">
     <div id="scheme-details-outer" class="govuk-grid-row">
         <div id="case-study-inner-two-thirds" class="govuk-grid-column-two-thirds">
-            @Model?.Content
+            @Model.Content
         </div>
+        @*todo: is this needed?*@
         <div id="case-study-inner-one-third" class="govuk-grid-column-one-third">
         </div>
     </div>
 </div>
-
-}
