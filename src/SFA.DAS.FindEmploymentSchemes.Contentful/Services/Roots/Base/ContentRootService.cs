@@ -1,7 +1,11 @@
 ﻿using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
 {
@@ -53,6 +57,20 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
             html = html.Replace("\r", "\r\n");
 
             return new HtmlString(html);
+        }
+
+        protected IEnumerable<T> FilterValidUrl<T>(IEnumerable<T> roots, ILogger logger)
+            where T : IRootContent
+        {
+            var rootsWithValidUrl = roots.Where(p => !string.IsNullOrWhiteSpace(p.Url));
+
+            int numberExcluded = roots.Count() - rootsWithValidUrl.Count();
+            if (numberExcluded > 0)
+            {
+                logger.LogWarning("Had to exclude {NumberExcluded} root content items for blank urls", numberExcluded);
+            }
+
+            return rootsWithValidUrl;
         }
     }
 }

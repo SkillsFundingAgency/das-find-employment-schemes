@@ -27,15 +27,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         {
             ContentfulCollection<ApiPage> pages = await GetPagesFromApi(contentfulClient);
 
-            var pagesWithValidUrl = pages.Where(p => !string.IsNullOrWhiteSpace(p.Url));
-
-            int numberOfExcludedPages = pages.Count() - pagesWithValidUrl.Count();
-            if (numberOfExcludedPages > 0)
-            {
-                _logger.LogWarning("Had to exclude {NumberOfExcludedPages} pages for blank urls", numberOfExcludedPages);
-            }
-
-            return await Task.WhenAll(pages.Select(ToContent));
+            return await Task.WhenAll(FilterValidUrl(pages, _logger).Select(ToContent));
         }
 
         private Task<ContentfulCollection<ApiPage>> GetPagesFromApi(IContentfulClient contentfulClient)
