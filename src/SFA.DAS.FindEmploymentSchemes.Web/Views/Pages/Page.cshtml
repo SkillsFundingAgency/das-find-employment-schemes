@@ -4,7 +4,7 @@
     bool hasTitle = !string.IsNullOrWhiteSpace(Model.Title);
     if (hasTitle)
     {
-        ViewData["Title"] = Model.Title.Substring(0, Math.Min(Model.Title.Length, 64));
+        ViewData["Title"] = Model.Title![..Math.Min(Model.Title!.Length, 64)];
     }
 }
 
@@ -12,8 +12,6 @@
     <a href="/" class="govuk-back-link">Home</a>
 }
 
-@*todo check for blank content*@
-@*todo can't preview item with null url*@
 @*todo borrow bootstrap error css*@
 @*todo should never show on main site. do we enforce that with a non-preview bool in model??*@
 @if (!hasTitle || Model.Content == null) {

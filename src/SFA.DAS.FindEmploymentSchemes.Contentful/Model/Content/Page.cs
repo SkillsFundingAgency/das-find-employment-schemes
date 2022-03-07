@@ -6,12 +6,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
     [ExcludeFromCodeCoverage]
     public class Page
     {
-        //todo: change all content fields to nullable
-        public string Title { get; }
+        // all of these are mandatory in Contentful, and should never be null for a published page.
+        // all can be null when previewing a page, except we filter out pages with null urls, as they can't be previewed due to routing.
+        public string? Title { get; }
         public string Url { get; }
-        public HtmlString Content { get; }
+        public HtmlString? Content { get; }
 
-        public Page(string title, string url, HtmlString content)
+        public Page(string? title, string url, HtmlString? content)
         {
             Title = title;
             Url = url;

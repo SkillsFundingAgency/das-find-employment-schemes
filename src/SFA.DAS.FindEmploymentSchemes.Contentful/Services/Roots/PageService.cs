@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Contentful.Core.Search;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using ApiPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Page;
 
@@ -13,28 +14,34 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 {
     public class PageService : ContentRootService, IPageService
     {
-        public PageService(HtmlRenderer htmlRenderer) : base(htmlRenderer)
+        private readonly ILogger<PageService> _logger;
+
+        public PageService(
+            HtmlRenderer htmlRenderer,
+            ILogger<PageService> logger) : base(htmlRenderer)
         {
+            _logger = logger;
         }
 
         public async Task<IEnumerable<Page>> GetAll(IContentfulClient contentfulClient)
         {
-            ContentfulCollection<ApiPage> apiData = await GetPagesApi(contentfulClient);
-            return await PagesToContent(apiData, contentfulClient.IsPreviewClient);
+            ContentfulCollection<ApiPage> pages = await GetPagesFromApi(contentfulClient);
+
+            var pagesWithValidUrl = pages.Where(p => !string.IsNullOrWhiteSpace(p.Url));
+
+            int numberOfExcludedPages = pages.Count() - pagesWithValidUrl.Count();
+            if (numberOfExcludedPages > 0)
+            {
+                _logger.LogWarning("Had to exclude {NumberOfExcludedPages} pages for blank urls", numberOfExcludedPages);
+            }
+
+            return await Task.WhenAll(pages.Select(ToContent));
         }
 
-        private Task<ContentfulCollection<ApiPage>> GetPagesApi(IContentfulClient contentfulClient)
+        private Task<ContentfulCollection<ApiPage>> GetPagesFromApi(IContentfulClient contentfulClient)
         {
             var builder = QueryBuilder<ApiPage>.New.ContentTypeIs("page").Include(1);
             return contentfulClient.GetEntries(builder);
-        }
-
-        private Task<Page[]> PagesToContent(ContentfulCollection<ApiPage> pages, bool includeInvalidContent = false)
-        {
-            return Task.WhenAll(pages.Where(p => includeInvalidContent
-                                                 //todo: needed? either preview, where bypassed or non-preview, where shouldn't happen
-                                                 || (p != null && p?.Title != null && p?.Url != null))
-                .Select(ToContent));
         }
 
         private async Task<Page> ToContent(ApiPage apiPage)
