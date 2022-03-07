@@ -27,6 +27,33 @@
     {
         errors.Add(new HtmlString("Short time must not be blank"));
     }
+    if (Model.Scheme.DetailsPageOverride == null)
+    {
+        if (Model.Scheme.Description == null)
+        {
+            errors.Add(new HtmlString("If there is no details page override, the description must not be blank"));
+        }
+        if (Model.Scheme.Cost == null)
+        {
+            errors.Add(new HtmlString("If there is no details page override, the cost must not be blank"));
+        }
+        if (Model.Scheme.Responsibility == null)
+        {
+            errors.Add(new HtmlString("If there is no details page override, the responsibility must not be blank"));
+        }
+        if (Model.Scheme.Benefits == null)
+        {
+            errors.Add(new HtmlString("If there is no details page override, the benefits must not be blank"));
+        }
+        if (Model.Scheme.OfferHeader == null)
+        {
+            errors.Add(new HtmlString("If there is no details page override, the offer header must not be blank"));
+        }
+        if (Model.Scheme.Offer == null)
+        {
+            errors.Add(new HtmlString("If there is no details page override, the offer must not be blank"));
+        }
+    }
 }
 
 @section BreadCrumbs {
@@ -53,60 +80,59 @@
             if (Model.Scheme.SubSchemes.Any())
             {
                 <div class="govuk-accordion" data-module="govuk-accordion" id="sub-scheme-accordion">
-
-                    @{
-                        int ordinal = 0;
-                        foreach (var subScheme in Model.Scheme.SubSchemes)
-                        {
-                            @await Html.PartialAsync("_AccordionSectionPartial", ("subscheme", ordinal++, subScheme))
-                        }
+                @{
+                    int ordinal = 0;
+                    foreach (var subScheme in Model.Scheme.SubSchemes)
+                    {
+                        @await Html.PartialAsync("_AccordionSectionPartial", ("subscheme", ordinal++, subScheme))
                     }
+                }
                 </div>
             }
             else
             {
-            <h2 id="scheme-details-h2-cost" class="govuk-heading-m"> Employer cost </h2>
-            @Model.Scheme.Cost  
-            <h2 id="scheme-details-h2-responsibility" class="govuk-heading-m"> Employer responsibilities </h2>
-            @Model.Scheme.Responsibility
-            <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
-            @Model.Scheme.Benefits
-            int numberOfCaseStudies = Model.Scheme.CaseStudies.Count();
+                <h2 id="scheme-details-h2-cost" class="govuk-heading-m"> Employer cost </h2>
+                @Model.Scheme.Cost  
+                <h2 id="scheme-details-h2-responsibility" class="govuk-heading-m"> Employer responsibilities </h2>
+                @Model.Scheme.Responsibility
+                <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
+                @Model.Scheme.Benefits
+                int numberOfCaseStudies = Model.Scheme.CaseStudies.Count();
 
-            @if (Model.Scheme.CaseStudiesPreamble != null || numberOfCaseStudies > 0)
-            {
-                <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
-
-                @Model.Scheme.CaseStudiesPreamble
-
-                foreach (CaseStudy study in Model.Scheme.CaseStudies)
+                @if (Model.Scheme.CaseStudiesPreamble != null || numberOfCaseStudies > 0)
                 {
-                    if (numberOfCaseStudies > 1)
+                    <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
+
+                    @Model.Scheme.CaseStudiesPreamble
+
+                    foreach (CaseStudy study in Model.Scheme.CaseStudies)
                     {
-                        <details class="govuk-details" data-module="govuk-details">
-                            <summary class="govuk-details__summary">
-                                <span class="govuk-details__summary-text">
-                                    @study.DisplayTitle
-                                </span>
-                            </summary>
-                            <div class="govuk-details__text">
-                                @study.Content
-                            </div>
-                        </details>
-                    }
-                    else
-                    {
-                        <h3 id="scheme-details-h3-case-studies">@study.DisplayTitle</h3>
-                        @study.Content
+                        if (numberOfCaseStudies > 1)
+                        {
+                            <details class="govuk-details" data-module="govuk-details">
+                                <summary class="govuk-details__summary">
+                                    <span class="govuk-details__summary-text">
+                                        @study.DisplayTitle
+                                    </span>
+                                </summary>
+                                <div class="govuk-details__text">
+                                    @study.Content
+                                </div>
+                            </details>
+                        }
+                        else
+                        {
+                            <h3 id="scheme-details-h3-case-studies">@study.DisplayTitle</h3>
+                            @study.Content
+                        }
                     }
                 }
-            }
 
-            <section id="scheme-details-section-offer-header" class="cx-cta-box">
-                <h2 id="scheme-details-h2-offer-header" class="govuk-heading-m">@Model.Scheme.OfferHeader</h2>
-                @Model.Scheme.Offer
-            </section>
-        }
+                <section id="scheme-details-section-offer-header" class="cx-cta-box">
+                    <h2 id="scheme-details-h2-offer-header" class="govuk-heading-m">@Model.Scheme.OfferHeader</h2>
+                    @Model.Scheme.Offer
+                </section>
+            }
         }
 	</div>
 	<div class="govuk-grid-column-one-third">
