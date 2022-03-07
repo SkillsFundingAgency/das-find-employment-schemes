@@ -8,9 +8,11 @@ using Contentful.Core;
 using Contentful.Core.Configuration;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
@@ -35,8 +37,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             var contenfulClientFactory = new ContentfulClientFactory(new[] {client});
 
             var htmlRenderer = ContentService.CreateHtmlRenderer();
+            var nullLogger = NullLogger.Instance;
 
-            var contentService = new ContentService(contenfulClientFactory, htmlRenderer, new NullLogger<ContentService>());
+            var contentService = new ContentService(
+                contenfulClientFactory, 
+                new SchemeService(htmlRenderer, (ILogger<SchemeService>)nullLogger),
+                new PageService(htmlRenderer, (ILogger<PageService>)nullLogger),
+                new CaseStudyPageService(htmlRenderer, (ILogger<CaseStudyPageService>)nullLogger),
+                new MotivationFilterService(htmlRenderer),
+                new PayFilterService(htmlRenderer),
+                new SchemeLengthFilterService(htmlRenderer),
+                (ILogger<ContentService>)nullLogger);
 
             var content = await contentService.Update();
 

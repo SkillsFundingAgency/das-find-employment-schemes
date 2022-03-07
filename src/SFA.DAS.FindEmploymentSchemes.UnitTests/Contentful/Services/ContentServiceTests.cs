@@ -16,6 +16,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
@@ -34,6 +35,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         public ContentfulCollection<CaseStudyPage> CaseStudyPagesCollection { get; set; }
         public ContentfulCollection<Scheme> SchemesCollection { get; set; }
         public ContentfulCollection<Filter> FiltersCollection { get; set; }
+        public ISchemeService SchemeService { get; set; }
+        public IPageService PageService { get; set; }
+        public ICaseStudyPageService CaseStudyPageService { get; set; }
+        public IMotivationFilterService MotivationFilterService { get; set; }
+        public IPayFilterService PayFilterService { get; set; }
+        public ISchemeLengthFilterService SchemeLengthFilterService { get; set; }
         public ContentService ContentService { get; set; }
         public CompareLogic CompareLogic { get; set; }
 
@@ -74,7 +81,14 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             SetupContentfulClientCalls(ContentfulClient);
             SetupContentfulClientCalls(PreviewContentfulClient);
 
-            ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
+            SchemeService = A.Fake<ISchemeService>();
+            PageService = A.Fake<IPageService>();
+            CaseStudyPageService = A.Fake<ICaseStudyPageService>();
+            MotivationFilterService = A.Fake<IMotivationFilterService>();
+            PayFilterService = A.Fake<IPayFilterService>();
+            SchemeLengthFilterService = A.Fake<ISchemeLengthFilterService>();
+
+            CreateContentService();
 
             CompareLogic = new CompareLogic();
         }
@@ -158,7 +172,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             A.CallTo(() => ContentfulClientFactory.ContentfulClient)
                 .Returns(null);
 
-            ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
+            CreateContentService();
 
             await Assert.ThrowsAsync<ContentServiceException>(() => ContentService.Update());
         }
@@ -325,7 +339,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             A.CallTo(() => ContentfulClientFactory.PreviewContentfulClient)
                 .Returns(null);
 
-            ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
+            CreateContentService();
 
             await Assert.ThrowsAsync<ContentServiceException>(() => ContentService.UpdatePreview());
         }
@@ -504,22 +518,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         //    Assert.Equal(expectedHtmlStringValue, content.Pages.First().Content.Value);
         //}
 
-        [Theory]
-        [InlineData("\"", "“")]
-        [InlineData("\"", "”")]
-        [InlineData("\"\"", "“”")]
-        [InlineData("\r\n", "\r")]
-        [InlineData("\r\n", "\r\n")]
-        [InlineData("\r\n\r\n", "\r\r\n")]
-        [InlineData("\r\nn", "\rn")]
-        [InlineData("<br>", "<br>")]
-        public void ToNormalisedHtmlString_Tests(string expectedHtmlStringValue, string html)
-        {
-            var result = ContentService.ToNormalisedHtmlString(html);
-
-            Assert.Equal(expectedHtmlStringValue, result.Value);
-        }
-
         [Fact]
         public void Content_IsGeneratedContentBeforeUpdate()
         {
@@ -563,6 +561,19 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             var emptyResult = await renderer.ToHtml(emptyDocument);
 
             Assert.Equal(string.Empty, emptyResult);
+        }
+
+        private void CreateContentService()
+        {
+            ContentService = new ContentService(
+                ContentfulClientFactory,
+                SchemeService,
+                PageService,
+                CaseStudyPageService,
+                MotivationFilterService,
+                PayFilterService,
+                SchemeLengthFilterService,
+                Logger);
         }
     }
 }

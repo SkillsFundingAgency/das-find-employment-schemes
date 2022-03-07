@@ -9,6 +9,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
 {
+    //todo: should be protected
     public class ContentRootService
     {
         private readonly HtmlRenderer _htmlRenderer;
@@ -19,7 +20,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
         }
 
         //this one might not belong here
-        protected static string ToFilterAspectId(Model.Api.IFilter filter, string filterPrefix)
+        protected static string ToFilterAspectId(IFilter filter, string filterPrefix)
         {
             return $"{filterPrefix}--{Slugify(filter.Name)}";
         }
@@ -71,6 +72,25 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
             }
 
             return rootsWithValidUrl;
+        }
+
+        protected void LogErrors<T>(ContentfulCollection<T> contentfulCollection)
+        {
+            //todo: log errors
+            //todo: show error when previewing
+
+#if log_errors
+            if (!contentfulCollection.Errors.Any())
+                return;
+
+            //todo: log SystemProperties.Type?
+            _logger.LogWarning($"Errors received fetching {nameof(T)}'s.");
+
+            foreach (var errorDetails in contentfulCollection.Errors.Select(e => e.Details))
+            {
+                _logger.LogWarning($"Id:{errorDetails.Id}, LinkType:{errorDetails.LinkType}, Type:{errorDetails.Type}");
+            }
+#endif
         }
     }
 }
