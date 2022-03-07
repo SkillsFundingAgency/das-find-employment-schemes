@@ -202,24 +202,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         }
 
         [Fact]
-        public async Task Update_PageMappedTest()
-        {
-            const int numberOfPages = 1;
-
-            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
-
-            var content = await ContentService.Update();
-
-            var actualPage = content.Pages.FirstOrDefault();
-            Assert.NotNull(actualPage);
-
-            var expectedSourcePage = PagesCollection.Items.First();
-            Assert.Equal(expectedSourcePage.Title, actualPage.Title);
-            Assert.Equal(expectedSourcePage.Url, actualPage.Url);
-            Assert.Equal(ExpectedContent, actualPage.Content.Value);
-        }
-
-        [Fact]
         public async Task Update_SameNumberOfCaseStudyPagesTest()
         {
             const int numberOfCaseStudyPages = 3;
