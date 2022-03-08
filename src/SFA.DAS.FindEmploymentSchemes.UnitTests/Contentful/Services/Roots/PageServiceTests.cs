@@ -69,13 +69,14 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             const int numberOfPages = 3;
 
             var pages = Fixture.CreateMany<Page>(numberOfPages).ToArray();
-            pages[1].Url = "";
+            pages[0].Url = "";
+            pages[2].Url = "";
             ContentfulCollection.Items = pages;
 
             var pagesResult = await PageService.GetAll(ContentfulClient);
 
             Assert.NotNull(pages);
-            Assert.Equal(numberOfPages - 1, pagesResult.Count());
+            Assert.Equal(numberOfPages-2, pagesResult.Count());
         }
     }
 }
