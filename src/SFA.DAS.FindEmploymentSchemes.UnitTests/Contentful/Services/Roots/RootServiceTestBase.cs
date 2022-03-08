@@ -5,16 +5,18 @@ using System.Collections.Generic;
 using FakeItEasy;
 using Contentful.Core.Search;
 using System.Threading;
+using System;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
 {
-    public class RootServiceTestBase
+    public class RootServiceTestBase<TApiModel>
     {
         public Fixture Fixture { get; }
         public Document Document { get; set; }
         public string ExpectedContent { get; set; }
         public IContentfulClient ContentfulClient { get; set; }
         public HtmlRenderer HtmlRenderer { get; set; }
+        public ContentfulCollection<TApiModel> ContentfulCollection { get; set; }
 
         public RootServiceTestBase()
         {
@@ -27,6 +29,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             ContentfulClient = A.Fake<IContentfulClient>();
 
             HtmlRenderer = A.Fake<HtmlRenderer>();
+
+            ContentfulCollection = new ContentfulCollection<TApiModel> { Items = Array.Empty<TApiModel>() };
+            SetupContentfulClientCall(ContentfulClient, ContentfulCollection);
         }
 
         private (Document, string) SampleDocumentAndExpectedContent(int differentiator = 0)
@@ -45,7 +50,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             }, $"<h2>Gobble{differentiator}</h2>");
         }
 
-        public void SetupContentfulClientCall<TApiModel>(
+        public void SetupContentfulClientCall(
             IContentfulClient contentfulClient,
             ContentfulCollection<TApiModel> returnCollection)
         {
