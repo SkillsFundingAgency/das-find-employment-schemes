@@ -216,6 +216,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfCaseStudyPages = 1;
 
+            Fixture.Inject(ExpectedContent);
             ContentCaseStudyPages = Fixture.CreateMany<ContentCaseStudyPage>(numberOfCaseStudyPages).ToArray();
             A.CallTo(() => CaseStudyPageService.GetAll(ContentfulClient, A<IEnumerable<ContentScheme>>._))
                 .Returns(ContentCaseStudyPages);
@@ -229,7 +230,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
             Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
             //Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
-            //Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
+            Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
         }
 
         [Fact]
@@ -366,43 +367,42 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.Equal(ExpectedContent.Value, actualPage.Content.Value);
         }
 
-        //[Fact]
-        //public async Task UpdatePreview_SameNumberOfCaseStudyPagesTest()
-        //{
-        //    const int numberOfCaseStudyPages = 3;
+        [Fact]
+        public async Task UpdatePreview_SameNumberOfCaseStudyPagesTest()
+        {
+            const int numberOfCaseStudyPages = 3;
 
-        //    SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
+            ContentCaseStudyPages = Fixture.CreateMany<ContentCaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(PreviewContentfulClient, A<IEnumerable<ContentScheme>>._))
+                .Returns(ContentCaseStudyPages);
 
-        //    Fixture.Inject(SchemesCollection.Items.First());
-        //    CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+            var content = await ContentService.UpdatePreview();
 
-        //    var content = await ContentService.UpdatePreview();
+            Assert.NotNull(content.CaseStudyPages);
+            Assert.Equal(numberOfCaseStudyPages, content.CaseStudyPages.Count());
+        }
 
-        //    Assert.NotNull(content.CaseStudyPages);
-        //    Assert.Equal(numberOfCaseStudyPages, content.CaseStudyPages.Count());
-        //}
+        [Fact]
+        public async Task UpdatePreview_CaseStudyPageMappedTest()
+        {
+            const int numberOfCaseStudyPages = 1;
 
-        //[Fact]
-        //public async Task UpdatePreview_CaseStudyPageMappedTest()
-        //{
-        //    const int numberOfCaseStudyPages = 1;
+            Fixture.Inject(ExpectedContent);
+            ContentCaseStudyPages = Fixture.CreateMany<ContentCaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(PreviewContentfulClient, A<IEnumerable<ContentScheme>>._))
+                .Returns(ContentCaseStudyPages);
 
-        //    SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
+            var content = await ContentService.UpdatePreview();
 
-        //    Fixture.Inject(SchemesCollection.Items.First());
-        //    CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+            var actualCaseStudyPage = content.CaseStudyPages.FirstOrDefault();
+            Assert.NotNull(actualCaseStudyPage);
 
-        //    var content = await ContentService.UpdatePreview();
-
-        //    var actualCaseStudyPage = content.CaseStudyPages.FirstOrDefault();
-        //    Assert.NotNull(actualCaseStudyPage);
-
-        //    var expectedSourceCaseStudyPage = CaseStudyPagesCollection.Items.First();
-        //    Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
-        //    Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
-        //    Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
-        //    Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
-        //}
+            var expectedSourceCaseStudyPage = ContentCaseStudyPages.First();
+            Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
+            Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
+            //Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
+            Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
+        }
 
         [Fact]
         public async Task UpdatePreview_SameNumberOfSchemesTest()
