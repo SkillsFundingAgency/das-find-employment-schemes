@@ -108,6 +108,20 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         [Fact]
         public void Page_CookiePageUrlWithMissingAnalyticsPageThrowsExceptionTest()
         {
+            var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
+
+            var pages = new[] { analyticsPage }
+                .Concat(Pages).ToArray();
+
+            A.CallTo(() => Content.Pages)
+                .Returns(pages);
+
+            Assert.ThrowsAny<Exception>(() => PageService.Page(CookiePageUrl, Content));
+        }
+
+        [Fact]
+        public void Page_CookiePageUrlWithMissingMarketingPageThrowsExceptionTest()
+        {
             var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
 
             var pages = new[] { marketingPage }
