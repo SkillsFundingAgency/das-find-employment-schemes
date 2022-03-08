@@ -93,5 +93,22 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             Assert.Equal(expectedShortTime.Value, actualScheme.ShortTime.Value);
             //todo: enumerable fields
         }
+
+        [Fact]
+        public async Task Update_SchemesInDescendingSizeOrderTests()
+        {
+            var schemes = Fixture.CreateMany<Scheme>(3).ToArray();
+            schemes[0].Size = 300;
+            schemes[1].Size = 100;
+            schemes[2].Size = 200;
+            ContentfulCollection.Items = schemes;
+
+            var schemesResult = await SchemeService.GetAll(ContentfulClient);
+
+            var actualSchemes = schemesResult.ToArray();
+            Assert.Equal(300, actualSchemes[0].Size);
+            Assert.Equal(200, actualSchemes[1].Size);
+            Assert.Equal(100, actualSchemes[2].Size);
+        }
     }
 }
