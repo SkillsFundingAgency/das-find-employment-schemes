@@ -1,9 +1,11 @@
 ﻿using Contentful.Core.Models;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 {
+    [ExcludeFromCodeCoverage]
     public class PayFilterService : FilterService, IPayFilterService
     {
         private const string Name = "pay";

@@ -1,9 +1,11 @@
-﻿using Contentful.Core.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+using Contentful.Core.Models;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 {
+    [ExcludeFromCodeCoverage]
     public class SchemeLengthFilterService : FilterService, ISchemeLengthFilterService
     {
         private const string Name = "schemeLength";
