@@ -76,7 +76,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             var pagesResult = await PageService.GetAll(ContentfulClient);
 
             Assert.NotNull(pages);
-            Assert.Equal(numberOfPages-2, pagesResult.Count());
+            Assert.Single(pagesResult);
         }
     }
 }
