@@ -21,12 +21,31 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
         }
 
         [Fact]
-        public async Task Update_CaseStudyPageMappedTest()
+        public async Task GetAll_SameNumberOfCaseStudyPagesTest()
+        {
+            const int numberOfCaseStudyPages = 3;
+
+            ContentSchemes = Fixture.CreateMany<ContentScheme>(1);
+            var contentScheme = ContentSchemes.First();
+
+            var apiScheme = Fixture.Create<Scheme>();
+            apiScheme.Url = contentScheme.Url;
+
+            Fixture.Inject(apiScheme);
+            ContentfulCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+
+            var caseStudyPages = await CaseStudyPageService.GetAll(ContentfulClient, ContentSchemes);
+
+            Assert.NotNull(caseStudyPages);
+            Assert.Equal(numberOfCaseStudyPages, caseStudyPages.Count());
+        }
+
+        [Fact]
+        public async Task GetAll_CaseStudyPageMappedTest()
         {
             const int numberOfCaseStudyPages = 1;
 
             ContentSchemes = Fixture.CreateMany<ContentScheme>(1);
-
             var contentScheme = ContentSchemes.First();
 
             var apiScheme = Fixture.Create<Scheme>();

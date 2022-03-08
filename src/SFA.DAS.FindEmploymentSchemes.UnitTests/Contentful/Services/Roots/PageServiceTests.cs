@@ -17,6 +17,19 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
         }
 
         [Fact]
+        public async Task GetAll_SameNumberOfPagesTest()
+        {
+            const int numberOfPages = 3;
+
+            ContentfulCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+
+            var pages = await PageService.GetAll(ContentfulClient);
+
+            Assert.NotNull(pages);
+            Assert.Equal(numberOfPages, pages.Count());
+        }
+
+        [Fact]
         public async Task GetAll_PageMappedTest()
         {
             const int numberOfPages = 1;
