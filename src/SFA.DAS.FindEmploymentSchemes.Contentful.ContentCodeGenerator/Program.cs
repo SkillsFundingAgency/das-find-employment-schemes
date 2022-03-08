@@ -37,17 +37,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             var contenfulClientFactory = new ContentfulClientFactory(new[] {client});
 
             var htmlRenderer = ContentService.CreateHtmlRenderer();
-            var nullLogger = NullLogger.Instance;
 
             var contentService = new ContentService(
                 contenfulClientFactory, 
-                new SchemeService(htmlRenderer, (ILogger<SchemeService>)nullLogger),
-                new PageService(htmlRenderer, (ILogger<PageService>)nullLogger),
-                new CaseStudyPageService(htmlRenderer, (ILogger<CaseStudyPageService>)nullLogger),
+                new SchemeService(htmlRenderer, new NullLogger<SchemeService>()),
+                new PageService(htmlRenderer, new NullLogger<PageService>()),
+                new CaseStudyPageService(htmlRenderer, new NullLogger<CaseStudyPageService>()),
                 new MotivationFilterService(htmlRenderer),
                 new PayFilterService(htmlRenderer),
                 new SchemeLengthFilterService(htmlRenderer),
-                (ILogger<ContentService>)nullLogger);
+                new NullLogger<ContentService>());
 
             var content = await contentService.Update();
 

@@ -12,7 +12,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
-    public class ContentService :IContentService
+    public class ContentService : IContentService
     {
         private readonly IContentfulClient? _contentfulClient;
         private readonly IContentfulClient? _previewContentfulClient;
