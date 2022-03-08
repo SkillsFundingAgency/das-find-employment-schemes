@@ -59,6 +59,7 @@
 
         $("#filter-schemes").click(function() {
             toggleSchemeShortDescriptionWidth();
+            document.activeElement.blur();
         });
 
         $("#schemes").removeClass("govuk-grid-column-two-thirds").addClass("govuk-grid-column-full");
