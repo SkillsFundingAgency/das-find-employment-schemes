@@ -3,21 +3,16 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using FakeItEasy;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
-using Microsoft.Extensions.Logging;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
 {
-    public class PageServiceTests : RootServiceTestBase<Page>
+    public class PageServiceTests : RootServiceTestBase<Page, PageService>
     {
-        public ILogger<PageService> Logger { get; set; }
         public PageService PageService { get; set; }
 
         public PageServiceTests()
         {
-            Logger = A.Fake<ILogger<PageService>>();
-
             PageService = new PageService(HtmlRenderer, Logger);
         }
 

@@ -40,10 +40,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         private async Task<CaseStudyPage> ToContent(ApiCaseStudyPage apiCaseStudyPage, IEnumerable<Scheme> schemes)
         {
             Scheme? scheme = null;
-            string? schemeName = apiCaseStudyPage.Scheme?.Name;
-            if (schemeName != null)
+            string? schemeUrl = apiCaseStudyPage.Scheme?.Url;
+            if (schemeUrl != null)
             {
-                scheme = schemes.FirstOrDefault(x => x.Name == schemeName);
+                scheme = schemes.FirstOrDefault(x => x.Url == schemeUrl);
             }
 
             return new CaseStudyPage(
