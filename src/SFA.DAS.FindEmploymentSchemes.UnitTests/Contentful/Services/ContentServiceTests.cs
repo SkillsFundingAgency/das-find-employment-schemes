@@ -352,24 +352,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.True(result.AreEqual, result.DifferencesString);
         }
 
-        // Contentful's .net library is not very test friendly: HtmlRenderer.ToHtml can't be mocked
-        // we'd have to introduce a level of indirection to test this
-        // or we _could_ make ToHtmlString in ContentService public and test it directly
-        //[Theory]
-        //[InlineData("\"", "“")]
-        //public async Task Update_HtmlQuirksTest(string expectedHtmlStringValue, string unescapedHtml)
-        //{
-        //    var pages = Fixture.CreateMany<Page>(1).ToList();
-        //    PagesCollection.Items = pages;
-
-        //    A.CallTo(() => HtmlRenderer.ToHtml(A<Document>.Ignored))
-        //        .Returns(unescapedHtml);
-
-        //    var content = await ContentService.Update();
-
-        //    Assert.Equal(expectedHtmlStringValue, content.Pages.First().Content.Value);
-        //}
-
         [Fact]
         public void Content_IsGeneratedContentBeforeUpdate()
         {
