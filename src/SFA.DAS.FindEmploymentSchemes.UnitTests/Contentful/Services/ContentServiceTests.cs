@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core;
 using Contentful.Core.Models;
-using Contentful.Core.Search;
 using FakeItEasy;
 using KellermanSoftware.CompareNetObjects;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
-using ContentPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Page;
-using ContentCaseStudyPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.CaseStudyPage;
-using ContentScheme = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Scheme;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 {
@@ -35,11 +29,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         public IContentfulClient PreviewContentfulClient { get; set; }
         public HtmlRenderer HtmlRenderer { get; set; }
         public ILogger<ContentService> Logger { get; set; }
-        public ContentfulCollection<Filter> FiltersCollection { get; set; }
         //todo:local?
-        public IEnumerable<ContentPage> ContentPages { get; set; }
-        public IEnumerable<ContentCaseStudyPage> ContentCaseStudyPages { get; set; }
-        public IEnumerable<ContentScheme> ContentSchemes { get; set; }
+        public IEnumerable<Page> ContentPages { get; set; }
+        public IEnumerable<CaseStudyPage> ContentCaseStudyPages { get; set; }
+        public IEnumerable<Scheme> ContentSchemes { get; set; }
         public ISchemeService SchemeService { get; set; }
         public IPageService PageService { get; set; }
         public ICaseStudyPageService CaseStudyPageService { get; set; }
@@ -78,11 +71,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             A.CallTo(() => ContentfulClientFactory.PreviewContentfulClient)
                 .Returns(PreviewContentfulClient);
 
-            FiltersCollection = new ContentfulCollection<Filter> { Items = Array.Empty<Filter>() };
-
-            SetupContentfulClientCalls(ContentfulClient);
-            SetupContentfulClientCalls(PreviewContentfulClient);
-
             SchemeService = A.Fake<ISchemeService>();
             PageService = A.Fake<IPageService>();
             CaseStudyPageService = A.Fake<ICaseStudyPageService>();
@@ -93,13 +81,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             CreateContentService();
 
             CompareLogic = new CompareLogic();
-        }
-
-        private void SetupContentfulClientCalls(IContentfulClient contentfulClient)
-        {
-            // decouples us from the order of fetching filters
-            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
-                .Returns(FiltersCollection);
         }
 
         private (Document, HtmlString) SampleDocumentAndExpectedContent(int differentiator = 0)
@@ -162,7 +143,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfPages = 3;
 
-            ContentPages = Fixture.CreateMany<ContentPage>(numberOfPages);
+            ContentPages = Fixture.CreateMany<Page>(numberOfPages);
             A.CallTo(() => PageService.GetAll(ContentfulClient))
                 .Returns(ContentPages);
 
@@ -178,7 +159,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             const int numberOfPages = 1;
 
             Fixture.Inject(ExpectedContent);
-            ContentPages = Fixture.CreateMany<ContentPage>(numberOfPages).ToArray();
+            ContentPages = Fixture.CreateMany<Page>(numberOfPages).ToArray();
             A.CallTo(() => PageService.GetAll(ContentfulClient))
                 .Returns(ContentPages);
 
@@ -198,8 +179,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfCaseStudyPages = 3;
 
-            ContentCaseStudyPages = Fixture.CreateMany<ContentCaseStudyPage>(numberOfCaseStudyPages).ToArray();
-            A.CallTo(() => CaseStudyPageService.GetAll(ContentfulClient, A<IEnumerable<ContentScheme>>._))
+            ContentCaseStudyPages = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(ContentfulClient, A<IEnumerable<Scheme>>._))
                 .Returns(ContentCaseStudyPages);
 
             var content = await ContentService.Update();
@@ -214,8 +195,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             const int numberOfCaseStudyPages = 1;
 
             Fixture.Inject(ExpectedContent);
-            ContentCaseStudyPages = Fixture.CreateMany<ContentCaseStudyPage>(numberOfCaseStudyPages).ToArray();
-            A.CallTo(() => CaseStudyPageService.GetAll(ContentfulClient, A<IEnumerable<ContentScheme>>._))
+            ContentCaseStudyPages = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(ContentfulClient, A<IEnumerable<Scheme>>._))
                 .Returns(ContentCaseStudyPages);
 
             var content = await ContentService.Update();
@@ -236,7 +217,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfSchemes = 3;
 
-            ContentSchemes = Fixture.CreateMany<ContentScheme>(numberOfSchemes).ToArray();
+            ContentSchemes = Fixture.CreateMany<Scheme>(numberOfSchemes).ToArray();
             A.CallTo(() => SchemeService.GetAll(ContentfulClient))
                 .Returns(ContentSchemes);
 
@@ -250,7 +231,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         public async Task Update_SchemeTest()
         {
             Fixture.Inject(ExpectedContent);
-            ContentSchemes = Fixture.CreateMany<ContentScheme>(1).ToArray();
+            ContentSchemes = Fixture.CreateMany<Scheme>(1).ToArray();
             A.CallTo(() => SchemeService.GetAll(ContentfulClient))
                 .Returns(ContentSchemes);
 
@@ -291,7 +272,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfPages = 3;
 
-            ContentPages = Fixture.CreateMany<ContentPage>(numberOfPages);
+            ContentPages = Fixture.CreateMany<Page>(numberOfPages);
             A.CallTo(() => PageService.GetAll(PreviewContentfulClient))
                 .Returns(ContentPages);
 
@@ -307,7 +288,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             const int numberOfPages = 1;
 
             Fixture.Inject(ExpectedContent);
-            ContentPages = Fixture.CreateMany<ContentPage>(numberOfPages).ToArray();
+            ContentPages = Fixture.CreateMany<Page>(numberOfPages).ToArray();
             A.CallTo(() => PageService.GetAll(PreviewContentfulClient))
                 .Returns(ContentPages);
 
@@ -327,8 +308,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfCaseStudyPages = 3;
 
-            ContentCaseStudyPages = Fixture.CreateMany<ContentCaseStudyPage>(numberOfCaseStudyPages).ToArray();
-            A.CallTo(() => CaseStudyPageService.GetAll(PreviewContentfulClient, A<IEnumerable<ContentScheme>>._))
+            ContentCaseStudyPages = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(PreviewContentfulClient, A<IEnumerable<Scheme>>._))
                 .Returns(ContentCaseStudyPages);
 
             var content = await ContentService.UpdatePreview();
@@ -343,8 +324,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             const int numberOfCaseStudyPages = 1;
 
             Fixture.Inject(ExpectedContent);
-            ContentCaseStudyPages = Fixture.CreateMany<ContentCaseStudyPage>(numberOfCaseStudyPages).ToArray();
-            A.CallTo(() => CaseStudyPageService.GetAll(PreviewContentfulClient, A<IEnumerable<ContentScheme>>._))
+            ContentCaseStudyPages = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(PreviewContentfulClient, A<IEnumerable<Scheme>>._))
                 .Returns(ContentCaseStudyPages);
 
             var content = await ContentService.UpdatePreview();
@@ -364,7 +345,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfSchemes = 3;
 
-            ContentSchemes = Fixture.CreateMany<ContentScheme>(numberOfSchemes).ToArray();
+            ContentSchemes = Fixture.CreateMany<Scheme>(numberOfSchemes).ToArray();
             A.CallTo(() => SchemeService.GetAll(PreviewContentfulClient))
                 .Returns(ContentSchemes);
 
@@ -378,7 +359,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         public async Task UpdatePreview_SchemeMappedTest()
         {
             Fixture.Inject(ExpectedContent);
-            ContentSchemes = Fixture.CreateMany<ContentScheme>(1).ToArray();
+            ContentSchemes = Fixture.CreateMany<Scheme>(1).ToArray();
             A.CallTo(() => SchemeService.GetAll(PreviewContentfulClient))
                 .Returns(ContentSchemes);
 
