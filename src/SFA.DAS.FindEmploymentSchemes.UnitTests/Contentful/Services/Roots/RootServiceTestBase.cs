@@ -37,7 +37,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             SetupContentfulClientCall(ContentfulClient, ContentfulCollection);
         }
 
-        private (Document, string) SampleDocumentAndExpectedContent(int differentiator = 0)
+        public (Document, string) SampleDocumentAndExpectedContent(int differentiator = 0)
         {
             return (new Document
             {
