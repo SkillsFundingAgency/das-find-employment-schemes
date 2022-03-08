@@ -4,6 +4,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
 using System.Threading.Tasks;
 using Contentful.Core.Models;
+using Microsoft.AspNetCore.Html;
 using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
@@ -38,7 +39,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             var scheme = ContentfulCollection.Items.First();
             int differentiator = 0;
             Document document;
-            string expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
+            HtmlString expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
                 expectedShortBenefits, expectedShortCost, expectedShortDescription, expectedShortTime;
 
             (document, expectedAdditionalFooter) = SampleDocumentAndExpectedContent(++differentiator);
@@ -78,18 +79,18 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             Assert.Equal(expectedSourceScheme.Name, actualScheme.Name);
             Assert.Equal(expectedSourceScheme.OfferHeader, actualScheme.OfferHeader);
             Assert.Equal(expectedSourceScheme.Size, actualScheme.Size);
-            Assert.Equal(expectedAdditionalFooter, actualScheme.AdditionalFooter.Value);
-            Assert.Equal(expectedBenefits, actualScheme.Benefits.Value);
-            Assert.Equal(expectedCaseStudiesPreamble, actualScheme.CaseStudiesPreamble.Value);
-            Assert.Equal(expectedCost, actualScheme.Cost.Value);
-            Assert.Equal(expectedDescription, actualScheme.Description.Value);
-            Assert.Equal(expectedDetailsPageOverride, actualScheme.DetailsPageOverride.Value);
-            Assert.Equal(expectedOffer, actualScheme.Offer.Value);
-            Assert.Equal(expectedResponsibility, actualScheme.Responsibility.Value);
-            Assert.Equal(expectedShortBenefits, actualScheme.ShortBenefits.Value);
-            Assert.Equal(expectedShortCost, actualScheme.ShortCost.Value);
-            Assert.Equal(expectedShortDescription, actualScheme.ShortDescription.Value);
-            Assert.Equal(expectedShortTime, actualScheme.ShortTime.Value);
+            Assert.Equal(expectedAdditionalFooter.Value, actualScheme.AdditionalFooter.Value);
+            Assert.Equal(expectedBenefits.Value, actualScheme.Benefits.Value);
+            Assert.Equal(expectedCaseStudiesPreamble.Value, actualScheme.CaseStudiesPreamble.Value);
+            Assert.Equal(expectedCost.Value, actualScheme.Cost.Value);
+            Assert.Equal(expectedDescription.Value, actualScheme.Description.Value);
+            Assert.Equal(expectedDetailsPageOverride.Value, actualScheme.DetailsPageOverride.Value);
+            Assert.Equal(expectedOffer.Value, actualScheme.Offer.Value);
+            Assert.Equal(expectedResponsibility.Value, actualScheme.Responsibility.Value);
+            Assert.Equal(expectedShortBenefits.Value, actualScheme.ShortBenefits.Value);
+            Assert.Equal(expectedShortCost.Value, actualScheme.ShortCost.Value);
+            Assert.Equal(expectedShortDescription.Value, actualScheme.ShortDescription.Value);
+            Assert.Equal(expectedShortTime.Value, actualScheme.ShortTime.Value);
             //todo: enumerable fields
         }
     }

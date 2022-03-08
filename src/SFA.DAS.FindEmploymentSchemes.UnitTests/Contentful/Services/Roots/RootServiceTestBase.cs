@@ -6,6 +6,7 @@ using FakeItEasy;
 using Contentful.Core.Search;
 using System.Threading;
 using System;
+using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
@@ -14,7 +15,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
     {
         public Fixture Fixture { get; }
         public Document Document { get; set; }
-        public string ExpectedContent { get; set; }
+        public HtmlString ExpectedContent { get; set; }
         public IContentfulClient ContentfulClient { get; set; }
         public HtmlRenderer HtmlRenderer { get; set; }
         public ILogger<TService> Logger { get; set; }
@@ -37,7 +38,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             SetupContentfulClientCall(ContentfulClient, ContentfulCollection);
         }
 
-        public (Document, string) SampleDocumentAndExpectedContent(int differentiator = 0)
+        public (Document, HtmlString) SampleDocumentAndExpectedContent(int differentiator = 0)
         {
             return (new Document
             {
@@ -50,7 +51,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
                         Content = new List<IContent> {new Text {Value = $"Gobble{differentiator}"}}
                     }
                 }
-            }, $"<h2>Gobble{differentiator}</h2>");
+            }, new HtmlString($"<h2>Gobble{differentiator}</h2>"));
         }
 
         public void SetupContentfulClientCall<TApiModelSetup>(

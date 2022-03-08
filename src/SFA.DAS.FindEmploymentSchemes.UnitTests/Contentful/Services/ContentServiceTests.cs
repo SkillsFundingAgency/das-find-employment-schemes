@@ -10,6 +10,7 @@ using Contentful.Core.Models;
 using Contentful.Core.Search;
 using FakeItEasy;
 using KellermanSoftware.CompareNetObjects;
+using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
@@ -18,6 +19,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using Xunit;
+using ContentPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Page;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 {
@@ -25,16 +27,16 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
     {
         public Fixture Fixture { get; }
         public Document Document { get; set; }
-        public string ExpectedContent { get; set; }
+        public HtmlString ExpectedContent { get; set; }
         public IContentfulClientFactory ContentfulClientFactory { get; set; }
         public IContentfulClient ContentfulClient { get; set; }
         public IContentfulClient PreviewContentfulClient { get; set; }
         public HtmlRenderer HtmlRenderer { get; set; }
         public ILogger<ContentService> Logger { get; set; }
-        public ContentfulCollection<Page> PagesCollection { get; set; }
         public ContentfulCollection<CaseStudyPage> CaseStudyPagesCollection { get; set; }
         public ContentfulCollection<Scheme> SchemesCollection { get; set; }
         public ContentfulCollection<Filter> FiltersCollection { get; set; }
+        public IEnumerable<ContentPage> ContentPages { get; set; }
         public ISchemeService SchemeService { get; set; }
         public IPageService PageService { get; set; }
         public ICaseStudyPageService CaseStudyPageService { get; set; }
@@ -73,7 +75,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             A.CallTo(() => ContentfulClientFactory.PreviewContentfulClient)
                 .Returns(PreviewContentfulClient);
 
-            PagesCollection = new ContentfulCollection<Page> { Items = Array.Empty<Page>() };
             CaseStudyPagesCollection = new ContentfulCollection<CaseStudyPage> { Items = Array.Empty<CaseStudyPage>() };
             SchemesCollection = new ContentfulCollection<Scheme> { Items = Array.Empty<Scheme>() };
             FiltersCollection = new ContentfulCollection<Filter> { Items = Array.Empty<Filter>() };
@@ -95,9 +96,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 
         private void SetupContentfulClientCalls(IContentfulClient contentfulClient)
         {
-            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Page>>.Ignored, A<CancellationToken>.Ignored))
-                .Returns(PagesCollection);
-
             A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<CaseStudyPage>>.Ignored, A<CancellationToken>.Ignored))
                 .Returns(CaseStudyPagesCollection);
 
@@ -114,7 +112,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
                 .Returns(FiltersCollection);
         }
 
-        private (Document, string) SampleDocumentAndExpectedContent(int differentiator = 0)
+        private (Document, HtmlString) SampleDocumentAndExpectedContent(int differentiator = 0)
         {
             return (new Document
             {
@@ -127,7 +125,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
                         Content = new List<IContent> {new Text {Value = $"Gobble{differentiator}" } }
                     }
                 }
-            }, $"<h2>Gobble{differentiator}</h2>");
+            }, new HtmlString($"<h2>Gobble{differentiator}</h2>"));
         }
 
         //[Fact]
@@ -193,7 +191,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfPages = 3;
 
-            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+            ContentPages = Fixture.CreateMany<ContentPage>(numberOfPages);
+            A.CallTo(() => PageService.GetAll(ContentfulClient))
+                .Returns(ContentPages);
 
             var content = await ContentService.Update();
 
@@ -202,21 +202,24 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         }
 
         [Fact]
-        public async Task Update_PageMappedTest()
+        public async Task Update_PageTest()
         {
             const int numberOfPages = 1;
 
-            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+            Fixture.Inject(ExpectedContent);
+            ContentPages = Fixture.CreateMany<ContentPage>(numberOfPages).ToArray();
+            A.CallTo(() => PageService.GetAll(ContentfulClient))
+                .Returns(ContentPages);
 
             var content = await ContentService.Update();
 
             var actualPage = content.Pages.FirstOrDefault();
             Assert.NotNull(actualPage);
 
-            var expectedSourcePage = PagesCollection.Items.First();
+            var expectedSourcePage = ContentPages.First();
             Assert.Equal(expectedSourcePage.Title, actualPage.Title);
             Assert.Equal(expectedSourcePage.Url, actualPage.Url);
-            Assert.Equal(ExpectedContent, actualPage.Content.Value);
+            Assert.Equal(ExpectedContent.Value, actualPage.Content.Value);
         }
 
         [Fact]
@@ -254,7 +257,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
             Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
             Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
-            Assert.Equal(ExpectedContent, actualCaseStudyPage.Content.Value);
+            Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
         }
 
         [Fact]
@@ -278,7 +281,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             var scheme = SchemesCollection.Items.First();
             int differentiator = 0;
             Document document;
-            string expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
+            HtmlString expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
                 expectedShortBenefits, expectedShortCost, expectedShortDescription, expectedShortTime;
 
             (document, expectedAdditionalFooter) = SampleDocumentAndExpectedContent(++differentiator);
@@ -318,18 +321,18 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.Equal(expectedSourceScheme.Name, actualScheme.Name);
             Assert.Equal(expectedSourceScheme.OfferHeader, actualScheme.OfferHeader);
             Assert.Equal(expectedSourceScheme.Size, actualScheme.Size);
-            Assert.Equal(expectedAdditionalFooter, actualScheme.AdditionalFooter.Value);
-            Assert.Equal(expectedBenefits, actualScheme.Benefits.Value);
-            Assert.Equal(expectedCaseStudiesPreamble, actualScheme.CaseStudiesPreamble.Value);
-            Assert.Equal(expectedCost, actualScheme.Cost.Value);
-            Assert.Equal(expectedDescription, actualScheme.Description.Value);
-            Assert.Equal(expectedDetailsPageOverride, actualScheme.DetailsPageOverride.Value);
-            Assert.Equal(expectedOffer, actualScheme.Offer.Value);
-            Assert.Equal(expectedResponsibility, actualScheme.Responsibility.Value);
-            Assert.Equal(expectedShortBenefits, actualScheme.ShortBenefits.Value);
-            Assert.Equal(expectedShortCost, actualScheme.ShortCost.Value);
-            Assert.Equal(expectedShortDescription, actualScheme.ShortDescription.Value);
-            Assert.Equal(expectedShortTime, actualScheme.ShortTime.Value);
+            Assert.Equal(expectedAdditionalFooter.Value, actualScheme.AdditionalFooter.Value);
+            Assert.Equal(expectedBenefits.Value, actualScheme.Benefits.Value);
+            Assert.Equal(expectedCaseStudiesPreamble.Value, actualScheme.CaseStudiesPreamble.Value);
+            Assert.Equal(expectedCost.Value, actualScheme.Cost.Value);
+            Assert.Equal(expectedDescription.Value, actualScheme.Description.Value);
+            Assert.Equal(expectedDetailsPageOverride.Value, actualScheme.DetailsPageOverride.Value);
+            Assert.Equal(expectedOffer.Value, actualScheme.Offer.Value);
+            Assert.Equal(expectedResponsibility.Value, actualScheme.Responsibility.Value);
+            Assert.Equal(expectedShortBenefits.Value, actualScheme.ShortBenefits.Value);
+            Assert.Equal(expectedShortCost.Value, actualScheme.ShortCost.Value);
+            Assert.Equal(expectedShortDescription.Value, actualScheme.ShortDescription.Value);
+            Assert.Equal(expectedShortTime.Value, actualScheme.ShortTime.Value);
             //todo: enumerable fields
         }
 
@@ -350,7 +353,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             bool eventWasRaised = false;
             ContentService.PreviewContentUpdated += (sender, args) => { eventWasRaised = true; };
 
-            var content = await ContentService.UpdatePreview();
+            await ContentService.UpdatePreview();
 
             Assert.True(eventWasRaised);
         }
@@ -360,7 +363,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfPages = 3;
 
-            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+            ContentPages = Fixture.CreateMany<ContentPage>(numberOfPages);
+            A.CallTo(() => PageService.GetAll(PreviewContentfulClient))
+                .Returns(ContentPages);
 
             var content = await ContentService.UpdatePreview();
 
@@ -369,21 +374,24 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         }
 
         [Fact]
-        public async Task UpdatePreview_PageMappedTest()
+        public async Task UpdatePreview_PageTest()
         {
             const int numberOfPages = 1;
 
-            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+            Fixture.Inject(ExpectedContent);
+            ContentPages = Fixture.CreateMany<ContentPage>(numberOfPages).ToArray();
+            A.CallTo(() => PageService.GetAll(PreviewContentfulClient))
+                .Returns(ContentPages);
 
             var content = await ContentService.UpdatePreview();
 
             var actualPage = content.Pages.FirstOrDefault();
             Assert.NotNull(actualPage);
 
-            var expectedSourcePage = PagesCollection.Items.First();
+            var expectedSourcePage = ContentPages.First();
             Assert.Equal(expectedSourcePage.Title, actualPage.Title);
             Assert.Equal(expectedSourcePage.Url, actualPage.Url);
-            Assert.Equal(ExpectedContent, actualPage.Content.Value);
+            Assert.Equal(ExpectedContent.Value, actualPage.Content.Value);
         }
 
         [Fact]
@@ -421,7 +429,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
             Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
             Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
-            Assert.Equal(ExpectedContent, actualCaseStudyPage.Content.Value);
+            Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
         }
 
         [Fact]
@@ -445,7 +453,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             var scheme = SchemesCollection.Items.First();
             int differentiator = 0;
             Document document;
-            string expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
+            HtmlString expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
                 expectedShortBenefits, expectedShortCost, expectedShortDescription, expectedShortTime;
 
             (document, expectedAdditionalFooter) = SampleDocumentAndExpectedContent(++differentiator);
@@ -485,18 +493,18 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.Equal(expectedSourceScheme.Name, actualScheme.Name);
             Assert.Equal(expectedSourceScheme.OfferHeader, actualScheme.OfferHeader);
             Assert.Equal(expectedSourceScheme.Size, actualScheme.Size);
-            Assert.Equal(expectedAdditionalFooter, actualScheme.AdditionalFooter.Value);
-            Assert.Equal(expectedBenefits, actualScheme.Benefits.Value);
-            Assert.Equal(expectedCaseStudiesPreamble, actualScheme.CaseStudiesPreamble.Value);
-            Assert.Equal(expectedCost, actualScheme.Cost.Value);
-            Assert.Equal(expectedDescription, actualScheme.Description.Value);
-            Assert.Equal(expectedDetailsPageOverride, actualScheme.DetailsPageOverride.Value);
-            Assert.Equal(expectedOffer, actualScheme.Offer.Value);
-            Assert.Equal(expectedResponsibility, actualScheme.Responsibility.Value);
-            Assert.Equal(expectedShortBenefits, actualScheme.ShortBenefits.Value);
-            Assert.Equal(expectedShortCost, actualScheme.ShortCost.Value);
-            Assert.Equal(expectedShortDescription, actualScheme.ShortDescription.Value);
-            Assert.Equal(expectedShortTime, actualScheme.ShortTime.Value);
+            Assert.Equal(expectedAdditionalFooter.Value, actualScheme.AdditionalFooter.Value);
+            Assert.Equal(expectedBenefits.Value, actualScheme.Benefits.Value);
+            Assert.Equal(expectedCaseStudiesPreamble.Value, actualScheme.CaseStudiesPreamble.Value);
+            Assert.Equal(expectedCost.Value, actualScheme.Cost.Value);
+            Assert.Equal(expectedDescription.Value, actualScheme.Description.Value);
+            Assert.Equal(expectedDetailsPageOverride.Value, actualScheme.DetailsPageOverride.Value);
+            Assert.Equal(expectedOffer.Value, actualScheme.Offer.Value);
+            Assert.Equal(expectedResponsibility.Value, actualScheme.Responsibility.Value);
+            Assert.Equal(expectedShortBenefits.Value, actualScheme.ShortBenefits.Value);
+            Assert.Equal(expectedShortCost.Value, actualScheme.ShortCost.Value);
+            Assert.Equal(expectedShortDescription.Value, actualScheme.ShortDescription.Value);
+            Assert.Equal(expectedShortTime.Value, actualScheme.ShortTime.Value);
             //todo: enumerable fields
         }
 

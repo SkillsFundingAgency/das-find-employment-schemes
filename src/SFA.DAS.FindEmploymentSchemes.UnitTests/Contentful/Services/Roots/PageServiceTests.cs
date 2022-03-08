@@ -44,7 +44,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             var expectedSourcePage = ContentfulCollection.Items.First();
             Assert.Equal(expectedSourcePage.Title, actualPage.Title);
             Assert.Equal(expectedSourcePage.Url, actualPage.Url);
-            Assert.Equal(ExpectedContent, actualPage.Content.Value);
+            Assert.Equal(ExpectedContent.Value, actualPage.Content.Value);
         }
     }
 }

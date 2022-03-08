@@ -63,7 +63,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
             Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
             Assert.Equal(contentScheme.Url, actualCaseStudyPage.Scheme.Url);
-            Assert.Equal(ExpectedContent, actualCaseStudyPage.Content.Value);
+            Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
         }
     }
 }
