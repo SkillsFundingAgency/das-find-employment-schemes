@@ -25,17 +25,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 
         public async Task<IEnumerable<Scheme>> GetAll(IContentfulClient contentfulClient)
         {
-            ContentfulCollection<ApiScheme> schemes = await GetSchemesApi(contentfulClient);
+            var builder = QueryBuilder<ApiScheme>.New.ContentTypeIs("scheme").Include(1);
+            var schemes = await contentfulClient.GetEntries(builder);
+            LogErrors(schemes);
 
             return await Task.WhenAll(FilterValidUrl(schemes, _logger)
                 .OrderByDescending(s => s.Size)
                 .Select(ToContent));
-        }
-
-        private Task<ContentfulCollection<ApiScheme>> GetSchemesApi(IContentfulClient contentfulClient)
-        {
-            var builder = QueryBuilder<ApiScheme>.New.ContentTypeIs("scheme").Include(1);
-            return contentfulClient.GetEntries(builder);
         }
 
         private async Task<Scheme> ToContent(ApiScheme apiScheme)

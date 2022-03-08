@@ -9,7 +9,6 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
 {
-    //todo: should be protected
     public class ContentRootService
     {
         private readonly HtmlRenderer _htmlRenderer;
@@ -19,7 +18,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
             _htmlRenderer = htmlRenderer;
         }
 
-        //this one might not belong here
         protected static string ToFilterAspectId(IFilter filter, string filterPrefix)
         {
             return $"{filterPrefix}--{Slugify(filter.Name)}";

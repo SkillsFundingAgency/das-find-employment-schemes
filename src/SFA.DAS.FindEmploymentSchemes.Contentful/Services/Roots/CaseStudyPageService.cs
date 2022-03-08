@@ -26,15 +26,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         public async Task<IEnumerable<CaseStudyPage>> GetAll(
             IContentfulClient contentfulClient, IEnumerable<Scheme> schemes)
         {
-            ContentfulCollection<ApiCaseStudyPage> caseStudyPages = await GetCaseStudyPagesFromApi(contentfulClient);
-
-            return await Task.WhenAll(FilterValidUrl(caseStudyPages, _logger).Select(csp => ToContent(csp, schemes)));
-        }
-
-        private Task<ContentfulCollection<ApiCaseStudyPage>> GetCaseStudyPagesFromApi(IContentfulClient contentfulClient)
-        {
             var builder = QueryBuilder<ApiCaseStudyPage>.New.ContentTypeIs("caseStudyPage").Include(1);
-            return contentfulClient.GetEntries(builder);
+            var caseStudyPages = await contentfulClient.GetEntries(builder);
+            LogErrors(caseStudyPages);
+
+            return await Task.WhenAll(
+                FilterValidUrl(caseStudyPages, _logger)
+                .Select(csp => ToContent(csp, schemes)));
         }
 
         private async Task<CaseStudyPage> ToContent(ApiCaseStudyPage apiCaseStudyPage, IEnumerable<Scheme> schemes)

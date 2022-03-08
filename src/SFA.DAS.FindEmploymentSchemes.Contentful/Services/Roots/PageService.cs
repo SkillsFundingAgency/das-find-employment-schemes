@@ -25,15 +25,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 
         public async Task<IEnumerable<Page>> GetAll(IContentfulClient contentfulClient)
         {
-            ContentfulCollection<ApiPage> pages = await GetPagesFromApi(contentfulClient);
+            var builder = QueryBuilder<ApiPage>.New.ContentTypeIs("page").Include(1);
+            var pages = await contentfulClient.GetEntries(builder);
+            LogErrors(pages);
 
             return await Task.WhenAll(FilterValidUrl(pages, _logger).Select(ToContent));
-        }
-
-        private Task<ContentfulCollection<ApiPage>> GetPagesFromApi(IContentfulClient contentfulClient)
-        {
-            var builder = QueryBuilder<ApiPage>.New.ContentTypeIs("page").Include(1);
-            return contentfulClient.GetEntries(builder);
         }
 
         private async Task<Page> ToContent(ApiPage apiPage)

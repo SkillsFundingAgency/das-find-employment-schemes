@@ -41,8 +41,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
             var builder = QueryBuilder<ApiFilter>.New.ContentTypeIs(_contentfulTypeName);
 
             var filterAspects = await contentfulClient.GetEntries(builder);
-            //todo
-            //LogErrors(filterAspects);
+            LogErrors(filterAspects);
 
             return filterAspects.OrderBy(f => f.Order).Select(ToContent);
         }
