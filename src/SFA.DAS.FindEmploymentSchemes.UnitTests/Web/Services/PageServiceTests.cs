@@ -16,6 +16,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
     public class PageServiceTests
     {
+        public const string CookiePageUrl = "Cookies";
+
         public Fixture Fixture { get; set; }
         public IEnumerable<Page> Pages { get; set; }
         public IContent Content { get; set; }
@@ -77,9 +79,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             A.CallTo(() => Content.Pages)
                 .Returns(pages);
 
-            const string cookiePageUrl = "Cookies";
-
-            var (viewName, page) = PageService.Page(cookiePageUrl, Content);
+            var (viewName, page) = PageService.Page(CookiePageUrl, Content);
 
             Assert.Equal("Cookies", viewName);
         }
@@ -97,14 +97,26 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             A.CallTo(() => Content.Pages)
                 .Returns(pages);
 
-            const string cookiePageUrl = "Cookies";
-
-            var (viewName, page) = PageService.Page(cookiePageUrl, Content);
+            var (viewName, page) = PageService.Page(CookiePageUrl, Content);
 
             Assert.IsType<CookiePage>(page);
             var cookiePage = (CookiePage) page;
             Assert.Equal(analyticsPage, cookiePage.AnalyticsPage);
             Assert.Equal(marketingPage, cookiePage.MarketingPage);
+        }
+
+        [Fact]
+        public void Page_CookiePageUrlWithMissingAnalyticsPageThrowsExceptionTest()
+        {
+            var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
+
+            var pages = new[] { marketingPage }
+                .Concat(Pages).ToArray();
+
+            A.CallTo(() => Content.Pages)
+                .Returns(pages);
+
+            Assert.ThrowsAny<Exception>(() => PageService.Page(CookiePageUrl, Content));
         }
 
         [Fact]
