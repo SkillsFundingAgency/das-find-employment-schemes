@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
+using Contentful.Core.Models;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
 {
@@ -30,7 +31,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
         }
 
         [Fact]
-        public async Task GetAll_PageMappedTest()
+        public async Task GetAll_PageTest()
         {
             const int numberOfPages = 1;
 
@@ -45,6 +46,36 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             Assert.Equal(expectedSourcePage.Title, actualPage.Title);
             Assert.Equal(expectedSourcePage.Url, actualPage.Url);
             Assert.Equal(ExpectedContent.Value, actualPage.Content.Value);
+        }
+
+        [Fact]
+        public async Task GetAll_NullUrlsFilteredOutTest()
+        {
+            const int numberOfPages = 3;
+
+            var pages = Fixture.CreateMany<Page>(numberOfPages).ToArray();
+            pages[1].Url = null;
+            ContentfulCollection.Items = pages;
+
+            var pagesResult = await PageService.GetAll(ContentfulClient);
+
+            Assert.NotNull(pages);
+            Assert.Equal(numberOfPages-1, pagesResult.Count());
+        }
+
+        [Fact]
+        public async Task GetAll_EmptyUrlsFilteredOutTest()
+        {
+            const int numberOfPages = 3;
+
+            var pages = Fixture.CreateMany<Page>(numberOfPages).ToArray();
+            pages[1].Url = "";
+            ContentfulCollection.Items = pages;
+
+            var pagesResult = await PageService.GetAll(ContentfulClient);
+
+            Assert.NotNull(pages);
+            Assert.Equal(numberOfPages - 1, pagesResult.Count());
         }
     }
 }
