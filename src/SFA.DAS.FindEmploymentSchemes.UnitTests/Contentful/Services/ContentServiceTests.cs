@@ -20,6 +20,8 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using Xunit;
 using ContentPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Page;
+using ContentCaseStudyPage = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.CaseStudyPage;
+using ContentScheme = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Scheme;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 {
@@ -33,10 +35,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         public IContentfulClient PreviewContentfulClient { get; set; }
         public HtmlRenderer HtmlRenderer { get; set; }
         public ILogger<ContentService> Logger { get; set; }
-        public ContentfulCollection<CaseStudyPage> CaseStudyPagesCollection { get; set; }
         public ContentfulCollection<Scheme> SchemesCollection { get; set; }
         public ContentfulCollection<Filter> FiltersCollection { get; set; }
         public IEnumerable<ContentPage> ContentPages { get; set; }
+        public IEnumerable<ContentCaseStudyPage> ContentCaseStudyPages { get; set; }
         public ISchemeService SchemeService { get; set; }
         public IPageService PageService { get; set; }
         public ICaseStudyPageService CaseStudyPageService { get; set; }
@@ -75,7 +77,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             A.CallTo(() => ContentfulClientFactory.PreviewContentfulClient)
                 .Returns(PreviewContentfulClient);
 
-            CaseStudyPagesCollection = new ContentfulCollection<CaseStudyPage> { Items = Array.Empty<CaseStudyPage>() };
             SchemesCollection = new ContentfulCollection<Scheme> { Items = Array.Empty<Scheme>() };
             FiltersCollection = new ContentfulCollection<Filter> { Items = Array.Empty<Filter>() };
 
@@ -96,16 +97,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 
         private void SetupContentfulClientCalls(IContentfulClient contentfulClient)
         {
-            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<CaseStudyPage>>.Ignored, A<CancellationToken>.Ignored))
-                .Returns(CaseStudyPagesCollection);
-
             A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Scheme>>.Ignored, A<CancellationToken>.Ignored))
                 .Returns(SchemesCollection);
-
-            //A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
-            //    .Returns(payFiltersCollection).Once()
-            //    .Then
-            //    .Returns(new ContentfulCollection<Filter>());
 
             // decouples us from the order of fetching filters
             A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
@@ -144,25 +137,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         //    Assert.Equal(200, actualSchemes[1].Size);
         //    Assert.Equal(100, actualSchemes[2].Size);
         //}
-
-        [Theory]
-        [InlineData("pay--the-name", "the name")]
-        [InlineData("pay--thename", "thename")]
-        [InlineData("pay--the-name", "the-name")]
-        //todo: stop double spaces, so code doesn't get confused with prefix/name separator?
-        [InlineData("pay--the--name", "the  name")]
-        [InlineData("pay--", "")]
-        [InlineData("pay--1234567890-qwertyuiop-asdfghjkl-zxcvbnm", "1234567890 qwertyuiop asdfghjkl zxcvbnm")]
-        public async Task Update_FilterIdTests(string expectedFilterAspectId, string filterName)
-        {
-            var filters = Fixture.CreateMany<Filter>(1).ToList();
-            filters.First().Name = filterName;
-            FiltersCollection.Items = filters;
-
-            var content = await ContentService.Update();
-
-            Assert.Equal(expectedFilterAspectId, content.PayFilter.Aspects.First().Id);
-        }
 
         [Fact]
         public async Task Update_MissingContentfulClientThrowsExceptionTest()
@@ -227,10 +201,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfCaseStudyPages = 3;
 
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
-
-            Fixture.Inject(SchemesCollection.Items.First());
-            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+            ContentCaseStudyPages = Fixture.CreateMany<ContentCaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(ContentfulClient, A<IEnumerable<ContentScheme>>._))
+                .Returns(ContentCaseStudyPages);
 
             var content = await ContentService.Update();
 
@@ -239,25 +212,24 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         }
 
         [Fact]
-        public async Task Update_CaseStudyPageMappedTest()
+        public async Task Update_CaseStudyPageTest()
         {
             const int numberOfCaseStudyPages = 1;
 
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
-
-            Fixture.Inject(SchemesCollection.Items.First());
-            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+            ContentCaseStudyPages = Fixture.CreateMany<ContentCaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(ContentfulClient, A<IEnumerable<ContentScheme>>._))
+                .Returns(ContentCaseStudyPages);
 
             var content = await ContentService.Update();
 
             var actualCaseStudyPage = content.CaseStudyPages.FirstOrDefault();
             Assert.NotNull(actualCaseStudyPage);
 
-            var expectedSourceCaseStudyPage = CaseStudyPagesCollection.Items.First();
+            var expectedSourceCaseStudyPage = ContentCaseStudyPages.First();
             Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
             Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
-            Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
-            Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
+            //Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
+            //Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
         }
 
         [Fact]
@@ -394,43 +366,43 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             Assert.Equal(ExpectedContent.Value, actualPage.Content.Value);
         }
 
-        [Fact]
-        public async Task UpdatePreview_SameNumberOfCaseStudyPagesTest()
-        {
-            const int numberOfCaseStudyPages = 3;
+        //[Fact]
+        //public async Task UpdatePreview_SameNumberOfCaseStudyPagesTest()
+        //{
+        //    const int numberOfCaseStudyPages = 3;
 
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
+        //    SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
 
-            Fixture.Inject(SchemesCollection.Items.First());
-            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+        //    Fixture.Inject(SchemesCollection.Items.First());
+        //    CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
 
-            var content = await ContentService.UpdatePreview();
+        //    var content = await ContentService.UpdatePreview();
 
-            Assert.NotNull(content.CaseStudyPages);
-            Assert.Equal(numberOfCaseStudyPages, content.CaseStudyPages.Count());
-        }
+        //    Assert.NotNull(content.CaseStudyPages);
+        //    Assert.Equal(numberOfCaseStudyPages, content.CaseStudyPages.Count());
+        //}
 
-        [Fact]
-        public async Task UpdatePreview_CaseStudyPageMappedTest()
-        {
-            const int numberOfCaseStudyPages = 1;
+        //[Fact]
+        //public async Task UpdatePreview_CaseStudyPageMappedTest()
+        //{
+        //    const int numberOfCaseStudyPages = 1;
 
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
+        //    SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
 
-            Fixture.Inject(SchemesCollection.Items.First());
-            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+        //    Fixture.Inject(SchemesCollection.Items.First());
+        //    CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
 
-            var content = await ContentService.UpdatePreview();
+        //    var content = await ContentService.UpdatePreview();
 
-            var actualCaseStudyPage = content.CaseStudyPages.FirstOrDefault();
-            Assert.NotNull(actualCaseStudyPage);
+        //    var actualCaseStudyPage = content.CaseStudyPages.FirstOrDefault();
+        //    Assert.NotNull(actualCaseStudyPage);
 
-            var expectedSourceCaseStudyPage = CaseStudyPagesCollection.Items.First();
-            Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
-            Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
-            Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
-            Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
-        }
+        //    var expectedSourceCaseStudyPage = CaseStudyPagesCollection.Items.First();
+        //    Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
+        //    Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
+        //    Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
+        //    Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
+        //}
 
         [Fact]
         public async Task UpdatePreview_SameNumberOfSchemesTest()
