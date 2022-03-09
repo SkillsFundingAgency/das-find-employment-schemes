@@ -10,17 +10,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
     public class PageService : IPageService
     {
+        private const string CookiesPageUrl = "cookies";
+        private const string AnalyticsCookiesPageUrl = "analyticscookies";
+        private const string MarketingCookiesPageUrl = "marketingcookies";
+
         public (string?, Page?) Page(string pageUrl, IContent content)
         {
             pageUrl = pageUrl.ToLowerInvariant();
 
             switch (pageUrl)
             {
-                case "cookies":
-                    Page? analyticsPage = content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "analyticscookies");
-                    Page? marketingPage = content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "marketingcookies");
+                case CookiesPageUrl:
+                    Page? analyticsPage = content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == AnalyticsCookiesPageUrl);
+                    Page? marketingPage = content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == MarketingCookiesPageUrl);
                     if (analyticsPage == null || marketingPage == null)
-                        throw new ContentServiceException("Missing analyticscookies and/or marketingcookies page(s).");
+                        throw new ContentServiceException($"Missing {AnalyticsCookiesPageUrl} and/or {MarketingCookiesPageUrl} page(s).");
 
                     return ("Cookies", new CookiePage(analyticsPage, marketingPage, false));
 
@@ -28,7 +32,25 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                     throw new NotImplementedException("DEADBEEF-DEAD-BEEF-DEAD-BAAAAAAAAAAD");
             }
 
-            return (null, content.Pages.FirstOrDefault(p => p?.Url?.ToLowerInvariant() == pageUrl));
+            //todo: enforce lowercase url in contentful and contentservice
+            return (null, content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == pageUrl));
+        }
+
+        public (string? routeName, object? routeValues) RedirectPreview(string pageUrl)
+        {
+            pageUrl = pageUrl.ToLowerInvariant();
+
+            switch (pageUrl)
+            {
+                case AnalyticsCookiesPageUrl:
+                case MarketingCookiesPageUrl:
+                    return ("page-preview", new { pageUrl = CookiesPageUrl });
+                //todo: single source of truth
+                case "home":
+                    return ("home-preview", null);
+            }
+
+            return default;
         }
     }
 }

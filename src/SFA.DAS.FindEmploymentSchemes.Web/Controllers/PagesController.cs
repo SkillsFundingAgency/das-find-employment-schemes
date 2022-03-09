@@ -40,15 +40,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> PagePreview(string pageUrl)
         {
-            switch (pageUrl)
-            {
-                //todo: one source of truth for these
-                case "analyticscookies":
-                case "marketingcookies":
-                    return RedirectToRoute("page-preview", new { pageUrl = "cookies"});
-                case "home":
-                    return RedirectToRoute("home-preview");
-            }
+            var (routeName, routeValues) = _pageService.RedirectPreview(pageUrl);
+            if (routeName == null)
+                return RedirectToRoute(routeName, routeValues);
 
             IContent previewContent = await _contentService.UpdatePreview();
 
