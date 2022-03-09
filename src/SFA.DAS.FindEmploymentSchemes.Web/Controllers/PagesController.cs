@@ -59,6 +59,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             return View(viewName ?? "Page", (page, preview));
         }
 
+        //todo: create type for model, instead of tuple (cookiepage/page is confusing the tuple and we have some ugly casting going on to get around it)
         //todo: preview + errors for cookies (separate story)
 
         [HttpPost]
@@ -90,7 +91,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             Page? marketingPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "marketingcookies");
             return (analyticsPage == null || marketingPage == null
                         ? NotFound()
-                        : (IActionResult)View("Cookies", new CookiePage(analyticsPage, marketingPage, true)));
+                        : (IActionResult)View("Cookies", 
+                            ((Page)new CookiePage(analyticsPage, marketingPage, true), PreviewModel.NotPreviewModel)));
         }
     }
 }
