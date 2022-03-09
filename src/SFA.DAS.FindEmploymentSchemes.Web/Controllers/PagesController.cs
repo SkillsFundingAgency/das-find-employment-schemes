@@ -15,13 +15,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
     {
         private readonly IContentService _contentService;
         private readonly IPageService _pageService;
+        private readonly IPageModelService _pageModelService;
 
         public PagesController(
             IContentService contentService,
-            IPageService pageService)
+            IPageService pageService,
+            IPageModelService pageModelService)
         {
             _contentService = contentService;
             _pageService = pageService;
+            _pageModelService = pageModelService;
         }
 
         // we _could_ add cache control parameters to the page content type
@@ -34,7 +37,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (page == null)
                 return NotFound();
 
-            return View(viewName, page);
+            return View(viewName, (page, PreviewModel.NotPreviewModel));
         }
 
         [HttpGet]
@@ -51,15 +54,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (page == null)
                 return NotFound();
 
-            return View(viewName ?? "Page", page);
+            var preview = new PreviewModel(_pageModelService.GetErrors(page));
+
+            return View(viewName ?? "Page", (page, preview));
         }
+
+        //todo: preview + errors for cookies (separate story)
 
         [HttpPost]
         [Route("page/cookies")]
         public IActionResult Cookies(string AnalyticsCookies, string MarketingCookies)
         {
             string host = HttpContext.Request.Host.Host;
-            CookieOptions options = new CookieOptions()
+            var options = new CookieOptions
             {
                 IsEssential = true,
                 Secure = true,

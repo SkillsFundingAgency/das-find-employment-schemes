@@ -14,14 +14,17 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
     {
         public ICaseStudyPageService CaseStudyPageService { get; set; }
         public IContentService ContentService { get; set; }
+        public ICaseStudyPageModelService CaseStudyPageModelService { get; set; }
         public CaseStudiesController CaseStudiesController { get; set; }
 
         public CaseStudiesControllerTests()
         {
             CaseStudyPageService = A.Fake<ICaseStudyPageService>();
             ContentService = A.Fake<IContentService>();
+            CaseStudyPageModelService = A.Fake<ICaseStudyPageModelService>();
 
-            CaseStudiesController = new CaseStudiesController(CaseStudyPageService, ContentService);
+            CaseStudiesController = new CaseStudiesController(
+                CaseStudyPageService, CaseStudyPageModelService, ContentService);
         }
 
         [Fact]

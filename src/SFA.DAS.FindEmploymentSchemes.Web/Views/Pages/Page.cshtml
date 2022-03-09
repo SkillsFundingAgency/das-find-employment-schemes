@@ -1,20 +1,12 @@
-﻿@model Page
+﻿@model (Page, PreviewModel)
 
 @{
-    var errors = new List<HtmlString>();
-    bool hasTitle = !string.IsNullOrWhiteSpace(Model.Title);
-    if (hasTitle)
-    {
-        ViewData["Title"] = Model.Title![..Math.Min(Model.Title!.Length, 64)];
-    }
-    else
-    {
-        errors.Add(new HtmlString("Title must not be blank"));
-    }
+    var page = Model.Item1;
+    var preview = Model.Item2;
 
-    if (Model.Content == null)
+    if (!string.IsNullOrWhiteSpace(page.Title))
     {
-        errors.Add(new HtmlString("Content must not be blank"));
+        ViewData["Title"] = page.Title![..Math.Min(page.Title!.Length, 64)];
     }
 }
 
@@ -24,11 +16,11 @@
 
 @section PreviewErrors
 {
-    @await Html.PartialAsync("_PreviewErrorsPartial", errors)
+    @await Html.PartialAsync("_PreviewErrorsPartial", preview)
 }
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        @Model.Content
+        @(page.Content)
     </div>
 </div>

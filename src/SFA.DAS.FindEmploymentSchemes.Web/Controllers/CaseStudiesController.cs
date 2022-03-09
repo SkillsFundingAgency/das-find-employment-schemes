@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
@@ -9,13 +10,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
     public class CaseStudiesController : Controller
     {
         private readonly ICaseStudyPageService _caseStudyPageService;
+        private readonly ICaseStudyPageModelService _caseStudyPageModelService;
         private readonly IContentService _contentService;
 
         public CaseStudiesController(
             ICaseStudyPageService caseStudyPageService,
+            ICaseStudyPageModelService caseStudyPageModelService,
             IContentService contentService)
         {
             _caseStudyPageService = caseStudyPageService;
+            _caseStudyPageModelService = caseStudyPageModelService;
             _contentService = contentService;
         }
 
@@ -28,7 +32,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (caseStudyPage == null)
                 return NotFound();
 
-            return View(viewName, caseStudyPage);
+            return View(viewName, (caseStudyPage, PreviewModel.NotPreviewModel));
         }
 
         [HttpGet]
@@ -41,7 +45,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (caseStudyPage == null)
                 return NotFound();
 
-            return View(viewName ?? "CaseStudyPage", caseStudyPage);
+            var previewModel = new PreviewModel(_caseStudyPageModelService.GetErrors(caseStudyPage));
+
+            return View(viewName ?? "CaseStudyPage", (caseStudyPage, previewModel));
         }
     }
 }

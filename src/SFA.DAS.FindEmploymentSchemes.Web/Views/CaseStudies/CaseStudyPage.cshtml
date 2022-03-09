@@ -1,45 +1,35 @@
-﻿@model CaseStudyPage
+﻿@model (CaseStudyPage, PreviewModel)
 
 @{
-    var errors = new List<HtmlString>();
-    bool hasTitle = !string.IsNullOrWhiteSpace(Model.Title);
-    if (hasTitle)
+    var caseStudyPage = Model.Item1;
+    var preview = Model.Item2;
+
+    if (!string.IsNullOrWhiteSpace(caseStudyPage.Title))
     {
-        ViewData["Title"] = Model.Title![..Math.Min(Model.Title!.Length, 64)];
+        ViewData["Title"] = caseStudyPage.Title![..Math.Min(caseStudyPage.Title!.Length, 64)];
     }
-    else
-    {
-        errors.Add(new HtmlString("Title must not be blank"));
-    }
+
     // note: schemes without urls will have already been filtered out
-    bool hasValidScheme = Model.Scheme?.Name != null;
-    if (!hasValidScheme)
-    {
-        errors.Add(new HtmlString("Scheme must be selected and have been given an URL and name before publishing"));
-    }
-    if (Model.Content == null)
-    {
-        errors.Add(new HtmlString("Content must not be blank"));
-    }
+    bool hasValidScheme = caseStudyPage.Scheme?.Name != null;
 }
 
 @section BreadCrumbs {
     <a href="/" class="govuk-back-link">Home</a>
     @if (hasValidScheme)
     {
-        <a href="@Url.Action("Details", "Schemes", new {schemeUrl = Model.Scheme!.Url})" class="govuk-back-link">@Model.Scheme!.Name</a>
+        <a href="@Url.Action("Details", "Schemes", new {schemeUrl = caseStudyPage.Scheme!.Url})" class="govuk-back-link">@caseStudyPage.Scheme!.Name</a>
     }
 }
 
 @section PreviewErrors
 {
-    @await Html.PartialAsync("_PreviewErrorsPartial", errors)
+    @await Html.PartialAsync("_PreviewErrorsPartial", preview)
 }
 
 <div class="govuk-grid-row">
     <div id="scheme-details-outer" class="govuk-grid-row">
         <div id="case-study-inner-two-thirds" class="govuk-grid-column-two-thirds">
-            @Model.Content
+            @caseStudyPage.Content
         </div>
     </div>
 </div>

@@ -13,16 +13,21 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
     public class PagesControllerTests
     {
-        public IPageService PageService { get; set; }
         public IContentService ContentService { get; set; }
+        public IPageService PageService { get; set; }
+        public IPageModelService PageModelService { get; set; }
         public PagesController PagesController { get; set; }
 
         public PagesControllerTests()
         {
-            PageService = A.Fake<IPageService>();
             ContentService = A.Fake<IContentService>();
+            PageService = A.Fake<IPageService>();
+            PageModelService = A.Fake<IPageModelService>();
 
-            PagesController = new PagesController(ContentService, PageService);
+            A.CallTo(() => PageService.RedirectPreview(A<string>._))
+                .Returns(default);
+
+            PagesController = new PagesController(ContentService, PageService, PageModelService);
         }
 
         [Fact]
