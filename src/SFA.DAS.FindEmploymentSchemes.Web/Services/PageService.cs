@@ -45,7 +45,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 case AnalyticsCookiesPageUrl:
                 case MarketingCookiesPageUrl:
                     return ("page-preview", new { pageUrl = CookiesPageUrl });
-                //todo: single source of truth
                 case "home":
                     return ("home-preview", null);
             }
