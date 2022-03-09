@@ -1,4 +1,5 @@
-﻿using SFA.DAS.FindEmploymentSchemes.Web.Models;
+﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
 {
@@ -6,5 +7,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
     {
         HomeModel HomeModel { get; }
         SchemeDetailsModel? GetSchemeDetailsModel(string schemeUrl);
+
+        HomeModel CreateHomeModel(IContent content);
     }
 }

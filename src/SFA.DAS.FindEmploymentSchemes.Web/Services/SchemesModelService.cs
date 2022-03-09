@@ -41,7 +41,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         public HomeModel HomeModel { get; private set; }
 
-        private HomeModel CreateHomeModel(IContent content)
+        public HomeModel CreateHomeModel(IContent content)
         {
             return new HomeModel(
                 content.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
