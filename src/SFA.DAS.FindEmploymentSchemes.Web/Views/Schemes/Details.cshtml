@@ -33,25 +33,28 @@
         {
             errors.Add(new HtmlString("If there is no details page override, the description must not be blank"));
         }
-        if (Model.Scheme.Cost == null)
+        if (!Model.Scheme.SubSchemes.Any())
         {
-            errors.Add(new HtmlString("If there is no details page override, the cost must not be blank"));
-        }
-        if (Model.Scheme.Responsibility == null)
-        {
-            errors.Add(new HtmlString("If there is no details page override, the responsibility must not be blank"));
-        }
-        if (Model.Scheme.Benefits == null)
-        {
-            errors.Add(new HtmlString("If there is no details page override, the benefits must not be blank"));
-        }
-        if (Model.Scheme.OfferHeader == null)
-        {
-            errors.Add(new HtmlString("If there is no details page override, the offer header must not be blank"));
-        }
-        if (Model.Scheme.Offer == null)
-        {
-            errors.Add(new HtmlString("If there is no details page override, the offer must not be blank"));
+            if (Model.Scheme.Cost == null)
+            {
+                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the cost must not be blank"));
+            }
+            if (Model.Scheme.Responsibility == null)
+            {
+                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the responsibility must not be blank"));
+            }
+            if (Model.Scheme.Benefits == null)
+            {
+                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the benefits must not be blank"));
+            }
+            if (Model.Scheme.OfferHeader == null)
+            {
+                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the offer header must not be blank"));
+            }
+            if (Model.Scheme.Offer == null)
+            {
+                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the offer must not be blank"));
+            }
         }
     }
 }
@@ -136,7 +139,7 @@
         }
 	</div>
 	<div class="govuk-grid-column-one-third">
-		<h3 class="govuk-heading-m">Explore schemes</h3>
+		<h2 class="govuk-heading-l">Explore schemes</h2>
         <ul id="explore-schemes" class="govuk-list">
             @foreach (Scheme scheme in Model.Schemes)
             {
