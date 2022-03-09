@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
@@ -67,6 +68,64 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         {
             SchemeDetailsModels.TryGetValue(schemeUrl, out SchemeDetailsModel? schemeDetailsModel);
             return schemeDetailsModel;
+        }
+
+        public IEnumerable<HtmlString> GetErrors(SchemeDetailsModel model)
+        {
+            var errors = new List<HtmlString>();
+
+            if (string.IsNullOrWhiteSpace(model.Scheme.Name))
+            {
+                errors.Add(new HtmlString("Name must not be blank"));
+            }
+            if (model.Scheme.ShortDescription == null)
+            {
+                errors.Add(new HtmlString("Short description must not be blank"));
+            }
+            if (model.Scheme.ShortCost == null)
+            {
+                errors.Add(new HtmlString("Short cost must not be blank"));
+            }
+            if (model.Scheme.ShortBenefits == null)
+            {
+                errors.Add(new HtmlString("Short benefits must not be blank"));
+            }
+            if (model.Scheme.ShortTime == null)
+            {
+                errors.Add(new HtmlString("Short time must not be blank"));
+            }
+            if (model.Scheme.DetailsPageOverride == null)
+            {
+                if (model.Scheme.Description == null)
+                {
+                    errors.Add(new HtmlString("If there is no details page override, the description must not be blank"));
+                }
+                if (!model.Scheme.SubSchemes.Any())
+                {
+                    if (model.Scheme.Cost == null)
+                    {
+                        errors.Add(new HtmlString("If there is no details page override and no sub schemes, the cost must not be blank"));
+                    }
+                    if (model.Scheme.Responsibility == null)
+                    {
+                        errors.Add(new HtmlString("If there is no details page override and no sub schemes, the responsibility must not be blank"));
+                    }
+                    if (model.Scheme.Benefits == null)
+                    {
+                        errors.Add(new HtmlString("If there is no details page override and no sub schemes, the benefits must not be blank"));
+                    }
+                    if (model.Scheme.OfferHeader == null)
+                    {
+                        errors.Add(new HtmlString("If there is no details page override and no sub schemes, the offer header must not be blank"));
+                    }
+                    if (model.Scheme.Offer == null)
+                    {
+                        errors.Add(new HtmlString("If there is no details page override and no sub schemes, the offer must not be blank"));
+                    }
+                }
+            }
+
+            return errors;
         }
     }
 }

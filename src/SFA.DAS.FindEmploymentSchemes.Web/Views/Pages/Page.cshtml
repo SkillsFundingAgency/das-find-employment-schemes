@@ -6,7 +6,7 @@
 
     if (!string.IsNullOrWhiteSpace(page.Title))
     {
-        ViewData["Title"] = page.Title![..Math.Min(page.Title!.Length, 64)];
+        ViewData["Title"] = page.Title[..Math.Min(page.Title.Length, 64)];
     }
 }
 

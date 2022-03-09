@@ -15,6 +15,8 @@ using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
+    //todo: unit tests to check non preview and preview model
+    //todo: unit tests to check generated error messages
     public class SchemesControllerTests
     {
         public HomeModel HomeModel { get; set; }
@@ -154,7 +156,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             Assert.IsNotType<NotFoundResult>(result);
             Assert.IsType<ViewResult>(result);
             var viewResult = (ViewResult)result;
-            Assert.Equal(schemeDetailsModel, viewResult.Model);
+            Assert.Equal(schemeDetailsModel, (((SchemeDetailsModel, PreviewModel))viewResult.Model).Item1);
         }
 
         [Fact]

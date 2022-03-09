@@ -6,7 +6,7 @@
 
     if (!string.IsNullOrWhiteSpace(caseStudyPage.Title))
     {
-        ViewData["Title"] = caseStudyPage.Title![..Math.Min(caseStudyPage.Title!.Length, 64)];
+        ViewData["Title"] = caseStudyPage.Title[..Math.Min(caseStudyPage.Title.Length, 64)];
     }
 
     // note: schemes without urls will have already been filtered out

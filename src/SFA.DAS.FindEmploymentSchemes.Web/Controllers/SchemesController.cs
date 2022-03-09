@@ -61,7 +61,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (schemeDetailsModel == null)
                 return NotFound();
 
-            return View(schemeDetailsModel);
+            return View((schemeDetailsModel, PreviewModel.NotPreviewModel));
         }
 
         public async Task<IActionResult> DetailsPreview(string schemeUrl)
@@ -78,7 +78,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
                 return NotFound();
             }
 
-            return View("Details", model);
+            //todo: change modelservices to return previewmodel directly, rather than errors??
+            var preview = new PreviewModel(_schemesModelService.GetErrors(model));
+
+            return View("Details", (model, preview));
         }
     }
 }
