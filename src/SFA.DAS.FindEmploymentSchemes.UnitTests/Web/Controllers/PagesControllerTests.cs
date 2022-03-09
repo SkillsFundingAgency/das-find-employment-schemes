@@ -131,5 +131,20 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             Assert.IsType<NotFoundResult>(result);
         }
+
+        [Fact]
+        public async Task PagePreview_PageServiceRequestsRedirectReturnsRedirectTest()
+        {
+            const string pageUrl = "redirect-from";
+            const string redirectPageUrl = "redirect-to";
+
+            A.CallTo(() => PageService.RedirectPreview(pageUrl))
+                .Returns((redirectPageUrl, null));
+
+            // act
+            IActionResult result = await PagesController.PagePreview(pageUrl);
+
+            Assert.IsType<RedirectToRouteResult>(result);
+        }
     }
 }

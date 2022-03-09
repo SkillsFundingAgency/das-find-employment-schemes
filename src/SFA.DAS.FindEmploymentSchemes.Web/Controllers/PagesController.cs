@@ -41,7 +41,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         public async Task<IActionResult> PagePreview(string pageUrl)
         {
             var (routeName, routeValues) = _pageService.RedirectPreview(pageUrl);
-            if (routeName == null)
+            if (routeName != null)
                 return RedirectToRoute(routeName, routeValues);
 
             IContent previewContent = await _contentService.UpdatePreview();
