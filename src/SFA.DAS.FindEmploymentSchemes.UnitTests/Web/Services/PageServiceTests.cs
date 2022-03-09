@@ -150,5 +150,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             Assert.Throws<NotImplementedException>(() => PageService.Page(errorCheckUrl, Content));
         }
+
+        [Fact]
+        public void RedirectPreview_NonRedirectUrlReturnsNullRouteNameTest()
+        {
+            const string nonRedirectUrl = "dont-redirect";
+
+            var (routeName, _) = PageService.RedirectPreview(nonRedirectUrl);
+
+            Assert.Null(routeName);
+        }
     }
 }
