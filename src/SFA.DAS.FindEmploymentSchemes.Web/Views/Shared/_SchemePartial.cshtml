@@ -3,9 +3,9 @@
 <section id="scheme-section-@Model.HtmlId" data-scheme @{ RenderFilterIds(Model.FilterAspects); }>
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     <div class="filter-full-width govuk-grid-column-two-thirds app-scheme-titles">
-        <h2 id="scheme-header-@Model.HtmlId" class="govuk-heading-m govuk-!-margin-bottom-3">
+        <h3 id="scheme-header-@Model.HtmlId" class="govuk-heading-m govuk-!-margin-bottom-3">
             <a id="scheme-header-link-@Model.HtmlId" asp-route="schemes" asp-route-schemeUrl="@Model.Url" class="govuk-link">@Model.Name</a>
-        </h2>
+        </h3>
     </div>
     <div class="govuk-grid-row">
         <div class="filter-full-width govuk-grid-column-two-thirds">
@@ -14,15 +14,15 @@
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
-            <h3 id="scheme-short-cost-header-@Model.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Cost</h3>
+            <h4 id="scheme-short-cost-header-@Model.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Cost</h4>
             @Model.ShortCost
         </div>
         <div class="govuk-grid-column-one-third">
-            <h3 id="scheme-benefits-header-@Model.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Benefits</h3>
+            <h4 id="scheme-benefits-header-@Model.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Benefits</h4>
             @Model.ShortBenefits
         </div>
         <div class="govuk-grid-column-one-third">
-            <h3 id="scheme-short-time-header-@Model.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Time</h3>
+            <h4 id="scheme-short-time-header-@Model.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Time</h4>
             @Model.ShortTime
         </div>
     </div>

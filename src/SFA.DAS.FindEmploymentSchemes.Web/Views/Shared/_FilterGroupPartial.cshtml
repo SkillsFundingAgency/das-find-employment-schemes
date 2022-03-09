@@ -10,10 +10,10 @@
             {
                 <div id="filter-group-checkboxe-container-inner-@aspect.Id" class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="@aspect.Id" name="@Model.Name" type="checkbox" value="@aspect.Id"
-                            @if (aspect.Selected)
-                            {
-                                @:checked
-                            }
+                        @if (aspect.Selected)
+                        {
+                            @:checked
+                        }
                     >
                     <label id="filter-group-checkbox-label-@aspect.Id" class="govuk-label govuk-checkboxes__label" for="@aspect.Id">
                         @aspect.Description
