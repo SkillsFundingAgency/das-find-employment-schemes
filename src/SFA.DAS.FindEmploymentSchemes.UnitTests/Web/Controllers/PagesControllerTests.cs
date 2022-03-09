@@ -7,6 +7,7 @@ using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+using Microsoft.AspNetCore.Routing;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
@@ -133,7 +134,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public async Task PagePreview_PageServiceRequestsRedirectReturnsRedirectTest()
+        public async Task PagePreview_PageServiceRequestsRedirect_ReturnsRedirectWithCorrectUrlTest()
         {
             const string pageUrl = "redirect-from";
             const string redirectPageUrl = "redirect-to";
@@ -144,7 +145,24 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // act
             IActionResult result = await PagesController.PagePreview(pageUrl);
 
-            Assert.IsType<RedirectToRouteResult>(result);
+            var redirectToRouteResult = Assert.IsType<RedirectToRouteResult>(result);
+            Assert.Equal(redirectPageUrl, redirectToRouteResult.RouteName);
+        }
+
+        [Fact]
+        public async Task PagePreview_PageServiceRequestsRedirect_ReturnsRedirectWithCorrectRouteValuesTest()
+        {
+            const string pageUrl = "redirect-from";
+            const string redirectPageUrl = "redirect-to";
+
+            A.CallTo(() => PageService.RedirectPreview(pageUrl))
+                .Returns((redirectPageUrl, new { pageUrl }));
+
+            // act
+            IActionResult result = await PagesController.PagePreview(pageUrl);
+
+            var redirectToRouteResult = Assert.IsType<RedirectToRouteResult>(result);
+            Assert.Equal(new RouteValueDictionary(new { pageUrl }), redirectToRouteResult.RouteValues);
         }
     }
 }
