@@ -59,7 +59,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         public IActionResult Cookies(string AnalyticsCookies, string MarketingCookies)
         {
             string host = HttpContext.Request.Host.Host;
-            var options = new CookieOptions
+            var options = new CookieOptions //NOSONAR we require access to these cookies in client-side code, so setting HttpOnly would break functionality 
             {
                 IsEssential = true,
                 Secure = true,
