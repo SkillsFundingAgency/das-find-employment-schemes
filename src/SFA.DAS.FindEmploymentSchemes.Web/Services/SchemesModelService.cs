@@ -16,6 +16,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private const string HomepagePreambleUrl = "home";
 
         private readonly IContentService _contentService;
+        private IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels { get; set; }
 
 #pragma warning disable CS8618
         public SchemesModelService(IContentService contentService)
@@ -50,8 +51,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 content.Schemes,
                 new[] { content.MotivationsFilter, content.SchemeLengthFilter, content.PayFilter });
         }
-
-        private IReadOnlyDictionary<string, SchemeDetailsModel> SchemeDetailsModels { get; set; }
 
         private ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
         {

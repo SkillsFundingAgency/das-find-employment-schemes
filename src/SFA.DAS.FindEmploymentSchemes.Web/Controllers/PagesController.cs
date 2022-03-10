@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
@@ -15,16 +14,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
     {
         private readonly IContentService _contentService;
         private readonly IPageService _pageService;
-        private readonly IPageModelService _pageModelService;
 
         public PagesController(
             IContentService contentService,
-            IPageService pageService,
-            IPageModelService pageModelService)
+            IPageService pageService)
         {
             _contentService = contentService;
             _pageService = pageService;
-            _pageModelService = pageModelService;
         }
 
         // we _could_ add cache control parameters to the page content type
@@ -32,12 +28,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [ResponseCache(Duration = 60*60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Page(string pageUrl)
         {
-            var (viewName, page) = _pageService.Page(pageUrl, _contentService.Content);
+            var pageModel = _pageService.GetPageModel(pageUrl);
 
-            if (page == null)
+            if (pageModel == null)
                 return NotFound();
 
-            return View(viewName, (page, PreviewModel.NotPreviewModel));
+            return View(pageModel.ViewName, pageModel);
         }
 
         [HttpGet]
@@ -47,19 +43,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (routeName != null)
                 return RedirectToRoute(routeName, routeValues);
 
-            IContent previewContent = await _contentService.UpdatePreview();
+            var pageModel = await _pageService.GetPageModelPreview(pageUrl);
 
-            var (viewName, page) = _pageService.Page(pageUrl, previewContent);
-
-            if (page == null)
+            if (pageModel == null)
                 return NotFound();
 
-            var preview = new PreviewModel(_pageModelService.GetErrors(page));
-
-            return View(viewName ?? "Page", (page, preview));
+            return View(pageModel.ViewName, pageModel);
         }
 
-        //todo: create type for model, instead of tuple (cookiepage/page is confusing the tuple and we have some ugly casting going on to get around it)
         //todo: preview + errors for cookies (separate story)
 
         [HttpPost]
@@ -92,7 +83,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             return (analyticsPage == null || marketingPage == null
                         ? NotFound()
                         : (IActionResult)View("Cookies", 
-                            ((Page)new CookiePage(analyticsPage, marketingPage, true), PreviewModel.NotPreviewModel)));
+                            new PageModel(new CookiePage(analyticsPage, marketingPage, true), "Cookies")));
         }
     }
 }

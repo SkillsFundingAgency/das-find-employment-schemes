@@ -1,9 +1,8 @@
-﻿@model (Page, PreviewModel)
+﻿@model PageModel
 
 @{
-    var cookiePage = (CookiePage)Model.Item1;
-    var preview = Model.Item2;
-
+    //todo: handle this better
+    var cookiePage = (CookiePage)Model.Page;
     ViewData["Title"] = "Cookies";
 }
 

@@ -71,7 +71,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             services.AddSingleton<IFilterService, FilterService>()
                 .AddSingleton<ISchemesModelService, SchemesModelService>()
-                .AddSingleton<IPageModelService, PageModelService>()
                 .AddSingleton<ICaseStudyPageModelService, CaseStudyPageModelService>();
 
             services.Configure<ContentUpdateServiceOptions>(Configuration.GetSection("ContentUpdates"));

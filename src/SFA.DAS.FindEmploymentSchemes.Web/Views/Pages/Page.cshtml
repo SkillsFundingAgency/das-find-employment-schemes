@@ -1,12 +1,9 @@
-﻿@model (Page, PreviewModel)
+﻿@model PageModel
 
 @{
-    var page = Model.Item1;
-    var preview = Model.Item2;
-
-    if (!string.IsNullOrWhiteSpace(page.Title))
+    if (!string.IsNullOrWhiteSpace(Model.Page.Title))
     {
-        ViewData["Title"] = page.Title[..Math.Min(page.Title.Length, 64)];
+        ViewData["Title"] = Model.Page.Title[..Math.Min(Model.Page.Title.Length, 64)];
     }
 }
 
@@ -16,11 +13,11 @@
 
 @section PreviewErrors
 {
-    @await Html.PartialAsync("_PreviewErrorsPartial", preview)
+    @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
 }
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        @(page.Content)
+        @Model.Page.Content
     </div>
 </div>
