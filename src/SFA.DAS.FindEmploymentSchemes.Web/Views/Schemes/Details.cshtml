@@ -1,12 +1,9 @@
-@model (SchemeDetailsModel, PreviewModel)
+@model SchemeDetailsModel
 
 @{
-    var schemeDetails = Model.Item1;
-    var preview = Model.Item2;
-
-    if (!string.IsNullOrWhiteSpace(schemeDetails.Scheme.Name))
+    if (!string.IsNullOrWhiteSpace(Model.Scheme.Name))
     {
-        ViewData["Title"] = schemeDetails.Scheme.Name[..Math.Min(schemeDetails.Scheme.Name.Length, 64)];
+        ViewData["Title"] = Model.Scheme.Name[..Math.Min(Model.Scheme.Name.Length, 64)];
     }
 }
 
@@ -15,28 +12,28 @@
 }
 
 @section PreviewErrors {
-    @await Html.PartialAsync("_PreviewErrorsPartial", preview)
+    @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
 }
 
 <div id="scheme-details-outer" class="govuk-grid-row">
     <div id="scheme-details-inner-two-thirds" class="govuk-grid-column-two-thirds">
         <h1 id="scheme-details-h1" class="govuk-heading-l">
-            @schemeDetails.Scheme.Name
+            @Model.Scheme.Name
         </h1>
-        @if (schemeDetails.Scheme.DetailsPageOverride != null)
+        @if (Model.Scheme.DetailsPageOverride != null)
         {
-            @schemeDetails.Scheme.DetailsPageOverride
+            @Model.Scheme.DetailsPageOverride
         }
         else
         {
-            @schemeDetails.Scheme.Description
+            @Model.Scheme.Description
 
-            if (schemeDetails.Scheme.SubSchemes.Any())
+            if (Model.Scheme.SubSchemes.Any())
             {
                 <div class="govuk-accordion" data-module="govuk-accordion" id="sub-scheme-accordion">
                 @{
                     int ordinal = 0;
-                    foreach (var subScheme in schemeDetails.Scheme.SubSchemes)
+                    foreach (var subScheme in Model.Scheme.SubSchemes)
                     {
                         @await Html.PartialAsync("_AccordionSectionPartial", ("subscheme", ordinal++, subScheme))
                     }
@@ -46,20 +43,20 @@
             else
             {
                 <h2 id="scheme-details-h2-cost" class="govuk-heading-m"> Employer cost </h2>
-                @schemeDetails.Scheme.Cost  
+                @Model.Scheme.Cost  
                 <h2 id="scheme-details-h2-responsibility" class="govuk-heading-m"> Employer responsibilities </h2>
-                @schemeDetails.Scheme.Responsibility
-                <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @schemeDetails.Scheme.Name</h2>
-                @schemeDetails.Scheme.Benefits
-                int numberOfCaseStudies = schemeDetails.Scheme.CaseStudies.Count();
+                @Model.Scheme.Responsibility
+                <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
+                @Model.Scheme.Benefits
+                int numberOfCaseStudies = Model.Scheme.CaseStudies.Count();
 
-                @if (schemeDetails.Scheme.CaseStudiesPreamble != null || numberOfCaseStudies > 0)
+                @if (Model.Scheme.CaseStudiesPreamble != null || numberOfCaseStudies > 0)
                 {
                     <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
 
-                    @schemeDetails.Scheme.CaseStudiesPreamble
+                    @Model.Scheme.CaseStudiesPreamble
 
-                    foreach (CaseStudy study in schemeDetails.Scheme.CaseStudies)
+                    foreach (CaseStudy study in Model.Scheme.CaseStudies)
                     {
                         if (numberOfCaseStudies > 1)
                         {
@@ -83,8 +80,8 @@
                 }
 
                 <section id="scheme-details-section-offer-header" class="cx-cta-box">
-                    <h2 id="scheme-details-h2-offer-header" class="govuk-heading-m">@schemeDetails.Scheme.OfferHeader</h2>
-                    @schemeDetails.Scheme.Offer
+                    <h2 id="scheme-details-h2-offer-header" class="govuk-heading-m">@Model.Scheme.OfferHeader</h2>
+                    @Model.Scheme.Offer
                 </section>
             }
         }
@@ -92,9 +89,9 @@
 	<div class="govuk-grid-column-one-third">
 		<h2 class="govuk-heading-l">Explore schemes</h2>
         <ul id="explore-schemes" class="govuk-list">
-            @foreach (Scheme scheme in schemeDetails.Schemes)
+            @foreach (Scheme scheme in Model.Schemes)
             {
-                bool currentScheme = scheme == schemeDetails.Scheme;
+                bool currentScheme = scheme == Model.Scheme;
                 <li id="scheme-details-inner-li-@scheme.HtmlId" class="@(currentScheme ? "explore-schemes-current-scheme" : "")">
                     @if (currentScheme)
                     {
@@ -111,5 +108,5 @@
 </div>
 
 @section AdditionalFooter {
-    @schemeDetails.Scheme.AdditionalFooter
+    @Model.Scheme.AdditionalFooter
 }

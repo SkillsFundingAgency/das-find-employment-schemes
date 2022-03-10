@@ -61,27 +61,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (schemeDetailsModel == null)
                 return NotFound();
 
-            return View((schemeDetailsModel, PreviewModel.NotPreviewModel));
+            return View(schemeDetailsModel);
         }
 
         public async Task<IActionResult> DetailsPreview(string schemeUrl)
         {
-            IContent previewContent = await _contentService.UpdatePreview();
-            SchemeDetailsModel model;
-
-            try
-            {
-                model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes);
-            }
-            catch (Exception)
-            {
+            var schemeDetailsModel = await _schemesModelService.GetSchemeDetailsModelPreview(schemeUrl);
+            if (schemeDetailsModel == null)
                 return NotFound();
-            }
 
-            //todo: change modelservices to return previewmodel directly, rather than errors??
-            var preview = new PreviewModel(_schemesModelService.GetErrors(model));
-
-            return View("Details", (model, preview));
+            return View("Details", schemeDetailsModel);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
@@ -68,6 +69,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         {
             SchemeDetailsModels.TryGetValue(schemeUrl, out SchemeDetailsModel? schemeDetailsModel);
             return schemeDetailsModel;
+        }
+
+        public async Task<SchemeDetailsModel?> GetSchemeDetailsModelPreview(string schemeUrl)
+        {
+            IContent previewContent = await _contentService.UpdatePreview();
+
+            try
+            {
+                var model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes);
+                model.Preview = new PreviewModel(GetErrors(model));
+                return model;
+            }
+            catch (Exception)
+            {
+                return default;
+            }
         }
 
         public IEnumerable<HtmlString> GetErrors(SchemeDetailsModel model)

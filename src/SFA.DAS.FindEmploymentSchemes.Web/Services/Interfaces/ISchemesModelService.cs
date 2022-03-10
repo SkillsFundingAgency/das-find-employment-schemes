@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿using System.Threading.Tasks;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
-using System.Collections.Generic;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
 {
@@ -9,9 +8,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
     {
         HomeModel HomeModel { get; }
         SchemeDetailsModel? GetSchemeDetailsModel(string schemeUrl);
+        Task<SchemeDetailsModel?> GetSchemeDetailsModelPreview(string schemeUrl);
 
         HomeModel CreateHomeModel(IContent content);
-
-        IEnumerable<HtmlString> GetErrors(SchemeDetailsModel model);
     }
 }
