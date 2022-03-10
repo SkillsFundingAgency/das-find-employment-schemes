@@ -17,12 +17,12 @@
         </h2>
         @if (subScheme.Summary != null && !string.IsNullOrWhiteSpace(subScheme.Summary.Value))
         {
-            <div class="govuk-accordion__section-summary govuk-body">
+            <div id="@titleId-summary" class="govuk-accordion__section-summary govuk-body">
                 @subScheme.Summary
             </div>
         }
     </div>
-    <div class="govuk-accordion__section-content" aria-labelledby="@titleId">
-        @subScheme.Content
+    <div class="govuk-accordion__section-content" @{ Html.Raw(string.IsNullOrWhiteSpace(@subScheme?.Summary?.Value) ? "" : $"aria-labelledby=\"{@titleId}-summary\""); } >
+        @subScheme?.Content
     </div>
 </div>
