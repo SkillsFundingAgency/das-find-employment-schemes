@@ -69,21 +69,19 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             Assert.Equal("CaseStudyPage", viewResult.ViewName);
         }
 
-        //todo: this
-#if restore_this
         [Fact]
         public async Task CaseStudyPagePreview_UnknownPageUrlReturnsNotFoundTest()
         {
             const string pageUrl = "unknown-page";
 
+            CaseStudyPageModel nullCaseStudyPageModel = null;
             A.CallTo(() => CaseStudyPageService.GetCaseStudyPageModelPreview(pageUrl))
-                .Returns(Task.FromResult((CaseStudyPageModel)null));
+                .Returns(nullCaseStudyPageModel);
 
             // act
             IActionResult result = await CaseStudiesController.CaseStudyPagePreview(pageUrl);
 
             Assert.IsType<NotFoundResult>(result);
         }
-#endif
     }
 }
