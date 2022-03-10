@@ -1,169 +1,146 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using AutoFixture;
-//using AutoFixture.Kernel;
-//using Contentful.Core.Models;
-//using FakeItEasy;
-//using Microsoft.AspNetCore.Html;
-//using SFA.DAS.FindEmploymentSchemes.Web.Services;
-//using System.Linq;
-//using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-//using SFA.DAS.FindEmploymentSchemes.Web.Models;
-//using Xunit;
-//using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
-//using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
-//using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+﻿using System;
+using System.Collections.Generic;
+using AutoFixture;
+using AutoFixture.Kernel;
+using Contentful.Core.Models;
+using FakeItEasy;
+using SFA.DAS.FindEmploymentSchemes.Web.Services;
+using System.Linq;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using Xunit;
+using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 
-//namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
-//{
-//    public class PageServiceTests
-//    {
-//        public const string CookiePageUrl = "Cookies";
+namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
+{
+    public class PageServiceTests
+    {
+        public const string CookiePageUrl = "Cookies";
 
-//        public Fixture Fixture { get; set; }
-//        public IEnumerable<Page> Pages { get; set; }
-//        public IContentService ContentService { get; set; }
-//        public IContent Content { get; set; }
-//        public PageService PageService { get; set; }
+        public Fixture Fixture { get; set; }
+        public IEnumerable<Page> Pages { get; set; }
+        public IContentService ContentService { get; set; }
+        public IContent Content { get; set; }
+        public PageService PageService { get; set; }
 
-//        public PageServiceTests()
-//        {
-//            Fixture = new Fixture();
+        public PageServiceTests()
+        {
+            Fixture = new Fixture();
 
-//            Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
-//                .ForEach(b => Fixture.Behaviors.Remove(b));
-//            Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+            Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+                .ForEach(b => Fixture.Behaviors.Remove(b));
+            Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
-//            Fixture.Customizations.Add(
-//                new TypeRelay(
-//                    typeof(global::Contentful.Core.Models.IContent),
-//                    typeof(Paragraph)));
+            Fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(global::Contentful.Core.Models.IContent),
+                    typeof(Paragraph)));
 
-//            Content = A.Fake<IContent>();
+            Content = A.Fake<IContent>();
 
-//            ContentService = A.Fake<IContentService>();
+            ContentService = A.Fake<IContentService>();
 
-//            Pages = Fixture.CreateMany<Page>(3);
+            Pages = Fixture.CreateMany<Page>(3);
 
-//            A.CallTo(() => Content.Pages)
-//                .Returns(Pages);
+            A.CallTo(() => Content.Pages)
+                .Returns(Pages);
 
-//            PageService = new PageService(ContentService);
-//        }
+            PageService = new PageService(ContentService);
+        }
 
-//        [Fact]
-//        public void Page_StandardPageUrlReturnsDefaultViewNameTest()
-//        {
-//            string pageUrl = Pages.Skip(1).First().Url;
+        //[Fact]
+        //public void GetPageModel_CookiePageUrlReturnsCookiesViewNameTest()
+        //{
+        //    //var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
+        //    //var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
 
-//            var (viewName, page) = PageService.Page(pageUrl, Content);
+        //    //var pages = new[] { analyticsPage }
+        //    //    .Concat(Pages)
+        //    //    .Concat(new[] { marketingPage }).ToArray();
 
-//            Assert.Null(viewName);
-//        }
+        //    //A.CallTo(() => Content.Pages)
+        //    //    .Returns(pages);
 
-//        [Fact]
-//        public void Page_StandardPageUrlReturnsPageTest()
-//        {
-//            Page expectedPage = Pages.Skip(1).First();
+        //    var model = PageService.GetPageModel(CookiePageUrl);
 
-//            var (viewName, page) = PageService.Page(expectedPage.Url, Content);
+        //    Assert.Equal("Cookies", model.ViewName);
+        //}
 
-//            Assert.Equal(expectedPage, page);
-//        }
+        //[Fact]
+        //public void Page_CookiePageUrlReturnsCookiePageModelTest()
+        //{
+        //    var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
+        //    var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
 
-//        [Fact]
-//        public void Page_CookiePageUrlReturnsCookiesViewNameTest()
-//        {
-//            var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
-//            var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
+        //    var pages = new[] { analyticsPage }
+        //        .Concat(Pages)
+        //        .Concat(new[] { marketingPage }).ToArray();
 
-//            var pages = new[] { analyticsPage }
-//                .Concat(Pages)
-//                .Concat(new [] { marketingPage }).ToArray();
+        //    A.CallTo(() => Content.Pages)
+        //        .Returns(pages);
 
-//            A.CallTo(() => Content.Pages)
-//                .Returns(pages);
+        //    var (viewName, page) = PageService.Page(CookiePageUrl, Content);
 
-//            var (viewName, page) = PageService.Page(CookiePageUrl, Content);
+        //    Assert.IsType<CookiePage>(page);
+        //    var cookiePage = (CookiePage)page;
+        //    Assert.Equal(analyticsPage, cookiePage.AnalyticsPage);
+        //    Assert.Equal(marketingPage, cookiePage.MarketingPage);
+        //}
 
-//            Assert.Equal("Cookies", viewName);
-//        }
+        //[Fact]
+        //public void Page_CookiePageUrlWithMissingAnalyticsPageThrowsExceptionTest()
+        //{
+        //    var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
 
-//        [Fact]
-//        public void Page_CookiePageUrlReturnsCookiePageModelTest()
-//        {
-//            var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
-//            var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
+        //    var pages = new[] { analyticsPage }
+        //        .Concat(Pages).ToArray();
 
-//            var pages = new[] { analyticsPage }
-//                .Concat(Pages)
-//                .Concat(new[] { marketingPage }).ToArray();
+        //    A.CallTo(() => Content.Pages)
+        //        .Returns(pages);
 
-//            A.CallTo(() => Content.Pages)
-//                .Returns(pages);
+        //    Assert.ThrowsAny<Exception>(() => PageService.Page(CookiePageUrl, Content));
+        //}
 
-//            var (viewName, page) = PageService.Page(CookiePageUrl, Content);
+        //[Fact]
+        //public void Page_CookiePageUrlWithMissingMarketingPageThrowsExceptionTest()
+        //{
+        //    var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
 
-//            Assert.IsType<CookiePage>(page);
-//            var cookiePage = (CookiePage) page;
-//            Assert.Equal(analyticsPage, cookiePage.AnalyticsPage);
-//            Assert.Equal(marketingPage, cookiePage.MarketingPage);
-//        }
+        //    var pages = new[] { marketingPage }
+        //        .Concat(Pages).ToArray();
 
-//        [Fact]
-//        public void Page_CookiePageUrlWithMissingAnalyticsPageThrowsExceptionTest()
-//        {
-//            var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
+        //    A.CallTo(() => Content.Pages)
+        //        .Returns(pages);
 
-//            var pages = new[] { analyticsPage }
-//                .Concat(Pages).ToArray();
+        //    Assert.ThrowsAny<Exception>(() => PageService.Page(CookiePageUrl, Content));
+        //}
 
-//            A.CallTo(() => Content.Pages)
-//                .Returns(pages);
+        [Fact]
+        public void GetPageModel_UnknownPageUrlReturnsNullModelTest()
+        {
+            string unknowUrl = nameof(unknowUrl);
 
-//            Assert.ThrowsAny<Exception>(() => PageService.Page(CookiePageUrl, Content));
-//        }
+            var model = PageService.GetPageModel(unknowUrl);
 
-//        [Fact]
-//        public void Page_CookiePageUrlWithMissingMarketingPageThrowsExceptionTest()
-//        {
-//            var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
+            Assert.Null(model);
+        }
 
-//            var pages = new[] { marketingPage }
-//                .Concat(Pages).ToArray();
+        [Fact]
+        public void GetPageModel_ErrorCheckPageUrlThrowsExceptionTest()
+        {
+            string errorCheckUrl = "error-check";
 
-//            A.CallTo(() => Content.Pages)
-//                .Returns(pages);
+            Assert.Throws<NotImplementedException>(() => PageService.GetPageModel(errorCheckUrl));
+        }
 
-//            Assert.ThrowsAny<Exception>(() => PageService.Page(CookiePageUrl, Content));
-//        }
+        [Fact]
+        public void RedirectPreview_NonRedirectUrlReturnsNullRouteNameTest()
+        {
+            const string nonRedirectUrl = "dont-redirect";
 
-//        [Fact]
-//        public void Page_UnknownPageUrlReturnsNullPageTest()
-//        {
-//            string unknowUrl = nameof(unknowUrl);
+            var (routeName, _) = PageService.RedirectPreview(nonRedirectUrl);
 
-//            var (viewName, page) = PageService.Page(unknowUrl, Content);
-
-//            Assert.Null(page);
-//        }
-
-//        [Fact]
-//        public void Page_ErrorCheckPageUrlThrowsExceptionTest()
-//        {
-//            string errorCheckUrl = "error-check";
-
-//            Assert.Throws<NotImplementedException>(() => PageService.Page(errorCheckUrl, Content));
-//        }
-
-//        [Fact]
-//        public void RedirectPreview_NonRedirectUrlReturnsNullRouteNameTest()
-//        {
-//            const string nonRedirectUrl = "dont-redirect";
-
-//            var (routeName, _) = PageService.RedirectPreview(nonRedirectUrl);
-
-//            Assert.Null(routeName);
-//        }
-//    }
-//}
+            Assert.Null(routeName);
+        }
+    }
+}
