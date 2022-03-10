@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Microsoft.AspNetCore.Mvc;
@@ -84,6 +83,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             Assert.Equal(filteredHomeModel, viewResult.Model);
         }
 
+        //todo: change cut to return Redirect object instead
 #if Too_much_interals_set_up_for_value
         [Fact]
         public void PostHome_ShowFilterRedirectsToHomeTest()
