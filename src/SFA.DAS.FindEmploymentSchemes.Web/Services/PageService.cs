@@ -21,7 +21,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private const string MarketingCookiesPageUrl = "marketingcookies";
 
         private readonly IContentService _contentService;
-        private IReadOnlyDictionary<string, PageModel> PageModels { get; set; }
+        private IReadOnlyDictionary<string, PageModel> _pageModels;
 
 #pragma warning disable CS8618
         public PageService(IContentService contentService)
@@ -35,7 +35,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         private void BuildModels()
         {
-            PageModels = BuildPageModelsDictionary();
+            _pageModels = BuildPageModelsDictionary();
         }
 
         private void OnContentUpdated(object? sender, EventArgs args)
@@ -75,7 +75,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             if (pageUrl == "error-check")
                 throw new NotImplementedException("DEADBEEF-DEAD-BEEF-DEAD-BAAAAAAAAAAD");
 
-            PageModels.TryGetValue(pageUrl, out PageModel? pageModel);
+            _pageModels.TryGetValue(pageUrl, out PageModel? pageModel);
             return pageModel;
         }
 

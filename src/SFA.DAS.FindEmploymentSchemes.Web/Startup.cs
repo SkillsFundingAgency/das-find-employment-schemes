@@ -70,8 +70,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             services.AddSingleton<ICaseStudyPageService, CaseStudyPageService>();
 
             services.AddSingleton<IFilterService, FilterService>()
-                .AddSingleton<ISchemesModelService, SchemesModelService>()
-                .AddSingleton<ICaseStudyPageModelService, CaseStudyPageModelService>();
+                .AddSingleton<ISchemesModelService, SchemesModelService>();
 
             services.Configure<ContentUpdateServiceOptions>(Configuration.GetSection("ContentUpdates"));
 
