@@ -7,7 +7,6 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
-using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 
@@ -17,7 +16,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
     {
         [Theory]
         [ClassData(typeof(FilterServiceTestData))]
-        public void ApplyFilters_Result(IEnumerable<Scheme> expectedSchemes, SchemeFilterViewModel filters)
+        public void ApplyFilters_Result(IEnumerable<Scheme> expectedSchemes, SchemeFilterModel filters)
         {
             IContentService contentService = A.Fake<IContentService>();
             ISchemesModelService schemesModelService = A.Fake<ISchemesModelService>();
@@ -42,27 +41,27 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
                 yield return new object[] {
                     generatedContent.Schemes,
-                    new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { })
+                    new SchemeFilterModel(new string[] { }, new string[] { }, new string[] { })
                 };
                 yield return new object[] {
                     generatedContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths }, new string[] { })
+                    new SchemeFilterModel(new string[] { }, new string[] { fourToTwelveMonths }, new string[] { })
                 };
                 yield return new object[] {
                     generatedContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { yearOrMore }, new string[] { } )
+                    new SchemeFilterModel(new string[] { }, new string[] { yearOrMore }, new string[] { } )
                 };
                 yield return new object[] {
                     generatedContent.Schemes.Where(s => s.FilterAspects.Contains(unpaid)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { }, new string[] { unpaid })
+                    new SchemeFilterModel(new string[] { }, new string[] { }, new string[] { unpaid })
                 };
                 yield return new object[] {
                     generatedContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore) && s.FilterAspects.Contains(unpaid)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { yearOrMore }, new string[] { unpaid })
+                    new SchemeFilterModel(new string[] { }, new string[] { yearOrMore }, new string[] { unpaid })
                 };
                 yield return new object[] {
                     generatedContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
-                    new SchemeFilterViewModel(new string[] { }, new string[] { fourToTwelveMonths, yearOrMore }, new string[] { })
+                    new SchemeFilterModel(new string[] { }, new string[] { fourToTwelveMonths, yearOrMore }, new string[] { })
                 };
             }
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

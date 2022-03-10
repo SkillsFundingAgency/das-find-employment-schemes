@@ -5,7 +5,6 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
-using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
@@ -33,7 +32,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         // if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled
         [HttpPost]
-        public IActionResult Home(SchemeFilterViewModel filters, [FromQuery] string? show)
+        public IActionResult Home(SchemeFilterModel filters, [FromQuery] string? show)
         {
             if (show is "filter")
             {

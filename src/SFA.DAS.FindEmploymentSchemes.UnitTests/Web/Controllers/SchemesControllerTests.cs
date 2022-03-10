@@ -9,7 +9,6 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
-using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
@@ -23,7 +22,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         public ISchemesModelService SchemesModelService { get; set; }
         public IFilterService FilterService { get; set; }
         public IContentService ContentService { get; set; }
-        public SchemeFilterViewModel SchemeFilterViewModel { get; set; }
+        public SchemeFilterModel SchemeFilterModel { get; set; }
 
         public SchemesController SchemesController { get; set; }
 
@@ -40,7 +39,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             SchemesController = new SchemesController(SchemesModelService, FilterService, ContentService);
 
-            SchemeFilterViewModel = new SchemeFilterViewModel(new string[] {}, new string[] {}, new string[] {});
+            SchemeFilterModel = new SchemeFilterModel(new string[] {}, new string[] {}, new string[] {});
         }
 
         [Fact]
@@ -72,11 +71,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             var filteredHomeModel = new HomeModel(null!, null!, null!);
 
-            A.CallTo(() => FilterService.ApplyFilter(SchemeFilterViewModel))
+            A.CallTo(() => FilterService.ApplyFilter(SchemeFilterModel))
                 .Returns(filteredHomeModel);
 
             // act
-            IActionResult result = SchemesController.Home(SchemeFilterViewModel, "");
+            IActionResult result = SchemesController.Home(SchemeFilterModel, "");
 
             Assert.IsType<ViewResult>(result);
             var viewResult = (ViewResult)result;
@@ -98,7 +97,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             SchemesController.ControllerContext = new ControllerContext(new ActionContext(httpContext, new RouteData(), new ControllerActionDescriptor()));
 
             // act
-            SchemesController.Home(SchemeFilterViewModel, "filter");
+            SchemesController.Home(SchemeFilterModel, "filter");
 
             A.CallTo(() => httpResponse.Redirect("/"))
                 .MustHaveHappenedOnceExactly();
@@ -156,7 +155,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             Assert.IsNotType<NotFoundResult>(result);
             Assert.IsType<ViewResult>(result);
             var viewResult = (ViewResult)result;
-            Assert.Equal(schemeDetailsModel, (((SchemeDetailsModel, PreviewModel))viewResult.Model).Item1);
+            Assert.Equal(schemeDetailsModel, viewResult.Model);
         }
 
         [Fact]
@@ -171,15 +170,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             IActionResult result = SchemesController.Details(schemeUrl);
 
             Assert.IsType<NotFoundResult>(result);
-        }
-
-        [Fact]
-        public async Task DetailsPreview_UpdatesPreviewContentTest()
-        {
-            await SchemesController.DetailsPreview("");
-
-            A.CallTo(() => ContentService.UpdatePreview())
-                .MustHaveHappenedOnceExactly();
         }
     }
 }
