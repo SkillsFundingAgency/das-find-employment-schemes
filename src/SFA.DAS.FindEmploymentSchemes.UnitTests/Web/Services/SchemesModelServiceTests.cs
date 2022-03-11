@@ -51,6 +51,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             A.CallTo(() => Content.Pages)
                 .Returns(pages);
 
+            var schemes = Fixture.CreateMany<Scheme>(3).ToArray();
+
+            A.CallTo(() => Content.Schemes)
+                .Returns(schemes);
+
             SchemesModelService = new SchemesModelService(ContentService);
         }
 
@@ -113,6 +118,26 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             Assert.Collection(model.Preview.PreviewErrors,
                 e => Assert.Equal("Preamble must not be blank", e.Value));
+        }
+
+        [Fact]
+        public void GetSchemeDetailsModel_KnownSchemeUrl_ReturnsModelTest()
+        {
+            // act
+            var model = SchemesModelService.GetSchemeDetailsModel(Content.Schemes.First().Url);
+
+            Assert.NotNull(model);
+        }
+
+        [Fact]
+        public void GetSchemeDetailsModel_UnknownSchemeUrl_ReturnsModelTest()
+        {
+            string unknownUrl = "unknownUrl";
+
+            // act
+            var model = SchemesModelService.GetSchemeDetailsModel(unknownUrl);
+
+            Assert.Null(model);
         }
     }
 }
