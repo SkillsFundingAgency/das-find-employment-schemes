@@ -11,6 +11,9 @@ using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using System.Collections;
+using static SFA.DAS.FindEmploymentSchemes.UnitTests.Web.ViewModels.SchemeFilterViewModelTests;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -146,12 +149,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             Assert.True(model.Preview.IsPreview);
         }
 
-        [Fact]
-        public async Task GetSchemeDetailsModelPreview_TitleNull_PreviewErrorTest()
+        [Theory]
+        [ClassData(typeof(PreviewErrorTestData))]
+        public async Task GetSchemeDetailsModelPreview_SingleMissingMandatoryField_PreviewErrorTest(string expected, Scheme scheme)
         {
-            var scheme = new Scheme(null, new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"),
-new HtmlString("detailsPageOverride"));
-
             var schemes = new[] { scheme };
 
             A.CallTo(() => Content.Schemes)
@@ -161,8 +162,18 @@ new HtmlString("detailsPageOverride"));
             var model = await SchemesModelService.GetSchemeDetailsModelPreview(Content.Schemes.First().Url);
 
             Assert.Collection(model.Preview.PreviewErrors,
-                e => Assert.Equal("Name must not be blank", e.Value));
+                e => Assert.Equal(expected, e.Value));
         }
+
+        public class PreviewErrorTestData : IEnumerable<object[]>
+        {
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                yield return new object[] { "Name must not be blank", new Scheme(null, new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
+            }
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        }
+
 
         //todo: test to ensure content from UpdatePreview is used for preview gets
     }
