@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
@@ -16,6 +17,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
     public class SchemesModelServiceTests
     {
         public Fixture Fixture { get; }
+        public IEnumerable<Page> NotHomepages { get; set; }
         public IContent Content { get; set; }
         public IContentService ContentService { get; set; }
         public SchemesModelService SchemesModelService { get; set; }
@@ -41,10 +43,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             A.CallTo(() => ContentService.Content)
                 .Returns(Content);
 
-            var notHomepages = Fixture.CreateMany<Page>(3);
+            NotHomepages = Fixture.CreateMany<Page>(3);
             var homePage = new Page("", "home", new HtmlString(HomePagePreamble));
 
-            var pages = notHomepages.Concat(new[] { homePage }).ToArray();
+            var pages = NotHomepages.Concat(new[] { homePage }).ToArray();
 
             A.CallTo(() => Content.Pages)
                 .Returns(pages);
@@ -91,6 +93,26 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             var model = await SchemesModelService.CreateHomeModelPreview();
 
             Assert.True(model.Preview.IsPreview);
+        }
+
+        [Fact]
+        public async Task CreateHomeModelPreview_PreambleNull_PreviewErrorTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            var homePage = new Page("", "home", null);
+
+            var pages = NotHomepages.Concat(new[] { homePage }).ToArray();
+
+            A.CallTo(() => Content.Pages)
+                .Returns(pages);
+
+            // act
+            var model = await SchemesModelService.CreateHomeModelPreview();
+
+            Assert.Collection(model.Preview.PreviewErrors,
+                e => Assert.Equal("Preamble must not be blank", e.Value));
         }
     }
 }
