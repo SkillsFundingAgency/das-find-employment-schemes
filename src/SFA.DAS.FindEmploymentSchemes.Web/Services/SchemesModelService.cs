@@ -52,6 +52,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 new[] { content.MotivationsFilter, content.SchemeLengthFilter, content.PayFilter });
         }
 
+        public async Task<HomeModel> CreateHomeModelPreview()
+        {
+            IContent previewContent = await _contentService.UpdatePreview();
+
+            var homeModel = CreateHomeModel(previewContent);
+            homeModel.Preview = new PreviewModel(GetHomeErrors(homeModel));
+
+            return homeModel;
+        }
+
         private ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
         {
             var schemeDetailsModels = new Dictionary<string, SchemeDetailsModel>();
@@ -77,7 +87,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             try
             {
                 var model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes);
-                model.Preview = new PreviewModel(GetErrors(model));
+                model.Preview = new PreviewModel(GetSchemeDetailsErrors(model));
                 return model;
             }
             catch (Exception)
@@ -86,7 +96,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             }
         }
 
-        public IEnumerable<HtmlString> GetErrors(SchemeDetailsModel model)
+        private IEnumerable<HtmlString> GetHomeErrors(HomeModel model)
+        {
+            var errors = new List<HtmlString>();
+
+            if (model.Preamble == null)
+            {
+                errors.Add(new HtmlString("Preamble must not be blank"));
+            }
+
+            return errors;
+        }
+
+        private IEnumerable<HtmlString> GetSchemeDetailsErrors(SchemeDetailsModel model)
         {
             var errors = new List<HtmlString>();
 

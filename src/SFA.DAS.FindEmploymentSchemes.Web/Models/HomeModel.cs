@@ -12,6 +12,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
         public IEnumerable<Scheme> Schemes { get; }
         public IEnumerable<Filter> Filters { get; }
         public bool EnsureSchemesAreVisible { get; }
+        public PreviewModel Preview { get; set; }
 
         public HomeModel(
             IHtmlContent? preamble,
@@ -23,6 +24,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             Schemes = schemes;
             Filters = filters;
             EnsureSchemesAreVisible = ensureSchemesAreVisible;
+            Preview = PreviewModel.NotPreviewModel;
         }
     }
 }

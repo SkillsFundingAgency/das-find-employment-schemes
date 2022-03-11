@@ -47,9 +47,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         public async Task<IActionResult> HomePreview()
         {
-            IContent previewContent = await _contentService.UpdatePreview();
-
-            return View("home", _schemesModelService.CreateHomeModel(previewContent));
+            return View("home", await _schemesModelService.CreateHomeModelPreview());
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]

@@ -1,5 +1,9 @@
 ﻿@model HomeModel
 
+@section PreviewErrors {
+    @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
+}
+
 <div id="scheme-home-outer-two-thirds" class="govuk-grid-row">
     <div id="scheme-home-inner-two-thirds" class="govuk-grid-column-two-thirds">
         @Model.Preamble
