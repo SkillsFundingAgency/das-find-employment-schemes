@@ -139,5 +139,38 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             Assert.Null(model);
         }
+
+        [Fact]
+        public async Task GetSchemeDetailsModelPreview__IsPreviewIsTrueTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            // act
+            var model = await SchemesModelService.GetSchemeDetailsModelPreview(Content.Schemes.First().Url);
+
+            Assert.True(model.Preview.IsPreview);
+        }
+
+        [Fact]
+        public async Task GetSchemeDetailsModelPreview_TitleNull_PreviewErrorTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            var scheme = new Scheme(null, new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"),
+new HtmlString("detailsPageOverride"));
+
+            var schemes = new[] { scheme };
+
+            A.CallTo(() => Content.Schemes)
+                .Returns(schemes);
+
+            // act
+            var model = await SchemesModelService.GetSchemeDetailsModelPreview(Content.Schemes.First().Url);
+
+            Assert.Collection(model.Preview.PreviewErrors,
+                e => Assert.Equal("Name must not be blank", e.Value));
+        }
     }
 }
