@@ -10,6 +10,8 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Html;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -141,6 +143,58 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             var (routeName, _) = PageService.RedirectPreview(nonRedirectUrl);
 
             Assert.Null(routeName);
+        }
+
+        [Fact]
+        public async Task GetPageModelPreview_IsPreviewIsTrueTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            // act
+            var model = await PageService.GetPageModelPreview(Pages.First().Url);
+
+            Assert.True(model.Preview.IsPreview);
+        }
+
+        [Fact]
+        public async Task GetPageModelPreview_ContentNull_PreviewErrorTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            var page = new Page("title", "url", null);
+
+            var pages = new[] {page};
+
+            A.CallTo(() => Content.Pages)
+                .Returns(pages);
+
+            // act
+            var model = await PageService.GetPageModelPreview(page.Url);
+
+            Assert.Collection(model.Preview.PreviewErrors,
+                e => Assert.Equal("Content must not be blank", e.Value));
+        }
+
+        [Fact]
+        public async Task GetPageModelPreview_TitleNull_PreviewErrorTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            var page = new Page(null, "url", new HtmlString("content"));
+
+            var pages = new[] { page };
+
+            A.CallTo(() => Content.Pages)
+                .Returns(pages);
+
+            // act
+            var model = await PageService.GetPageModelPreview(page.Url);
+
+            Assert.Collection(model.Preview.PreviewErrors,
+                e => Assert.Equal("Title must not be blank", e.Value));
         }
     }
 }
