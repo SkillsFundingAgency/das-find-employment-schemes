@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
 using FakeItEasy;
@@ -78,6 +79,18 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             Assert.IsType<HtmlString>(SchemesModelService.HomeModel.Preamble);
             Assert.Equal(updatedPreamble, ((HtmlString)SchemesModelService.HomeModel.Preamble).Value);
+        }
+
+        [Fact]
+        public async Task CreateHomeModelPreview_IsPreviewIsTrueTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            // act
+            var model = await SchemesModelService.CreateHomeModelPreview();
+
+            Assert.True(model.Preview.IsPreview);
         }
     }
 }
