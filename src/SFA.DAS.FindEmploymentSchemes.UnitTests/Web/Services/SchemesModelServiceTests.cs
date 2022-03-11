@@ -43,6 +43,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             A.CallTo(() => ContentService.Content)
                 .Returns(Content);
 
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
             NotHomepages = Fixture.CreateMany<Page>(3);
             var homePage = new Page("", "home", new HtmlString(HomePagePreamble));
 
@@ -91,9 +94,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         [Fact]
         public async Task CreateHomeModelPreview_IsPreviewIsTrueTest()
         {
-            A.CallTo(() => ContentService.UpdatePreview())
-                .Returns(Content);
-
             // act
             var model = await SchemesModelService.CreateHomeModelPreview();
 
@@ -103,9 +103,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         [Fact]
         public async Task CreateHomeModelPreview_PreambleNull_PreviewErrorTest()
         {
-            A.CallTo(() => ContentService.UpdatePreview())
-                .Returns(Content);
-
             var homePage = new Page("", "home", null);
 
             var pages = NotHomepages.Concat(new[] { homePage }).ToArray();
@@ -143,9 +140,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         [Fact]
         public async Task GetSchemeDetailsModelPreview__IsPreviewIsTrueTest()
         {
-            A.CallTo(() => ContentService.UpdatePreview())
-                .Returns(Content);
-
             // act
             var model = await SchemesModelService.GetSchemeDetailsModelPreview(Content.Schemes.First().Url);
 
@@ -155,9 +149,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         [Fact]
         public async Task GetSchemeDetailsModelPreview_TitleNull_PreviewErrorTest()
         {
-            A.CallTo(() => ContentService.UpdatePreview())
-                .Returns(Content);
-
             var scheme = new Scheme(null, new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"),
 new HtmlString("detailsPageOverride"));
 
@@ -172,5 +163,7 @@ new HtmlString("detailsPageOverride"));
             Assert.Collection(model.Preview.PreviewErrors,
                 e => Assert.Equal("Name must not be blank", e.Value));
         }
+
+        //todo: test to ensure content from UpdatePreview is used for preview gets
     }
 }
