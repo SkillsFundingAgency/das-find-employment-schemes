@@ -29,7 +29,7 @@
                         int ordinal = 0;
                         foreach (var subScheme in Model.Scheme.SubSchemes)
                         {
-                            @await Html.PartialAsync("_AccordionSectionPartial", ("subscheme", ++ordinal, subScheme))
+                            @await Html.PartialAsync("_AccordionSectionPartial", ("subscheme", ordinal++, subScheme))
                         }
                     }
                 </div>
