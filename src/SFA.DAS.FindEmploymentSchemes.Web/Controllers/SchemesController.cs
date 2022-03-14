@@ -1,7 +1,5 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
@@ -11,16 +9,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
     {
         private readonly ISchemesModelService _schemesModelService;
         private readonly IFilterService _filterService;
-        private readonly IContentService _contentService;
 
         public SchemesController(
             ISchemesModelService schemesModelService,
-            IFilterService filterService,
-            IContentService contentService)
+            IFilterService filterService)
         {
             _schemesModelService = schemesModelService;
             _filterService = filterService;
-            _contentService = contentService;
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]

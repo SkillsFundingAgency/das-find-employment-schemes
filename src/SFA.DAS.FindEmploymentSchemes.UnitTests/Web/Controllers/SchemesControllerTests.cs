@@ -8,19 +8,16 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
     //todo: unit tests to check non preview and preview model
-    //todo: unit tests to check generated error messages
     public class SchemesControllerTests
     {
         public HomeModel HomeModel { get; set; }
         public ISchemesModelService SchemesModelService { get; set; }
         public IFilterService FilterService { get; set; }
-        public IContentService ContentService { get; set; }
         public SchemeFilterModel SchemeFilterModel { get; set; }
 
         public SchemesController SchemesController { get; set; }
@@ -29,14 +26,13 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             FilterService = A.Fake<IFilterService>();
             SchemesModelService = A.Fake<ISchemesModelService>();
-            ContentService = A.Fake<IContentService>();
 
             HomeModel = new HomeModel(null!, null!, null!);
 
             A.CallTo(() => SchemesModelService.HomeModel)
                 .Returns(HomeModel);
 
-            SchemesController = new SchemesController(SchemesModelService, FilterService, ContentService);
+            SchemesController = new SchemesController(SchemesModelService, FilterService);
 
             SchemeFilterModel = new SchemeFilterModel(new string[] {}, new string[] {}, new string[] {});
         }
