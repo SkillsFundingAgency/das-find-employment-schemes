@@ -11,9 +11,7 @@ using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using System.Collections;
-using static SFA.DAS.FindEmploymentSchemes.UnitTests.Web.ViewModels.SchemeFilterViewModelTests;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -170,7 +168,18 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             public IEnumerator<object[]> GetEnumerator()
             {
                 yield return new object[] { "Name must not be blank", new Scheme(null, new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
+                yield return new object[] { "Short description must not be blank", new Scheme("name", null, new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
+                yield return new object[] { "Short cost must not be blank", new Scheme("name", new HtmlString("shortDescription"), null, new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
+                yield return new object[] { "Short benefits must not be blank", new Scheme("name", new HtmlString("shortDescription"), new HtmlString("shortCost"), null, new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
+                yield return new object[] { "Short time must not be blank", new Scheme("name", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), null, "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
+                yield return new object[] { "If there is no details page override, the description must not be blank", new Scheme("name", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, null, new HtmlString("cost"), new HtmlString("responsibility"), new HtmlString("benefits"), "offer header", new HtmlString("offer")) };
+                yield return new object[] { "If there is no details page override and no sub schemes, the cost must not be blank", new Scheme("name", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, new HtmlString("description"), null, new HtmlString("responsibility"), new HtmlString("benefits"), "offer header", new HtmlString("offer")) };
+                yield return new object[] { "If there is no details page override and no sub schemes, the responsibility must not be blank", new Scheme("name", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, new HtmlString("description"), new HtmlString("cost"), null, new HtmlString("benefits"), "offer header", new HtmlString("offer")) };
+                yield return new object[] { "If there is no details page override and no sub schemes, the benefits must not be blank", new Scheme("name", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, new HtmlString("description"), new HtmlString("cost"), new HtmlString("responsibility"), null, "offer header", new HtmlString("offer")) };
+                yield return new object[] { "If there is no details page override and no sub schemes, the offer header must not be blank", new Scheme("name", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, new HtmlString("description"), new HtmlString("cost"), new HtmlString("responsibility"), new HtmlString("benefits"), null, new HtmlString("offer")) };
+                yield return new object[] { "If there is no details page override and no sub schemes, the offer must not be blank", new Scheme("name", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, new HtmlString("description"), new HtmlString("cost"), new HtmlString("responsibility"), new HtmlString("benefits"), "offer header") };
             }
+
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
