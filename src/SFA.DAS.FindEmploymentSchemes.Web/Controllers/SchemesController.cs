@@ -72,5 +72,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
             return View("Details", model);
         }
+
+        public IActionResult Comparison()
+        {
+            return View(_schemesModelService.HomeModel.Schemes);
+        }
+
+        [HttpPost]
+        public IActionResult Comparison(string[] schemes)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

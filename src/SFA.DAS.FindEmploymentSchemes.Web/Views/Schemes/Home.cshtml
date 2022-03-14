@@ -40,7 +40,12 @@
                     <button class="govuk-button govuk-button--secondary app-show-on-mobile-no-js">Filter schemes</button>
                 </form>
             }
-            <a id="filter-schemes" class="govuk-button govuk-button--secondary das-js-show--inline" href="#scheme-filter" data-text-show="Filter schemes" data-text-hide="Hide filter">Filter schemes</a>
+            @*todo sometimes turns yellow, due to .govuk-button:focus:not(:active):not(:hover)
+                same happens on all gds cta buttons, when you click, drag out, then let go, e.g. https://www.gov.uk/apply-apprenticeship
+                which is effectively what's happening to trigger it here
+            *@
+            <a id="filter-schemes" class="govuk-button das-js-show--inline" href="#scheme-filter" data-text-show="Filter schemes" data-text-hide="Hide filter" data-class-hide="govuk-button--secondary">Filter schemes</a>
+            <a id="compare-schemes" class="govuk-button govuk-button--secondary" asp-route="scheme-comparison">Compare schemes in a table</a>
         </div>
         @foreach (var scheme in Model.Schemes)
         {
