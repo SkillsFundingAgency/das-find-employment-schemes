@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
@@ -51,21 +48,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             return View(pageModel.ViewName, pageModel);
         }
 
-        //todo: preview + errors for cookies (separate story)
-        //todo: move into PageService. can we see where it came from, so can use normal/preview content?
-
         [HttpPost]
         [Route("page/cookies")]
         public IActionResult Cookies(string AnalyticsCookies, string MarketingCookies)
         {
             SetCookies(AnalyticsCookies, MarketingCookies);
 
-            Page? analyticsPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "analyticscookies");
-            Page? marketingPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "marketingcookies");
-            return (analyticsPage == null || marketingPage == null
-                        ? NotFound()
-                        : (IActionResult)View("Cookies", 
-                            new PageModel(new CookiePage(analyticsPage, marketingPage, true), "Cookies")));
+            var cookiePageModel = _pageService.GetCookiePageModel(_contentService.Content, true);
+            if (cookiePageModel == null)
+                return NotFound();
+
+            return View("Cookies", cookiePageModel);
         }
 
         [HttpPost]
