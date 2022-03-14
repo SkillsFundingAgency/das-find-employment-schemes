@@ -92,8 +92,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 if (analyticsPage == null || marketingPage == null)
                     return null;
 
-                //todo: previewModel
-                return new PageModel(new CookiePage(analyticsPage, marketingPage, false), "Cookies");
+                var cookiePage = new CookiePage(analyticsPage, marketingPage, false);
+                return new PageModel(cookiePage, "Cookies")
+                {
+                    Preview = new PreviewModel(GetErrors(cookiePage))
+                };
             }
 
             var page = previewContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == pageUrl);
@@ -117,6 +120,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             if (page.Content == null)
             {
                 errors.Add(new HtmlString("Content must not be blank"));
+            }
+
+            return errors;
+        }
+
+        private IEnumerable<HtmlString> GetErrors(CookiePage page)
+        {
+            var errors = new List<HtmlString>();
+            if (page.AnalyticsPage.Content == null)
+            {
+                errors.Add(new HtmlString("AnalyticsPage content must not be blank"));
+            }
+
+            if (page.MarketingPage.Content == null)
+            {
+                errors.Add(new HtmlString("MarketingPage content must not be blank"));
             }
 
             return errors;

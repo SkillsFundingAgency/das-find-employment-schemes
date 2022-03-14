@@ -52,7 +52,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         }
 
         //todo: preview + errors for cookies (separate story)
-        //todo: move into PageService
+        //todo: move into PageService. can we see where it came from, so can use normal/preview content?
 
         [HttpPost]
         [Route("page/cookies")]

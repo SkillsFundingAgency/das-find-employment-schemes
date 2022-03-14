@@ -10,6 +10,11 @@
     <a href="/" class="govuk-back-link">Home</a>
 }
 
+@section PreviewErrors
+{
+    @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
+}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 
