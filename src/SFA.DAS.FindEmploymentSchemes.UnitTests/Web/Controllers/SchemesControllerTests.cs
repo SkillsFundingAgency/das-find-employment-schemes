@@ -19,6 +19,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
     {
         public Fixture Fixture { get; set; }
         public HomeModel HomeModel { get; set; }
+        public HomeModel PreviewHomeModel { get; set; }
         public ISchemesModelService SchemesModelService { get; set; }
         public IFilterService FilterService { get; set; }
         public SchemeFilterModel SchemeFilterModel { get; set; }
@@ -36,13 +37,14 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             FilterService = A.Fake<IFilterService>();
             SchemesModelService = A.Fake<ISchemesModelService>();
 
-            HomeModel = new HomeModel(null!, null!, null!);
+            HomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!);
+            PreviewHomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!);
 
             A.CallTo(() => SchemesModelService.HomeModel)
                 .Returns(HomeModel);
 
             A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
-                .Returns(HomeModel);
+                .Returns(PreviewHomeModel);
 
             SchemesController = new SchemesController(SchemesModelService, FilterService);
 
@@ -84,8 +86,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // act
             IActionResult result = SchemesController.Home(SchemeFilterModel, "");
 
-            Assert.IsType<ViewResult>(result);
-            var viewResult = (ViewResult)result;
+            var viewResult = Assert.IsType<ViewResult>(result);
             Assert.NotNull(viewResult.Model);
             Assert.IsType<HomeModel>(viewResult.Model);
             Assert.Equal(filteredHomeModel, viewResult.Model);
@@ -194,7 +195,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             IActionResult result = await SchemesController.ComparisonPreview();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal(HomeModel.Schemes, viewResult.Model);
+            Assert.Equal(PreviewHomeModel.Schemes, viewResult.Model);
         }
 
         [Fact]
@@ -229,10 +230,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
 
-            HomeModel = new HomeModel(null, schemes, null);
+            PreviewHomeModel = new HomeModel(null, schemes, null);
 
             A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
-                .Returns(HomeModel);
+                .Returns(PreviewHomeModel);
 
             // act
             IActionResult result = await SchemesController.ComparisonPreview(Array.Empty<string>());
