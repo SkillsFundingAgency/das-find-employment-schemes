@@ -178,6 +178,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     "Schemes", "DetailsPreview");
 
                 MapControllerRoute(endpoints,
+                    "scheme-comparison-preview",
+                    "preview/scheme-comparison",
+                    "Schemes", "ComparisonPreview");
+
+                MapControllerRoute(endpoints,
                     "casestudypage-preview",
                     "preview/case-study/{pageUrl}",
                     "CaseStudies", "CaseStudyPagePreview");
