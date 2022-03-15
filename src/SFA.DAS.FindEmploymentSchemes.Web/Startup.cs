@@ -16,6 +16,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.StartupServices;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Routing;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web
 {
@@ -136,46 +137,59 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "home",
-                    pattern: "",
-                    defaults: new { controller = "Schemes", action = "Home" });
+                MapControllerRoute(endpoints,
+                    "home",
+                    "",
+                    "Schemes", "Home");
 
-                endpoints.MapControllerRoute(
-                    name: "page",
-                    pattern: "page/{pageUrl}",
-                    defaults: new { controller = "Pages", action = "Page" });
+                MapControllerRoute(endpoints,
+                    "page",
+                    "page/{pageUrl}",
+                    "Pages", "Page");
 
-                endpoints.MapControllerRoute(
-                    name: "casestudypage",
-                    pattern: "case-study/{pageUrl}",
-                    defaults: new { controller = "CaseStudies", action = "CaseStudyPage" });
+                MapControllerRoute(endpoints,
+                    "casestudypage",
+                    "case-study/{pageUrl}",
+                    "CaseStudies", "CaseStudyPage");
 
-                endpoints.MapControllerRoute(
-                    name: "schemes",
-                    pattern: "schemes/{schemeUrl}",
-                    defaults: new { controller = "Schemes", action = "Details" });
+                MapControllerRoute(endpoints,
+                    "schemes",
+                    "schemes/{schemeUrl}",
+                    "Schemes", "Details");
 
-                endpoints.MapControllerRoute(
-                    name: "home-preview",
-                    pattern: "preview/",
-                    defaults: new { controller = "Schemes", action = "HomePreview" });
+                MapControllerRoute(endpoints,
+                    "scheme-comparison",
+                    "scheme-comparison",
+                    "Schemes", "Comparison");
 
-                endpoints.MapControllerRoute(
-                    name: "page-preview",
-                    pattern: "preview/page/{pageUrl}",
-                    defaults: new { controller = "Pages", action = "PagePreview" });
+                MapControllerRoute(endpoints,
+                    "home-preview",
+                    "preview/",
+                    "Schemes", "HomePreview");
 
-                endpoints.MapControllerRoute(
-                    name: "schemes-preview",
-                    pattern: "preview/schemes/{schemeUrl}",
-                    defaults: new { controller = "Schemes", action = "DetailsPreview" });
+                MapControllerRoute(endpoints,
+                    "page-preview",
+                    "preview/page/{pageUrl}",
+                    "Pages", "PagePreview");
 
-                endpoints.MapControllerRoute(
-                    name: "casestudypage-preview",
-                    pattern: "preview/case-study/{pageUrl}",
-                    defaults: new { controller = "CaseStudies", action = "CaseStudyPagePreview" });
+                MapControllerRoute(endpoints,
+                    "schemes-preview",
+                    "preview/schemes/{schemeUrl}",
+                    "Schemes", "DetailsPreview");
+
+                MapControllerRoute(endpoints,
+                    "casestudypage-preview",
+                    "preview/case-study/{pageUrl}",
+                    "CaseStudies", "CaseStudyPagePreview");
             });
+        }
+
+        /// <remarks>
+        /// Work around the over enthusiastic duplicate code quality gate in SonarCloud
+        /// </remarks>
+        private void MapControllerRoute(IEndpointRouteBuilder builder, string name, string pattern, string controller, string action)
+        {
+            builder.MapControllerRoute(name, pattern, new { controller, action });
         }
     }
 }
