@@ -55,6 +55,15 @@ ShowHideElement.prototype.showHideTarget = function (e) {
         var hideText = showHideLink.getAttribute('data-text-hide')
         showHideLink.innerHTML = (sectionExpanded ? showText : hideText)
         showHideLink.setAttribute('aria-expanded', !sectionExpanded)
+
+        var hideClass = showHideLink.getAttribute('data-class-hide')
+        if (hideClass !== null) {
+            if (sectionExpanded) {
+                showHideLink.classList.remove(hideClass)
+            } else {
+                showHideLink.classList.add(hideClass)
+            }
+        }
     })
     if (typeof e.preventDefault === 'function') {
         e.preventDefault()
