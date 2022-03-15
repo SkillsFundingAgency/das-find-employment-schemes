@@ -156,6 +156,16 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         }
 
         [Fact]
+        public void RedirectPreview_HomeUrlReturnsPagePreviewRouteNameTest()
+        {
+            const string homeCookiesUrl = "home";
+
+            var (routeName, _) = PageService.RedirectPreview(homeCookiesUrl);
+
+            Assert.Equal("home-preview", routeName);
+        }
+
+        [Fact]
         public async Task GetPageModelPreview_IsPreviewIsTrueTest()
         {
             A.CallTo(() => ContentService.UpdatePreview())
