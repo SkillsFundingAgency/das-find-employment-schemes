@@ -12,16 +12,16 @@
         <table id="comparison-results-table" class="govuk-table" aria-labelledby="comparison-results-h1">
             <thead class="govuk-table__head">
                 <tr>
-                    <th scope="col" class="govuk-table__header">
+                    <th scope="col" class="govuk-table__header comparison-results-scheme">
                         Scheme
                     </th>
-                    <th scope="col" class="govuk-table__header">
+                    <th scope="col" class="govuk-table__header comparison-results-cost">
                         Cost
                     </th>
-                    <th scope="col" class="govuk-table__header">
+                    <th scope="col" class="govuk-table__header comparison-results-benefits">
                         Benefits
                     </th>
-                    <th scope="col" class="govuk-table__header">
+                    <th scope="col" class="govuk-table__header comparison-results-time">
                         Time
                     </th>
                 </tr>
@@ -29,17 +29,25 @@
             <tbody class="govuk-table__body">
                 @foreach(Scheme scheme in Model) {
                     <tr>
-                        <td class="govuk-table__cell">
-                            <a id="scheme-header-link-@scheme.HtmlId" asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                        <td class="govuk-table__cell comparison-results-scheme">
+                            <div>
+                                <a id="scheme-header-link-@scheme.HtmlId" asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                            </div>
                         </td>
                         <td class="govuk-table__cell">
-                            @scheme.ShortCost
+                            <div>
+                                @scheme.ShortCost
+                            </div>
                         </td>
                         <td class="govuk-table__cell">
-                            @scheme.ShortBenefits
+                            <div>
+                                @scheme.ShortBenefits
+                            </div>
                         </td>
                         <td class="govuk-table__cell">
-                            @scheme.ShortTime
+                            <div>
+                                @scheme.ShortTime
+                            </div>
                         </td>
                     </tr>
                 }
