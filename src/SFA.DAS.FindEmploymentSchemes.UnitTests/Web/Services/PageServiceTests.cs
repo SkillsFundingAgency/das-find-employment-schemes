@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core.Models;
@@ -21,7 +20,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         public const string CookiePageUrl = "Cookies";
 
         public Fixture Fixture { get; set; }
-        public IEnumerable<Page> Pages { get; set; }
+        public Page[] Pages { get; set; }
         public Page AnalyticsPage { get; set; }
         public Page MarketingPage { get; set; }
         public IContentService ContentService { get; set; }
@@ -48,19 +47,26 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             A.CallTo(() => ContentService.Content)
                 .Returns(Content);
 
-            Pages = Fixture.CreateMany<Page>(3);
-
             AnalyticsPage = new Page("", "analyticscookies", new HtmlString(""));
             MarketingPage = new Page("", "marketingcookies", new HtmlString(""));
 
             Pages = new[] { AnalyticsPage }
-                .Concat(Pages)
+                .Concat(Fixture.CreateMany<Page>(3))
                 .Concat(new[] { MarketingPage }).ToArray();
 
             A.CallTo(() => Content.Pages)
                 .Returns(Pages);
 
             PageService = new PageService(ContentService);
+        }
+
+        [Fact]
+        public void GetPageModel_IsPreviewIsTrueTest()
+        {
+            // act
+            var model = PageService.GetPageModel(Pages[1].Url);
+
+            Assert.False(model.Preview.IsPreview);
         }
 
         [Fact]
