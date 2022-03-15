@@ -17,6 +17,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
     //todo: unit tests to check non preview and preview model
     public class SchemesControllerTests
     {
+        public Fixture Fixture { get; set; }
         public HomeModel HomeModel { get; set; }
         public ISchemesModelService SchemesModelService { get; set; }
         public IFilterService FilterService { get; set; }
@@ -26,6 +27,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
         public SchemesControllerTests()
         {
+            Fixture = new Fixture();
+            Fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(IHtmlContent),
+                    typeof(HtmlString)));
+
             FilterService = A.Fake<IFilterService>();
             SchemesModelService = A.Fake<ISchemesModelService>();
 
@@ -108,13 +115,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         [Fact]
         public void Details_KnownSchemeUrlReturnsViewResultWithDefaultViewTest()
         {
-            var fixture = new Fixture();
-            fixture.Customizations.Add(
-                new TypeRelay(
-                    typeof(IHtmlContent),
-                    typeof(HtmlString)));
-
-            var schemes = fixture.CreateMany<Scheme>(2).ToArray();
+            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
 
             string schemeUrl = schemes.First().Url;
 
@@ -134,13 +135,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         [Fact]
         public void Details_KnownSchemeUrlReturnsViewWithCorrectModelTest()
         {
-            var fixture = new Fixture();
-            fixture.Customizations.Add(
-                new TypeRelay(
-                    typeof(IHtmlContent),
-                    typeof(HtmlString)));
-
-            var schemes = fixture.CreateMany<Scheme>(2).ToArray();
+            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
 
             string schemeUrl = schemes.First().Url;
 
@@ -215,13 +210,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         [Fact]
         public async Task PostComparisonPreview_SchemesModelTest()
         {
-            var fixture = new Fixture();
-            fixture.Customizations.Add(
-                new TypeRelay(
-                    typeof(IHtmlContent),
-                    typeof(HtmlString)));
-
-            var schemes = fixture.CreateMany<Scheme>(2).ToArray();
+            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
 
             HomeModel = new HomeModel(null, schemes, null);
 
@@ -238,13 +227,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         [Fact]
         public async Task PostComparisonPreview_ComparisonResultsViewTest()
         {
-            var fixture = new Fixture();
-            fixture.Customizations.Add(
-                new TypeRelay(
-                    typeof(IHtmlContent),
-                    typeof(HtmlString)));
-
-            var schemes = fixture.CreateMany<Scheme>(2).ToArray();
+            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
 
             HomeModel = new HomeModel(null, schemes, null);
 
