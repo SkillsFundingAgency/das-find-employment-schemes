@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
@@ -62,6 +63,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
                 return NotFound();
 
             return View("Details", schemeDetailsModel);
+        }
+
+        public IActionResult Comparison()
+        {
+            return View(_schemesModelService.HomeModel.Schemes);
+        }
+
+        [HttpPost]
+        public IActionResult Comparison(string[] schemes)
+        {
+            return View("ComparisonResults", _schemesModelService.HomeModel.Schemes.Where(x => schemes.Contains(x.HtmlId)));
         }
     }
 }
