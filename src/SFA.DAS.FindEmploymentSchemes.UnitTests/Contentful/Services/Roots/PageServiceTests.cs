@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
-using Contentful.Core.Models;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
 {
