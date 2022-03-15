@@ -61,7 +61,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         }
 
         [Fact]
-        public void GetPageModel_IsPreviewIsTrueTest()
+        public void GetPageModel_IsPreviewIsFalseTest()
         {
             // act
             var model = PageService.GetPageModel(Pages[1].Url);
@@ -78,7 +78,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         }
 
         [Fact]
-        public void Page_CookiePageUrlReturnsCookiePageModelTest()
+        public void GetPageModel_CookiePageUrlReturnsCookiePageModelTest()
         {
             var model = PageService.GetPageModel(CookiePageUrl);
 
@@ -165,6 +165,46 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             Assert.Collection(model.Preview.PreviewErrors,
                 e => Assert.Equal("Title must not be blank", e.Value));
+        }
+
+        [Fact]
+        public async Task GetPageModelPreview_CookiePageAnalyticsPageContentNull_PreviewErrorTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            AnalyticsPage = new Page("", "analyticscookies", null);
+
+            var pages = new[] { AnalyticsPage, MarketingPage };
+
+            A.CallTo(() => Content.Pages)
+                .Returns(pages);
+
+            // act
+            var model = await PageService.GetPageModelPreview("cookies");
+
+            Assert.Collection(model.Preview.PreviewErrors,
+                e => Assert.Equal("AnalyticsPage content must not be blank", e.Value));
+        }
+
+        [Fact]
+        public async Task GetPageModelPreview_CookiePageMarketingPageContentNull_PreviewErrorTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            MarketingPage = new Page("", "marketingcookies", null);
+
+            var pages = new[] { AnalyticsPage, MarketingPage };
+
+            A.CallTo(() => Content.Pages)
+                .Returns(pages);
+
+            // act
+            var model = await PageService.GetPageModelPreview("cookies");
+
+            Assert.Collection(model.Preview.PreviewErrors,
+                e => Assert.Equal("MarketingPage content must not be blank", e.Value));
         }
     }
 }
