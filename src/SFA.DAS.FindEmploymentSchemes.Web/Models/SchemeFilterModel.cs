@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SFA.DAS.FindEmploymentSchemes.Web.ViewModels
+namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {
-    public class SchemeFilterViewModel
+    public class SchemeFilterModel
     {
         public string[] Motivations { get; set; }
         public string[] SchemeLength { get; set; }
         public string[] Pay { get; set; }
         public IEnumerable<string> AllFilters => Motivations.Union(SchemeLength).Union(Pay);
 
-        public SchemeFilterViewModel(string[] motivations, string[] schemeLength, string[] pay)
+        public SchemeFilterModel(string[] motivations, string[] schemeLength, string[] pay)
         {
             Motivations = motivations;
             SchemeLength = schemeLength;

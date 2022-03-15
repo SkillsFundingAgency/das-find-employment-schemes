@@ -41,7 +41,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                     ),
                     new CaseStudy("Apprenticeships - what is the service video",
                     "What is the Apprenticeship service?",
-                    new HtmlString(@"<p class=""govuk-body""><iframe width=""560"" height=""315"" src=""https://www.youtube-nocookie.com/embed/xWUFLAAc4TY"" title=""YouTube video player"" frameborder=""0"" allow=""accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"" allowfullscreen></iframe></p>")
+                    new HtmlString(@"<p class=""govuk-body""><div class=""app-video-container"" style=""--aspect-ratio: 56.25%""><iframe width=""560"" height=""315"" src=""https://www.youtube-nocookie.com/embed/xWUFLAAc4TY"" title=""YouTube video player"" frameborder=""0"" allow=""accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"" allowfullscreen></iframe></div></p>")
                     ),
                 },
                 new HtmlString(@"<p class=""govuk-body"">Read how other businesses have used an apprenticeship scheme</p>"),

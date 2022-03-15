@@ -1,6 +1,8 @@
-﻿@model SFA.DAS.FindEmploymentSchemes.Web.Models.CookiePage
+﻿@model PageModel
 
 @{
+    //todo: handle this better
+    var cookiePage = (CookiePage)Model.Page;
     ViewData["Title"] = "Cookies";
 }
 
@@ -11,7 +13,7 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 
-        @if (Model.ShowMessage)
+        @if (cookiePage.ShowMessage)
         {
             <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
                 <div class="govuk-notification-banner__header">
@@ -27,7 +29,7 @@
             </div>
         }
 
-        @Model.AnalyticsPage.Content
+        @cookiePage.AnalyticsPage.Content
 
         <table class="govuk-table" aria-label="Cookies that measure website usage">
             <thead class="govuk-table__head">
@@ -93,7 +95,7 @@
 
         <hr class="govuk-section-break govuk-section-break--l g" />
 
-        @Model.MarketingPage.Content
+        @cookiePage.MarketingPage.Content
 
         <table class="govuk-table" aria-label="Cookies that help with our communications and marketing">
             <thead class="govuk-table__head">
