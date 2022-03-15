@@ -122,8 +122,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             IActionResult result = SchemesController.Details(schemeUrl);
 
             Assert.IsNotType<NotFoundResult>(result);
-            Assert.IsType<ViewResult>(result);
-            var viewResult = (ViewResult)result;
+            var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Null(viewResult.ViewName);
         }
 
@@ -166,6 +165,26 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             IActionResult result = SchemesController.Details(schemeUrl);
 
             Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public void Comparison_SchemesModelTest()
+        {
+            // act
+            IActionResult result = SchemesController.Comparison();
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal(HomeModel.Schemes, viewResult.Model);
+        }
+
+        [Fact]
+        public void Comparison_DefaultViewTest()
+        {
+            // act
+            IActionResult result = SchemesController.Comparison();
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Null(viewResult.ViewName);
         }
     }
 }
