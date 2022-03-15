@@ -6,6 +6,7 @@
 @{
     var subScheme = Model.Item3;
     string titleId = $"{Model.Item1}-title-{Model.Item2}";
+    string summaryId = $"sub-scheme-accordion-summary-{Model.Item2 + 1}";
 }
 
 <div class="govuk-accordion__section">
@@ -17,7 +18,7 @@
         </h2>
         @if (subScheme.Summary != null && !string.IsNullOrWhiteSpace(subScheme.Summary.Value))
         {
-            <div class="govuk-accordion__section-summary govuk-body">
+            <div id="@summaryId" class="govuk-accordion__section-summary govuk-body">
                 @subScheme.Summary
             </div>
         }
