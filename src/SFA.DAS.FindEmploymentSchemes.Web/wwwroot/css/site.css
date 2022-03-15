@@ -241,6 +241,6 @@ body.js-enabled .app-show-on-mobile-no-js {
 
 @media (max-width: 40.0600em) {
     td.comparison-results-scheme div {
-        min-width: 90px;
+        min-width: 5.8em;
     }
 }
