@@ -44,12 +44,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         public HomeModel HomeModel { get; private set; }
 
-        public HomeModel CreateHomeModel(IContent content)
+        private HomeModel CreateHomeModel(IContent content)
         {
             return new HomeModel(
                 content.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
                 content.Schemes,
                 new[] { content.MotivationsFilter, content.SchemeLengthFilter, content.PayFilter });
+        }
+
+        public async Task<HomeModel> CreateHomeModelPreview()
+        {
+            IContent previewContent = await _contentService.UpdatePreview();
+
+            var homeModel = CreateHomeModel(previewContent);
+            homeModel.Preview = new PreviewModel(GetHomeErrors(homeModel));
+
+            return homeModel;
         }
 
         private ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
@@ -77,7 +87,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             try
             {
                 var model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes);
-                model.Preview = new PreviewModel(GetErrors(model));
+                model.Preview = new PreviewModel(GetSchemeDetailsErrors(model));
                 return model;
             }
             catch (Exception)
@@ -86,7 +96,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             }
         }
 
-        public IEnumerable<HtmlString> GetErrors(SchemeDetailsModel model)
+        private IEnumerable<HtmlString> GetHomeErrors(HomeModel model)
+        {
+            var errors = new List<HtmlString>();
+
+            if (model.Preamble == null)
+            {
+                errors.Add(new HtmlString("Preamble must not be blank"));
+            }
+
+            return errors;
+        }
+
+        private IEnumerable<HtmlString> GetSchemeDetailsErrors(SchemeDetailsModel model)
         {
             var errors = new List<HtmlString>();
 
@@ -110,35 +132,37 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             {
                 errors.Add(new HtmlString("Short time must not be blank"));
             }
-            if (model.Scheme.DetailsPageOverride == null)
+
+            if (model.Scheme.DetailsPageOverride != null)
+                return errors;
+
+            if (model.Scheme.Description == null)
             {
-                if (model.Scheme.Description == null)
-                {
-                    errors.Add(new HtmlString("If there is no details page override, the description must not be blank"));
-                }
-                if (!model.Scheme.SubSchemes.Any())
-                {
-                    if (model.Scheme.Cost == null)
-                    {
-                        errors.Add(new HtmlString("If there is no details page override and no sub schemes, the cost must not be blank"));
-                    }
-                    if (model.Scheme.Responsibility == null)
-                    {
-                        errors.Add(new HtmlString("If there is no details page override and no sub schemes, the responsibility must not be blank"));
-                    }
-                    if (model.Scheme.Benefits == null)
-                    {
-                        errors.Add(new HtmlString("If there is no details page override and no sub schemes, the benefits must not be blank"));
-                    }
-                    if (model.Scheme.OfferHeader == null)
-                    {
-                        errors.Add(new HtmlString("If there is no details page override and no sub schemes, the offer header must not be blank"));
-                    }
-                    if (model.Scheme.Offer == null)
-                    {
-                        errors.Add(new HtmlString("If there is no details page override and no sub schemes, the offer must not be blank"));
-                    }
-                }
+                errors.Add(new HtmlString("If there is no details page override, the description must not be blank"));
+            }
+
+            if (model.Scheme.SubSchemes.Any())
+                return errors;
+
+            if (model.Scheme.Cost == null)
+            {
+                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the cost must not be blank"));
+            }
+            if (model.Scheme.Responsibility == null)
+            {
+                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the responsibility must not be blank"));
+            }
+            if (model.Scheme.Benefits == null)
+            {
+                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the benefits must not be blank"));
+            }
+            if (model.Scheme.OfferHeader == null)
+            {
+                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the offer header must not be blank"));
+            }
+            if (model.Scheme.Offer == null)
+            {
+                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the offer must not be blank"));
             }
 
             return errors;

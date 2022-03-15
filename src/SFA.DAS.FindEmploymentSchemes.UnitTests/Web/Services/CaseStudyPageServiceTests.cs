@@ -10,6 +10,8 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Html;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -45,14 +47,84 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             CaseStudyPageService = new CaseStudyPageService(ContentService);
         }
 
-        //todo: need more tests
-
         [Fact]
         public void GetCaseStudyPageModel_ErrorCheckPageUrlThrowsExceptionTest()
         {
             string errorCheckUrl = "error-check";
 
             Assert.Throws<NotImplementedException>(() => CaseStudyPageService.GetCaseStudyPageModel(errorCheckUrl));
+        }
+
+        [Fact]
+        public async Task GetCaseStudyPageModelPreview_IsPreviewIsTrueTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            // act
+            var model = await CaseStudyPageService.GetCaseStudyPageModelPreview(CaseStudyPages.First().Url);
+
+            Assert.True(model.Preview.IsPreview);
+        }
+
+        [Fact]
+        public async Task GetCaseStudyPageModelPreview_ContentNull_PreviewErrorTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            var caseStudyPage = new CaseStudyPage("title", "url", CaseStudyPages.First().Scheme, null);
+
+            var caseStudyPages = new[] { caseStudyPage };
+
+            A.CallTo(() => Content.CaseStudyPages)
+                .Returns(caseStudyPages);
+
+            // act
+            var model = await CaseStudyPageService.GetCaseStudyPageModelPreview(caseStudyPage.Url);
+
+            Assert.Collection(model.Preview.PreviewErrors,
+                e => Assert.Equal("Content must not be blank", e.Value));
+        }
+
+        [Fact]
+        public async Task GetCaseStudyPageModelPreview_TitleNull_PreviewErrorTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            var caseStudyPage = new CaseStudyPage(null, "url", CaseStudyPages.First().Scheme, new HtmlString("content"));
+
+            var caseStudyPages = new[] { caseStudyPage };
+
+            A.CallTo(() => Content.CaseStudyPages)
+                .Returns(caseStudyPages);
+
+            // act
+            var model = await CaseStudyPageService.GetCaseStudyPageModelPreview(caseStudyPage.Url);
+
+            Assert.Collection(model.Preview.PreviewErrors,
+                e => Assert.Equal("Title must not be blank", e.Value));
+        }
+
+        [Fact]
+        public async Task GetCaseStudyPageModelPreview_SchemeNull_PreviewErrorTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            var caseStudyPage = new CaseStudyPage("title", "url", null, new HtmlString("content"));
+
+            var caseStudyPages = new[] { caseStudyPage };
+
+            A.CallTo(() => Content.CaseStudyPages)
+                .Returns(caseStudyPages);
+
+            // act
+            var model = await CaseStudyPageService.GetCaseStudyPageModelPreview(caseStudyPage.Url);
+
+            Assert.Collection(model.Preview.PreviewErrors,
+                e => Assert.Equal("Scheme must be selected and have been given an URL and name before publishing", e.Value));
         }
     }
 }
