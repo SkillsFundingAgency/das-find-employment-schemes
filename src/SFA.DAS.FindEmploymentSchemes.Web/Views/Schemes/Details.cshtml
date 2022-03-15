@@ -1,11 +1,18 @@
 @model SchemeDetailsModel
 
 @{
-    ViewData["Title"] = Model.Scheme.Name.Substring(0, Math.Min(Model.Scheme.Name.Length, 64));
+    if (!string.IsNullOrWhiteSpace(Model.Scheme.Name))
+    {
+        ViewData["Title"] = Model.Scheme.Name[..Math.Min(Model.Scheme.Name.Length, 64)];
+    }
 }
 
 @section BreadCrumbs {
     <a id="scheme-details-breadcrumb-back-link" href="/" class="govuk-back-link">Home</a>
+}
+
+@section PreviewErrors {
+    @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
 }
 
 <div id="scheme-details-outer" class="govuk-grid-row">
@@ -24,20 +31,19 @@
             if (Model.Scheme.SubSchemes.Any())
             {
                 <div class="govuk-accordion" data-module="govuk-accordion" id="sub-scheme-accordion">
-
-                    @{
-                        int ordinal = 0;
-                        foreach (var subScheme in Model.Scheme.SubSchemes)
-                        {
-                            @await Html.PartialAsync("_AccordionSectionPartial", ("subscheme", ordinal++, subScheme))
-                        }
+                @{
+                    int ordinal = 0;
+                    foreach (var subScheme in Model.Scheme.SubSchemes)
+                    {
+                        @await Html.PartialAsync("_AccordionSectionPartial", ("subscheme", ordinal++, subScheme))
                     }
+                }
                 </div>
             }
             else
             {
                 <h2 id="scheme-details-h2-cost" class="govuk-heading-m"> Employer cost </h2>
-                @Model.Scheme.Cost
+                @Model.Scheme.Cost  
                 <h2 id="scheme-details-h2-responsibility" class="govuk-heading-m"> Employer responsibilities </h2>
                 @Model.Scheme.Responsibility
                 <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
@@ -48,10 +54,7 @@
                 {
                     <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
 
-                    @if (Model.Scheme.CaseStudiesPreamble != null)
-                    {
-                        @Model.Scheme.CaseStudiesPreamble
-                    }
+                    @Model.Scheme.CaseStudiesPreamble
 
                     foreach (CaseStudy study in Model.Scheme.CaseStudies)
                     {
@@ -84,7 +87,7 @@
         }
     </div>
     <div class="govuk-grid-column-one-third">
-        <h3 class="govuk-heading-m">Explore schemes</h3>
+        <h2 class="govuk-heading-m">Explore schemes</h2>
         <ul id="explore-schemes" class="govuk-list">
             @foreach (Scheme scheme in Model.Schemes)
             {

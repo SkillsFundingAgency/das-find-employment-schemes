@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Extensions
 {
@@ -22,6 +25,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Extensions
                 .AddContentful(configuration)
                 .AddTransient(sp => ContentService.CreateHtmlRenderer())
                 .AddSingleton<IContentService, ContentService>()
+                .AddSingleton<ISchemeService, SchemeService>()
+                .AddSingleton<IPageService, PageService>()
+                .AddSingleton<IMotivationFilterService, MotivationFilterService>()
+                .AddSingleton<ICaseStudyPageService, CaseStudyPageService>()
+                .AddSingleton<IPayFilterService, PayFilterService>()
+                .AddSingleton<ISchemeLengthFilterService, SchemeLengthFilterService>()
                 .AddTransient<IContentfulClient>(sp =>
                 {
                     var configOptions = sp.GetService<IOptions<ContentfulOptions>>()?.Value;

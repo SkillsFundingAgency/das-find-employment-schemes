@@ -1,5 +1,9 @@
 ﻿@model HomeModel
 
+@section PreviewErrors {
+    @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
+}
+
 <div id="scheme-home-outer-two-thirds" class="govuk-grid-row">
     <div id="scheme-home-inner-two-thirds" class="govuk-grid-column-two-thirds">
         @Model.Preamble
@@ -16,7 +20,7 @@
                 </div>
                 <div id="scheme-filter-options" class="das-filter__body">
                     <div id="number-of-schemes-box">
-                        <h3 id="number-of-schemes-heading" class="govuk-heading-s">Number of Schemes: <span id="number-of-schemes">@Model.Schemes.Count()</span></h3>
+                        <span id="number-of-schemes-heading" class="govuk-heading-s">Number of Schemes: <span id="number-of-schemes" role="status">@Model.Schemes.Count()</span></span>
                     </div>
                         @foreach (var filter in Model.Filters)
                         {
@@ -40,10 +44,6 @@
                     <button class="govuk-button govuk-button--secondary app-show-on-mobile-no-js">Filter schemes</button>
                 </form>
             }
-            @*todo sometimes turns yellow, due to .govuk-button:focus:not(:active):not(:hover)
-                same happens on all gds cta buttons, when you click, drag out, then let go, e.g. https://www.gov.uk/apply-apprenticeship
-                which is effectively what's happening to trigger it here
-            *@
             <a id="filter-schemes" class="govuk-button das-js-show--inline" href="#scheme-filter" data-text-show="Filter schemes" data-text-hide="Hide filter" data-class-hide="govuk-button--secondary">Filter schemes</a>
             <a id="compare-schemes" class="govuk-button govuk-button--secondary" asp-route="scheme-comparison">Compare schemes in a table</a>
         </div>

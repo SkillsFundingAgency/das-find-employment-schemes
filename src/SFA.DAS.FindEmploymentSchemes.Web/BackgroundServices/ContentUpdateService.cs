@@ -6,8 +6,8 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using Cronos;
 using Microsoft.Extensions.Options;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
