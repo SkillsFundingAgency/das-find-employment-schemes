@@ -12,6 +12,7 @@ using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfac
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Html;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -21,6 +22,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
         public Fixture Fixture { get; set; }
         public IEnumerable<Page> Pages { get; set; }
+        public Page AnalyticsPage { get; set; }
+        public Page MarketingPage { get; set; }
         public IContentService ContentService { get; set; }
         public IContent Content { get; set; }
         public PageService PageService { get; set; }
@@ -47,12 +50,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             Pages = Fixture.CreateMany<Page>(3);
 
-            var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
-            var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
+            AnalyticsPage = new Page("", "analyticscookies", new HtmlString(""));
+            MarketingPage = new Page("", "marketingcookies", new HtmlString(""));
 
-            Pages = new[] { analyticsPage }
+            Pages = new[] { AnalyticsPage }
                 .Concat(Pages)
-                .Concat(new[] { marketingPage }).ToArray();
+                .Concat(new[] { MarketingPage }).ToArray();
 
             A.CallTo(() => Content.Pages)
                 .Returns(Pages);
@@ -68,26 +71,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             Assert.Equal("Cookies", model.ViewName);
         }
 
-        //[Fact]
-        //public void Page_CookiePageUrlReturnsCookiePageModelTest()
-        //{
-        //    var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
-        //    var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
+        [Fact]
+        public void Page_CookiePageUrlReturnsCookiePageModelTest()
+        {
+            var model = PageService.GetPageModel(CookiePageUrl);
 
-        //    var pages = new[] { analyticsPage }
-        //        .Concat(Pages)
-        //        .Concat(new[] { marketingPage }).ToArray();
-
-        //    A.CallTo(() => Content.Pages)
-        //        .Returns(pages);
-
-        //    var (viewName, page) = PageService.Page(CookiePageUrl, Content);
-
-        //    Assert.IsType<CookiePage>(page);
-        //    var cookiePage = (CookiePage)page;
-        //    Assert.Equal(analyticsPage, cookiePage.AnalyticsPage);
-        //    Assert.Equal(marketingPage, cookiePage.MarketingPage);
-        //}
+            var cookiePage = Assert.IsType<CookiePage>(model.Page);
+            Assert.Equal(AnalyticsPage, cookiePage.AnalyticsPage);
+            Assert.Equal(MarketingPage, cookiePage.MarketingPage);
+        }
 
         //[Fact]
         //public void Page_CookiePageUrlWithMissingAnalyticsPageThrowsExceptionTest()
