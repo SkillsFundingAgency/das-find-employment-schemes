@@ -135,6 +135,25 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             Assert.Equal("cookies", routeValues.GetType().GetProperty("pageUrl").GetValue(routeValues, null));
         }
 
+        [Fact]
+        public void RedirectPreview_MarketingUrlReturnsPagePreviewRouteNameTest()
+        {
+            const string marketingCookiesUrl = "marketingcookies";
+
+            var (routeName, _) = PageService.RedirectPreview(marketingCookiesUrl);
+
+            Assert.Equal("page-preview", routeName);
+        }
+
+        [Fact]
+        public void RedirectPreview_MarketingUrlReturnsCookiesPageUrlRouteValueTest()
+        {
+            const string marketingCookiesUrl = "marketingcookies";
+
+            var (_, routeValues) = PageService.RedirectPreview(marketingCookiesUrl);
+
+            Assert.Equal("cookies", routeValues.GetType().GetProperty("pageUrl").GetValue(routeValues, null));
+        }
 
         [Fact]
         public async Task GetPageModelPreview_IsPreviewIsTrueTest()
