@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
@@ -209,6 +210,52 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Equal("Comparison", viewResult.ViewName);
+        }
+
+        [Fact]
+        public async Task PostComparisonPreview_SchemesModelTest()
+        {
+            var fixture = new Fixture();
+            fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(IHtmlContent),
+                    typeof(HtmlString)));
+
+            var schemes = fixture.CreateMany<Scheme>(2).ToArray();
+
+            HomeModel = new HomeModel(null, schemes, null);
+
+            A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
+                .Returns(HomeModel);
+
+            // act
+            IActionResult result = await SchemesController.ComparisonPreview();
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal(HomeModel.Schemes, viewResult.Model);
+        }
+
+        [Fact]
+        public async Task PostComparisonPreview_ComparisonResultsViewTest()
+        {
+            var fixture = new Fixture();
+            fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(IHtmlContent),
+                    typeof(HtmlString)));
+
+            var schemes = fixture.CreateMany<Scheme>(2).ToArray();
+
+            HomeModel = new HomeModel(null, schemes, null);
+
+            A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
+                .Returns(HomeModel);
+
+            // act
+            IActionResult result = await SchemesController.ComparisonPreview(Array.Empty<string>());
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("ComparisonResults", viewResult.ViewName);
         }
     }
 }
