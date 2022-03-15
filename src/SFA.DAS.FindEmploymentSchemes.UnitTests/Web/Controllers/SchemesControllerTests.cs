@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             HomeModel = new HomeModel(null!, null!, null!);
 
             A.CallTo(() => SchemesModelService.HomeModel)
+                .Returns(HomeModel);
+
+            A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
                 .Returns(HomeModel);
 
             SchemesController = new SchemesController(SchemesModelService, FilterService);
@@ -185,6 +189,26 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Null(viewResult.ViewName);
+        }
+
+        [Fact]
+        public async Task ComparisonPreview_SchemesModelTest()
+        {
+            // act
+            IActionResult result = await SchemesController.ComparisonPreview();
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal(HomeModel.Schemes, viewResult.Model);
+        }
+
+        [Fact]
+        public async Task ComparisonPreview_ComparisonViewTest()
+        {
+            // act
+            IActionResult result = await SchemesController.ComparisonPreview();
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("Comparison", viewResult.ViewName);
         }
     }
 }
