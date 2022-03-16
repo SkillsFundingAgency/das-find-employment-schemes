@@ -19,9 +19,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.ViewModels
         {
             public IEnumerator<object[]> GetEnumerator()
             {
-                yield return new object[] {  0, new SchemeFilterModel(new string[] { }, new string[] { }, new string[] { }) };
-                yield return new object[] {  4, new SchemeFilterModel(new string[] { "abc", "def" }, new string[] { "ghi" }, new string[] { "xyz" }) };
-                yield return new object[] { 10, new SchemeFilterModel(new string[] { "abc", "def", "ghi" }, new string[] { "jk", "l", "mn" }, new string[] { "o", "pqrs", "tuvw", "xyz" }) };
+                yield return new object[] {  0, new SchemeFilterModel() };
+                yield return new object[] {  4, new SchemeFilterModel { Motivations = new[] { "abc", "def" }, SchemeLength = new[] { "ghi" }, Pay = new[] { "xyz" }}};
+                yield return new object[] { 10, new SchemeFilterModel { Motivations = new[] { "abc", "def", "ghi" }, SchemeLength = new[] { "jk", "l", "mn" }, Pay = new[] { "o", "pqrs", "tuvw", "xyz" }}};
             }
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }

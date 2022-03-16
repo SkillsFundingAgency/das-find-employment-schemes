@@ -48,7 +48,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             SchemesController = new SchemesController(SchemesModelService, FilterService);
 
-            SchemeFilterModel = new SchemeFilterModel(new string[] {}, new string[] {}, new string[] {});
+            SchemeFilterModel = new SchemeFilterModel();
         }
 
         [Fact]

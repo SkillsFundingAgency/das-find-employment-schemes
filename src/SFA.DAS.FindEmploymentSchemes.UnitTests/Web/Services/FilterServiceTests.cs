@@ -41,27 +41,27 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
                 yield return new object[] {
                     generatedContent.Schemes,
-                    new SchemeFilterModel(new string[] { }, new string[] { }, new string[] { })
+                    new SchemeFilterModel()
                 };
                 yield return new object[] {
                     generatedContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths)),
-                    new SchemeFilterModel(new string[] { }, new string[] { fourToTwelveMonths }, new string[] { })
+                    new SchemeFilterModel { SchemeLength = new[] { fourToTwelveMonths }}
                 };
                 yield return new object[] {
                     generatedContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore)),
-                    new SchemeFilterModel(new string[] { }, new string[] { yearOrMore }, new string[] { } )
+                    new SchemeFilterModel { SchemeLength = new[] { yearOrMore }}
                 };
                 yield return new object[] {
                     generatedContent.Schemes.Where(s => s.FilterAspects.Contains(unpaid)),
-                    new SchemeFilterModel(new string[] { }, new string[] { }, new string[] { unpaid })
+                    new SchemeFilterModel { Pay = new[] { unpaid }}
                 };
                 yield return new object[] {
                     generatedContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore) && s.FilterAspects.Contains(unpaid)),
-                    new SchemeFilterModel(new string[] { }, new string[] { yearOrMore }, new string[] { unpaid })
+                    new SchemeFilterModel { SchemeLength = new[] { yearOrMore }, Pay = new[] { unpaid }}
                 };
                 yield return new object[] {
                     generatedContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
-                    new SchemeFilterModel(new string[] { }, new string[] { fourToTwelveMonths, yearOrMore }, new string[] { })
+                    new SchemeFilterModel { SchemeLength = new[] { fourToTwelveMonths, yearOrMore }}
                 };
             }
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

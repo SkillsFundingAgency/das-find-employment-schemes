@@ -18,12 +18,5 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             SchemeLength = Array.Empty<string>();
             Pay = Array.Empty<string>();
         }
-
-        public SchemeFilterModel(string[] motivations, string[] schemeLength, string[] pay)
-        {
-            Motivations = motivations;
-            SchemeLength = schemeLength;
-            Pay = pay;
-        }
     }
 }
