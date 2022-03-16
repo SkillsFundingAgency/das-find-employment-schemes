@@ -75,5 +75,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         {
             return View("ComparisonResults", _schemesModelService.HomeModel.Schemes.Where(x => schemes.Contains(x.HtmlId)));
         }
+
+        public async Task<IActionResult> ComparisonPreview()
+        {
+            var homeModelPreview = await _schemesModelService.CreateHomeModelPreview();
+            return View("Comparison", homeModelPreview.Schemes);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ComparisonPreview(string[] schemes)
+        {
+            var homeModelPreview = await _schemesModelService.CreateHomeModelPreview();
+            return View("ComparisonResults", homeModelPreview.Schemes.Where(x => schemes.Contains(x.HtmlId)));
+        }
     }
 }
