@@ -1,29 +1,34 @@
-﻿@model Scheme
+﻿@model (Scheme, PreviewModel)
 
-<section id="scheme-section-@Model.HtmlId" data-scheme @{ RenderFilterIds(Model.FilterAspects); }>
+@{
+    var scheme = Model.Item1;
+    string schemesRouteName = Model.Item2.IsPreview?"schemes-preview":"schemes";
+}
+
+<section id="scheme-section-@scheme.HtmlId" data-scheme @{ RenderFilterIds(scheme.FilterAspects); }>
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     <div class="filter-full-width govuk-grid-column-two-thirds app-scheme-titles">
-        <h2 id="scheme-header-@Model.HtmlId" class="govuk-heading-m govuk-!-margin-bottom-3">
-            <a id="scheme-header-link-@Model.HtmlId" asp-route="schemes" asp-route-schemeUrl="@Model.Url" class="govuk-link">@Model.Name</a>
+        <h2 id="scheme-header-@scheme.HtmlId" class="govuk-heading-m govuk-!-margin-bottom-3">
+            <a id="scheme-header-link-@scheme.HtmlId" asp-route="@schemesRouteName" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
         </h2>
     </div>
     <div class="govuk-grid-row">
         <div class="filter-full-width govuk-grid-column-two-thirds">
-            @Model.ShortDescription
+            @scheme.ShortDescription
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
-            <h3 id="scheme-short-cost-header-@Model.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Cost</h3>
-            @Model.ShortCost
+            <h3 id="scheme-short-cost-header-@scheme.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Cost</h3>
+            @scheme.ShortCost
         </div>
         <div class="govuk-grid-column-one-third">
-            <h3 id="scheme-benefits-header-@Model.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Benefits</h3>
-            @Model.ShortBenefits
+            <h3 id="scheme-benefits-header-@scheme.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Benefits</h3>
+            @scheme.ShortBenefits
         </div>
         <div class="govuk-grid-column-one-third">
-            <h3 id="scheme-short-time-header-@Model.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Time</h3>
-            @Model.ShortTime
+            <h3 id="scheme-short-time-header-@scheme.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Time</h3>
+            @scheme.ShortTime
         </div>
     </div>
 </section>

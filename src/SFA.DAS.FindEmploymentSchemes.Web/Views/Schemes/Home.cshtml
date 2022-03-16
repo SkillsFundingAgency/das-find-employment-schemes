@@ -49,7 +49,7 @@
         </div>
         @foreach (var scheme in Model.Schemes)
         {
-            @await Html.PartialAsync("_SchemePartial", scheme)
+            @await Html.PartialAsync("_SchemePartial", (scheme, Model.Preview))
         }
     </div>
 </div>
