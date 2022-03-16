@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model LayoutModel
+<!DOCTYPE html>
 <html lang="en" class="govuk-template">
    <head>
       <meta charset="utf-8">
@@ -195,7 +196,7 @@
                 </div>
                 <div class="govuk-grid-column-two-thirds app-header__col">
                     <div class="app-header__service-name">
-                        <a id="header-service-link" href="/" class="govuk-header__link">
+                        <a id="header-service-link" asp-route="@(Model.Preview.IsPreview?"home-preview":"home")" class="govuk-header__link">
                             Find schemes for your business
                         </a>
                     </div>
