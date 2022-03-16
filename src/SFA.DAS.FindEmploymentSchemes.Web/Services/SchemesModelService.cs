@@ -59,6 +59,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             return new ComparisonModel(content.Schemes);
         }
 
+        private ComparisonResultsModel CreateComparisonResultsModel(string[] schemes, IContent content)
+        {
+            return new ComparisonResultsModel(
+                content.Schemes.Where(x => schemes.Contains(x.HtmlId)));
+        }
+
+        public ComparisonResultsModel CreateComparisonResultsModel(string[] schemes)
+        {
+            return CreateComparisonResultsModel(schemes, _contentService.Content);
+        }
+
         public async Task<HomeModel> CreateHomeModelPreview()
         {
             IContent previewContent = await _contentService.UpdatePreview();
@@ -77,6 +88,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             comparisonModel.Preview = new PreviewModel(Enumerable.Empty<HtmlString>());
 
             return comparisonModel;
+        }
+
+        public async Task<ComparisonResultsModel> CreateComparisonResultsModelPreview(string[] schemes)
+        {
+            IContent previewContent = await _contentService.UpdatePreview();
+
+            var comparisonResultsModel = CreateComparisonResultsModel(schemes, previewContent);
+            comparisonResultsModel.Preview = new PreviewModel(Enumerable.Empty<HtmlString>());
+
+            return comparisonResultsModel;
         }
 
         private ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()
