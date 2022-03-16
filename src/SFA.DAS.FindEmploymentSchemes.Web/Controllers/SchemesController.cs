@@ -67,7 +67,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         public IActionResult Comparison()
         {
-            return View(_schemesModelService.HomeModel.Schemes);
+            return View(_schemesModelService.ComparisonModel);
         }
 
         [HttpPost]
@@ -78,8 +78,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         public async Task<IActionResult> ComparisonPreview()
         {
-            var homeModelPreview = await _schemesModelService.CreateHomeModelPreview();
-            return View("Comparison", homeModelPreview.Schemes);
+            var comparisonModel = await _schemesModelService.CreateComparisonModelPreview();
+            return View("Comparison", comparisonModel);
         }
 
         [HttpPost]
