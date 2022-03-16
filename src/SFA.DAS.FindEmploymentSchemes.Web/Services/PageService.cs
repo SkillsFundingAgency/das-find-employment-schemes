@@ -16,6 +16,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
     public class PageService : IPageService
     {
+        private const string HomePageUrl = "home";
         private const string CookiesPageUrl = "cookies";
         private const string AnalyticsCookiesPageUrl = "analyticscookies";
         private const string MarketingCookiesPageUrl = "marketingcookies";
@@ -48,7 +49,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             var standardPages = _contentService.Content.Pages
                 .Where(p => p.Url != AnalyticsCookiesPageUrl
                             && p.Url != MarketingCookiesPageUrl
-                            && p.Url != "home");
+                            && p.Url != HomePageUrl);
 
             var pageModels = new Dictionary<string, PageModel>();
 
@@ -57,12 +58,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 pageModels.Add(page.Url.ToLowerInvariant(), new PageModel(page));
             }
 
-            Page? analyticsPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url == AnalyticsCookiesPageUrl);
-            Page? marketingPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url == MarketingCookiesPageUrl);
-            if (analyticsPage != null && marketingPage != null)
+            var cookiePageModel = GetCookiePageModel(_contentService.Content, false);
+            if (cookiePageModel != null)
             {
-                pageModels.Add(CookiesPageUrl,
-                    new PageModel(new CookiePage(analyticsPage, marketingPage, false), "Cookies"));
+                pageModels.Add(CookiesPageUrl, cookiePageModel);
             }
 
             return new ReadOnlyDictionary<string, PageModel>(pageModels);
@@ -79,21 +78,31 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             return pageModel;
         }
 
+        public PageModel? GetCookiePageModel(IContent content, bool showMessage)
+        {
+            Page? analyticsPage = content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == AnalyticsCookiesPageUrl);
+            Page? marketingPage = content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == MarketingCookiesPageUrl);
+            if (analyticsPage == null || marketingPage == null)
+                return null;
+
+            return new PageModel(new CookiePage(analyticsPage, marketingPage, showMessage), "Cookies");
+
+        }
+
         public async Task<PageModel?> GetPageModelPreview(string pageUrl)
         {
             IContent previewContent = await _contentService.UpdatePreview();
 
             pageUrl = pageUrl.ToLowerInvariant();
 
-            if (pageUrl == "cookies")
+            if (pageUrl == CookiesPageUrl)
             {
-                Page? analyticsPage = previewContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == AnalyticsCookiesPageUrl);
-                Page? marketingPage = previewContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == MarketingCookiesPageUrl);
-                if (analyticsPage == null || marketingPage == null)
+                var pageModel = GetCookiePageModel(previewContent, false);
+                if (pageModel == null)
                     return null;
 
-                //todo: previewModel
-                return new PageModel(new CookiePage(analyticsPage, marketingPage, false), "Cookies");
+                pageModel.Preview = new PreviewModel(GetErrors((CookiePage)pageModel.Page));
+                return pageModel;
             }
 
             var page = previewContent.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == pageUrl);
@@ -122,6 +131,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             return errors;
         }
 
+        private IEnumerable<HtmlString> GetErrors(CookiePage page)
+        {
+            var errors = new List<HtmlString>();
+            if (page.AnalyticsPage.Content == null)
+            {
+                errors.Add(new HtmlString("AnalyticsPage content must not be blank"));
+            }
+
+            if (page.MarketingPage.Content == null)
+            {
+                errors.Add(new HtmlString("MarketingPage content must not be blank"));
+            }
+
+            return errors;
+        }
+
         public (string? routeName, object? routeValues) RedirectPreview(string pageUrl)
         {
             pageUrl = pageUrl.ToLowerInvariant();
@@ -131,7 +156,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 case AnalyticsCookiesPageUrl:
                 case MarketingCookiesPageUrl:
                     return ("page-preview", new { pageUrl = CookiesPageUrl });
-                case "home":
+                case HomePageUrl:
                     return ("home-preview", null);
             }
 

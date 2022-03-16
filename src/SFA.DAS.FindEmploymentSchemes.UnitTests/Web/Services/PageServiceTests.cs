@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core.Models;
@@ -12,6 +11,7 @@ using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfac
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Html;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -20,7 +20,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         public const string CookiePageUrl = "Cookies";
 
         public Fixture Fixture { get; set; }
-        public IEnumerable<Page> Pages { get; set; }
+        public Page[] Pages { get; set; }
+        public Page AnalyticsPage { get; set; }
+        public Page MarketingPage { get; set; }
         public IContentService ContentService { get; set; }
         public IContent Content { get; set; }
         public PageService PageService { get; set; }
@@ -42,7 +44,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             ContentService = A.Fake<IContentService>();
 
-            Pages = Fixture.CreateMany<Page>(3);
+            A.CallTo(() => ContentService.Content)
+                .Returns(Content);
+
+            AnalyticsPage = new Page("", "analyticscookies", new HtmlString(""));
+            MarketingPage = new Page("", "marketingcookies", new HtmlString(""));
+
+            Pages = new[] { AnalyticsPage }
+                .Concat(Fixture.CreateMany<Page>(3))
+                .Concat(new[] { MarketingPage }).ToArray();
 
             A.CallTo(() => Content.Pages)
                 .Returns(Pages);
@@ -50,72 +60,32 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             PageService = new PageService(ContentService);
         }
 
-        //[Fact]
-        //public void GetPageModel_CookiePageUrlReturnsCookiesViewNameTest()
-        //{
-        //    //var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
-        //    //var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
+        [Fact]
+        public void GetPageModel_IsPreviewIsFalseTest()
+        {
+            // act
+            var model = PageService.GetPageModel(Pages[1].Url);
 
-        //    //var pages = new[] { analyticsPage }
-        //    //    .Concat(Pages)
-        //    //    .Concat(new[] { marketingPage }).ToArray();
+            Assert.False(model.Preview.IsPreview);
+        }
 
-        //    //A.CallTo(() => Content.Pages)
-        //    //    .Returns(pages);
+        [Fact]
+        public void GetPageModel_CookiePageUrlReturnsCookiesViewNameTest()
+        {
+            var model = PageService.GetPageModel(CookiePageUrl);
 
-        //    var model = PageService.GetPageModel(CookiePageUrl);
+            Assert.Equal("Cookies", model.ViewName);
+        }
 
-        //    Assert.Equal("Cookies", model.ViewName);
-        //}
+        [Fact]
+        public void GetPageModel_CookiePageUrlReturnsCookiePageModelTest()
+        {
+            var model = PageService.GetPageModel(CookiePageUrl);
 
-        //[Fact]
-        //public void Page_CookiePageUrlReturnsCookiePageModelTest()
-        //{
-        //    var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
-        //    var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
-
-        //    var pages = new[] { analyticsPage }
-        //        .Concat(Pages)
-        //        .Concat(new[] { marketingPage }).ToArray();
-
-        //    A.CallTo(() => Content.Pages)
-        //        .Returns(pages);
-
-        //    var (viewName, page) = PageService.Page(CookiePageUrl, Content);
-
-        //    Assert.IsType<CookiePage>(page);
-        //    var cookiePage = (CookiePage)page;
-        //    Assert.Equal(analyticsPage, cookiePage.AnalyticsPage);
-        //    Assert.Equal(marketingPage, cookiePage.MarketingPage);
-        //}
-
-        //[Fact]
-        //public void Page_CookiePageUrlWithMissingAnalyticsPageThrowsExceptionTest()
-        //{
-        //    var analyticsPage = new Page("", "analyticscookies", new HtmlString(""));
-
-        //    var pages = new[] { analyticsPage }
-        //        .Concat(Pages).ToArray();
-
-        //    A.CallTo(() => Content.Pages)
-        //        .Returns(pages);
-
-        //    Assert.ThrowsAny<Exception>(() => PageService.Page(CookiePageUrl, Content));
-        //}
-
-        //[Fact]
-        //public void Page_CookiePageUrlWithMissingMarketingPageThrowsExceptionTest()
-        //{
-        //    var marketingPage = new Page("", "marketingcookies", new HtmlString(""));
-
-        //    var pages = new[] { marketingPage }
-        //        .Concat(Pages).ToArray();
-
-        //    A.CallTo(() => Content.Pages)
-        //        .Returns(pages);
-
-        //    Assert.ThrowsAny<Exception>(() => PageService.Page(CookiePageUrl, Content));
-        //}
+            var cookiePage = Assert.IsType<CookiePage>(model.Page);
+            Assert.Equal(AnalyticsPage, cookiePage.AnalyticsPage);
+            Assert.Equal(MarketingPage, cookiePage.MarketingPage);
+        }
 
         [Fact]
         public void GetPageModel_UnknownPageUrlReturnsNullModelTest()
@@ -143,6 +113,56 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             var (routeName, _) = PageService.RedirectPreview(nonRedirectUrl);
 
             Assert.Null(routeName);
+        }
+
+        [Fact]
+        public void RedirectPreview_AnalyticsUrlReturnsPagePreviewRouteNameTest()
+        {
+            const string analyticsCookiesUrl = "analyticscookies";
+
+            var (routeName, _) = PageService.RedirectPreview(analyticsCookiesUrl);
+
+            Assert.Equal("page-preview", routeName);
+        }
+
+        [Fact]
+        public void RedirectPreview_AnalyticsUrlReturnsCookiesPageUrlRouteValueTest()
+        {
+            const string analyticsCookiesUrl = "analyticscookies";
+
+            var (_, routeValues) = PageService.RedirectPreview(analyticsCookiesUrl);
+
+            Assert.Equal("cookies", routeValues.GetType().GetProperty("pageUrl").GetValue(routeValues, null));
+        }
+
+        [Fact]
+        public void RedirectPreview_MarketingUrlReturnsPagePreviewRouteNameTest()
+        {
+            const string marketingCookiesUrl = "marketingcookies";
+
+            var (routeName, _) = PageService.RedirectPreview(marketingCookiesUrl);
+
+            Assert.Equal("page-preview", routeName);
+        }
+
+        [Fact]
+        public void RedirectPreview_MarketingUrlReturnsCookiesPageUrlRouteValueTest()
+        {
+            const string marketingCookiesUrl = "marketingcookies";
+
+            var (_, routeValues) = PageService.RedirectPreview(marketingCookiesUrl);
+
+            Assert.Equal("cookies", routeValues.GetType().GetProperty("pageUrl").GetValue(routeValues, null));
+        }
+
+        [Fact]
+        public void RedirectPreview_HomeUrlReturnsPagePreviewRouteNameTest()
+        {
+            const string homeCookiesUrl = "home";
+
+            var (routeName, _) = PageService.RedirectPreview(homeCookiesUrl);
+
+            Assert.Equal("home-preview", routeName);
         }
 
         [Fact]
@@ -195,6 +215,46 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             Assert.Collection(model.Preview.PreviewErrors,
                 e => Assert.Equal("Title must not be blank", e.Value));
+        }
+
+        [Fact]
+        public async Task GetPageModelPreview_CookiePageAnalyticsPageContentNull_PreviewErrorTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            AnalyticsPage = new Page("", "analyticscookies", null);
+
+            var pages = new[] { AnalyticsPage, MarketingPage };
+
+            A.CallTo(() => Content.Pages)
+                .Returns(pages);
+
+            // act
+            var model = await PageService.GetPageModelPreview("cookies");
+
+            Assert.Collection(model.Preview.PreviewErrors,
+                e => Assert.Equal("AnalyticsPage content must not be blank", e.Value));
+        }
+
+        [Fact]
+        public async Task GetPageModelPreview_CookiePageMarketingPageContentNull_PreviewErrorTest()
+        {
+            A.CallTo(() => ContentService.UpdatePreview())
+                .Returns(Content);
+
+            MarketingPage = new Page("", "marketingcookies", null);
+
+            var pages = new[] { AnalyticsPage, MarketingPage };
+
+            A.CallTo(() => Content.Pages)
+                .Returns(pages);
+
+            // act
+            var model = await PageService.GetPageModelPreview("cookies");
+
+            Assert.Collection(model.Preview.PreviewErrors,
+                e => Assert.Equal("MarketingPage content must not be blank", e.Value));
         }
     }
 }
