@@ -239,6 +239,19 @@ body.js-enabled .app-show-on-mobile-no-js {
     }
 }
 
+.app-alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.app-alert {
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
 .govuk-link:link, .das-table__sort:link, .das-button--inline-link:link, .govuk-details__summary {
     color: #155389;
 }

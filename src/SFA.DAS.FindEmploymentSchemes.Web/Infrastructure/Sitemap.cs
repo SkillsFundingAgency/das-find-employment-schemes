@@ -4,8 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using AspNetCore.SEOHelper.Sitemap;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using Microsoft.Extensions.Options;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Infrastructure
 {

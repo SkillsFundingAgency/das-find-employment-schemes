@@ -2,6 +2,7 @@
 using Contentful.Core;
 using System.Collections.Generic;
 using System.Linq;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {

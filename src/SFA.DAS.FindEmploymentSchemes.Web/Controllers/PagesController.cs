@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
@@ -28,33 +25,60 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [ResponseCache(Duration = 60*60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Page(string pageUrl)
         {
-            var (viewName, page) = _pageService.Page(pageUrl, _contentService.Content);
+            var pageModel = _pageService.GetPageModel(pageUrl);
 
-            if (page == null)
+            if (pageModel == null)
                 return NotFound();
 
-            return View(viewName, page);
+            return View(pageModel.ViewName, pageModel);
         }
 
         [HttpGet]
         public async Task<IActionResult> PagePreview(string pageUrl)
         {
-            var previewContent = await _contentService.UpdatePreview();
+            var (routeName, routeValues) = _pageService.RedirectPreview(pageUrl);
+            if (routeName != null)
+                return RedirectToRoute(routeName, routeValues);
 
-            var (viewName, page) = _pageService.Page(pageUrl, previewContent);
+            var pageModel = await _pageService.GetPageModelPreview(pageUrl);
 
-            if (page == null)
+            if (pageModel == null)
                 return NotFound();
 
-            return View(viewName ?? "Page", page);
+            return View(pageModel.ViewName, pageModel);
         }
 
         [HttpPost]
         [Route("page/cookies")]
         public IActionResult Cookies(string AnalyticsCookies, string MarketingCookies)
         {
+            SetCookies(AnalyticsCookies, MarketingCookies);
+
+            var cookiePageModel = _pageService.GetCookiePageModel(_contentService.Content, true);
+            if (cookiePageModel == null)
+                return NotFound();
+
+            return View("Cookies", cookiePageModel);
+        }
+
+        [HttpPost]
+        [Route("preview/page/cookies")]
+        public async Task<IActionResult> CookiesPreview(string AnalyticsCookies, string MarketingCookies)
+        {
+            SetCookies(AnalyticsCookies, MarketingCookies);
+
+             var pageModel = await _pageService.GetPageModelPreview("cookies");
+
+            if (pageModel == null)
+                return NotFound();
+
+            return View(pageModel.ViewName, pageModel);
+        }
+
+        private void SetCookies(string analyticsCookies, string marketingCookies)
+        {
             string host = HttpContext.Request.Host.Host;
-            CookieOptions options = new CookieOptions()
+            var options = new CookieOptions //NOSONAR we require access to these cookies in client-side code, so setting HttpOnly would break functionality 
             {
                 IsEssential = true,
                 Secure = true,
@@ -64,21 +88,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             };
 
             HttpContext.Response
-                       .Cookies
-                       .Append("AnalyticsConsent",
-                               (AnalyticsCookies == "yes").ToString().ToLower(),
-                               options);
+                .Cookies
+                .Append("AnalyticsConsent",
+                    (analyticsCookies == "yes").ToString().ToLower(),
+                    options);
             HttpContext.Response
-                       .Cookies
-                       .Append("MarketingCookieConsent",
-                               (MarketingCookies == "yes").ToString().ToLower(),
-                               options);
-
-            Page? analyticsPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "analyticscookies");
-            Page? marketingPage = _contentService.Content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == "marketingcookies");
-            return (analyticsPage == null || marketingPage == null
-                        ? NotFound()
-                        : (IActionResult)View("Cookies", new CookiePage(analyticsPage, marketingPage, true)));
+                .Cookies
+                .Append("MarketingCookieConsent",
+                    (marketingCookies == "yes").ToString().ToLower(),
+                    options);
         }
     }
 }

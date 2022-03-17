@@ -1,6 +1,6 @@
 ﻿using Contentful.Core;
 
-namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces
 {
     public interface IContentfulClientFactory
     {

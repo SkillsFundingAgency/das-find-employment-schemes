@@ -8,11 +8,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
     {
         public SchemeDetailsModel(string schemeUrl, IEnumerable<Scheme> schemes)
         {
-            Scheme = schemes.First(s => s.Url == schemeUrl);
-            Schemes = schemes;
+            Schemes = schemes.ToArray();
+            Scheme = Schemes.First(s => s.Url == schemeUrl);
+            Preview = PreviewModel.NotPreviewModel;
         }
 
         public Scheme Scheme { get; }
         public IEnumerable<Scheme> Schemes { get; }
+        public PreviewModel Preview { get; set; }
     }
 }

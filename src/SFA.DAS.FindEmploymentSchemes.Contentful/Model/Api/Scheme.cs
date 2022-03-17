@@ -7,7 +7,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 {
     [DebuggerDisplay("{Name}")]
     [ExcludeFromCodeCoverage]
-    public class Scheme
+    public class Scheme : IRootContent
     {
         // mandatory
         public string? Name { get; set; }

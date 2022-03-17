@@ -1,10 +1,12 @@
-﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
+﻿using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
 {
+    //todo: rename model services/orchestrators consistently
     public interface ICaseStudyPageService
     {
-        (string?, CaseStudyPage?) CaseStudyPage(string pageUrl, IContent content);
+        CaseStudyPageModel? GetCaseStudyPageModel(string pageUrl);
+        Task<CaseStudyPageModel?> GetCaseStudyPageModelPreview(string pageUrl);
     }
 }
