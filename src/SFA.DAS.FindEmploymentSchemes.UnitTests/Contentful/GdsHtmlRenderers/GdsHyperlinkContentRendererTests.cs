@@ -47,7 +47,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
 
             var html = await HtmlRenderer.ToHtml(Document);
 
-            Assert.Equal("<a href=\"https://example.com\" title=\"title\" class=\"govuk-link\">text</a>", html);
+            Assert.Equal("<a href=\"https://example.com\" title=\"title\" class=\"govuk-link app-high-contrast-link\">text</a>", html);
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.GdsHtmlRenderers
 
             var html = await HtmlRenderer.ToHtml(Document);
 
-            Assert.Equal("<a href=\"https://example.com\" title=\"title\" class=\"govuk-link\" rel=\"noreferrer noopener\" target=\"_blank\">text (opens in new tab)</a>", html);
+            Assert.Equal("<a href=\"https://example.com\" title=\"title\" class=\"govuk-link app-high-contrast-link\" rel=\"noreferrer noopener\" target=\"_blank\">text (opens in new tab)</a>", html);
         }
     }
 }

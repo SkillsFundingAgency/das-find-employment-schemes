@@ -3,6 +3,10 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
     font-family: arial, sans-serif !important;
 }
 
+.app-high-contrast-link {
+    color: #155389 !important;
+}
+
 .app-header {
     background-color: #23145f;
 }

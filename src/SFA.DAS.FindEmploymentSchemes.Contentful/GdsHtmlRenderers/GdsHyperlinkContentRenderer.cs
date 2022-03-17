@@ -47,7 +47,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
             var sb = new StringBuilder();
 
             // we assume we only get asked to render what we've said we support
-            sb.Append($"<a href=\"{link!.Data.Uri}\" title=\"{link.Data.Title}\" class=\"govuk-link\"");
+            sb.Append($"<a href=\"{link!.Data.Uri}\" title=\"{link.Data.Title}\" class=\"govuk-link app-high-contrast-link\"");
 
             // if the text content of the link ends with "(opens in new tab)", then we make the link open in a new tab
             string? firstTextValue = link.Content.OfType<Text>().FirstOrDefault()?.Value;

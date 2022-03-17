@@ -30,7 +30,7 @@
                 @foreach(Scheme scheme in Model) {
                     <tr>
                         <td class="govuk-table__cell">
-                            <a id="scheme-header-link-@scheme.HtmlId" asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                            <a id="scheme-header-link-@scheme.HtmlId" asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link app-high-contrast-link">@scheme.Name</a>
                         </td>
                         <td class="govuk-table__cell">
                             @scheme.ShortCost
@@ -46,7 +46,7 @@
             </tbody>
         </table>
         <p class="govuk-body">
-            <a href="/" class="govuk-link"> Return to list of all schemes </a>
+            <a href="/" class="govuk-link app-high-contrast-link"> Return to list of all schemes </a>
         </p>
     </div>
 </div>
