@@ -12,7 +12,7 @@
         "id": "scheme",
         "type": "ContentType",
         "createdAt": "2021-11-29T14:35:22.062Z",
-        "updatedAt": "2022-03-03T10:17:40.375Z",
+        "updatedAt": "2022-03-07T13:29:32.511Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -20,8 +20,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 23,
-        "publishedAt": "2022-03-03T10:17:40.375Z",
+        "publishedVersion": 25,
+        "publishedAt": "2022-03-07T13:29:32.511Z",
         "firstPublishedAt": "2021-11-29T14:35:22.532Z",
         "createdBy": {
           "sys": {
@@ -37,8 +37,8 @@
             "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         },
-        "publishedCounter": 12,
-        "version": 24,
+        "publishedCounter": 13,
+        "version": 26,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -103,7 +103,7 @@
           "name": "Short Cost",
           "type": "RichText",
           "localized": false,
-          "required": false,
+          "required": true,
           "validations": [
             {
               "enabledMarks": [
@@ -1447,7 +1447,7 @@
             "linkType": "Space"
           }
         },
-        "version": 24,
+        "version": 26,
         "createdAt": "2021-11-29T14:35:22.711Z",
         "createdBy": {
           "sys": {
@@ -1456,7 +1456,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2022-03-03T10:17:40.885Z",
+        "updatedAt": "2022-03-07T13:29:33.098Z",
         "updatedBy": {
           "sys": {
             "id": "4pVUkUPNV3AY8fZRIusvyB",
@@ -1530,7 +1530,7 @@
         {
           "fieldId": "shortCost",
           "settings": {
-            "helpText": "A short description of the scheme's cost, as displayed on the home and filter pages. If no value, defaults to 'No costs'"
+            "helpText": "A short description of the scheme's cost, as displayed on the home and filter pages"
           },
           "widgetId": "richTextEditor",
           "widgetNamespace": "builtin"

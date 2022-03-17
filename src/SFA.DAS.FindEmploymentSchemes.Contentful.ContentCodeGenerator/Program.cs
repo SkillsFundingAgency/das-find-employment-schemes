@@ -8,9 +8,11 @@ using Contentful.Core;
 using Contentful.Core.Configuration;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
@@ -36,11 +38,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             var htmlRenderer = ContentService.CreateHtmlRenderer();
 
-            var contentService = new ContentService(contenfulClientFactory, htmlRenderer, new NullLogger<ContentService>());
+            var contentService = new ContentService(
+                contenfulClientFactory, 
+                new SchemeService(htmlRenderer, new NullLogger<SchemeService>()),
+                new PageService(htmlRenderer, new NullLogger<PageService>()),
+                new CaseStudyPageService(htmlRenderer, new NullLogger<CaseStudyPageService>()),
+                new MotivationFilterService(htmlRenderer),
+                new PayFilterService(htmlRenderer),
+                new SchemeLengthFilterService(htmlRenderer),
+                new NullLogger<ContentService>());
 
             var content = await contentService.Update();
 
-            Console.Write(Preamble());
+            GeneratePreamble();
 
             GenerateGeneratedContentWarning();
 
@@ -53,7 +63,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             GeneratePagesContent(content.Pages);
             GenerateCaseStudyPagesContent(content.CaseStudyPages);
 
-            Console.WriteLine(Closing());
+            GenerateClosing();
         }
 
         private static void GenerateGeneratedContentWarning()
@@ -95,7 +105,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             {
                 Console.WriteLine($"            new {typeName}(\"{caseStudyPage.Title}\",");
                 Console.WriteLine($"                \"{caseStudyPage.Url}\",");
-                Console.WriteLine($"                Schemes.First(x => x.Name == \"{caseStudyPage.Scheme.Name}\"),");
+                Console.WriteLine($"                Schemes.First(x => x.Name == \"{caseStudyPage.Scheme!.Name}\"),");
                 Console.WriteLine($"                {GenerateHtmlString(caseStudyPage.Content)}");
                 Console.WriteLine("            ),");
             }
@@ -192,9 +202,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             Console.WriteLine(@"                },");
         }
 
-        private static string Preamble()
+        private static void GeneratePreamble()
         {
-            return @"using System.Collections.Generic;
+            Console.WriteLine(@"using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
@@ -203,14 +213,13 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
 {
     public class GeneratedContent : IContent
-    {
-";
+    {");
         }
 
-        private static string Closing()
+        private static void GenerateClosing()
         {
-            return @"    }
-}";
+            Console.WriteLine(@"    }
+}");
         }
 
         //todo: rename EnumerableProperty?
@@ -232,6 +241,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 return "null";
 
             return $"new HtmlString(@\"{content.Value.Replace("\"", "\"\"")}\")";
+        }
+
+        private Program()
+        {
         }
     }
 }

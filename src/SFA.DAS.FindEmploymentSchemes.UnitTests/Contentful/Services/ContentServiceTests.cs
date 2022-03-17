@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core;
 using Contentful.Core.Models;
-using Contentful.Core.Search;
 using FakeItEasy;
 using KellermanSoftware.CompareNetObjects;
+using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
@@ -23,16 +23,18 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
     {
         public Fixture Fixture { get; }
         public Document Document { get; set; }
-        public string ExpectedContent { get; set; }
+        public HtmlString ExpectedContent { get; set; }
         public IContentfulClientFactory ContentfulClientFactory { get; set; }
         public IContentfulClient ContentfulClient { get; set; }
         public IContentfulClient PreviewContentfulClient { get; set; }
         public HtmlRenderer HtmlRenderer { get; set; }
         public ILogger<ContentService> Logger { get; set; }
-        public ContentfulCollection<Page> PagesCollection { get; set; }
-        public ContentfulCollection<CaseStudyPage> CaseStudyPagesCollection { get; set; }
-        public ContentfulCollection<Scheme> SchemesCollection { get; set; }
-        public ContentfulCollection<Filter> FiltersCollection { get; set; }
+        public ISchemeService SchemeService { get; set; }
+        public IPageService PageService { get; set; }
+        public ICaseStudyPageService CaseStudyPageService { get; set; }
+        public IMotivationFilterService MotivationFilterService { get; set; }
+        public IPayFilterService PayFilterService { get; set; }
+        public ISchemeLengthFilterService SchemeLengthFilterService { get; set; }
         public ContentService ContentService { get; set; }
         public CompareLogic CompareLogic { get; set; }
 
@@ -65,41 +67,19 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             A.CallTo(() => ContentfulClientFactory.PreviewContentfulClient)
                 .Returns(PreviewContentfulClient);
 
-            PagesCollection = new ContentfulCollection<Page> { Items = Array.Empty<Page>() };
-            CaseStudyPagesCollection = new ContentfulCollection<CaseStudyPage> { Items = Array.Empty<CaseStudyPage>() };
-            SchemesCollection = new ContentfulCollection<Scheme> { Items = Array.Empty<Scheme>() };
-            FiltersCollection = new ContentfulCollection<Filter> { Items = Array.Empty<Filter>() };
+            SchemeService = A.Fake<ISchemeService>();
+            PageService = A.Fake<IPageService>();
+            CaseStudyPageService = A.Fake<ICaseStudyPageService>();
+            MotivationFilterService = A.Fake<IMotivationFilterService>();
+            PayFilterService = A.Fake<IPayFilterService>();
+            SchemeLengthFilterService = A.Fake<ISchemeLengthFilterService>();
 
-            SetupContentfulClientCalls(ContentfulClient);
-            SetupContentfulClientCalls(PreviewContentfulClient);
-
-            ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
+            CreateContentService();
 
             CompareLogic = new CompareLogic();
         }
 
-        private void SetupContentfulClientCalls(IContentfulClient contentfulClient)
-        {
-            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Page>>.Ignored, A<CancellationToken>.Ignored))
-                .Returns(PagesCollection);
-
-            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<CaseStudyPage>>.Ignored, A<CancellationToken>.Ignored))
-                .Returns(CaseStudyPagesCollection);
-
-            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Scheme>>.Ignored, A<CancellationToken>.Ignored))
-                .Returns(SchemesCollection);
-
-            //A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
-            //    .Returns(payFiltersCollection).Once()
-            //    .Then
-            //    .Returns(new ContentfulCollection<Filter>());
-
-            // decouples us from the order of fetching filters
-            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<Filter>>.Ignored, A<CancellationToken>.Ignored))
-                .Returns(FiltersCollection);
-        }
-
-        private (Document, string) SampleDocumentAndExpectedContent(int differentiator = 0)
+        private (Document, HtmlString) SampleDocumentAndExpectedContent(int differentiator = 0)
         {
             return (new Document
             {
@@ -112,43 +92,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
                         Content = new List<IContent> {new Text {Value = $"Gobble{differentiator}" } }
                     }
                 }
-            }, $"<h2>Gobble{differentiator}</h2>");
-        }
-
-        //[Fact]
-        //public async Task Update_SchemesInDescendingSizeOrderTests()
-        //{
-        //    var schemes = Fixture.CreateMany<Scheme>(3).ToArray();
-        //    schemes[0].Size = 300;
-        //    schemes[1].Size = 100;
-        //    schemes[2].Size = 200;
-        //    SchemesCollection.Items = schemes;
-
-        //    var content = await ContentService.Update();
-
-        //    var actualSchemes = content.Schemes.ToArray();
-        //    Assert.Equal(300, actualSchemes[0].Size);
-        //    Assert.Equal(200, actualSchemes[1].Size);
-        //    Assert.Equal(100, actualSchemes[2].Size);
-        //}
-
-        [Theory]
-        [InlineData("pay--the-name", "the name")]
-        [InlineData("pay--thename", "thename")]
-        [InlineData("pay--the-name", "the-name")]
-        //todo: stop double spaces, so code doesn't get confused with prefix/name separator?
-        [InlineData("pay--the--name", "the  name")]
-        [InlineData("pay--", "")]
-        [InlineData("pay--1234567890-qwertyuiop-asdfghjkl-zxcvbnm", "1234567890 qwertyuiop asdfghjkl zxcvbnm")]
-        public async Task Update_FilterIdTests(string expectedFilterAspectId, string filterName)
-        {
-            var filters = Fixture.CreateMany<Filter>(1).ToList();
-            filters.First().Name = filterName;
-            FiltersCollection.Items = filters;
-
-            var content = await ContentService.Update();
-
-            Assert.Equal(expectedFilterAspectId, content.PayFilter.Aspects.First().Id);
+            }, new HtmlString($"<h2>Gobble{differentiator}</h2>"));
         }
 
         [Fact]
@@ -157,7 +101,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             A.CallTo(() => ContentfulClientFactory.ContentfulClient)
                 .Returns(null);
 
-            ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
+            CreateContentService();
 
             await Assert.ThrowsAsync<ContentServiceException>(() => ContentService.Update());
         }
@@ -178,7 +122,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfPages = 3;
 
-            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+            var contentPages = Fixture.CreateMany<Page>(numberOfPages);
+            A.CallTo(() => PageService.GetAll(ContentfulClient))
+                .Returns(contentPages);
 
             var content = await ContentService.Update();
 
@@ -187,21 +133,24 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         }
 
         [Fact]
-        public async Task Update_PageMappedTest()
+        public async Task Update_PageTest()
         {
             const int numberOfPages = 1;
 
-            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+            Fixture.Inject(ExpectedContent);
+            var contentPages = Fixture.CreateMany<Page>(numberOfPages).ToArray();
+            A.CallTo(() => PageService.GetAll(ContentfulClient))
+                .Returns(contentPages);
 
             var content = await ContentService.Update();
 
             var actualPage = content.Pages.FirstOrDefault();
             Assert.NotNull(actualPage);
 
-            var expectedSourcePage = PagesCollection.Items.First();
+            var expectedSourcePage = contentPages.First();
             Assert.Equal(expectedSourcePage.Title, actualPage.Title);
             Assert.Equal(expectedSourcePage.Url, actualPage.Url);
-            Assert.Equal(ExpectedContent, actualPage.Content.Value);
+            Assert.Equal(ExpectedContent.Value, actualPage.Content.Value);
         }
 
         [Fact]
@@ -209,10 +158,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfCaseStudyPages = 3;
 
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
-
-            Fixture.Inject(SchemesCollection.Items.First());
-            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+            var contentCaseStudyPages = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(ContentfulClient, A<IEnumerable<Scheme>>._))
+                .Returns(contentCaseStudyPages);
 
             var content = await ContentService.Update();
 
@@ -221,25 +169,26 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         }
 
         [Fact]
-        public async Task Update_CaseStudyPageMappedTest()
+        public async Task Update_CaseStudyPageTest()
         {
             const int numberOfCaseStudyPages = 1;
 
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
-
-            Fixture.Inject(SchemesCollection.Items.First());
-            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+            Fixture.Inject(ExpectedContent);
+            var contentCaseStudyPages = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(ContentfulClient, A<IEnumerable<Scheme>>._))
+                .Returns(contentCaseStudyPages);
 
             var content = await ContentService.Update();
 
             var actualCaseStudyPage = content.CaseStudyPages.FirstOrDefault();
             Assert.NotNull(actualCaseStudyPage);
 
-            var expectedSourceCaseStudyPage = CaseStudyPagesCollection.Items.First();
+            var expectedSourceCaseStudyPage = contentCaseStudyPages.First();
             Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
             Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
-            Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
-            Assert.Equal(ExpectedContent, actualCaseStudyPage.Content.Value);
+            //todo:
+            //Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
+            Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
         }
 
         [Fact]
@@ -247,7 +196,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfSchemes = 3;
 
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(numberOfSchemes);
+            var contentSchemes = Fixture.CreateMany<Scheme>(numberOfSchemes).ToArray();
+            A.CallTo(() => SchemeService.GetAll(ContentfulClient))
+                .Returns(contentSchemes);
 
             var content = await ContentService.Update();
 
@@ -256,66 +207,21 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         }
 
         [Fact]
-        public async Task Update_SchemeMappedTest()
+        public async Task Update_SchemeTest()
         {
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
-
-            var scheme = SchemesCollection.Items.First();
-            int differentiator = 0;
-            Document document;
-            string expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
-                expectedShortBenefits, expectedShortCost, expectedShortDescription, expectedShortTime;
-
-            (document, expectedAdditionalFooter) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.AdditionalFooter = document;
-            (document, expectedBenefits) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Benefits = document;
-            (document, expectedCaseStudiesPreamble) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.CaseStudies = document;
-            (document, expectedCost) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Cost = document;
-            (document, expectedDescription) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Description = document;
-            (document, expectedDetailsPageOverride) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.DetailsPageOverride = document;
-            (document, expectedOffer) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Offer = document;
-            (document, expectedResponsibility) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Responsibility = document;
-            (document, expectedShortBenefits) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.ShortBenefits = document;
-            (document, expectedShortCost) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.ShortCost = document;
-            (document, expectedShortDescription) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.ShortDescription = document;
-            (document, expectedShortTime) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.ShortTime = document;
+            Fixture.Inject(ExpectedContent);
+            var contentSchemes = Fixture.CreateMany<Scheme>(1).ToArray();
+            A.CallTo(() => SchemeService.GetAll(ContentfulClient))
+                .Returns(contentSchemes);
 
             var content = await ContentService.Update();
 
             var actualScheme = content.Schemes.FirstOrDefault();
             Assert.NotNull(actualScheme);
 
-            //todo: should really copy item before ContentService.Update() (or pick out fields), in case they get mutated
-            // or even better add a test to check that they don't get mutated
-            var expectedSourceScheme = SchemesCollection.Items.First();
-            Assert.Equal(expectedSourceScheme.Url, actualScheme.Url);
-            Assert.Equal(expectedSourceScheme.Name, actualScheme.Name);
-            Assert.Equal(expectedSourceScheme.OfferHeader, actualScheme.OfferHeader);
-            Assert.Equal(expectedSourceScheme.Size, actualScheme.Size);
-            Assert.Equal(expectedAdditionalFooter, actualScheme.AdditionalFooter.Value);
-            Assert.Equal(expectedBenefits, actualScheme.Benefits.Value);
-            Assert.Equal(expectedCaseStudiesPreamble, actualScheme.CaseStudiesPreamble.Value);
-            Assert.Equal(expectedCost, actualScheme.Cost.Value);
-            Assert.Equal(expectedDescription, actualScheme.Description.Value);
-            Assert.Equal(expectedDetailsPageOverride, actualScheme.DetailsPageOverride.Value);
-            Assert.Equal(expectedOffer, actualScheme.Offer.Value);
-            Assert.Equal(expectedResponsibility, actualScheme.Responsibility.Value);
-            Assert.Equal(expectedShortBenefits, actualScheme.ShortBenefits.Value);
-            Assert.Equal(expectedShortCost, actualScheme.ShortCost.Value);
-            Assert.Equal(expectedShortDescription, actualScheme.ShortDescription.Value);
-            Assert.Equal(expectedShortTime, actualScheme.ShortTime.Value);
-            //todo: enumerable fields
+            var expectedSourceScheme = contentSchemes.First();
+            var result = CompareLogic.Compare(expectedSourceScheme, actualScheme);
+            Assert.True(result.AreEqual, result.DifferencesString);
         }
 
         [Fact]
@@ -324,7 +230,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             A.CallTo(() => ContentfulClientFactory.PreviewContentfulClient)
                 .Returns(null);
 
-            ContentService = new ContentService(ContentfulClientFactory, HtmlRenderer, Logger);
+            CreateContentService();
 
             await Assert.ThrowsAsync<ContentServiceException>(() => ContentService.UpdatePreview());
         }
@@ -335,7 +241,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             bool eventWasRaised = false;
             ContentService.PreviewContentUpdated += (sender, args) => { eventWasRaised = true; };
 
-            var content = await ContentService.UpdatePreview();
+            await ContentService.UpdatePreview();
 
             Assert.True(eventWasRaised);
         }
@@ -345,7 +251,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfPages = 3;
 
-            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+            var contentPages = Fixture.CreateMany<Page>(numberOfPages);
+            A.CallTo(() => PageService.GetAll(PreviewContentfulClient))
+                .Returns(contentPages);
 
             var content = await ContentService.UpdatePreview();
 
@@ -354,21 +262,24 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         }
 
         [Fact]
-        public async Task UpdatePreview_PageMappedTest()
+        public async Task UpdatePreview_PageTest()
         {
             const int numberOfPages = 1;
 
-            PagesCollection.Items = Fixture.CreateMany<Page>(numberOfPages);
+            Fixture.Inject(ExpectedContent);
+            var contentPages = Fixture.CreateMany<Page>(numberOfPages).ToArray();
+            A.CallTo(() => PageService.GetAll(PreviewContentfulClient))
+                .Returns(contentPages);
 
             var content = await ContentService.UpdatePreview();
 
             var actualPage = content.Pages.FirstOrDefault();
             Assert.NotNull(actualPage);
 
-            var expectedSourcePage = PagesCollection.Items.First();
+            var expectedSourcePage = contentPages.First();
             Assert.Equal(expectedSourcePage.Title, actualPage.Title);
             Assert.Equal(expectedSourcePage.Url, actualPage.Url);
-            Assert.Equal(ExpectedContent, actualPage.Content.Value);
+            Assert.Equal(ExpectedContent.Value, actualPage.Content.Value);
         }
 
         [Fact]
@@ -376,10 +287,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfCaseStudyPages = 3;
 
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
-
-            Fixture.Inject(SchemesCollection.Items.First());
-            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+            var contentCaseStudyPages = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(PreviewContentfulClient, A<IEnumerable<Scheme>>._))
+                .Returns(contentCaseStudyPages);
 
             var content = await ContentService.UpdatePreview();
 
@@ -392,21 +302,21 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfCaseStudyPages = 1;
 
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
-
-            Fixture.Inject(SchemesCollection.Items.First());
-            CaseStudyPagesCollection.Items = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages);
+            Fixture.Inject(ExpectedContent);
+            var contentCaseStudyPages = Fixture.CreateMany<CaseStudyPage>(numberOfCaseStudyPages).ToArray();
+            A.CallTo(() => CaseStudyPageService.GetAll(PreviewContentfulClient, A<IEnumerable<Scheme>>._))
+                .Returns(contentCaseStudyPages);
 
             var content = await ContentService.UpdatePreview();
 
             var actualCaseStudyPage = content.CaseStudyPages.FirstOrDefault();
             Assert.NotNull(actualCaseStudyPage);
 
-            var expectedSourceCaseStudyPage = CaseStudyPagesCollection.Items.First();
+            var expectedSourceCaseStudyPage = contentCaseStudyPages.First();
             Assert.Equal(expectedSourceCaseStudyPage.Title, actualCaseStudyPage.Title);
             Assert.Equal(expectedSourceCaseStudyPage.Url, actualCaseStudyPage.Url);
-            Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
-            Assert.Equal(ExpectedContent, actualCaseStudyPage.Content.Value);
+            //Assert.Equal(SchemesCollection.Items.First().Url, actualCaseStudyPage.Scheme.Url);
+            Assert.Equal(ExpectedContent.Value, actualCaseStudyPage.Content.Value);
         }
 
         [Fact]
@@ -414,7 +324,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         {
             const int numberOfSchemes = 3;
 
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(numberOfSchemes);
+            var contentSchemes = Fixture.CreateMany<Scheme>(numberOfSchemes).ToArray();
+            A.CallTo(() => SchemeService.GetAll(PreviewContentfulClient))
+                .Returns(contentSchemes);
 
             var content = await ContentService.UpdatePreview();
 
@@ -425,98 +337,19 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         [Fact]
         public async Task UpdatePreview_SchemeMappedTest()
         {
-            SchemesCollection.Items = Fixture.CreateMany<Scheme>(1);
-
-            var scheme = SchemesCollection.Items.First();
-            int differentiator = 0;
-            Document document;
-            string expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
-                expectedShortBenefits, expectedShortCost, expectedShortDescription, expectedShortTime;
-
-            (document, expectedAdditionalFooter) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.AdditionalFooter = document;
-            (document, expectedBenefits) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Benefits = document;
-            (document, expectedCaseStudiesPreamble) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.CaseStudies = document;
-            (document, expectedCost) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Cost = document;
-            (document, expectedDescription) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Description = document;
-            (document, expectedDetailsPageOverride) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.DetailsPageOverride = document;
-            (document, expectedOffer) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Offer = document;
-            (document, expectedResponsibility) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Responsibility = document;
-            (document, expectedShortBenefits) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.ShortBenefits = document;
-            (document, expectedShortCost) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.ShortCost = document;
-            (document, expectedShortDescription) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.ShortDescription = document;
-            (document, expectedShortTime) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.ShortTime = document;
+            Fixture.Inject(ExpectedContent);
+            var contentSchemes = Fixture.CreateMany<Scheme>(1).ToArray();
+            A.CallTo(() => SchemeService.GetAll(PreviewContentfulClient))
+                .Returns(contentSchemes);
 
             var content = await ContentService.UpdatePreview();
 
             var actualScheme = content.Schemes.FirstOrDefault();
             Assert.NotNull(actualScheme);
 
-            //todo: should really copy item before ContentService.Update() (or pick out fields), in case they get mutated
-            // or even better add a test to check that they don't get mutated
-            var expectedSourceScheme = SchemesCollection.Items.First();
-            Assert.Equal(expectedSourceScheme.Url, actualScheme.Url);
-            Assert.Equal(expectedSourceScheme.Name, actualScheme.Name);
-            Assert.Equal(expectedSourceScheme.OfferHeader, actualScheme.OfferHeader);
-            Assert.Equal(expectedSourceScheme.Size, actualScheme.Size);
-            Assert.Equal(expectedAdditionalFooter, actualScheme.AdditionalFooter.Value);
-            Assert.Equal(expectedBenefits, actualScheme.Benefits.Value);
-            Assert.Equal(expectedCaseStudiesPreamble, actualScheme.CaseStudiesPreamble.Value);
-            Assert.Equal(expectedCost, actualScheme.Cost.Value);
-            Assert.Equal(expectedDescription, actualScheme.Description.Value);
-            Assert.Equal(expectedDetailsPageOverride, actualScheme.DetailsPageOverride.Value);
-            Assert.Equal(expectedOffer, actualScheme.Offer.Value);
-            Assert.Equal(expectedResponsibility, actualScheme.Responsibility.Value);
-            Assert.Equal(expectedShortBenefits, actualScheme.ShortBenefits.Value);
-            Assert.Equal(expectedShortCost, actualScheme.ShortCost.Value);
-            Assert.Equal(expectedShortDescription, actualScheme.ShortDescription.Value);
-            Assert.Equal(expectedShortTime, actualScheme.ShortTime.Value);
-            //todo: enumerable fields
-        }
-
-        // Contentful's .net library is not very test friendly: HtmlRenderer.ToHtml can't be mocked
-        // we'd have to introduce a level of indirection to test this
-        // or we _could_ make ToHtmlString in ContentService public and test it directly
-        //[Theory]
-        //[InlineData("\"", "“")]
-        //public async Task Update_HtmlQuirksTest(string expectedHtmlStringValue, string unescapedHtml)
-        //{
-        //    var pages = Fixture.CreateMany<Page>(1).ToList();
-        //    PagesCollection.Items = pages;
-
-        //    A.CallTo(() => HtmlRenderer.ToHtml(A<Document>.Ignored))
-        //        .Returns(unescapedHtml);
-
-        //    var content = await ContentService.Update();
-
-        //    Assert.Equal(expectedHtmlStringValue, content.Pages.First().Content.Value);
-        //}
-
-        [Theory]
-        [InlineData("\"", "“")]
-        [InlineData("\"", "”")]
-        [InlineData("\"\"", "“”")]
-        [InlineData("\r\n", "\r")]
-        [InlineData("\r\n", "\r\n")]
-        [InlineData("\r\n\r\n", "\r\r\n")]
-        [InlineData("\r\nn", "\rn")]
-        [InlineData("<br>", "<br>")]
-        public void ToNormalisedHtmlString_Tests(string expectedHtmlStringValue, string html)
-        {
-            var result = ContentService.ToNormalisedHtmlString(html);
-
-            Assert.Equal(expectedHtmlStringValue, result.Value);
+            var expectedSourceScheme = contentSchemes.First();
+            var result = CompareLogic.Compare(expectedSourceScheme, actualScheme);
+            Assert.True(result.AreEqual, result.DifferencesString);
         }
 
         [Fact]
@@ -562,6 +395,19 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             var emptyResult = await renderer.ToHtml(emptyDocument);
 
             Assert.Equal(string.Empty, emptyResult);
+        }
+
+        private void CreateContentService()
+        {
+            ContentService = new ContentService(
+                ContentfulClientFactory,
+                SchemeService,
+                PageService,
+                CaseStudyPageService,
+                MotivationFilterService,
+                PayFilterService,
+                SchemeLengthFilterService,
+                Logger);
         }
     }
 }

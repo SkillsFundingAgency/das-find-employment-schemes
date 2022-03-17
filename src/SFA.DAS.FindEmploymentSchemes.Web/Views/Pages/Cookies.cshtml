@@ -1,6 +1,8 @@
-﻿@model SFA.DAS.FindEmploymentSchemes.Web.Models.CookiePage
+﻿@model PageModel
 
 @{
+    //todo: handle this better
+    var cookiePage = (CookiePage)Model.Page;
     ViewData["Title"] = "Cookies";
 }
 
@@ -8,10 +10,15 @@
     <a href="/" class="govuk-back-link">Home</a>
 }
 
+@section PreviewErrors
+{
+    @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
+}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 
-        @if (Model.ShowMessage)
+        @if (cookiePage.ShowMessage)
         {
             <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
                 <div class="govuk-notification-banner__header">
@@ -27,9 +34,9 @@
             </div>
         }
 
-        @Model.AnalyticsPage.Content
+        @cookiePage.AnalyticsPage.Content
 
-        <table class="govuk-table">
+        <table class="govuk-table" aria-label="Cookies that measure website usage">
             <thead class="govuk-table__head">
                 <tr>
                     <th scope="col" class="govuk-table__header">
@@ -93,9 +100,9 @@
 
         <hr class="govuk-section-break govuk-section-break--l g" />
 
-        @Model.MarketingPage.Content
+        @cookiePage.MarketingPage.Content
 
-        <table class="govuk-table">
+        <table class="govuk-table" aria-label="Cookies that help with our communications and marketing">
             <thead class="govuk-table__head">
                 <tr>
                     <th scope="col" class="govuk-table__header">
@@ -501,7 +508,7 @@
         <hr class="govuk-section-break govuk-section-break--l g" />
 
         <h2 class="govuk-heading-l">Change your cookie settings</h2>
-        <form action="/page/cookies" method="post" novalidate>
+        <form method="post" novalidate>
           <fieldset class="govuk-fieldset">
             <div class="govuk-form-group">
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">

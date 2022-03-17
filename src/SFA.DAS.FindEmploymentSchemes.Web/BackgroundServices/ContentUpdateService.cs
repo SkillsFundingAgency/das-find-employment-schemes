@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Cronos;
 using Microsoft.Extensions.Options;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
@@ -83,6 +84,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         // we also catch and consume all exceptions
 #pragma warning disable S3168
 #pragma warning disable AsyncFixer03
+        [ExcludeFromCodeCoverage] // difficult to test
         private async void UpdateContent(object? state)
         {
             try
@@ -110,6 +112,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 #pragma warning restore AsyncFixer03
 #pragma warning restore S3168
 
+        [ExcludeFromCodeCoverage]
         public Task StopAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Content Update is stopping.");
@@ -119,12 +122,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
             return Task.CompletedTask;
         }
 
+        [ExcludeFromCodeCoverage]
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        [ExcludeFromCodeCoverage]
         protected virtual void Dispose(bool disposing)
         {
             _timer?.Dispose();

@@ -1,50 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class CaseStudiesController : Controller
     {
         private readonly ICaseStudyPageService _caseStudyPageService;
-        private readonly IContentService _contentService;
-        private readonly ILogger<CaseStudiesController> _log;
 
-        public CaseStudiesController(
-            ICaseStudyPageService caseStudyPageService,
-            IContentService contentService,
-            ILogger<CaseStudiesController> logger)
+        public CaseStudiesController(ICaseStudyPageService caseStudyPageService)
         {
             _caseStudyPageService = caseStudyPageService;
-            _contentService = contentService;
-            _log = logger;
         }
 
         [HttpGet]
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult CaseStudyPage(string pageUrl)
         {
-            var (viewName, caseStudyPage) = _caseStudyPageService.CaseStudyPage(pageUrl, _contentService.Content);
+            var model = _caseStudyPageService.GetCaseStudyPageModel(pageUrl);
 
-            if (caseStudyPage == null)
+            if (model == null)
                 return NotFound();
 
-            return View(viewName, caseStudyPage);
+            return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> CaseStudyPagePreview(string pageUrl)
         {
-            var previewContent = await _contentService.UpdatePreview();
-
-            var (viewName, caseStudyPage) = _caseStudyPageService.CaseStudyPage(pageUrl, previewContent);
-
-            if (caseStudyPage == null)
+            var model = await _caseStudyPageService.GetCaseStudyPageModelPreview(pageUrl);
+            if (model == null)
                 return NotFound();
 
-            return View(viewName ?? "CaseStudyPage", caseStudyPage);
+            return View("CaseStudyPage", model);
         }
     }
 }
