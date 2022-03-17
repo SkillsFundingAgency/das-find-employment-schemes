@@ -238,3 +238,9 @@ body.js-enabled .app-show-on-mobile-no-js {
         border-left: 4px solid #1d70b8;
     }
 }
+
+@media (max-width: 40.0600em) {
+    #comparison-results-table .govuk-table__header, #comparison-results-table .govuk-table__cell {
+        padding: 10px 10px 10px 0;
+    }
+}
