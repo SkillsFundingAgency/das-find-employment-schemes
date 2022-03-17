@@ -257,3 +257,7 @@ body.js-enabled .app-show-on-mobile-no-js {
         padding: 10px 10px 10px 0;
     }
 }
+
+.govuk-link:link, .das-table__sort:link, .das-button--inline-link:link, .govuk-details__summary {
+    color: #155389;
+}
