@@ -179,7 +179,7 @@ function updateNumberOfSchemes() {
     $(numberOfSchemesSelector).html($('[data-scheme]:visible').length);
 }
 
-function toggleSchemeShortDescriptionWidth() {
+function onFilterBoxOpenClose() {
     if ($('#scheme-filter').hasClass('app-show-hide__section--show')) {
         $(".filter-full-width").removeClass("govuk-grid-column-two-thirds").addClass("govuk-grid-column-full");
 
