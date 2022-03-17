@@ -257,8 +257,4 @@ body.js-enabled .app-show-on-mobile-no-js {
     #comparison-results-table {
         width: 99%;
     }
-
-    #comparison-results-table .govuk-table__header, #comparison-results-table .govuk-table__cell {
-        padding: 10px 10px 10px 0;
-    }
 }
