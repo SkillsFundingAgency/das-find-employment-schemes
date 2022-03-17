@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {
     [ExcludeFromCodeCoverage]
-    public class ErrorViewModel
+    public class ErrorViewModel : LayoutModel
     {
         public string RequestId { get; set; }
 

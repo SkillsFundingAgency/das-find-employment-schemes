@@ -14,12 +14,13 @@ using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
-    //todo: unit tests to check non preview and preview model
     public class SchemesControllerTests
     {
         public Fixture Fixture { get; set; }
         public HomeModel HomeModel { get; set; }
+        public ComparisonModel ComparisonModel { get; set; }
         public HomeModel PreviewHomeModel { get; set; }
+        public ComparisonModel PreviewComparisonModel { get; set; }
         public ISchemesModelService SchemesModelService { get; set; }
         public IFilterService FilterService { get; set; }
         public SchemeFilterModel SchemeFilterModel { get; set; }
@@ -40,15 +41,24 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             HomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!);
             PreviewHomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!);
 
+            ComparisonModel = new ComparisonModel(null!);
+            PreviewComparisonModel = new ComparisonModel(null!);
+
             A.CallTo(() => SchemesModelService.HomeModel)
                 .Returns(HomeModel);
 
             A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
                 .Returns(PreviewHomeModel);
 
+            A.CallTo(() => SchemesModelService.ComparisonModel)
+                .Returns(ComparisonModel);
+
+            A.CallTo(() => SchemesModelService.CreateComparisonModelPreview())
+                .Returns(PreviewComparisonModel);
+
             SchemesController = new SchemesController(SchemesModelService, FilterService);
 
-            SchemeFilterModel = new SchemeFilterModel(new string[] {}, new string[] {}, new string[] {});
+            SchemeFilterModel = new SchemeFilterModel();
         }
 
         [Fact]
@@ -169,13 +179,13 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public void Comparison_SchemesModelTest()
+        public void Comparison_ModelTest()
         {
             // act
             IActionResult result = SchemesController.Comparison();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal(HomeModel.Schemes, viewResult.Model);
+            Assert.Equal(ComparisonModel, viewResult.Model);
         }
 
         [Fact]
@@ -189,13 +199,13 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public async Task ComparisonPreview_SchemesModelTest()
+        public async Task ComparisonPreview_ModelTest()
         {
             // act
             IActionResult result = await SchemesController.ComparisonPreview();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal(PreviewHomeModel.Schemes, viewResult.Model);
+            Assert.Equal(PreviewComparisonModel, viewResult.Model);
         }
 
         [Fact]
@@ -208,22 +218,23 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             Assert.Equal("Comparison", viewResult.ViewName);
         }
 
-        [Fact]
-        public async Task PostComparisonPreview_SchemesModelTest()
-        {
-            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
+        // duplicate - should be testing PostComparisonPreview
+        //[Fact]
+        //public async Task ComparisonPreview_ModelTest()
+        //{
+        //    var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
 
-            HomeModel = new HomeModel(null, schemes, null);
+        //    PreviewComparisonModel = new ComparisonModel(schemes);
 
-            A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
-                .Returns(HomeModel);
+        //    A.CallTo(() => SchemesModelService.CreateComparisonModelPreview())
+        //        .Returns(PreviewComparisonModel);
 
-            // act
-            IActionResult result = await SchemesController.ComparisonPreview();
+        //    // act
+        //    IActionResult result = await SchemesController.ComparisonPreview();
 
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal(HomeModel.Schemes, viewResult.Model);
-        }
+        //    var viewResult = Assert.IsType<ViewResult>(result);
+        //    Assert.Equal(PreviewComparisonModel, viewResult.Model);
+        //}
 
         [Fact]
         public async Task PostComparisonPreview_ComparisonResultsViewTest()

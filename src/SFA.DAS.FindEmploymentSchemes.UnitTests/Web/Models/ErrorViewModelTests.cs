@@ -1,8 +1,5 @@
-﻿
-using Microsoft.AspNetCore.Html;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
+﻿using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using Xunit;
-
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
 {

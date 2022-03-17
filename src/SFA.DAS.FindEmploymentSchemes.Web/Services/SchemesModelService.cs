@@ -18,6 +18,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private readonly IContentService _contentService;
         private IReadOnlyDictionary<string, SchemeDetailsModel> _schemeDetailsModels;
 
+        public HomeModel HomeModel { get; private set; }
+        public ComparisonModel ComparisonModel { get; private set; }
+
 #pragma warning disable CS8618
         public SchemesModelService(IContentService contentService)
         {
@@ -34,6 +37,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private void BuildModels()
         {
             HomeModel = CreateHomeModel(_contentService.Content);
+            ComparisonModel = CreateComparisonModel(_contentService.Content);
             _schemeDetailsModels = BuildSchemeDetailsModelsDictionary();
         }
 
@@ -42,14 +46,28 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             BuildModels();
         }
 
-        public HomeModel HomeModel { get; private set; }
-
         private HomeModel CreateHomeModel(IContent content)
         {
             return new HomeModel(
                 content.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
                 content.Schemes,
                 new[] { content.MotivationsFilter, content.SchemeLengthFilter, content.PayFilter });
+        }
+
+        private ComparisonModel CreateComparisonModel(IContent content)
+        {
+            return new ComparisonModel(content.Schemes);
+        }
+
+        private ComparisonResultsModel CreateComparisonResultsModel(string[] schemes, IContent content)
+        {
+            return new ComparisonResultsModel(
+                content.Schemes.Where(x => schemes.Contains(x.HtmlId)));
+        }
+
+        public ComparisonResultsModel CreateComparisonResultsModel(string[] schemes)
+        {
+            return CreateComparisonResultsModel(schemes, _contentService.Content);
         }
 
         public async Task<HomeModel> CreateHomeModelPreview()
@@ -60,6 +78,26 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             homeModel.Preview = new PreviewModel(GetHomeErrors(homeModel));
 
             return homeModel;
+        }
+
+        public async Task<ComparisonModel> CreateComparisonModelPreview()
+        {
+            IContent previewContent = await _contentService.UpdatePreview();
+
+            var comparisonModel = CreateComparisonModel(previewContent);
+            comparisonModel.Preview = new PreviewModel(Enumerable.Empty<HtmlString>());
+
+            return comparisonModel;
+        }
+
+        public async Task<ComparisonResultsModel> CreateComparisonResultsModelPreview(string[] schemes)
+        {
+            IContent previewContent = await _contentService.UpdatePreview();
+
+            var comparisonResultsModel = CreateComparisonResultsModel(schemes, previewContent);
+            comparisonResultsModel.Preview = new PreviewModel(Enumerable.Empty<HtmlString>());
+
+            return comparisonResultsModel;
         }
 
         private ReadOnlyDictionary<string, SchemeDetailsModel> BuildSchemeDetailsModelsDictionary()

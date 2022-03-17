@@ -8,7 +8,7 @@
 }
 
 @section BreadCrumbs {
-    <a id="scheme-details-breadcrumb-back-link" href="/" class="govuk-back-link">Home</a>
+    <a id="scheme-details-breadcrumb-back-link" asp-route="@(Model.Preview.IsPreview?"home-preview":"home")" class="govuk-back-link">Home</a>
 }
 
 @section PreviewErrors {
@@ -99,7 +99,7 @@
                     }
                     else
                     {
-                        <a id="scheme-details-inner-link-@scheme.HtmlId" asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                        <a id="scheme-details-inner-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview?"schemes-preview":"schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
                     }
                 </li>
             }

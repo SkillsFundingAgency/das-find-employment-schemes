@@ -252,6 +252,12 @@ body.js-enabled .app-show-on-mobile-no-js {
     border-radius: .25rem;
 }
 
+@media (max-width: 40.0600em) {
+    #comparison-results-table .govuk-table__header, #comparison-results-table .govuk-table__cell {
+        padding: 10px 10px 10px 0;
+    }
+}
+
 .govuk-link:link, .das-table__sort:link, .das-button--inline-link:link, .govuk-details__summary {
     color: #155389;
 }

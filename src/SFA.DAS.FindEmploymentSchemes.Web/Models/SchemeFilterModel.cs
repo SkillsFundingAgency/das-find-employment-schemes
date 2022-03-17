@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Models
@@ -8,13 +9,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
         public string[] Motivations { get; set; }
         public string[] SchemeLength { get; set; }
         public string[] Pay { get; set; }
+
         public IEnumerable<string> AllFilters => Motivations.Union(SchemeLength).Union(Pay);
 
-        public SchemeFilterModel(string[] motivations, string[] schemeLength, string[] pay)
+        public SchemeFilterModel()
         {
-            Motivations = motivations;
-            SchemeLength = schemeLength;
-            Pay = pay;
+            Motivations = Array.Empty<string>();
+            SchemeLength = Array.Empty<string>();
+            Pay = Array.Empty<string>();
         }
     }
 }
