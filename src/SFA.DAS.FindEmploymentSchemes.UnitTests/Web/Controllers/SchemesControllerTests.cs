@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
@@ -9,36 +10,45 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
-using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
+    //todo: unit tests to check non preview and preview model
     public class SchemesControllerTests
     {
+        public Fixture Fixture { get; set; }
         public HomeModel HomeModel { get; set; }
+        public HomeModel PreviewHomeModel { get; set; }
         public ISchemesModelService SchemesModelService { get; set; }
         public IFilterService FilterService { get; set; }
-        public IContentService ContentService { get; set; }
-        public SchemeFilterViewModel SchemeFilterViewModel { get; set; }
+        public SchemeFilterModel SchemeFilterModel { get; set; }
 
         public SchemesController SchemesController { get; set; }
 
         public SchemesControllerTests()
         {
+            Fixture = new Fixture();
+            Fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(IHtmlContent),
+                    typeof(HtmlString)));
+
             FilterService = A.Fake<IFilterService>();
             SchemesModelService = A.Fake<ISchemesModelService>();
-            ContentService = A.Fake<IContentService>();
 
-            HomeModel = new HomeModel(null!, null!, null!);
+            HomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!);
+            PreviewHomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!);
 
             A.CallTo(() => SchemesModelService.HomeModel)
                 .Returns(HomeModel);
 
-            SchemesController = new SchemesController(SchemesModelService, FilterService, ContentService);
+            A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
+                .Returns(PreviewHomeModel);
 
-            SchemeFilterViewModel = new SchemeFilterViewModel(new string[] {}, new string[] {}, new string[] {});
+            SchemesController = new SchemesController(SchemesModelService, FilterService);
+
+            SchemeFilterModel = new SchemeFilterModel(new string[] {}, new string[] {}, new string[] {});
         }
 
         [Fact]
@@ -70,19 +80,19 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         {
             var filteredHomeModel = new HomeModel(null!, null!, null!);
 
-            A.CallTo(() => FilterService.ApplyFilter(SchemeFilterViewModel))
+            A.CallTo(() => FilterService.ApplyFilter(SchemeFilterModel))
                 .Returns(filteredHomeModel);
 
             // act
-            IActionResult result = SchemesController.Home(SchemeFilterViewModel, "");
+            IActionResult result = SchemesController.Home(SchemeFilterModel, "");
 
-            Assert.IsType<ViewResult>(result);
-            var viewResult = (ViewResult)result;
+            var viewResult = Assert.IsType<ViewResult>(result);
             Assert.NotNull(viewResult.Model);
             Assert.IsType<HomeModel>(viewResult.Model);
             Assert.Equal(filteredHomeModel, viewResult.Model);
         }
 
+        //todo: change cut to return Redirect object instead
 #if Too_much_interals_set_up_for_value
         [Fact]
         public void PostHome_ShowFilterRedirectsToHomeTest()
@@ -96,7 +106,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             SchemesController.ControllerContext = new ControllerContext(new ActionContext(httpContext, new RouteData(), new ControllerActionDescriptor()));
 
             // act
-            SchemesController.Home(SchemeFilterViewModel, "filter");
+            SchemesController.Home(SchemeFilterModel, "filter");
 
             A.CallTo(() => httpResponse.Redirect("/"))
                 .MustHaveHappenedOnceExactly();
@@ -106,13 +116,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         [Fact]
         public void Details_KnownSchemeUrlReturnsViewResultWithDefaultViewTest()
         {
-            var fixture = new Fixture();
-            fixture.Customizations.Add(
-                new TypeRelay(
-                    typeof(IHtmlContent),
-                    typeof(HtmlString)));
-
-            var schemes = fixture.CreateMany<Scheme>(2).ToArray();
+            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
 
             string schemeUrl = schemes.First().Url;
 
@@ -125,21 +129,14 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             IActionResult result = SchemesController.Details(schemeUrl);
 
             Assert.IsNotType<NotFoundResult>(result);
-            Assert.IsType<ViewResult>(result);
-            var viewResult = (ViewResult)result;
+            var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Null(viewResult.ViewName);
         }
 
         [Fact]
         public void Details_KnownSchemeUrlReturnsViewWithCorrectModelTest()
         {
-            var fixture = new Fixture();
-            fixture.Customizations.Add(
-                new TypeRelay(
-                    typeof(IHtmlContent),
-                    typeof(HtmlString)));
-
-            var schemes = fixture.CreateMany<Scheme>(2).ToArray();
+            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
 
             string schemeUrl = schemes.First().Url;
 
@@ -172,12 +169,77 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public async Task DetailsPreview_UpdatesPreviewContentTest()
+        public void Comparison_SchemesModelTest()
         {
-            await SchemesController.DetailsPreview("");
+            // act
+            IActionResult result = SchemesController.Comparison();
 
-            A.CallTo(() => ContentService.UpdatePreview())
-                .MustHaveHappenedOnceExactly();
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal(HomeModel.Schemes, viewResult.Model);
+        }
+
+        [Fact]
+        public void Comparison_DefaultViewTest()
+        {
+            // act
+            IActionResult result = SchemesController.Comparison();
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Null(viewResult.ViewName);
+        }
+
+        [Fact]
+        public async Task ComparisonPreview_SchemesModelTest()
+        {
+            // act
+            IActionResult result = await SchemesController.ComparisonPreview();
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal(PreviewHomeModel.Schemes, viewResult.Model);
+        }
+
+        [Fact]
+        public async Task ComparisonPreview_ComparisonViewTest()
+        {
+            // act
+            IActionResult result = await SchemesController.ComparisonPreview();
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("Comparison", viewResult.ViewName);
+        }
+
+        [Fact]
+        public async Task PostComparisonPreview_SchemesModelTest()
+        {
+            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
+
+            HomeModel = new HomeModel(null, schemes, null);
+
+            A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
+                .Returns(HomeModel);
+
+            // act
+            IActionResult result = await SchemesController.ComparisonPreview();
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal(HomeModel.Schemes, viewResult.Model);
+        }
+
+        [Fact]
+        public async Task PostComparisonPreview_ComparisonResultsViewTest()
+        {
+            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
+
+            PreviewHomeModel = new HomeModel(null, schemes, null);
+
+            A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
+                .Returns(PreviewHomeModel);
+
+            // act
+            IActionResult result = await SchemesController.ComparisonPreview(Array.Empty<string>());
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("ComparisonResults", viewResult.ViewName);
         }
     }
 }
