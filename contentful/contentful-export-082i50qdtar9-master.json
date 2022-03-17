@@ -12,7 +12,7 @@
         "id": "scheme",
         "type": "ContentType",
         "createdAt": "2021-11-29T14:35:22.062Z",
-        "updatedAt": "2022-03-07T13:29:32.511Z",
+        "updatedAt": "2022-03-11T09:50:45.710Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -20,8 +20,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 25,
-        "publishedAt": "2022-03-07T13:29:32.511Z",
+        "publishedVersion": 27,
+        "publishedAt": "2022-03-11T09:50:45.710Z",
         "firstPublishedAt": "2021-11-29T14:35:22.532Z",
         "createdBy": {
           "sys": {
@@ -37,8 +37,8 @@
             "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         },
-        "publishedCounter": 13,
-        "version": 26,
+        "publishedCounter": 14,
+        "version": 28,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -561,9 +561,10 @@
               "enabledNodeTypes": [
                 "heading-3",
                 "hr",
-                "hyperlink"
+                "hyperlink",
+                "heading-2"
               ],
-              "message": "Only heading 3, horizontal rule, and link to Url nodes are allowed"
+              "message": "Only heading 3, horizontal rule, link to Url, and heading 2 nodes are allowed"
             },
             {
               "nodes": {
@@ -1447,7 +1448,7 @@
             "linkType": "Space"
           }
         },
-        "version": 26,
+        "version": 28,
         "createdAt": "2021-11-29T14:35:22.711Z",
         "createdBy": {
           "sys": {
@@ -1456,7 +1457,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2022-03-07T13:29:33.098Z",
+        "updatedAt": "2022-03-11T09:50:46.267Z",
         "updatedBy": {
           "sys": {
             "id": "4pVUkUPNV3AY8fZRIusvyB",
@@ -7483,7 +7484,7 @@
         "id": "6YMOVJcUS66vdhyP4q9CAs",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:26.665Z",
-        "updatedAt": "2022-02-15T10:02:30.727Z",
+        "updatedAt": "2022-03-11T11:02:23.117Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -7491,8 +7492,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 64,
-        "publishedAt": "2022-02-15T10:02:30.727Z",
+        "publishedVersion": 70,
+        "publishedAt": "2022-03-11T11:02:23.117Z",
         "firstPublishedAt": "2021-11-29T14:35:32.181Z",
         "createdBy": {
           "sys": {
@@ -7505,16 +7506,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
+            "id": "41EYmms4dbiOF2g9WoeruT"
           }
         },
-        "publishedCounter": 14,
-        "version": 65,
+        "publishedCounter": 16,
+        "version": 71,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
+            "id": "41EYmms4dbiOF2g9WoeruT"
           }
         },
         "contentType": {
@@ -8424,7 +8425,7 @@
                     "nodeType": "text"
                   }
                 ],
-                "nodeType": "paragraph"
+                "nodeType": "heading-2"
               },
               {
                 "data": {
@@ -8547,6 +8548,21 @@
                     ],
                     "nodeType": "hyperlink"
                   },
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
                   {
                     "data": {
                     },
@@ -10663,7 +10679,7 @@
         "id": "4I3FDDLhg7tAVuOP5CLvGZ",
         "type": "Entry",
         "createdAt": "2022-01-05T15:47:43.723Z",
-        "updatedAt": "2022-01-18T15:09:56.995Z",
+        "updatedAt": "2022-03-11T11:59:34.752Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -10671,8 +10687,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 25,
-        "publishedAt": "2022-01-18T15:09:56.995Z",
+        "publishedVersion": 46,
+        "publishedAt": "2022-03-11T11:59:34.752Z",
         "firstPublishedAt": "2022-01-05T15:51:06.196Z",
         "createdBy": {
           "sys": {
@@ -10685,16 +10701,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "17EKu6CdcxDO3oCMOU7xw7"
+            "id": "41EYmms4dbiOF2g9WoeruT"
           }
         },
-        "publishedCounter": 2,
-        "version": 26,
+        "publishedCounter": 3,
+        "version": 47,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "17EKu6CdcxDO3oCMOU7xw7"
+            "id": "41EYmms4dbiOF2g9WoeruT"
           }
         },
         "contentType": {
@@ -10756,7 +10772,7 @@
                 "content": [
                   {
                     "nodeType": "text",
-                    "value": "",
+                    "value": "Read about ",
                     "marks": [
                     ],
                     "data": {
@@ -10767,7 +10783,7 @@
                     "content": [
                       {
                         "nodeType": "text",
-                        "value": "Link to full page",
+                        "value": "how employers are making the most of apprenticeship incentives",
                         "marks": [
                         ],
                         "data": {
