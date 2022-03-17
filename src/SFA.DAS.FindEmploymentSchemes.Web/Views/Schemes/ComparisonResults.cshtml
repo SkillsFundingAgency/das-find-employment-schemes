@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Scheme>
+﻿@model ComparisonResultsModel
 
 @section BreadCrumbs {
-    <a id="scheme-comparison-breadcrumb" asp-route="scheme-comparison" class="govuk-back-link">Back</a>
+    <a id="scheme-comparison-breadcrumb" asp-route="@(Model.Preview.IsPreview?"scheme-comparison-preview":"scheme-comparison")" class="govuk-back-link">Back</a>
 }
 
 <div class="govuk-grid-row">
@@ -27,10 +27,10 @@
                 </tr>
             </thead>
             <tbody class="govuk-table__body">
-                @foreach(Scheme scheme in Model) {
+                @foreach(Scheme scheme in Model.Schemes) {
                     <tr>
                         <td class="govuk-table__cell">
-                            <a id="scheme-header-link-@scheme.HtmlId" asp-route="schemes" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                            <a id="scheme-header-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview?"schemes-preview":"schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
                         </td>
                         <td class="govuk-table__cell">
                             @scheme.ShortCost
@@ -46,7 +46,7 @@
             </tbody>
         </table>
         <p class="govuk-body">
-            <a href="/" class="govuk-link"> Return to list of all schemes </a>
+            <a asp-route="@(Model.Preview.IsPreview?"home-preview":"home")" class="govuk-link"> Return to list of all schemes </a>
         </p>
     </div>
 </div>

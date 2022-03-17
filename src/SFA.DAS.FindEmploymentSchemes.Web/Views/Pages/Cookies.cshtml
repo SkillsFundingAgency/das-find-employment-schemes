@@ -7,7 +7,7 @@
 }
 
 @section BreadCrumbs {
-    <a href="/" class="govuk-back-link">Home</a>
+    <a asp-route="@(Model.Preview.IsPreview?"home-preview":"home")" class="govuk-back-link">Home</a>
 }
 
 @section PreviewErrors

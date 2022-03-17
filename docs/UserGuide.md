@@ -141,7 +141,11 @@ Case study pages are located at https://find-employer-schemes.education.gov.uk/c
 
 Production content is edited in a single environment (see [Environments](#environments)). Content editors don't see the option to switch environments, they only see the single 'master' production environment.
 
-Draft pages and schemes can be previewed in the production environment by clicking the 'Open preview' button. That opens a browser tab showing the draft scheme, page or case study page (including draft versions of any referenced content types, such as draft filters).
+Draft pages, schemes and case study pages can be previewed in the production environment by clicking the 'Open preview' button. That opens a browser tab showing the draft scheme, page or case study page (including draft versions of any referenced content types, such as draft filters).
+
+When a preview page is being displayed, the site is in preview mode. All links will keep the site in preview mode. If a draft version of content is available, that will be shown, otherwise the published version will be used.
+
+All preview pages have `preview/` prepended to the URL path. The home page of the preview site can be accessed using `https://find-employer-schemes.education.gov.uk/preview`.
 
 Once draft content is finalised and has had a second person review and approve it, the item can be published.
 

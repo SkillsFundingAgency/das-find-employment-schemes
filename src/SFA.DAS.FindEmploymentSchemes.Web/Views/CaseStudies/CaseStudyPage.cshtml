@@ -11,10 +11,23 @@
 }
 
 @section BreadCrumbs {
-    <a href="/" class="govuk-back-link">Home</a>
-    @if (hasValidScheme)
-    {
-        <a href="@Url.Action("Details", "Schemes", new {schemeUrl = Model.CaseStudyPage.Scheme!.Url})" class="govuk-back-link">@Model.CaseStudyPage.Scheme!.Name</a>
+    @{
+        string homeRoute, schemeRoute;
+        if (Model.Preview.IsPreview)
+        {
+            homeRoute = "home-preview";
+            schemeRoute = "schemes-preview";
+        }
+        else
+        {
+            homeRoute = "home";
+            schemeRoute = "schemes";
+        }
+        <a asp-route="@homeRoute" class="govuk-back-link">Home</a>
+        @if (hasValidScheme)
+        {
+            <a asp-route="@schemeRoute" asp-route-schemeUrl="@Model.CaseStudyPage.Scheme!.Url" class="govuk-back-link">@Model.CaseStudyPage.Scheme!.Name</a>
+        }
     }
 }
 

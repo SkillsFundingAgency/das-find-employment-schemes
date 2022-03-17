@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Scheme>
+﻿@model ComparisonModel
 
 @section BreadCrumbs {
-    <a href="/" class="govuk-back-link">Home</a>
+    <a asp-route="@(Model.Preview.IsPreview?"home-preview":"home")" class="govuk-back-link">Home</a>
 }
 
 <div class="govuk-grid-row">
@@ -19,7 +19,7 @@
                         Select all that apply.
                     </div>
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                    @foreach (var scheme in Model)
+                    @foreach (var scheme in Model.Schemes)
                     {
                         <div class="govuk-checkboxes__item">
                             <input class="govuk-checkboxes__input" id="@scheme.HtmlId" name="schemes" type="checkbox" value="@scheme.HtmlId">
