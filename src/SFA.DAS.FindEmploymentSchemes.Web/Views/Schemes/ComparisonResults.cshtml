@@ -1,0 +1,52 @@
+﻿@model ComparisonResultsModel
+
+@section BreadCrumbs {
+    <a id="scheme-comparison-breadcrumb" asp-route="@(Model.Preview.IsPreview?"scheme-comparison-preview":"scheme-comparison")" class="govuk-back-link">Back</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 id="comparison-results-h1" class="govuk-heading-l">
+            Comparison of schemes
+        </h1>
+        <table id="comparison-results-table" class="govuk-table" aria-labelledby="comparison-results-h1">
+            <thead class="govuk-table__head">
+                <tr>
+                    <th scope="col" class="govuk-table__header">
+                        Scheme
+                    </th>
+                    <th scope="col" class="govuk-table__header">
+                        Cost
+                    </th>
+                    <th scope="col" class="govuk-table__header">
+                        Benefits
+                    </th>
+                    <th scope="col" class="govuk-table__header">
+                        Time
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                @foreach(Scheme scheme in Model.Schemes) {
+                    <tr>
+                        <td class="govuk-table__cell">
+                            <a id="scheme-header-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview?"schemes-preview":"schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                        </td>
+                        <td class="govuk-table__cell">
+                            @scheme.ShortCost
+                        </td>
+                        <td class="govuk-table__cell">
+                            @scheme.ShortBenefits
+                        </td>
+                        <td class="govuk-table__cell">
+                            @scheme.ShortTime
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p class="govuk-body">
+            <a asp-route="@(Model.Preview.IsPreview?"home-preview":"home")" class="govuk-link"> Return to list of all schemes </a>
+        </p>
+    </div>
+</div>

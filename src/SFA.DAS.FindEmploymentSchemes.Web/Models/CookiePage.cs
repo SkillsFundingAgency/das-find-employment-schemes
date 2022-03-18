@@ -10,7 +10,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
         public Page AnalyticsPage { get; }
         public Page MarketingPage { get; }
 
-        public CookiePage(Page analyticsPage, Page marketingPage, bool showMessage) : base(analyticsPage.Title, "cookies", analyticsPage.Content)
+        //todo: common const cookies url
+        //todo: page interface??
+        public CookiePage(Page analyticsPage, Page marketingPage, bool showMessage)
+            : base(analyticsPage.Title, "cookies", analyticsPage.Content)
         {
             ShowMessage = showMessage;
             AnalyticsPage = analyticsPage;

@@ -1,31 +1,22 @@
-using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
-using SFA.DAS.FindEmploymentSchemes.Web.ViewModels;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class SchemesController : Controller
     {
-        private readonly ILogger<SchemesController> _logger;
         private readonly ISchemesModelService _schemesModelService;
         private readonly IFilterService _filterService;
-        private readonly IContentService _contentService;
 
         public SchemesController(
-            ILogger<SchemesController> logger,
             ISchemesModelService schemesModelService,
-            IFilterService filterService,
-            IContentService contentService)
+            IFilterService filterService)
         {
-            _logger = logger;
             _schemesModelService = schemesModelService;
             _filterService = filterService;
-            _contentService = contentService;
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
@@ -36,7 +27,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         // if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled
         [HttpPost]
-        public IActionResult Home(SchemeFilterViewModel filters, [FromQuery] string? show)
+        public IActionResult Home(SchemeFilterModel filters, [FromQuery] string? show)
         {
             if (show is "filter")
             {
@@ -48,6 +39,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             }
 
             return View(_filterService.ApplyFilter(filters));
+        }
+
+        public async Task<IActionResult> HomePreview()
+        {
+            return View("home", await _schemesModelService.CreateHomeModelPreview());
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
@@ -62,19 +58,36 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         public async Task<IActionResult> DetailsPreview(string schemeUrl)
         {
-            var previewContent = await _contentService.UpdatePreview();
-
-            SchemeDetailsModel model;
-            try
-            {
-                model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes);
-            }
-            catch (Exception)
-            {
+            var schemeDetailsModel = await _schemesModelService.GetSchemeDetailsModelPreview(schemeUrl);
+            if (schemeDetailsModel == null)
                 return NotFound();
-            }
 
-            return View("Details", model);
+            return View("Details", schemeDetailsModel);
+        }
+
+        public IActionResult Comparison()
+        {
+            return View(_schemesModelService.ComparisonModel);
+        }
+
+        [HttpPost]
+        public IActionResult Comparison(string[] schemes)
+        {
+            var model = _schemesModelService.CreateComparisonResultsModel(schemes);
+            return View("ComparisonResults", model);
+        }
+
+        public async Task<IActionResult> ComparisonPreview()
+        {
+            var comparisonModel = await _schemesModelService.CreateComparisonModelPreview();
+            return View("Comparison", comparisonModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ComparisonPreview(string[] schemes)
+        {
+            var model = await _schemesModelService.CreateComparisonResultsModelPreview(schemes);
+            return View("ComparisonResults", model);
         }
     }
 }

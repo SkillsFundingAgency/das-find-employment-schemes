@@ -12,7 +12,7 @@
         "id": "scheme",
         "type": "ContentType",
         "createdAt": "2021-11-29T14:35:22.062Z",
-        "updatedAt": "2022-02-14T13:21:47.848Z",
+        "updatedAt": "2022-03-11T09:50:45.710Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -20,8 +20,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 21,
-        "publishedAt": "2022-02-14T13:21:47.848Z",
+        "publishedVersion": 27,
+        "publishedAt": "2022-03-11T09:50:45.710Z",
         "firstPublishedAt": "2021-11-29T14:35:22.532Z",
         "createdBy": {
           "sys": {
@@ -37,8 +37,8 @@
             "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         },
-        "publishedCounter": 11,
-        "version": 22,
+        "publishedCounter": 14,
+        "version": 28,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -60,6 +60,13 @@
           "validations": [
             {
               "unique": true
+            },
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
             }
           ],
           "disabled": false,
@@ -96,7 +103,7 @@
           "name": "Short Cost",
           "type": "RichText",
           "localized": false,
-          "required": false,
+          "required": true,
           "validations": [
             {
               "enabledMarks": [
@@ -176,6 +183,13 @@
           "localized": false,
           "required": true,
           "validations": [
+            {
+              "regexp": {
+                "pattern": "^[a-zA-Z0-9-]*$",
+                "flags": null
+              },
+              "message": "Must only contain letters, numbers or the hyphen (-)"
+            }
           ],
           "disabled": false,
           "omitted": false
@@ -410,6 +424,13 @@
           "localized": false,
           "required": false,
           "validations": [
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
+            }
           ],
           "defaultValue": {
             "en-US": "How to offer"
@@ -540,9 +561,10 @@
               "enabledNodeTypes": [
                 "heading-3",
                 "hr",
-                "hyperlink"
+                "hyperlink",
+                "heading-2"
               ],
-              "message": "Only heading 3, horizontal rule, and link to Url nodes are allowed"
+              "message": "Only heading 3, horizontal rule, link to Url, and heading 2 nodes are allowed"
             },
             {
               "nodes": {
@@ -566,7 +588,7 @@
         "id": "motivationsFilter",
         "type": "ContentType",
         "createdAt": "2021-11-29T14:35:22.117Z",
-        "updatedAt": "2021-11-30T15:47:29.891Z",
+        "updatedAt": "2022-03-03T10:12:16.237Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -574,8 +596,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 3,
-        "publishedAt": "2021-11-30T15:47:29.891Z",
+        "publishedVersion": 5,
+        "publishedAt": "2022-03-03T10:12:16.237Z",
         "firstPublishedAt": "2021-11-29T14:35:22.933Z",
         "createdBy": {
           "sys": {
@@ -591,8 +613,8 @@
             "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         },
-        "publishedCounter": 2,
-        "version": 4,
+        "publishedCounter": 3,
+        "version": 6,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -614,6 +636,13 @@
           "validations": [
             {
               "unique": true
+            },
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
             }
           ],
           "disabled": false,
@@ -626,6 +655,13 @@
           "localized": false,
           "required": true,
           "validations": [
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
+            }
           ],
           "disabled": false,
           "omitted": false
@@ -658,7 +694,7 @@
         "id": "payFilter",
         "type": "ContentType",
         "createdAt": "2021-11-29T14:35:22.123Z",
-        "updatedAt": "2021-11-30T15:47:58.464Z",
+        "updatedAt": "2022-03-03T10:15:38.307Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -666,8 +702,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 3,
-        "publishedAt": "2021-11-30T15:47:58.464Z",
+        "publishedVersion": 5,
+        "publishedAt": "2022-03-03T10:15:38.307Z",
         "firstPublishedAt": "2021-11-29T14:35:23.543Z",
         "createdBy": {
           "sys": {
@@ -683,8 +719,8 @@
             "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         },
-        "publishedCounter": 2,
-        "version": 4,
+        "publishedCounter": 3,
+        "version": 6,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -706,6 +742,13 @@
           "validations": [
             {
               "unique": true
+            },
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
             }
           ],
           "disabled": false,
@@ -718,6 +761,13 @@
           "localized": false,
           "required": true,
           "validations": [
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
+            }
           ],
           "disabled": false,
           "omitted": false
@@ -750,7 +800,7 @@
         "id": "schemeLengthFilter",
         "type": "ContentType",
         "createdAt": "2021-11-29T14:35:22.291Z",
-        "updatedAt": "2021-11-30T15:48:22.827Z",
+        "updatedAt": "2022-03-03T10:19:19.057Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -758,8 +808,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 3,
-        "publishedAt": "2021-11-30T15:48:22.827Z",
+        "publishedVersion": 5,
+        "publishedAt": "2022-03-03T10:19:19.057Z",
         "firstPublishedAt": "2021-11-29T14:35:23.245Z",
         "createdBy": {
           "sys": {
@@ -775,8 +825,8 @@
             "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         },
-        "publishedCounter": 2,
-        "version": 4,
+        "publishedCounter": 3,
+        "version": 6,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -798,6 +848,13 @@
           "validations": [
             {
               "unique": true
+            },
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
             }
           ],
           "disabled": false,
@@ -810,6 +867,13 @@
           "localized": false,
           "required": true,
           "validations": [
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
+            }
           ],
           "disabled": false,
           "omitted": false
@@ -842,7 +906,7 @@
         "id": "page",
         "type": "ContentType",
         "createdAt": "2021-12-06T11:01:47.559Z",
-        "updatedAt": "2021-12-06T11:03:54.056Z",
+        "updatedAt": "2022-03-03T10:14:06.561Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -850,8 +914,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 3,
-        "publishedAt": "2021-12-06T11:03:54.056Z",
+        "publishedVersion": 5,
+        "publishedAt": "2022-03-03T10:14:06.561Z",
         "firstPublishedAt": "2021-12-06T11:01:47.840Z",
         "createdBy": {
           "sys": {
@@ -867,8 +931,8 @@
             "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         },
-        "publishedCounter": 2,
-        "version": 4,
+        "publishedCounter": 3,
+        "version": 6,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -890,6 +954,13 @@
           "validations": [
             {
               "unique": true
+            },
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
             }
           ],
           "disabled": false,
@@ -904,6 +975,13 @@
           "validations": [
             {
               "unique": true
+            },
+            {
+              "regexp": {
+                "pattern": "^[a-zA-Z0-9-]*$",
+                "flags": null
+              },
+              "message": "Must only contain letters, numbers or the hyphen (-)"
             }
           ],
           "disabled": false,
@@ -958,7 +1036,7 @@
         "id": "caseStudy",
         "type": "ContentType",
         "createdAt": "2022-01-05T15:15:59.717Z",
-        "updatedAt": "2022-01-05T15:24:46.781Z",
+        "updatedAt": "2022-03-03T10:08:41.961Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -966,8 +1044,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 5,
-        "publishedAt": "2022-01-05T15:24:46.781Z",
+        "publishedVersion": 7,
+        "publishedAt": "2022-03-03T10:08:41.961Z",
         "firstPublishedAt": "2022-01-05T15:16:00.183Z",
         "createdBy": {
           "sys": {
@@ -983,8 +1061,8 @@
             "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         },
-        "publishedCounter": 3,
-        "version": 6,
+        "publishedCounter": 4,
+        "version": 8,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -1006,6 +1084,13 @@
           "validations": [
             {
               "unique": true
+            },
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
             }
           ],
           "disabled": false,
@@ -1018,6 +1103,13 @@
           "localized": false,
           "required": true,
           "validations": [
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
+            }
           ],
           "disabled": false,
           "omitted": false
@@ -1068,7 +1160,7 @@
         "id": "caseStudyPage",
         "type": "ContentType",
         "createdAt": "2022-01-25T16:35:25.696Z",
-        "updatedAt": "2022-02-11T12:06:41.646Z",
+        "updatedAt": "2022-03-03T10:10:29.686Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -1076,8 +1168,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 7,
-        "publishedAt": "2022-02-11T12:06:41.646Z",
+        "publishedVersion": 9,
+        "publishedAt": "2022-03-03T10:10:29.686Z",
         "firstPublishedAt": "2022-01-25T16:35:25.925Z",
         "createdBy": {
           "sys": {
@@ -1090,16 +1182,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "17EKu6CdcxDO3oCMOU7xw7"
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         },
-        "publishedCounter": 4,
-        "version": 8,
+        "publishedCounter": 5,
+        "version": 10,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "17EKu6CdcxDO3oCMOU7xw7"
+            "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         }
       },
@@ -1116,6 +1208,13 @@
           "validations": [
             {
               "unique": true
+            },
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
             }
           ],
           "disabled": false,
@@ -1130,6 +1229,13 @@
           "validations": [
             {
               "unique": true
+            },
+            {
+              "regexp": {
+                "pattern": "^[a-zA-Z0-9-]*$",
+                "flags": null
+              },
+              "message": "Must only contain letters, numbers or the hyphen (-)"
             }
           ],
           "disabled": false,
@@ -1203,7 +1309,7 @@
         "id": "subScheme",
         "type": "ContentType",
         "createdAt": "2022-02-10T13:59:33.344Z",
-        "updatedAt": "2022-02-10T14:05:16.843Z",
+        "updatedAt": "2022-03-03T10:20:00.163Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -1211,8 +1317,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 3,
-        "publishedAt": "2022-02-10T14:05:16.843Z",
+        "publishedVersion": 5,
+        "publishedAt": "2022-03-03T10:20:00.163Z",
         "firstPublishedAt": "2022-02-10T13:59:33.973Z",
         "createdBy": {
           "sys": {
@@ -1228,8 +1334,8 @@
             "id": "4pVUkUPNV3AY8fZRIusvyB"
           }
         },
-        "publishedCounter": 2,
-        "version": 4,
+        "publishedCounter": 3,
+        "version": 6,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -1251,6 +1357,13 @@
           "validations": [
             {
               "unique": true
+            },
+            {
+              "prohibitRegexp": {
+                "pattern": "^\\s$",
+                "flags": null
+              },
+              "message": "This field can't be blank (i.e. only contain whitespace)"
             }
           ],
           "disabled": false,
@@ -1335,7 +1448,7 @@
             "linkType": "Space"
           }
         },
-        "version": 22,
+        "version": 28,
         "createdAt": "2021-11-29T14:35:22.711Z",
         "createdBy": {
           "sys": {
@@ -1344,7 +1457,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2022-02-14T13:21:48.363Z",
+        "updatedAt": "2022-03-11T09:50:46.267Z",
         "updatedBy": {
           "sys": {
             "id": "4pVUkUPNV3AY8fZRIusvyB",
@@ -1418,7 +1531,7 @@
         {
           "fieldId": "shortCost",
           "settings": {
-            "helpText": "A short description of the scheme's cost, as displayed on the home and filter pages. If no value, defaults to 'No costs'"
+            "helpText": "A short description of the scheme's cost, as displayed on the home and filter pages"
           },
           "widgetId": "richTextEditor",
           "widgetNamespace": "builtin"
@@ -1595,7 +1708,7 @@
             "linkType": "Space"
           }
         },
-        "version": 4,
+        "version": 6,
         "createdAt": "2021-11-29T14:35:23.015Z",
         "createdBy": {
           "sys": {
@@ -1604,7 +1717,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2021-11-30T15:47:30.957Z",
+        "updatedAt": "2022-03-03T10:12:16.684Z",
         "updatedBy": {
           "sys": {
             "id": "4pVUkUPNV3AY8fZRIusvyB",
@@ -1662,7 +1775,7 @@
             "linkType": "Space"
           }
         },
-        "version": 4,
+        "version": 6,
         "createdAt": "2021-11-29T14:35:23.630Z",
         "createdBy": {
           "sys": {
@@ -1671,7 +1784,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2021-11-30T15:47:59.376Z",
+        "updatedAt": "2022-03-03T10:15:38.820Z",
         "updatedBy": {
           "sys": {
             "id": "4pVUkUPNV3AY8fZRIusvyB",
@@ -1729,7 +1842,7 @@
             "linkType": "Space"
           }
         },
-        "version": 4,
+        "version": 6,
         "createdAt": "2021-11-29T14:35:23.326Z",
         "createdBy": {
           "sys": {
@@ -1738,7 +1851,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2021-11-30T15:48:23.399Z",
+        "updatedAt": "2022-03-03T10:19:19.604Z",
         "updatedBy": {
           "sys": {
             "id": "4pVUkUPNV3AY8fZRIusvyB",
@@ -1796,7 +1909,7 @@
             "linkType": "Space"
           }
         },
-        "version": 4,
+        "version": 6,
         "createdAt": "2021-12-06T11:01:48.045Z",
         "createdBy": {
           "sys": {
@@ -1805,7 +1918,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2021-12-06T11:03:55.620Z",
+        "updatedAt": "2022-03-03T10:14:07.056Z",
         "updatedBy": {
           "sys": {
             "id": "4pVUkUPNV3AY8fZRIusvyB",
@@ -1866,7 +1979,7 @@
             "linkType": "Space"
           }
         },
-        "version": 6,
+        "version": 8,
         "createdAt": "2022-01-05T15:16:00.312Z",
         "createdBy": {
           "sys": {
@@ -1875,7 +1988,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2022-01-05T15:24:47.615Z",
+        "updatedAt": "2022-03-03T10:08:42.451Z",
         "updatedBy": {
           "sys": {
             "id": "4pVUkUPNV3AY8fZRIusvyB",
@@ -1967,7 +2080,7 @@
             "linkType": "Space"
           }
         },
-        "version": 8,
+        "version": 10,
         "createdAt": "2022-01-25T16:35:26.015Z",
         "createdBy": {
           "sys": {
@@ -1976,10 +2089,10 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2022-02-11T12:06:42.126Z",
+        "updatedAt": "2022-03-03T10:10:30.165Z",
         "updatedBy": {
           "sys": {
-            "id": "17EKu6CdcxDO3oCMOU7xw7",
+            "id": "4pVUkUPNV3AY8fZRIusvyB",
             "type": "Link",
             "linkType": "User"
           }
@@ -2047,7 +2160,7 @@
             "linkType": "Space"
           }
         },
-        "version": 4,
+        "version": 6,
         "createdAt": "2022-02-10T13:59:34.075Z",
         "createdBy": {
           "sys": {
@@ -2056,7 +2169,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2022-02-10T14:05:17.312Z",
+        "updatedAt": "2022-03-03T10:20:00.724Z",
         "updatedBy": {
           "sys": {
             "id": "4pVUkUPNV3AY8fZRIusvyB",
@@ -2505,7 +2618,7 @@
         "id": "1KC8dVK5fYMNvb7vPqaUYP",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:25.584Z",
-        "updatedAt": "2022-01-26T15:16:16.026Z",
+        "updatedAt": "2022-02-17T11:24:23.278Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -2513,8 +2626,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 34,
-        "publishedAt": "2022-01-26T15:16:16.026Z",
+        "publishedVersion": 36,
+        "publishedAt": "2022-02-17T11:24:23.278Z",
         "firstPublishedAt": "2021-11-29T14:35:29.696Z",
         "createdBy": {
           "sys": {
@@ -2527,16 +2640,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "17EKu6CdcxDO3oCMOU7xw7"
+            "id": "2xtrVfHbvHb45HT1DhKYqH"
           }
         },
-        "publishedCounter": 8,
-        "version": 35,
+        "publishedCounter": 9,
+        "version": 37,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "17EKu6CdcxDO3oCMOU7xw7"
+            "id": "2xtrVfHbvHb45HT1DhKYqH"
           }
         },
         "contentType": {
@@ -2613,7 +2726,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Provides a stepping stone for your future apprentices or employees to gain valuable skills relevant to your business. \n",
+                    "value": "Provides a stepping stone for your future apprentices or employees to gain valuable skills relevant to your business",
                     "nodeType": "text"
                   }
                 ],
@@ -3565,7 +3678,7 @@
         "id": "28pcyrQCHGNfDXYQjRqan",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:25.816Z",
-        "updatedAt": "2022-02-11T16:34:19.917Z",
+        "updatedAt": "2022-02-17T11:23:21.355Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -3573,8 +3686,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 96,
-        "publishedAt": "2022-02-11T16:34:19.917Z",
+        "publishedVersion": 101,
+        "publishedAt": "2022-02-17T11:23:21.355Z",
         "firstPublishedAt": "2021-11-29T14:35:30.014Z",
         "createdBy": {
           "sys": {
@@ -3587,16 +3700,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
+            "id": "2xtrVfHbvHb45HT1DhKYqH"
           }
         },
-        "publishedCounter": 12,
-        "version": 97,
+        "publishedCounter": 13,
+        "version": 102,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
+            "id": "2xtrVfHbvHb45HT1DhKYqH"
           }
         },
         "contentType": {
@@ -3649,7 +3762,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Cost is dependent on the size of your business. There is no cost to the employer if the learner is not currently employed by you.",
+                    "value": "Cost is dependent on the size of your business. There is no cost to the employer if the learner is not currently employed by you",
                     "nodeType": "text"
                   }
                 ],
@@ -3673,7 +3786,7 @@
                     },
                     "marks": [
                     ],
-                    "value": " A new starter will be trained in a specialist skill specific to your business and be highly motivated by a guaranteed an interview afterwards.\n\n",
+                    "value": " A new starter will be trained in a specialist skill specific to your business and be highly motivated by a guaranteed interview afterwards\n\n",
                     "nodeType": "text"
                   }
                 ],
@@ -4617,7 +4730,7 @@
         "id": "6pHHPXKaSNyGmGNGWqOB26",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:25.933Z",
-        "updatedAt": "2022-01-19T16:38:05.795Z",
+        "updatedAt": "2022-02-17T11:23:59.831Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -4625,8 +4738,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 39,
-        "publishedAt": "2022-01-19T16:38:05.795Z",
+        "publishedVersion": 41,
+        "publishedAt": "2022-02-17T11:23:59.831Z",
         "firstPublishedAt": "2021-11-29T14:35:29.383Z",
         "createdBy": {
           "sys": {
@@ -4639,16 +4752,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
+            "id": "2xtrVfHbvHb45HT1DhKYqH"
           }
         },
-        "publishedCounter": 9,
-        "version": 40,
+        "publishedCounter": 10,
+        "version": 42,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
+            "id": "2xtrVfHbvHb45HT1DhKYqH"
           }
         },
         "contentType": {
@@ -4725,7 +4838,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Allows you to grow your workforce in the short-term with little or no cost and scout future talent in your area.\r\n",
+                    "value": "Allows you to grow your workforce in the short-term with little or no cost and scout future talent in your area\r\n",
                     "nodeType": "text"
                   }
                 ],
@@ -5434,7 +5547,7 @@
         "id": "5EB80Hvm6Xql7NR56k9Msu",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:26.631Z",
-        "updatedAt": "2022-01-19T16:33:51.354Z",
+        "updatedAt": "2022-02-17T11:26:43.641Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -5442,8 +5555,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 14,
-        "publishedAt": "2022-01-19T16:33:51.354Z",
+        "publishedVersion": 17,
+        "publishedAt": "2022-02-17T11:26:43.641Z",
         "firstPublishedAt": "2021-11-29T14:35:30.920Z",
         "createdBy": {
           "sys": {
@@ -5459,8 +5572,8 @@
             "id": "7dYxUVTD7eDpB5ejE8uItu"
           }
         },
-        "publishedCounter": 5,
-        "version": 15,
+        "publishedCounter": 6,
+        "version": 18,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -5882,31 +5995,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Alternatively, contact the Care Leavers Covenant via telephone on ",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {
-                      "uri": "tel:08000773557"
-                    },
-                    "content": [
-                      {
-                        "data": {
-                        },
-                        "marks": [
-                        ],
-                        "value": "0800 077 3557",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
-                  },
-                  {
-                    "data": {
-                    },
-                    "marks": [
-                    ],
-                    "value": ".",
+                    "value": "Alternatively, contact the Care Leavers Covenant via telephone on 0800 077 3557",
                     "nodeType": "text"
                   }
                 ],
@@ -6702,7 +6791,7 @@
         "id": "4c6ZO0uPEfZ2SkNXwyI5Yz",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:26.651Z",
-        "updatedAt": "2022-01-20T11:44:35.602Z",
+        "updatedAt": "2022-02-17T11:20:17.196Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -6710,8 +6799,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 17,
-        "publishedAt": "2022-01-20T11:44:35.602Z",
+        "publishedVersion": 20,
+        "publishedAt": "2022-02-17T11:20:17.196Z",
         "firstPublishedAt": "2021-11-29T14:35:30.626Z",
         "createdBy": {
           "sys": {
@@ -6724,16 +6813,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
+            "id": "2xtrVfHbvHb45HT1DhKYqH"
           }
         },
-        "publishedCounter": 6,
-        "version": 18,
+        "publishedCounter": 7,
+        "version": 21,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
+            "id": "2xtrVfHbvHb45HT1DhKYqH"
           }
         },
         "contentType": {
@@ -6786,7 +6875,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Free government scheme but you may have your own business costs.",
+                    "value": "Free government scheme but you may have your own business costs",
                     "nodeType": "text"
                   }
                 ],
@@ -6810,7 +6899,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Increases your confidence and ability to employ individuals with additional needs, improving and expanding your business’ recruitment prospects.",
+                    "value": "Increases your confidence and ability to employ individuals with additional needs, improving and expanding your business’ recruitment prospects",
                     "nodeType": "text"
                   }
                 ],
@@ -7395,7 +7484,7 @@
         "id": "6YMOVJcUS66vdhyP4q9CAs",
         "type": "Entry",
         "createdAt": "2021-11-29T14:35:26.665Z",
-        "updatedAt": "2022-02-15T10:02:30.727Z",
+        "updatedAt": "2022-03-11T11:02:23.117Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -7403,8 +7492,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 64,
-        "publishedAt": "2022-02-15T10:02:30.727Z",
+        "publishedVersion": 70,
+        "publishedAt": "2022-03-11T11:02:23.117Z",
         "firstPublishedAt": "2021-11-29T14:35:32.181Z",
         "createdBy": {
           "sys": {
@@ -7417,16 +7506,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
+            "id": "41EYmms4dbiOF2g9WoeruT"
           }
         },
-        "publishedCounter": 14,
-        "version": 65,
+        "publishedCounter": 16,
+        "version": 71,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "7dYxUVTD7eDpB5ejE8uItu"
+            "id": "41EYmms4dbiOF2g9WoeruT"
           }
         },
         "contentType": {
@@ -8336,7 +8425,7 @@
                     "nodeType": "text"
                   }
                 ],
-                "nodeType": "paragraph"
+                "nodeType": "heading-2"
               },
               {
                 "data": {
@@ -8459,6 +8548,21 @@
                     ],
                     "nodeType": "hyperlink"
                   },
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
                   {
                     "data": {
                     },
@@ -10575,7 +10679,7 @@
         "id": "4I3FDDLhg7tAVuOP5CLvGZ",
         "type": "Entry",
         "createdAt": "2022-01-05T15:47:43.723Z",
-        "updatedAt": "2022-01-18T15:09:56.995Z",
+        "updatedAt": "2022-03-11T11:59:34.752Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -10583,8 +10687,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 25,
-        "publishedAt": "2022-01-18T15:09:56.995Z",
+        "publishedVersion": 46,
+        "publishedAt": "2022-03-11T11:59:34.752Z",
         "firstPublishedAt": "2022-01-05T15:51:06.196Z",
         "createdBy": {
           "sys": {
@@ -10597,16 +10701,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "17EKu6CdcxDO3oCMOU7xw7"
+            "id": "41EYmms4dbiOF2g9WoeruT"
           }
         },
-        "publishedCounter": 2,
-        "version": 26,
+        "publishedCounter": 3,
+        "version": 47,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "17EKu6CdcxDO3oCMOU7xw7"
+            "id": "41EYmms4dbiOF2g9WoeruT"
           }
         },
         "contentType": {
@@ -10668,7 +10772,7 @@
                 "content": [
                   {
                     "nodeType": "text",
-                    "value": "",
+                    "value": "Read about ",
                     "marks": [
                     ],
                     "data": {
@@ -10679,7 +10783,7 @@
                     "content": [
                       {
                         "nodeType": "text",
-                        "value": "Link to full page",
+                        "value": "how employers are making the most of apprenticeship incentives",
                         "marks": [
                         ],
                         "data": {

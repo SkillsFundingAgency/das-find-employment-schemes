@@ -6,7 +6,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 {
     [DebuggerDisplay("{Title}")]
     [ExcludeFromCodeCoverage]
-    public class Page
+    public class Page : IRootContent
     {
         public string? Title { get; set; }
         public string? Url { get; set; }

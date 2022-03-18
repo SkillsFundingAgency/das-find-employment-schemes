@@ -1,0 +1,41 @@
+﻿@model ComparisonModel
+
+@section BreadCrumbs {
+    <a asp-route="@(Model.Preview.IsPreview?"home-preview":"home")" class="govuk-back-link">Home</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="post">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="schemes-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            Which schemes would you like to compare in more detail?
+                        </h1>
+                    </legend>
+                    <div id="schemes-hint" class="govuk-hint">
+                        Select all that apply.
+                    </div>
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    @foreach (var scheme in Model.Schemes)
+                    {
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="@scheme.HtmlId" name="schemes" type="checkbox" value="@scheme.HtmlId">
+                            <label class="govuk-label govuk-checkboxes__label" for="@scheme.HtmlId">
+                                @scheme.Name
+                            </label>
+                        </div>
+                    }
+                    </div>
+
+                </fieldset>
+            </div>
+            
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+    </div>
+</div>

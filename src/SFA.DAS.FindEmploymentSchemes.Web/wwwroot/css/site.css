@@ -1,6 +1,6 @@
 
 h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1, etc {*/
-    font-family: arial !important;
+    font-family: arial, sans-serif !important;
 }
 
 .app-header {
@@ -126,6 +126,34 @@ body.js-enabled .app-show-on-mobile-no-js {
     padding: 0;
 }
 
+.app-video-container {
+    position: relative;
+    width: 100%;
+    --aspect-ratio: 56.25%;
+}
+
+.app-video-container::before {
+    display: block;
+    padding-top: var(--aspect-ratio);
+    content: "";
+}
+
+.app-video-container > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* IE only. IE doesn't support CSS variables. */
+/* youtube videos work on IE, but are forced into a 16:9 ratio */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .app-video-container::before {
+        padding-top: 56.25% !important;
+    }
+}
+
 @media (max-width: 40.0600em) {
     #scheme-home-filter-header {
         /* stop heading from overlapping close button */
@@ -197,7 +225,6 @@ body.js-enabled .app-show-on-mobile-no-js {
     .cx-cta-box {
         margin-bottom: 20px;
         margin-top: 40px;
-        padding-bottom: 25px;
         padding: 20px;
     }
 }
@@ -206,9 +233,31 @@ body.js-enabled .app-show-on-mobile-no-js {
     #explore-schemes li { margin-bottom: 10px; }
     .explore-schemes-current-scheme {
         font-weight: 600;
-        color: #1d70b8;
         margin-left: -14px;
         padding-left: 10px;
         border-left: 4px solid #1d70b8;
     }
+}
+
+.app-alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.app-alert {
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+@media (max-width: 40.0600em) {
+    #comparison-results-table .govuk-table__header, #comparison-results-table .govuk-table__cell {
+        padding: 10px 10px 10px 0;
+    }
+}
+
+.govuk-link:link, .das-table__sort:link, .das-button--inline-link:link, .govuk-details__summary {
+    color: #155389;
 }
