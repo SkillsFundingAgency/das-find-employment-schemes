@@ -74,6 +74,13 @@ ShowHideElement.prototype.isExpanded = function () {
     return this.module.classList.contains(this.sectionExpandedClass)
 }
 
+function enableCompareButton() {
+    $(".govuk-button").prop('disabled', true);
+    $(".govuk-checkboxes__input").click(function (e) {
+        var checked = $(".govuk-checkboxes__input:checked").length;
+        $(".govuk-button").prop('disabled', checked < 2);
+    });
+}
 
 
 $(document).ready(function () {
@@ -81,11 +88,5 @@ $(document).ready(function () {
         $(this).siblings("details.govuk-details").each(function () {
             $(this).removeAttr("open");
         });
-    });
-
-    $("#comparison-submit").prop('disabled', true);
-    $(".comparison-checkbox").click(function (e) {
-        var checked = $(".comparison-checkbox:checked").length;
-        $("#comparison-submit").prop('disabled', checked < 2);
     });
 });
