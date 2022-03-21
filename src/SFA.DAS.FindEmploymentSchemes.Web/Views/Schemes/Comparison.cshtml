@@ -39,3 +39,13 @@
         </form>
     </div>
 </div>
+
+<script asp-add-nonce>
+    document.addEventListener("DOMContentLoaded", function() {
+        $(".govuk-button").prop('disabled', true);
+        $(".govuk-checkboxes__input").click(function(e) {
+            var checked = $(".govuk-checkboxes__input:checked").length;
+            $(".govuk-button").prop('disabled', checked < 2);
+        });
+    });
+</script>
