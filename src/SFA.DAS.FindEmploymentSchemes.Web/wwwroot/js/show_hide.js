@@ -82,4 +82,10 @@ $(document).ready(function () {
             $(this).removeAttr("open");
         });
     });
+
+    $("#comparison-submit").prop('disabled', true);
+    $(".comparison-checkbox").click(function (e) {
+        var checked = $(".comparison-checkbox:checked").length;
+        $("#comparison-submit").prop('disabled', checked < 2);
+    });
 });
