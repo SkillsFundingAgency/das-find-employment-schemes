@@ -75,14 +75,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         {
             if (schemes.Any())
             {
-                var model = _schemesModelService.CreateComparisonResultsModel(schemes);
-                return View("ComparisonResults", model);
+                ComparisonResultsModel resultsModel = _schemesModelService.CreateComparisonResultsModel(schemes);
+                return View("ComparisonResults", resultsModel);
             }
-            else
-            {
-                ComparisonModel model = new ComparisonModel(_schemesModelService.ComparisonModel.Schemes, true);
-                return View(model);
-            }
+
+            ComparisonModel model = new ComparisonModel(_schemesModelService.ComparisonModel.Schemes, true);
+            return View(model);
         }
 
         public async Task<IActionResult> ComparisonPreview()
