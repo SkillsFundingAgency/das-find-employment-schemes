@@ -87,7 +87,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration)
         {
-            app.UseAppSecurityHeaders(env, configuration);
+            //app.UseAppSecurityHeaders(env, configuration);
 
             if (env.IsDevelopment())
             {
@@ -106,6 +106,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             app.Use(async (context, next) =>
             {
+                context.Response.Headers["Access-Control-Allow-Origin"] = "https://www.youtube-nocookie.com";
                 await next();
 
                 if (context.Response.StatusCode == 404 && !context.Response.HasStarted)
