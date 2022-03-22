@@ -277,67 +277,6 @@ body.js-enabled .app-show-on-mobile-no-js {
 
 /*https://github.com/nhsuk/nhsuk-frontend/blob/master/packages/components/tables/_tables.scss*/
 
-/*.nhsuk-table-responsive {
-    margin-bottom: 0;
-    width: 100%;
-}
-
-.nhsuk-table-responsive .nhsuk-table__body .nhsuk-table__row td {
-    display: block;
-    display: flex;
-    justify-content: space-between;
-    min-width: 1px;
-}
-
-@media (max-width: 48.0525em) .nhsuk-table-responsive .nhsuk-table__body .nhsuk-table__row td {
-                                  padding-right: 0;
-                                  text-align: right;
-                              }
-
-@media (max-width: 48.0525em) .nhsuk-table-responsive .nhsuk-table__body .nhsuk-table__row td:last-child {
-                                  border-bottom: 3px solid #b1b4b6;
-                              }
-
-.nhsuk-table-responsive thead {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    clip: rect(0 0 0 0) !important;
-    -webkit-clip-path: inset(50%) !important;
-    clip-path: inset(50%) !important;
-    border: 0 !important;
-    white-space: nowrap !important;
-}
-
-@media (max-width: 48.0525em) .nhsuk-table-responsive thead {
-                                  position: absolute !important;
-                                  width: 1px !important;
-                                  height: 1px !important;
-                                  margin: 0 !important;
-                                  padding: 0 !important;
-                                  overflow: hidden !important;
-                                  clip: rect(0 0 0 0) !important;
-                                  -webkit-clip-path: inset(50%) !important;
-                                  clip-path: inset(50%) !important;
-                                  border: 0 !important;
-                                  white-space: nowrap !important;
-                              }
-
-.nhsuk-table-responsive .nhsuk-table__body .nhsuk-table__row {
-    display: block;
-    margin-bottom: 20px;
-}
-
-.nhsuk-table-responsive .nhsuk-table__body .nhsuk-table-responsive__heading {
-    font-weight: bold;
-    padding-right: 15px;
-    text-align: left;
-}
-*/
-
 /* ==========================================================================
    COMPONENTS / #TABLE
    ========================================================================== */
@@ -481,7 +420,7 @@ body.js-enabled .app-show-on-mobile-no-js {
         /* [7] */
     }
 
-        .nhsuk-table-responsive .nhsuk-table__body .nhsuk-table__row td:last-child {
-            border-bottom: 3px solid #b1b4b6;
-        }
+    .nhsuk-table-responsive .nhsuk-table__body .nhsuk-table__row td:last-child {
+        border-bottom: 3px solid #b1b4b6;
+    }
 }
