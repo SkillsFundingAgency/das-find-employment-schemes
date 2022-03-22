@@ -11,23 +11,12 @@
 }
 
 @section BreadCrumbs {
-    @{
-        string homeRoute, schemeRoute;
-        if (Model.Preview.IsPreview)
-        {
-            homeRoute = "home-preview";
-            schemeRoute = "schemes-preview";
-        }
-        else
-        {
-            homeRoute = "home";
-            schemeRoute = "schemes";
-        }
-        <a asp-route="@homeRoute" class="govuk-back-link">Home</a>
-        @if (hasValidScheme)
-        {
-            <a asp-route="@schemeRoute" asp-route-schemeUrl="@Model.CaseStudyPage.Scheme!.Url" class="govuk-back-link">@Model.CaseStudyPage.Scheme!.Name</a>
-        }
+    @await Html.PartialAsync("_BreadcrumbPartial", Model)
+
+    @if (hasValidScheme)
+    {
+        <a asp-route="@(Model.Preview.IsPreview ? "schemes-preview" : "schemes")"
+           asp-route-schemeUrl="@Model.CaseStudyPage.Scheme!.Url" class="govuk-back-link">@Model.CaseStudyPage.Scheme!.Name</a>
     }
 }
 
