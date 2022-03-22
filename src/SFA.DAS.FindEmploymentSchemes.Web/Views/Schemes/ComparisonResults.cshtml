@@ -44,12 +44,8 @@
             </table>
         </div>
 
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
-                <p class="govuk-body">
-                    <a asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="govuk-link"> Return to list of all schemes </a>
-                </p>
-            </div>
-        </div>
+        <p class="govuk-body">
+            <a asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="govuk-link"> Return to list of all schemes </a>
+        </p>
     </div>
 </div>

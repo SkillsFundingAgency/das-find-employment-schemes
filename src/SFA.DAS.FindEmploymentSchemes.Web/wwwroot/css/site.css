@@ -262,19 +262,6 @@ body.js-enabled .app-show-on-mobile-no-js {
     color: #155389;
 }
 
-.nhsuk-table-container {
-    margin-bottom: 30px;
-    display: block;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-    overflow-x: auto;
-    width: 100%;
-}
-
-@media (min-width: 40.0625em) .nhsuk-table-container {
-                                  margin-bottom: 50px;
-                              }
-
 /*https://github.com/nhsuk/nhsuk-frontend/blob/master/packages/components/tables/_tables.scss*/
 
 /* ==========================================================================
