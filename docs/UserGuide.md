@@ -179,12 +179,6 @@ Due to a limitation in the number of Contentful environments available to us, th
 
 ### Environment update schedules
 
-The pp environment updates on the same schedule as production. The other environments update every five minutes from 7:00 to 18:55 to allow for quicker development and testing.
+The pp environment updates on the same schedule as production. The other environments update every half hour at 15 and 45 past the hour, from 7:15 to 18:45.
 
-> **Warning**
-> 
-> Contentful currently has rate throttling set at 13 hits/sec.
-> 
-> With 2 instances per environment, at 0,30, there will be 10 hits/sec.
-> 
-> If the throttling rate is reduced, or the number of environments/instances increases, we'll have to stagger updates across environments. We couldn't do that initially, as the release pipeline requires config to be shared across some environments.
+The updates on the other environments are staggered compared to prod and pp, so that we don’t hit any Contentful API request throttling issues.
