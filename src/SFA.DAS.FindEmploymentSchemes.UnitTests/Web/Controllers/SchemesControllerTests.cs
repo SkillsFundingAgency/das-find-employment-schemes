@@ -124,6 +124,30 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 #endif
 
         [Fact]
+        public async Task HomePreview_HomeViewTest()
+        {
+            // act
+            IActionResult result = await SchemesController.HomePreview();
+
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.Equal("home", viewResult.ViewName);
+        }
+
+        [Fact]
+        public async Task  HomePreview_HomeModelIsUsedTest()
+        {
+            // act
+            IActionResult result = await SchemesController.HomePreview();
+
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.NotNull(viewResult.Model);
+            Assert.IsType<HomeModel>(viewResult.Model);
+            Assert.Equal(PreviewHomeModel, viewResult.Model);
+        }
+
+        [Fact]
         public void Details_KnownSchemeUrlReturnsViewResultWithDefaultViewTest()
         {
             var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
