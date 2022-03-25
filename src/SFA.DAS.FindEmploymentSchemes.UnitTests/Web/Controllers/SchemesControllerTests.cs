@@ -203,6 +203,61 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
+        public async Task DetailsPreview_KnownSchemeUrlReturnsViewResultWithDetailsViewTest()
+        {
+            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
+
+            string schemeUrl = schemes.First().Url;
+
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes);
+
+            A.CallTo(() => SchemesModelService.GetSchemeDetailsModelPreview(schemeUrl))
+                .Returns(schemeDetailsModel);
+
+            // act
+            IActionResult result = await SchemesController.DetailsPreview(schemeUrl);
+
+            Assert.IsNotType<NotFoundResult>(result);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("Details", viewResult.ViewName);
+        }
+
+        [Fact]
+        public async Task DetailsPreview_KnownSchemeUrlReturnsViewWithCorrectModelTest()
+        {
+            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
+
+            string schemeUrl = schemes.First().Url;
+
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes);
+
+            A.CallTo(() => SchemesModelService.GetSchemeDetailsModelPreview(schemeUrl))
+                .Returns(schemeDetailsModel);
+
+            // act
+            IActionResult result = await SchemesController.DetailsPreview(schemeUrl);
+
+            Assert.IsNotType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.Equal(schemeDetailsModel, viewResult.Model);
+        }
+
+        [Fact]
+        public async Task DetailsPreview_UnknownSchemeUrlReturnsNotFoundTest()
+        {
+            const string schemeUrl = "unknown-scheme";
+
+            A.CallTo(() => SchemesModelService.GetSchemeDetailsModelPreview(schemeUrl))
+                .Returns(default (SchemeDetailsModel));
+
+            // act
+            IActionResult result = await SchemesController.DetailsPreview(schemeUrl);
+
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
         public void Comparison_ModelTest()
         {
             // act
