@@ -20,6 +20,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         public Fixture Fixture { get; }
         public IEnumerable<Page> NotHomepages { get; set; }
         public IContent Content { get; set; }
+        public IContent PreviewContent { get; set; }
         public IContentService ContentService { get; set; }
         public SchemesModelService SchemesModelService { get; set; }
 
@@ -39,28 +40,36 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
                     typeof(Paragraph)));
 
             ContentService = A.Fake<IContentService>();
-            Content = A.Fake<IContent>();
+            (Content, NotHomepages) = CreateContent();
+            (PreviewContent, _) = CreateContent();
 
             A.CallTo(() => ContentService.Content)
                 .Returns(Content);
 
             A.CallTo(() => ContentService.UpdatePreview())
-                .Returns(Content);
+                .Returns(PreviewContent);
 
-            NotHomepages = Fixture.CreateMany<Page>(3);
+            SchemesModelService = new SchemesModelService(ContentService);
+        }
+
+        private (IContent, IEnumerable<Page>) CreateContent()
+        {
+            var content = A.Fake<IContent>();
+
+            var notHomepages = Fixture.CreateMany<Page>(3);
             var homePage = new Page("", "home", new HtmlString(HomePagePreamble));
 
-            var pages = NotHomepages.Concat(new[] { homePage }).ToArray();
+            var pages = notHomepages.Concat(new[] { homePage }).ToArray();
 
-            A.CallTo(() => Content.Pages)
+            A.CallTo(() => content.Pages)
                 .Returns(pages);
 
             var schemes = Fixture.CreateMany<Scheme>(3).ToArray();
 
-            A.CallTo(() => Content.Schemes)
+            A.CallTo(() => content.Schemes)
                 .Returns(schemes);
 
-            SchemesModelService = new SchemesModelService(ContentService);
+            return (content, notHomepages);
         }
 
         [Fact]
@@ -108,7 +117,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             var pages = NotHomepages.Concat(new[] { homePage }).ToArray();
 
-            A.CallTo(() => Content.Pages)
+            A.CallTo(() => PreviewContent.Pages)
                 .Returns(pages);
 
             // act
@@ -142,7 +151,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         public async Task GetSchemeDetailsModelPreview__IsPreviewIsTrueTest()
         {
             // act
-            var model = await SchemesModelService.GetSchemeDetailsModelPreview(Content.Schemes.First().Url);
+            var model = await SchemesModelService.GetSchemeDetailsModelPreview(PreviewContent.Schemes.First().Url);
 
             Assert.True(model.Preview.IsPreview);
         }
@@ -153,11 +162,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         {
             var schemes = new[] { scheme };
 
-            A.CallTo(() => Content.Schemes)
+            A.CallTo(() => PreviewContent.Schemes)
                 .Returns(schemes);
 
             // act
-            var model = await SchemesModelService.GetSchemeDetailsModelPreview(Content.Schemes.First().Url);
+            var model = await SchemesModelService.GetSchemeDetailsModelPreview(PreviewContent.Schemes.First().Url);
 
             Assert.Collection(model.Preview.PreviewErrors,
                 e => Assert.Equal(expected, e.Value));
@@ -181,6 +190,30 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             // act
             var model = SchemesModelService.CreateComparisonResultsModel(firstTwoSchemeIds);
+
+            Assert.Collection(model.Schemes,
+                s => Assert.Equal(firstTwoSchemeIds[0], s.HtmlId),
+                s => Assert.Equal(firstTwoSchemeIds[1], s.HtmlId));
+        }
+
+        [Fact]
+        public async Task CreateComparisonResultsModelPreview_IsPreviewIsTrueTest()
+        {
+            var firstTwoSchemeIds = Content.Schemes.Take(2).Select(s => s.HtmlId).ToArray();
+
+            // act
+            var model = await SchemesModelService.CreateComparisonResultsModelPreview(firstTwoSchemeIds);
+
+            Assert.True(model.Preview.IsPreview);
+        }
+
+        [Fact]
+        public async Task CreateComparisonResultsModelPreview_ModelTest()
+        {
+            var firstTwoSchemeIds = PreviewContent.Schemes.Take(2).Select(s => s.HtmlId).ToArray();
+
+            // act
+            var model = await SchemesModelService.CreateComparisonResultsModelPreview(firstTwoSchemeIds);
 
             Assert.Collection(model.Schemes,
                 s => Assert.Equal(firstTwoSchemeIds[0], s.HtmlId),
