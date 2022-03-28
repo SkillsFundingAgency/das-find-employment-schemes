@@ -96,9 +96,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.google-analytics.com/",
                                 "https://www.googletagmanager.com",
                                 "https://www.googleadservices.com",
+                                "https://googleads.g.doubleclick.net",
                                 "https://acdn.adnxs.com",
                                 "https://www.youtube-nocookie.com",
                                 "https://snap.licdn.com",
+                                "https://analytics.twitter.com",
                                 "https://static.ads-twitter.com",
                                 "https://connect.facebook.net"
                             })
