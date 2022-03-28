@@ -114,7 +114,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 cdnUrl,
                                 "https://www.googletagmanager.com",
                                 "https://tagmanager.google.com",
-                                "https://www.googletagmanager.com",
                                 "https://fonts.googleapis.com"
                             })
                             .StrictDynamic()
