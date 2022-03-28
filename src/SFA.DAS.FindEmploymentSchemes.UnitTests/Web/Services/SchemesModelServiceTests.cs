@@ -163,6 +163,30 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
                 e => Assert.Equal(expected, e.Value));
         }
 
+        [Fact]
+        public void CreateComparisonResultsModel_IsPreviewIsFalseTest()
+        {
+            var firstTwoSchemeIds = Content.Schemes.Take(2).Select(s => s.HtmlId).ToArray();
+
+            // act
+            var model = SchemesModelService.CreateComparisonResultsModel(firstTwoSchemeIds);
+
+            Assert.False(model.Preview.IsPreview);
+        }
+
+        [Fact]
+        public void CreateComparisonResultsModel_ModelTest()
+        {
+            var firstTwoSchemeIds = Content.Schemes.Take(2).Select(s => s.HtmlId).ToArray();
+
+            // act
+            var model = SchemesModelService.CreateComparisonResultsModel(firstTwoSchemeIds);
+
+            Assert.Collection(model.Schemes,
+                s => Assert.Equal(firstTwoSchemeIds[0], s.HtmlId),
+                s => Assert.Equal(firstTwoSchemeIds[1], s.HtmlId));
+        }
+
         public class PreviewErrorTestData : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()

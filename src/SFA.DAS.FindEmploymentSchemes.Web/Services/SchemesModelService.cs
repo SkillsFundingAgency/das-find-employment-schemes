@@ -59,13 +59,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             return new ComparisonModel(content.Schemes);
         }
 
-        private ComparisonResultsModel CreateComparisonResultsModel(string[] schemes, IContent content)
+        private ComparisonResultsModel CreateComparisonResultsModel(IEnumerable<string> schemes, IContent content)
         {
             return new ComparisonResultsModel(
                 content.Schemes.Where(x => schemes.Contains(x.HtmlId)));
         }
 
-        public ComparisonResultsModel CreateComparisonResultsModel(string[] schemes)
+        public ComparisonResultsModel CreateComparisonResultsModel(IEnumerable<string> schemes)
         {
             return CreateComparisonResultsModel(schemes, _contentService.Content);
         }
@@ -90,7 +90,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             return comparisonModel;
         }
 
-        public async Task<ComparisonResultsModel> CreateComparisonResultsModelPreview(string[] schemes)
+        public async Task<ComparisonResultsModel> CreateComparisonResultsModelPreview(IEnumerable<string> schemes)
         {
             IContent previewContent = await _contentService.UpdatePreview();
 
