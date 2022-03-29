@@ -8,6 +8,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Routing;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
@@ -26,6 +27,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
                 .Returns(default);
 
             PagesController = new PagesController(ContentService, PageService);
+
+            PagesController.ControllerContext = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext()
+            };
         }
 
         [Fact]
@@ -41,8 +47,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             IActionResult result = PagesController.Page(pageUrl);
 
             Assert.IsNotType<NotFoundResult>(result);
-            Assert.IsType<ViewResult>(result);
-            var viewResult = (ViewResult)result;
+            var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Equal(viewName, viewResult.ViewName);
         }
 
@@ -73,8 +78,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             IActionResult result = await PagesController.PagePreview(pageUrl);
 
             Assert.IsNotType<NotFoundResult>(result);
-            Assert.IsType<ViewResult>(result);
-            var viewResult = (ViewResult)result;
+            var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Equal(viewName, viewResult.ViewName);
         }
 
@@ -123,6 +127,19 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             var redirectToRouteResult = Assert.IsType<RedirectToRouteResult>(result);
             Assert.Equal(new RouteValueDictionary(new { pageUrl }), redirectToRouteResult.RouteValues);
+        }
+
+        [Fact]
+        public void Cookies_ReturnsCookiesViewNameTest()
+        {
+            PagesController.ControllerContext.HttpContext.Request.Host = new HostString("localhost");
+
+            // act
+            IActionResult result = PagesController.Cookies("yes", "yes");
+
+            Assert.IsNotType<NotFoundResult>(result);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("Cookies", viewResult.ViewName);
         }
     }
 }
