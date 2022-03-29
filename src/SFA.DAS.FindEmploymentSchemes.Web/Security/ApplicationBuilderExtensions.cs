@@ -95,8 +95,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://tagmanager.google.com",
                                 "https://www.google-analytics.com/",
                                 "https://www.googletagmanager.com",
+                                "https://www.googleadservices.com",
+                                "https://googleads.g.doubleclick.net",
                                 "https://acdn.adnxs.com",
-                                "https://www.youtube-nocookie.com"
+                                "https://www.youtube-nocookie.com",
+                                "https://snap.licdn.com",
+                                "https://analytics.twitter.com",
+                                "https://static.ads-twitter.com",
+                                "https://connect.facebook.net"
                             })
                             // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
@@ -105,7 +111,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         builder.AddStyleSrc()
                             .Self()
-                            .From(new[] { cdnUrl, "https://tagmanager.google.com", "https://fonts.googleapis.com"})
+                            .From(new[]
+                            {
+                                cdnUrl,
+                                "https://www.googletagmanager.com",
+                                "https://tagmanager.google.com",
+                                "https://fonts.googleapis.com"
+                            })
                             .StrictDynamic()
                             .UnsafeInline();
 
