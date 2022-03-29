@@ -29,7 +29,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Logging
                 AddAppInsights(config, LogLevel.FromString(minimumLogLevel));
             }
 
-            LogManager.Configuration = config;
+            LogManager.Configuration = config; //NOSONAR logging configuration is safe
         }
 
         private static void AddLocalTarget(LoggingConfiguration config, string appName, LogLevel minimumLogLevel)

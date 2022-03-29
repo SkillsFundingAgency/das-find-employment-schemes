@@ -1,14 +1,14 @@
 ﻿@model ComparisonModel
 
 @section BreadCrumbs {
-    <a asp-route="@(Model.Preview.IsPreview?"home-preview":"home")" class="govuk-back-link">Home</a>
+    @await Html.PartialAsync("_BreadcrumbPartial", Model)
 }
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
         <form method="post">
-            <div class="govuk-form-group">
+            <div class="govuk-form-group @(Model.NoneSelected ? "govuk-form-group--error" : "")">
                 <fieldset class="govuk-fieldset" aria-describedby="schemes-hint">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <h1 class="govuk-fieldset__heading">
@@ -18,6 +18,11 @@
                     <div id="schemes-hint" class="govuk-hint">
                         Select all that apply.
                     </div>
+                    @if (Model.NoneSelected) {
+                        <p id="none-selected-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span> No schemes were selected
+                        </p>
+                    }
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                     @foreach (var scheme in Model.Schemes)
                     {
@@ -29,7 +34,6 @@
                         </div>
                     }
                     </div>
-
                 </fieldset>
             </div>
             
@@ -39,3 +43,9 @@
         </form>
     </div>
 </div>
+
+<script asp-add-nonce>
+    document.addEventListener("DOMContentLoaded", function() {
+        enableCompareButton();
+    });
+</script>

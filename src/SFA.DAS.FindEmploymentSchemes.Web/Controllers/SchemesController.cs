@@ -73,8 +73,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [HttpPost]
         public IActionResult Comparison(string[] schemes)
         {
-            var model = _schemesModelService.CreateComparisonResultsModel(schemes);
-            return View("ComparisonResults", model);
+            if (schemes.Any())
+            {
+                ComparisonResultsModel resultsModel = _schemesModelService.CreateComparisonResultsModel(schemes);
+                return View("ComparisonResults", resultsModel);
+            }
+
+            ComparisonModel model = new ComparisonModel(_schemesModelService.ComparisonModel.Schemes, true);
+            return View(model);
         }
 
         public async Task<IActionResult> ComparisonPreview()
