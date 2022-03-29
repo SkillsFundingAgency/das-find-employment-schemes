@@ -14,7 +14,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Extensions
         {
             var nLogConfiguration = new NLogConfiguration();
 
-            serviceCollection.AddLogging((options) =>
+            serviceCollection.AddLogging(options => //NOSONAR logging configuration is safe
             {
                 options.AddFilter(typeof(Startup).Namespace, LogLevel.Information);
                 options.SetMinimumLevel(LogLevel.Trace);
@@ -23,7 +23,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Extensions
                     CaptureMessageTemplates = true,
                     CaptureMessageProperties = true
                 });
-                options.AddConsole();
+                options.AddConsole(); //NOSONAR logging configuration is safe
 
                 nLogConfiguration.ConfigureNLog(configuration["NLog:LogLevel"]);
             });
