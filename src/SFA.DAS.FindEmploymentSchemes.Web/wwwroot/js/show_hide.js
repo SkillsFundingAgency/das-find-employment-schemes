@@ -74,14 +74,17 @@ ShowHideElement.prototype.isExpanded = function () {
     return this.module.classList.contains(this.sectionExpandedClass)
 }
 
-function enableCompareButton() {
-    $(".govuk-button").prop('disabled', true);
+function compareSchemesSetup() {
+    enableCompareButton();
     $(".govuk-checkboxes__input").click(function (e) {
-        var checked = $(".govuk-checkboxes__input:checked").length;
-        $(".govuk-button").prop('disabled', checked < 2);
+        enableCompareButton();
     });
 }
 
+function enableCompareButton() {
+    var checked = $(".govuk-checkboxes__input:checked").length;
+    $(".govuk-button").prop('disabled', checked < 2);
+}
 
 $(document).ready(function () {
     $("details.govuk-details").click(function () {
