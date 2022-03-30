@@ -80,7 +80,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .None();
 
                         builder.AddFormAction()
-                            .Self();
+                            .Self()
+                            .From(new [] {"https://www.facebook.com"});
 
                         builder.AddImgSrc()
                             .OverHttps()
@@ -135,7 +136,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             {
                                 "https://www.googletagmanager.com",
                                 "https://www.youtube-nocookie.com",
-                                "https://2673654.fls.doubleclick.net"
+                                "https://2673654.fls.doubleclick.net",
+                                "https://www.facebook.com"
                             });
 
                         if (env.IsDevelopment())
