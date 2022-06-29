@@ -259,10 +259,6 @@ body.js-enabled .app-show-on-mobile-no-js {
     }
 }
 
-.govuk-link:link, .das-table__sort:link, .das-button--inline-link:link, .govuk-details__summary {
-    color: #155389;
-}
-
 /*https://github.com/nhsuk/nhsuk-frontend/blob/master/packages/components/tables/_tables.scss*/
 
 /* ==========================================================================
