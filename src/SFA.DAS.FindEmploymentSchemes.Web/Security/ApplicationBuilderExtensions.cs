@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System.Diagnostics.CodeAnalysis;
+using static System.Net.WebRequestMethods;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 {
@@ -69,7 +70,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             {
                                 "https://www.google-analytics.com",
                                 "https://www.youtube-nocookie.com",
-                                /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track"
+                                /* application insights*/ "https://dc.services.visualstudio.com/v2/track", 
+                                "rt.services.visualstudio.com/v2/track",
+                                "https://dc.services.visualstudio.com",
+                                "https://*.google-analytics.com",
+                                "https://*.analytics.google.com",
+                                "https://*.googletagmanager.com"
                             });
 
                         builder.AddFontSrc()
@@ -86,13 +92,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                         builder.AddImgSrc()
                             .OverHttps()
                             .Self()
-                            .From(new[] {cdnUrl, "https://ssl.gstatic.com", "https://www.gstatic.com"});
+                            .From(new[] {cdnUrl, 
+                                "https://ssl.gstatic.com", 
+                                "https://www.gstatic.com",
+                                "https://*.google-analytics.com",
+                                "https://*.googletagmanager.com"
+                            });
 
                         var scriptSrc = builder.AddScriptSrc()
                             .Self()
                             .From(new[]
                             {
                                 cdnUrl,
+                                "*.google-analytics.com",
+                                "*.googleapis.com",
+                                "*.googletagmanager.com/",
                                 "https://tagmanager.google.com",
                                 "https://www.google-analytics.com/",
                                 "https://www.googletagmanager.com",
@@ -103,7 +117,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://snap.licdn.com",
                                 "https://analytics.twitter.com",
                                 "https://static.ads-twitter.com",
-                                "https://connect.facebook.net"
+                                "https://connect.facebook.net",
+                                "https://*.googletagmanager.com"
                             })
                             // this is needed for GTM and YouTube embedding
                             .UnsafeEval()

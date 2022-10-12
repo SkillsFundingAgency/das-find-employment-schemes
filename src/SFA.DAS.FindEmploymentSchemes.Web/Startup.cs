@@ -103,17 +103,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             app.UseHttpsRedirection();
             app.UseWebOptimizer();
             app.UseStaticFiles();
+            
 
             app.Use(async (context, next) =>
             {
-                context.Response.Headers["X-Frame-Options"] = "SAMEORIGIN";
-                context.Response.Headers["X-XSS-Protection"] = "1; mode=block";
-                context.Response.Headers["X-Content-Type-Options"] = "nosniff";
-                context.Response.Headers["Content-Security-Policy"] = "default-src 'self' connect-src 'self'; img-src 'self' connect-src 'self' *.googletagmanager.com *.google-analytics.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googletagmanager.com *.google-analytics.com *.googleapis.com; font-src 'self' data:; connect-src 'self' 'unsafe-inline' *.googletagmanager.com *.google-analytics.com; *.tagmanager.google.com; connect-src 'self' *.www.google-analytics.com; *.googleadservices.com; *.g.doubleclick.net; *.adnxs.com; connect-src 'self' *.youtube-nocookie.com; *.licdn.com; *.twitter.com; *.ads-twitter.com ;*.facebook.net; connect-src 'self'  *.visualstudio.com/v2/track ";
-                context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
-                context.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
-                context.Response.Headers["X-Permitted-Cross-Domain-Policies"] = "none";
-                context.Response.Headers["Pragma"] = "no-cache";
+               
 
                 await next();
 
