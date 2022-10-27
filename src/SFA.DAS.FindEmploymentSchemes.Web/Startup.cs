@@ -53,10 +53,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             var googleAnalyticsConfiguration = Configuration.GetSection("GoogleAnalytics").Get<GoogleAnalyticsConfiguration>();
 
-            var mvcBuilder = services.AddControllersWithViews(options => options.Filters.Add(new EnableGoogleAnalyticsAttribute(googleAnalyticsConfiguration)));
 #if DEBUG
-
-            mvcBuilder.AddRazorRuntimeCompilation();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+#else
+            services.AddControllersWithViews(options => options.Filters.Add(new EnableGoogleAnalyticsAttribute(googleAnalyticsConfiguration)));
 #endif
 
             services.AddWebOptimizer(assetPipeline =>
