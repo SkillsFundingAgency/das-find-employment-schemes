@@ -17,6 +17,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.StartupServices;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Routing;
+using SFA.DAS.FindEmploymentSchemes.Web.GoogleAnalytics;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web
 {
@@ -48,15 +49,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
         {
             services.AddNLog(Configuration)
                     .AddHealthChecks();
-#if do_we_need_this
             services.AddApplicationInsightsTelemetry();
-#endif
+
+            var googleAnalyticsConfiguration = Configuration.GetSection("GoogleAnalytics").Get<GoogleAnalyticsConfiguration>();
+
+            var mvcBuilder = services.AddControllersWithViews(options => options.Filters.Add(new EnableGoogleAnalyticsAttribute(googleAnalyticsConfiguration)));
 #if DEBUG
-            services.AddControllersWithViews()
-                    .AddRazorRuntimeCompilation();
-#else
-            services.AddControllersWithViews();
+
+            mvcBuilder.AddRazorRuntimeCompilation();
 #endif
+
             services.AddWebOptimizer(assetPipeline =>
             {
                 if (!_currentEnvironment.IsDevelopment())
@@ -79,6 +81,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                 .AddHostedService<ContentUpdateService>();
 
             services.Configure<EndpointsOptions>(Configuration.GetSection("Endpoints"));
+            services.Configure<GoogleAnalyticsConfiguration>(Configuration.GetSection("GoogleAnalytics"));
 
             services.AddTransient<ISitemap, Sitemap>()
                 .AddHostedService<SitemapGeneratorService>();

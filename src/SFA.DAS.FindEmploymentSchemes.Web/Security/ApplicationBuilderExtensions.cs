@@ -67,6 +67,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .Self()
                             .From(new []
                             {
+                                "https://region1.google-analytics.com/g/collect",
                                 "https://www.google-analytics.com",
                                 "https://www.youtube-nocookie.com",
                                 /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track"
@@ -86,7 +87,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                         builder.AddImgSrc()
                             .OverHttps()
                             .Self()
-                            .From(new[] {cdnUrl, "https://ssl.gstatic.com", "https://www.gstatic.com"});
+                            .From(new[] {cdnUrl, "https://ssl.gstatic.com", "https://www.gstatic.com", "https://www.google-analytics.com" });
 
                         var scriptSrc = builder.AddScriptSrc()
                             .Self()
@@ -97,6 +98,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.google-analytics.com/",
                                 "https://www.googletagmanager.com",
                                 "https://www.googleadservices.com",
+                                "https://ssl.google-analytics.com",
                                 "https://googleads.g.doubleclick.net",
                                 "https://acdn.adnxs.com",
                                 "https://www.youtube-nocookie.com",
