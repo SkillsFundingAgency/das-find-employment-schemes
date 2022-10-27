@@ -15,10 +15,10 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "SFA.DAS.Employer.FrontDoor.Web": {
+    "SFA.DAS.FindEmploymentSchemes.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "applicationUrl": "https://localhost:5481;http://localhost:5480",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
