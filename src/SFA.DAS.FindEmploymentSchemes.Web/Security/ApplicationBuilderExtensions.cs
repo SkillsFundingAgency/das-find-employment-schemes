@@ -67,6 +67,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .Self()
                             .From(new []
                             {
+                                "https://stats.g.doubleclick.net/j/collect",
                                 "https://region1.google-analytics.com/g/collect",
                                 "https://www.google-analytics.com",
                                 "https://www.youtube-nocookie.com",
