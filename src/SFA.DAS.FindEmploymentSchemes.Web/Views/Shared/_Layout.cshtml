@@ -16,13 +16,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     @*https://dev.to/matijamrkaic/using-google-tag-manager-with-a-content-security-policy-9ai*@
 
-    @*      <script id="gtmScript" data-nonce="@Context.GetNonce()" asp-add-nonce>
-    (function (w, d, s, l, i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
-    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;var n=d.querySelector('[nonce]');n&&j.setAttribute('nonce',n.nonce||n.getAttribute('nonce'));
-    f.parentNode.insertBefore(j,f);})(window, document, 'script', 'dataLayer', 'GTM-PLHRMLT');
-    </script>
-    *@
     <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="/assets/images/favicon.ico" type="image/x-icon" />
     <link rel="mask-icon" href="/assets/images/govuk-mask-icon.svg" color="#0b0c0c" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/govuk-apple-touch-icon-180x180.png" />
@@ -54,13 +47,6 @@
     <script asp-add-nonce>
         document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
     </script>
-
-    <!-- Google Tag Manager (noscript) -->
-@*    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLHRMLT"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-*@    <!-- End Google Tag Manager (noscript) -->
 
     <div id="layout-cookie-banner" class="govuk-cookie-banner das-js-show" data-nosnippet role="region" aria-label="Cookies on Find schemes for your business">
         <div id="cookie-message" class="govuk-cookie-banner__message govuk-width-container">
