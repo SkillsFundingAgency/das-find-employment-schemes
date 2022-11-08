@@ -103,6 +103,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://googleads.g.doubleclick.net",
                                 "https://acdn.adnxs.com",
                                 "https://www.youtube-nocookie.com",
+                                "https://www.youtube.com/iframe_api",
                                 "https://snap.licdn.com",
                                 "https://analytics.twitter.com",
                                 "https://static.ads-twitter.com",
