@@ -71,6 +71,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://region1.google-analytics.com/g/collect",
                                 "https://www.google-analytics.com",
                                 "https://www.youtube-nocookie.com",
+                                "*.qualtrics.com",
                                 /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track"
                             });
 
@@ -103,10 +104,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://googleads.g.doubleclick.net",
                                 "https://acdn.adnxs.com",
                                 "https://www.youtube-nocookie.com",
+                                "https://www.youtube.com",
                                 "https://snap.licdn.com",
                                 "https://analytics.twitter.com",
                                 "https://static.ads-twitter.com",
-                                "https://connect.facebook.net"
+                                "https://connect.facebook.net",
+                                "*.qualtrics.com"
                             })
                             // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
