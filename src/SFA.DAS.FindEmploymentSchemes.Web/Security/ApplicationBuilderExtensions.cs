@@ -107,7 +107,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://snap.licdn.com",
                                 "https://analytics.twitter.com",
                                 "https://static.ads-twitter.com",
-                                "https://connect.facebook.net"
+                                "https://connect.facebook.net",
+                                "*.qualtrics.com"
                             })
                             // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
