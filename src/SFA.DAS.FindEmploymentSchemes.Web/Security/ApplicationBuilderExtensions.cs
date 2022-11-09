@@ -108,7 +108,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://analytics.twitter.com",
                                 "https://static.ads-twitter.com",
                                 "https://connect.facebook.net",
-                                "*.qualtrics.com",
+                                "*.qualtrics.com/*",
                                 "https://www.youtube.com/s/player/*"
                             })
                             // this is needed for GTM and YouTube embedding
