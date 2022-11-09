@@ -71,6 +71,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://region1.google-analytics.com/g/collect",
                                 "https://www.google-analytics.com",
                                 "https://www.youtube-nocookie.com",
+                                "*.qualtrics.com",
                                 /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track"
                             });
 
