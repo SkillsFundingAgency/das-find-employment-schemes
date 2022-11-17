@@ -72,7 +72,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.google-analytics.com",
                                 "https://www.youtube-nocookie.com",
                                 "*.qualtrics.com",
-                                /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track"
+                                /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track",
+                                "cdn.linkedin.oribi.io"
                             });
 
                         builder.AddFontSrc()
@@ -84,7 +85,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         builder.AddFormAction()
                             .Self()
-                            .From(new [] {"https://www.facebook.com"});
+                            .From(new []
+                            {
+                                "https://www.facebook.com", 
+                                "*.qualtrics.com"
+
+                            });
 
                         builder.AddImgSrc()
                             .OverHttps()
@@ -143,7 +149,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.googletagmanager.com",
                                 "https://www.youtube-nocookie.com",
                                 "https://2673654.fls.doubleclick.net",
-                                "https://www.facebook.com"
+                                "https://www.facebook.com",
+                                "*.qualtrics.com"
                             });
 
                         if (env.IsDevelopment())
