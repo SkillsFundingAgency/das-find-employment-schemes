@@ -89,7 +89,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             {
                                 "https://www.facebook.com", 
                                 "*.qualtrics.com"
-
                             });
 
                         builder.AddImgSrc()
