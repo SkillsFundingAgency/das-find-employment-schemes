@@ -72,7 +72,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.google-analytics.com",
                                 "https://www.youtube-nocookie.com",
                                 "*.qualtrics.com",
-                                /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track"
+                                /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track",
+                                "cdn.linkedin.oribi.io"
                             });
 
                         builder.AddFontSrc()
@@ -84,12 +85,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         builder.AddFormAction()
                             .Self()
-                            .From(new [] {"https://www.facebook.com"});
+                            .From(new []
+                            {
+                                "https://www.facebook.com", 
+                                "*.qualtrics.com"
+                            });
 
                         builder.AddImgSrc()
                             .OverHttps()
                             .Self()
-                            .From(new[] {cdnUrl, "https://ssl.gstatic.com", "https://www.gstatic.com", "https://www.google-analytics.com" });
+                            .From(new[] {cdnUrl, "data:","https://ssl.gstatic.com", "https://www.gstatic.com", "https://www.google-analytics.com" });
 
                         var scriptSrc = builder.AddScriptSrc()
                             .Self()
@@ -143,7 +148,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.googletagmanager.com",
                                 "https://www.youtube-nocookie.com",
                                 "https://2673654.fls.doubleclick.net",
-                                "https://www.facebook.com"
+                                "https://www.facebook.com",
+                                "*.qualtrics.com"
                             });
 
                         if (env.IsDevelopment())
