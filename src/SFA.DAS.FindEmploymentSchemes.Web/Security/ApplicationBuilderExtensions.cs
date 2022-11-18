@@ -94,7 +94,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                         builder.AddImgSrc()
                             .OverHttps()
                             .Self()
-                            .From(new[] {cdnUrl, "data:*","https://ssl.gstatic.com", "https://www.gstatic.com", "https://www.google-analytics.com" });
+                            .From(new[] {cdnUrl, "data:","https://ssl.gstatic.com", "https://www.gstatic.com", "https://www.google-analytics.com" });
 
                         var scriptSrc = builder.AddScriptSrc()
                             .Self()
