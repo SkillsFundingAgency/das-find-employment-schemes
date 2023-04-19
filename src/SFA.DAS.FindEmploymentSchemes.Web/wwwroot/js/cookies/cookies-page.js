@@ -43,7 +43,6 @@
             .concat('[name=cookies-', category, ']')
             .concat('[value=', cookiesPolicy[category] ? 'on' : 'off', ']')
         )
-        console.log(cookiesPolicy[category])
         if (input) {
           input.checked = true
         }
