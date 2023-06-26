@@ -67,6 +67,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             .Self()
                             .From(new []
                             {
+                                "https://consent-api-bgzqvpmbyq-nw.a.run.app/api/v1/consent/",
                                 "https://stats.g.doubleclick.net/j/collect",
                                 "https://region1.google-analytics.com/g/collect",
                                 "https://www.google-analytics.com",

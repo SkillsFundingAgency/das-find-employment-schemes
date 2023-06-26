@@ -18,9 +18,8 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 
-        @if (cookiePage.ShowMessage)
-        {
-            <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+
+            <div class="govuk-notification-banner govuk-notification-banner--success das-js-hide" role="alert" aria-labelledby="govuk-notification-banner-title" data-cookie-confirmation>
                 <div class="govuk-notification-banner__header">
                     <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
                         Success
@@ -32,7 +31,7 @@
                     </p>
                 </div>
             </div>
-        }
+        
 
         @cookiePage.AnalyticsPage.Content
 
@@ -508,7 +507,7 @@
         <hr class="govuk-section-break govuk-section-break--l g" />
 
         <h2 class="govuk-heading-l">Change your cookie settings</h2>
-        <form method="post" novalidate>
+        <form method="post" novalidate data-module="cookie-settings-shared" class="das-ajax-form">
           <fieldset class="govuk-fieldset">
             <div class="govuk-form-group">
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
@@ -516,13 +515,13 @@
               </legend>
               <div class="govuk-radios" data-module="govuk-radios">
                 <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="analytics-cookies" name="AnalyticsCookies" type="radio" value="yes">
+                  <input class="govuk-radios__input" id="analytics-cookies" name="cookies-usage" type="radio" value="on">
                   <label class="govuk-label govuk-radios__label" for="analytics-cookies">
                     Yes
                   </label>
                 </div>
                 <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="analytics-cookies-2" name="AnalyticsCookies" type="radio" value="no" checked>
+                  <input class="govuk-radios__input" id="analytics-cookies-2" name="cookies-usage" type="radio" value="off">
                   <label class="govuk-label govuk-radios__label" for="analytics-cookies-2">
                     No
                   </label>
@@ -535,13 +534,13 @@
               </legend>
               <div class="govuk-radios" data-module="govuk-radios">
                 <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="marketing-cookies" name="MarketingCookies" type="radio" value="yes">
+                  <input class="govuk-radios__input" id="marketing-cookies" name="cookies-campaigns" type="radio" value="on">
                   <label class="govuk-label govuk-radios__label" for="marketing-cookies">
                     Yes
                   </label>
                 </div>
                 <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="marketing-cookies-2" name="MarketingCookies" type="radio" value="no" checked>
+                  <input class="govuk-radios__input" id="marketing-cookies-2" name="cookies-campaigns" type="radio" value="off">
                   <label class="govuk-label govuk-radios__label" for="marketing-cookies-2">
                     No
                   </label>

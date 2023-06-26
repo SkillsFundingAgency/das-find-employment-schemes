@@ -65,7 +65,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                 if (!_currentEnvironment.IsDevelopment())
                 {
                     assetPipeline.AddJavaScriptBundle("/js/site.js",
-                        "/js/cookie_consent.js", "/js/show_hide.js", "/js/app.js", "/js/filter.js", "/js/feedback.js");
+                        "/js/show_hide.js", 
+                        "/js/app.js", 
+                        "/js/filter.js", 
+                        "/js/feedback.js",
+                        "/js/cookies/utils.js",
+                        "/js/cookies/consent.js",
+                        "/js/cookies/cookie-banner.js",
+                        "/js/cookies/cookies-page.js");
                     assetPipeline.AddCssBundle("/css/site.css", "/css/site.css");
                 }
             });

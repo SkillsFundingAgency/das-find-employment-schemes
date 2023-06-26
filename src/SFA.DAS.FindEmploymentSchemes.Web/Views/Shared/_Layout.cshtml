@@ -49,8 +49,8 @@
         document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
     </script>
 
-    <div id="layout-cookie-banner" class="govuk-cookie-banner das-js-show" data-nosnippet role="region" aria-label="Cookies on Find schemes for your business">
-        <div id="cookie-message" class="govuk-cookie-banner__message govuk-width-container">
+    <div id="layout-cookie-banner" class="govuk-cookie-banner" data-nosnippet role="region" aria-label="Cookies on Find schemes for your business" data-module="govuk-cookie-banner">
+        <div id="cookie-message" class="govuk-cookie-banner__message govuk-width-container js-cookie-banner-message">
             <div id="layout-cookie-row" class="govuk-grid-row">
                 <div id="layout-cookie-row-two-thirds" class="govuk-grid-column-two-thirds">
                     <h2 id="layout-cookie-header" class="govuk-cookie-banner__heading govuk-heading-m">Cookies on Find schemes for your business</h2>
@@ -61,17 +61,17 @@
                 </div>
             </div>
             <div id="layout-cookie-button-group" class="govuk-button-group">
-                <button id="layout-cookie-button-accept" value="accept" type="button" name="cookies" class="govuk-button cookie-consent-button cookies-accept" data-module="govuk-button">
+                <button id="layout-cookie-button-accept" value="accept" type="button" name="cookies" class="govuk-button cookie-consent-button cookies-accept" data-module="govuk-button" data-accept-cookies="true">
                     Accept cookies
                 </button>
-                <button id="layout-cookie-button-reject" value="reject" type="button" name="cookies" class="govuk-button cookie-consent-button cookies-reject" data-module="govuk-button">
+                <button id="layout-cookie-button-reject" value="reject" type="button" name="cookies" class="govuk-button cookie-consent-button cookies-reject" data-module="govuk-button" data-reject-cookies="true">
                     Reject cookies
                 </button>
                 <a id="layout-cookie-link" class="govuk-link" asp-route="@pageRoute" asp-route-pageUrl="cookies">View cookies</a>
             </div>
         </div>
 
-        <div id="cookie-accept-message" class="govuk-cookie-banner__message govuk-width-container" role="alert" hidden>
+        <div id="cookie-accept-message" class="govuk-cookie-banner__message govuk-width-container js-cookie-banner-confirmation-accept" role="alert" hidden>
             <div id="cookie-accept-row" class="govuk-grid-row">
                 <div id="cookie-accept-column" class="govuk-grid-column-two-thirds">
 
@@ -82,13 +82,13 @@
             </div>
 
             <div id="cookie-accept-close-group" class="govuk-button-group">
-                <button id="cookie-accept-close-button" class="govuk-button cookies-close" data-module="govuk-button">
+                <button id="cookie-accept-close-button" class="govuk-button cookies-close" data-module="govuk-button" data-hide-cookie-message>
                     Hide this message about cookie settings
                 </button>
             </div>
         </div>
 
-        <div id="cookie-reject-message" class="govuk-cookie-banner__message govuk-width-container" role="alert" hidden>
+        <div id="cookie-reject-message" class="govuk-cookie-banner__message govuk-width-container js-cookie-banner-confirmation-reject" role="alert" hidden>
             <div id="cookie-reject-row" class="govuk-grid-row">
                 <div id="cookie-reject-column" class="govuk-grid-column-two-thirds">
 
@@ -99,7 +99,7 @@
             </div>
 
             <div id="cookie-reject-close-group" class="govuk-button-group">
-                <button id="cookie-reject-close-button" class="govuk-button cookies-close" data-module="govuk-button">
+                <button id="cookie-reject-close-button" class="govuk-button cookies-close" data-module="govuk-button" data-hide-cookie-message>
                     Hide this message about cookie settings
                 </button>
             </div>
@@ -279,11 +279,16 @@
         window.DASFrontend.initAll();
     </script>
     <environment include="Development">
-        <script src="/js/cookie_consent.js" no-cdn></script>
         <script src="/js/show_hide.js" no-cdn></script>
         <script src="/js/app.js" no-cdn></script>
         <script src="/js/filter.js" no-cdn></script>
         <script src="/js/feedback.js" no-cdn></script>
+
+        <script src="/js/cookies/utils.js" no-cdn></script>
+        <script src="/js/cookies/consent.js" no-cdn></script>
+        <script src="/js/cookies/cookie-banner.js" no-cdn></script>
+        <script src="/js/cookies/cookies-page.js" no-cdn></script>
+
     </environment>
     <environment exclude="Development">
         <script src="/js/site.js" no-cdn></script>
