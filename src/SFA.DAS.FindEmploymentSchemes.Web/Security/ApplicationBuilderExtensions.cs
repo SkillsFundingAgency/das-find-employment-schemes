@@ -74,7 +74,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.youtube-nocookie.com",
                                 "*.qualtrics.com",
                                 /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track",
-                                "cdn.linkedin.oribi.io"
+                                "cdn.linkedin.oribi.io",
+                                "*.clarity.ms"
                             });
 
                         builder.AddFontSrc()
@@ -152,7 +153,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.youtube-nocookie.com",
                                 "https://2673654.fls.doubleclick.net",
                                 "https://www.facebook.com",
-                                "*.qualtrics.com"
+                                "*.qualtrics.com",
+                                "*.clarity.ms"
                             });
 
                         if (env.IsDevelopment())
