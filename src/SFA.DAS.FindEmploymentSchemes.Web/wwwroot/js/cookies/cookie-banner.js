@@ -71,6 +71,7 @@
       this.$module.showAcceptConfirmation()
       this.setCookiesPolicyCookie(Consent.ACCEPT_ALL)
       Consent.setStatus(Consent.ACCEPT_ALL)
+      location.reload();
     }
   
     CookieBanner.prototype.setCookiesPolicyCookie = function (cookiesPolicy) {
