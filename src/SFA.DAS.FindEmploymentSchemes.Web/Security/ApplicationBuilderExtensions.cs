@@ -65,7 +65,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 
                         var connectSrc = builder.AddConnectSrc()
                             .Self()
-                            .From(new []
+                            .From(new[]
                             {
                                 "https://consent-api-bgzqvpmbyq-nw.a.run.app/api/v1/consent/",
                                 "https://stats.g.doubleclick.net/j/collect",
@@ -74,28 +74,30 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.youtube-nocookie.com",
                                 "*.qualtrics.com",
                                 /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track",
-                                "cdn.linkedin.oribi.io"
+                                "cdn.linkedin.oribi.io",
+                                "*.clarity.ms"
                             });
 
                         builder.AddFontSrc()
                             .Self()
-                            .From(new[] { cdnUrl, "https://fonts.gstatic.com"});
+                            .From(new[] { cdnUrl, "https://fonts.gstatic.com" });
 
                         builder.AddObjectSrc()
                             .None();
 
                         builder.AddFormAction()
                             .Self()
-                            .From(new []
+                            .From(new[]
                             {
-                                "https://www.facebook.com", 
-                                "*.qualtrics.com"
+                                "https://www.facebook.com",
+                                "*.qualtrics.com",
+                                "*.clarity.ms"
                             });
 
                         builder.AddImgSrc()
                             .OverHttps()
                             .Self()
-                            .From(new[] {cdnUrl, "data:","https://ssl.gstatic.com", "https://www.gstatic.com", "https://www.google-analytics.com" });
+                            .From(new[] { cdnUrl, "data:", "https://ssl.gstatic.com", "https://www.gstatic.com", "https://www.google-analytics.com" });
 
                         var scriptSrc = builder.AddScriptSrc()
                             .Self()
@@ -115,12 +117,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://analytics.twitter.com",
                                 "https://static.ads-twitter.com",
                                 "https://connect.facebook.net",
-                                "*.qualtrics.com"
+                                "*.qualtrics.com",
+                                "*.clarity.ms"
                             })
                             // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
                             .UnsafeInline();
-                            // if we wanted the nonce back, we'd add `.WithNonce();` here
+                        // if we wanted the nonce back, we'd add `.WithNonce();` here
 
                         builder.AddStyleSrc()
                             .Self()
@@ -150,17 +153,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.youtube-nocookie.com",
                                 "https://2673654.fls.doubleclick.net",
                                 "https://www.facebook.com",
-                                "*.qualtrics.com"
+                                "*.qualtrics.com",
+                                "*.clarity.ms"
                             });
 
                         if (env.IsDevelopment())
                         {
                             // open up for browserlink
-                            defaultSrc.From(new[] {"http://localhost:*", "ws://localhost:*"});
+                            defaultSrc.From(new[] { "http://localhost:*", "ws://localhost:*" });
 
                             scriptSrc.From("http://localhost:*");
 
-                            connectSrc.From(new [] { "https://localhost:*", "ws://localhost:*", "wss://localhost:*"});
+                            connectSrc.From(new[] { "https://localhost:*", "ws://localhost:*", "wss://localhost:*" });
                         }
                     })
                     .AddCustomHeader("X-Permitted-Cross-Domain-Policies", "none")
