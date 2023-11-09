@@ -9293,7 +9293,7 @@ p + .das-tile__body-heading {
 
 .das-header .das-header__navigation {
     height: 63px;
-    padding: 0 65px 0 20px;
+    padding: 0 65px 0 0;
 }
 
 .das-header .das-header__logo-container {

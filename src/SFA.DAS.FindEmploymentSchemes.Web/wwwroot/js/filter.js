@@ -63,28 +63,28 @@ function showHideSchemes(filters) {
 
 function initMobileView() {
 
-    const menuButton = document.querySelector('.govuk-js-header-toggle');
+    /*const menuButton = document.querySelector('.govuk-js-header-toggle');*/
 
-    const mobileNav = document.getElementById('mobile-navigation');
+    /*const mobileNav = document.getElementById('mobile-navigation');*/
 
-    menuButton.addEventListener('click', function () {
+    //menuButton.addEventListener('click', function () {
 
-        if (mobileNav.style.display === 'block') {
+    //    if (mobileNav.style.display === 'block') {
 
-            mobileNav.style.display = 'none';
+    //        mobileNav.style.display = 'none';
 
-            menuButton.setAttribute('aria-expanded', 'false');
+    //        menuButton.setAttribute('aria-expanded', 'false');
 
-        }
-        else {
+    //    }
+    //    else {
 
-            mobileNav.style.display = 'block';
+    //        mobileNav.style.display = 'block';
 
-            menuButton.setAttribute('aria-expanded', 'true');
+    //        menuButton.setAttribute('aria-expanded', 'true');
 
-        }
+    //    }
 
-    });
+    //});
 
     $("#filter-schemes").click(function () {
 
