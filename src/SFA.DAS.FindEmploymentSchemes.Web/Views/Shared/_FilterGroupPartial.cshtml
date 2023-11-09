@@ -1,25 +1,36 @@
 ﻿@model Filter
 
-<div id="filter-group-@Model.Name" class="govuk-form-group">
+<div id="filter-group-@Model.Name" class="govuk-form-group das-filter__section">
+
     <fieldset id="filter-group-fieldset-@Model.Name" class="govuk-fieldset">
+
         <legend id="filter-group-legend-@Model.Name" class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
             @Model.Description
+
         </legend>
+
         <div id="filter-group-checkboxes-container-outer-@Model.Name" class="govuk-checkboxes govuk-checkboxes--small">
+
             @foreach (var aspect in Model.Aspects)
             {
+
                 <div id="filter-group-checkboxe-container-inner-@aspect.Id" class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="@aspect.Id" name="@Model.Name" type="checkbox" value="@aspect.Id"
-                        @if (aspect.Selected)
-                        {
-                            @:checked
-                        }
-                    >
+
+                    <input class="govuk-checkboxes__input" id="@aspect.Id" name="@Model.Name" type="checkbox" value="@aspect.Id" @(aspect.Selected ? "checked" : "")>
+
                     <label id="filter-group-checkbox-label-@aspect.Id" class="govuk-label govuk-checkboxes__label" for="@aspect.Id">
+
                         @aspect.Description
+
                     </label>
+
                 </div>
+
             }
+
         </div>
+
     </fieldset>
+
 </div> 

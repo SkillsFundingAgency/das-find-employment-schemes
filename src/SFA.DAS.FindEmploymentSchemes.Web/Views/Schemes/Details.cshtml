@@ -1,112 +1,193 @@
 @model SchemeDetailsModel
 
 @{
+
     if (!string.IsNullOrWhiteSpace(Model.Scheme.Name))
     {
-        ViewData["Title"] = Model.Scheme.Name[..Math.Min(Model.Scheme.Name.Length, 64)];
-    }
-}
 
-@section BreadCrumbs {
-    @await Html.PartialAsync("_BreadcrumbPartial", Model)
+        ViewData["Title"] = Model.Scheme.Name[..Math.Min(Model.Scheme.Name.Length, 64)];
+
+    }
+
 }
 
 @section PreviewErrors {
+
     @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
+
 }
 
-<div id="scheme-details-outer" class="govuk-grid-row">
-    <div id="scheme-details-inner-two-thirds" class="govuk-grid-column-two-thirds">
-        <h1 id="scheme-details-h1" class="govuk-heading-l">
-            @Model.Scheme.Name
-        </h1>
-        @if (Model.Scheme.DetailsPageOverride != null)
-        {
-            @Model.Scheme.DetailsPageOverride
-        }
-        else
-        {
-            @Model.Scheme.Description
+@await Html.PartialAsync(
 
-            if (Model.Scheme.SubSchemes.Any())
+    "_PreambleBannerPartial",
+
+    new Tuple<string, string, IHtmlContent?>(Model.Preview.IsPreview ? "home-preview" : "home", @Model.Scheme.Name ?? string.Empty, null)
+
+)
+
+<div class="govuk-width-container govuk-!-padding-top-6">
+
+    <div id="scheme-details-outer" class="govuk-grid-row">
+
+        <div id="scheme-details-inner-two-thirds" class="govuk-grid-column-two-thirds">
+
+            @if (Model.Scheme.DetailsPageOverride != null)
             {
-                <div class="govuk-accordion" data-module="govuk-accordion" id="sub-scheme-accordion">
-                @{
-                    int ordinal = 0;
-                    foreach (var subScheme in Model.Scheme.SubSchemes)
-                    {
-                        @await Html.PartialAsync("_AccordionSectionPartial", ("subscheme", ordinal++, subScheme))
-                    }
-                }
-                </div>
+
+                @Model.Scheme.DetailsPageOverride
+
             }
             else
             {
-                <h2 id="scheme-details-h2-cost" class="govuk-heading-m"> Employer cost </h2>
-                @Model.Scheme.Cost  
-                <h2 id="scheme-details-h2-responsibility" class="govuk-heading-m"> Employer responsibilities </h2>
-                @Model.Scheme.Responsibility
-                <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
-                @Model.Scheme.Benefits
-                int numberOfCaseStudies = Model.Scheme.CaseStudies.Count();
 
-                @if (Model.Scheme.CaseStudiesPreamble != null || numberOfCaseStudies > 0)
+                @Model.Scheme.Description
+
+                if (Model.Scheme.SubSchemes.Any())
                 {
-                    <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
 
-                    @Model.Scheme.CaseStudiesPreamble
+                    <div class="govuk-accordion" data-module="govuk-accordion" id="sub-scheme-accordion">
 
-                    foreach (CaseStudy study in Model.Scheme.CaseStudies)
-                    {
-                        if (numberOfCaseStudies > 1)
+                    @{
+
+                        int ordinal = 0;
+
+                        foreach (var subScheme in Model.Scheme.SubSchemes)
                         {
-                            <details class="govuk-details" data-module="govuk-details">
-                                <summary class="govuk-details__summary">
-                                    <span class="govuk-details__summary-text">
-                                        @study.DisplayTitle
-                                    </span>
-                                </summary>
-                                <div class="govuk-details__text">
-                                    @study.Content
-                                </div>
-                            </details>
+
+                            @await Html.PartialAsync("_AccordionSectionPartial", ("subscheme", ordinal++, subScheme))
+
+                        }
+
+                    }
+
+                    </div>
+
+                }
+                else
+                {
+
+                    <h2 id="scheme-details-h2-cost" class="govuk-heading-m"> Employer cost </h2>
+
+                    @Model.Scheme.Cost  
+
+                    <h2 id="scheme-details-h2-responsibility" class="govuk-heading-m"> Employer responsibilities </h2>
+
+                    @Model.Scheme.Responsibility
+
+                    <h2 id="scheme-details-h2-benefits" class="govuk-heading-m">Benefits of @Model.Scheme.Name</h2>
+
+                    @Model.Scheme.Benefits
+
+                    int numberOfCaseStudies = Model.Scheme.CaseStudies.Count();
+
+                    @if (Model.Scheme.CaseStudiesPreamble != null || numberOfCaseStudies > 0)
+                    {
+
+                        <h2 id="scheme-details-h2-case-studies" class="govuk-heading-m">Case studies</h2>
+
+                        @Model.Scheme.CaseStudiesPreamble
+
+                        foreach (CaseStudy study in Model.Scheme.CaseStudies)
+                        {
+
+                            if (numberOfCaseStudies > 1)
+                            {
+
+                                <details class="govuk-details" data-module="govuk-details">
+
+                                    <summary class="govuk-details__summary">
+
+                                        <span class="govuk-details__summary-text">
+
+                                            @study.DisplayTitle
+
+                                        </span>
+
+                                    </summary>
+
+                                    <div class="govuk-details__text">
+
+                                        @study.Content
+
+                                    </div>
+
+                                </details>
+
+                            }
+                            else
+                            {
+
+                                <h3 id="scheme-details-h3-case-studies">@study.DisplayTitle</h3>
+
+                                @study.Content
+
+                            }
+
+                        }
+
+                    }
+
+                    <section id="scheme-details-section-offer-header" class="cx-cta-box">
+
+                        <h2 id="scheme-details-h2-offer-header" class="govuk-heading-m">@Model.Scheme.OfferHeader</h2>
+
+                        @Model.Scheme.Offer
+
+                    </section>
+
+                }
+
+            }
+
+        </div>
+
+        <div class="govuk-grid-column-one-third">
+
+            <h2 class="govuk-heading-m">Explore schemes</h2>
+
+            <ul id="explore-schemes" class="govuk-list">
+
+                @foreach (Scheme scheme in Model.Schemes)
+                {
+
+                    bool currentScheme = scheme == Model.Scheme;
+
+                    <li id="scheme-details-inner-li-@scheme.HtmlId" class="@(currentScheme ? "explore-schemes-current-scheme" : "")">
+
+                        @if (currentScheme)
+                        {
+
+                            @scheme.Name
+
                         }
                         else
                         {
-                            <h3 id="scheme-details-h3-case-studies">@study.DisplayTitle</h3>
-                            @study.Content
+
+                            <a id="scheme-details-inner-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview?"schemes-preview":"schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                    
                         }
-                    }
+
+                    </li>
+
                 }
 
-                <section id="scheme-details-section-offer-header" class="cx-cta-box">
-                    <h2 id="scheme-details-h2-offer-header" class="govuk-heading-m">@Model.Scheme.OfferHeader</h2>
-                    @Model.Scheme.Offer
-                </section>
-            }
+            </ul>
+
+        </div>
+
+        @if (@Model.Scheme.AdditionalFooter != null)
+        {
+
+            <div class="govuk-grid-column-full">
+
+                @Model.Scheme.AdditionalFooter
+
+            </div>
+
         }
+
     </div>
-    <div class="govuk-grid-column-one-third">
-        <h2 class="govuk-heading-m">Explore schemes</h2>
-        <ul id="explore-schemes" class="govuk-list">
-            @foreach (Scheme scheme in Model.Schemes)
-            {
-                bool currentScheme = scheme == Model.Scheme;
-                <li id="scheme-details-inner-li-@scheme.HtmlId" class="@(currentScheme ? "explore-schemes-current-scheme" : "")">
-                    @if (currentScheme)
-                    {
-                        @scheme.Name
-                    }
-                    else
-                    {
-                        <a id="scheme-details-inner-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview?"schemes-preview":"schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
-                    }
-                </li>
-            }
-        </ul>
-    </div>
+
 </div>
 
-@section AdditionalFooter {
-    @Model.Scheme.AdditionalFooter
-}
+@await Html.PartialAsync("_SharePagePartial", string.Format("schemes/{0}", @Model.Scheme.Url))

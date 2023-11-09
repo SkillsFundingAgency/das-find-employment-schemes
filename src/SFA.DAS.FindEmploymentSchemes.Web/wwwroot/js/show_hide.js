@@ -51,17 +51,21 @@ ShowHideElement.prototype.showHideTarget = function (e) {
         this.module.focus()
     }
     nodeListForEach(this.showHideLinks, function (showHideLink) {
-        var showText = showHideLink.getAttribute('data-text-show')
-        var hideText = showHideLink.getAttribute('data-text-hide')
-        showHideLink.innerHTML = (sectionExpanded ? showText : hideText)
-        showHideLink.setAttribute('aria-expanded', !sectionExpanded)
+        var showText = showHideLink.getAttribute('data-text-show');
+        var hideText = showHideLink.getAttribute('data-text-hide');
+        showHideLink.innerHTML = (sectionExpanded ? showText : hideText);
+        showHideLink.setAttribute('aria-expanded', !sectionExpanded);
 
-        var hideClass = showHideLink.getAttribute('data-class-hide')
+        var hideClass = showHideLink.getAttribute('data-class-hide');
+        var showClass = showHideLink.getAttribute('data-class-show');
+
         if (hideClass !== null) {
             if (sectionExpanded) {
-                showHideLink.classList.remove(hideClass)
+                showHideLink.classList.remove(hideClass);
+                showHideLink.classList.add(showClass);
             } else {
-                showHideLink.classList.add(hideClass)
+                showHideLink.classList.add(hideClass);
+                showHideLink.classList.remove(showClass);
             }
         }
     })

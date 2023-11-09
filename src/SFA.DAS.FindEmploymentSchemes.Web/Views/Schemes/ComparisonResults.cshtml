@@ -1,51 +1,92 @@
 ﻿@model ComparisonResultsModel
 
-@section BreadCrumbs {
-    <a id="scheme-comparison-breadcrumb" asp-route="@(Model.Preview.IsPreview?"scheme-comparison-preview":"scheme-comparison")" class="govuk-back-link">Back</a>
-}
+@await Html.PartialAsync(
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <h1 id="comparison-results-h1" class="govuk-heading-l">Comparison of schemes</h1>
-    
-        <div class="nhsuk-table-container">
-            <table id="comparison-results-table" class="govuk-table nhsuk-table-responsive" aria-labelledby="comparison-results-h1">
-                <thead class="nhsuk-table__head">
-                <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header">Scheme</th>
-                    <th scope="col" class="govuk-table__header">Cost</th>
-                    <th scope="col" class="govuk-table__header">Benefits</th>
-                    <th scope="col" class="govuk-table__header">Time</th>
-                </tr>
-                </thead>
-                <tbody class="govuk-table__body nhsuk-table__body">
-                @foreach(Scheme scheme in Model.Schemes)
-                {
-                    <tr class="govuk-table__row nhsuk-table__row">
-                        <td class="govuk-table__cell nhsuk-table__cell">
-                            <span class="nhsuk-table-responsive__heading">Scheme</span>
-                            <a id="scheme-header-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview ? "schemes-preview" : "schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
-                        </td>
-                        <td class="govuk-table__cell nhsuk-table__cell">
-                            <span class="nhsuk-table-responsive__heading">Cost</span>
-                            @scheme.ShortCost
-                        </td>
-                        <td class="govuk-table__cell nhsuk-table__cell">
-                            <span class="nhsuk-table-responsive__heading">Benefits</span>
-                            @scheme.ShortBenefits
-                        </td>
-                        <td class="govuk-table__cell nhsuk-table__cell">
-                            <span class="nhsuk-table-responsive__heading">Time</span>
-                            @scheme.ShortTime
-                        </td>
-                    </tr>
-                }
-                </tbody>
-            </table>
+    "_PreambleBannerPartial",
+
+    new Tuple<string, string, IHtmlContent?>(@Model.Preview.IsPreview ? "scheme-comparison-preview" : "scheme-comparison", "Comparison of schemes", null)
+
+)
+
+<div class="govuk-width-container">
+
+    <div class="govuk-grid-row govuk-!-padding-top-6">
+
+        <div class="govuk-grid-column-full">
+
+            <div class="nhsuk-table-container govuk-!-margin-bottom-0">
+
+                <table id="comparison-results-table" class="govuk-table nhsuk-table-responsive govuk-!-margin-bottom-0" aria-labelledby="comparison-results-h1">
+                        
+                    <thead class="nhsuk-table__head">
+
+                        <tr class="govuk-table__row">
+
+                            <th scope="col" class="govuk-table__header">Scheme</th>
+
+                            <th scope="col" class="govuk-table__header">Cost</th>
+
+                            <th scope="col" class="govuk-table__header">Benefits</th>
+
+                            <th scope="col" class="govuk-table__header">Time</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody class="govuk-table__body nhsuk-table__body">
+
+                        @foreach (Scheme scheme in Model.Schemes)
+                        {
+
+                            <tr class="govuk-table__row nhsuk-table__row">
+
+                                <td class="govuk-table__cell nhsuk-table__cell">
+
+                                    <span class="nhsuk-table-responsive__heading">Scheme</span>
+
+                                    <a id="scheme-header-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview ? "schemes-preview" : "schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                                    
+                                </td>
+
+                                <td class="govuk-table__cell nhsuk-table__cell">
+
+                                    <span class="nhsuk-table-responsive__heading">Cost</span>
+
+                                    @scheme.ShortCost
+
+                                </td>
+
+                                <td class="govuk-table__cell nhsuk-table__cell">
+
+                                    <span class="nhsuk-table-responsive__heading">Benefits</span>
+
+                                    @scheme.ShortBenefits
+
+                                </td>
+
+                                <td class="govuk-table__cell nhsuk-table__cell">
+
+                                    <span class="nhsuk-table-responsive__heading">Time</span>
+
+                                    @scheme.ShortTime
+
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
         </div>
 
-        <p class="govuk-body">
-            <a asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="govuk-link"> Return to list of all schemes </a>
-        </p>
     </div>
+
 </div>
+
+@await Html.PartialAsync("_SharePagePartial", string.Empty)

@@ -1,51 +1,98 @@
 ﻿@model ComparisonModel
 
-@section BreadCrumbs {
-    @await Html.PartialAsync("_BreadcrumbPartial", Model)
-}
+@await Html.PartialAsync(
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    "_PreambleBannerPartial",
 
-        <form method="post" autocomplete="off">
-            <div class="govuk-form-group @(Model.NoneSelected ? "govuk-form-group--error" : "")">
-                <fieldset class="govuk-fieldset" aria-describedby="schemes-hint">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <h1 class="govuk-fieldset__heading">
-                            Which schemes would you like to compare in more detail?
-                        </h1>
-                    </legend>
-                    <div id="schemes-hint" class="govuk-hint">
-                        Select all that apply.
-                    </div>
-                    @if (Model.NoneSelected) {
-                        <p id="none-selected-error" class="govuk-error-message">
-                            <span class="govuk-visually-hidden">Error:</span> No schemes were selected
-                        </p>
-                    }
-                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                    @foreach (var scheme in Model.Schemes)
-                    {
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="@scheme.HtmlId" name="schemes" type="checkbox" value="@scheme.HtmlId">
-                            <label class="govuk-label govuk-checkboxes__label" for="@scheme.HtmlId">
-                                @scheme.Name
-                            </label>
+    new Tuple<string, string, IHtmlContent?>(Model.Preview.IsPreview ? "home-preview" : "home", string.Empty, null)
+
+)
+
+<div class="govuk-width-container">
+
+    <div class="govuk-grid-row govuk-!-padding-top-6">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form method="post" autocomplete="off">
+
+                <div class="govuk-form-group @(Model.NoneSelected ? "govuk-form-group--error" : "")">
+
+                    <fieldset class="govuk-fieldset" aria-describedby="schemes-hint">
+
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+                            <h1 class="govuk-fieldset__heading">
+
+                                Which schemes would you like to compare in more detail?
+
+                            </h1>
+
+                        </legend>
+
+                        <div id="schemes-hint" class="govuk-hint">
+
+                            Select all that apply.
+
                         </div>
-                    }
-                    </div>
-                </fieldset>
-            </div>
+
+                        @if (Model.NoneSelected) {
+
+                            <p id="none-selected-error" class="govuk-error-message">
+
+                                <span class="govuk-visually-hidden">Error:</span> No schemes were selected
+
+                            </p>
+
+                        }
+
+                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+
+                        @foreach (var scheme in Model.Schemes)
+                        {
+
+                            <div class="govuk-checkboxes__item">
+
+                                <input class="govuk-checkboxes__input" id="@scheme.HtmlId" name="schemes" type="checkbox" value="@scheme.HtmlId">
+                                    
+                                <label class="govuk-label govuk-checkboxes__label" for="@scheme.HtmlId">
+
+                                    @scheme.Name
+
+                                </label>
+
+                            </div>
+
+                        }
+
+                        </div>
+
+                    </fieldset>
+
+                </div>
             
-            <button class="govuk-button" data-module="govuk-button">
-                Continue
-            </button>
-        </form>
+                <button class="das-button__primary" data-module="govuk-button">
+
+                    Continue
+
+                </button>
+
+            </form>
+
+        </div>
+
     </div>
+
 </div>
 
+@await Html.PartialAsync("_SharePagePartial", string.Empty)
+
 <script asp-add-nonce>
+
     document.addEventListener("DOMContentLoaded", function() {
+
         compareSchemesSetup();
+
     });
+
 </script>

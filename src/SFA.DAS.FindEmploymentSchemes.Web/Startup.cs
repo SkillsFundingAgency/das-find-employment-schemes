@@ -154,6 +154,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     "Schemes", "Home");
 
                 MapControllerRoute(endpoints,
+                    "contact",
+                    "",
+                    "contact", "index");
+
+                MapControllerRoute(endpoints,
                     "page",
                     "page/{pageUrl}",
                     "Pages", "Page");

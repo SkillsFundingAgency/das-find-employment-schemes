@@ -1,0 +1,105 @@
+﻿@model LayoutModel
+
+@{
+    string pageRoute = Model == null ? "page" : (Model.Preview.IsPreview ? "page-preview" : "page");
+}
+
+<div id="global-cookie-banner" class="das-cookie-banner govuk-clearfix" data-nosnippet role="region" aria-label="Cookies on Find schemes for your business" data-module="govuk-cookie-banner">
+    
+    <div id="cookie-message" class="govuk-cookie-banner__message govuk-width-container js-cookie-banner-message">
+        
+        <div id="layout-cookie-row" class="govuk-grid-row">
+            
+            <div id="layout-cookie-row-two-thirds" class="govuk-grid-column-two-thirds">
+                
+                <h2 id="layout-cookie-header" class="govuk-heading-m">Cookies on Find schemes for your business</h2>
+                
+                <div id="layout-cookie-header-content" class="govuk-cookie-banner__content">
+                    
+                    <p id="layout-cookie-para1">We use some essential cookies to make this service work. shaun</p>
+                    
+                    <p id="layout-cookie-para2">We'd also like to use analytics cookies so we can understand how you use the service and make improvements.</p>
+                
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="layout-cookie-button-group" class="govuk-button-group">
+
+            <button id="layout-cookie-button-accept" value="accept" type="button" name="cookies" class="das-button__primary cookie-consent-button cookies-accept" data-module="govuk-button" data-accept-cookies="true">
+                
+                Accept cookies
+            
+            </button>
+
+            <button id="layout-cookie-button-reject" value="reject" type="button" name="cookies" class="das-button__primary cookie-consent-button cookies-reject" data-module="govuk-button" data-reject-cookies="true">
+                
+                Reject cookies
+            
+            </button>
+
+            <a id="layout-cookie-link" class="govuk-link" asp-route="@pageRoute" asp-route-pageUrl="cookies">View cookies</a>
+
+        </div>
+
+    </div>
+
+    <div id="cookie-accept-message" class="govuk-cookie-banner__message govuk-width-container js-cookie-banner-confirmation-accept" role="alert" hidden>
+        
+        <div id="cookie-accept-row" class="govuk-grid-row">
+            
+            <div id="cookie-accept-column" class="govuk-grid-column-two-thirds">
+
+                <div id="cookie-accept-banner" class="govuk-cookie-banner__content">
+                    
+                    <p id="cookie-accept-para" class="govuk-body">You’ve accepted all cookies. You can <a id="cookie-accept-link" class="govuk-link" asp-route="pageRoute" asp-route-pageUrl="cookies">change your cookie settings</a> at any time.</p>
+                
+                </div>
+            
+            </div>
+        
+        </div>
+
+        <div id="cookie-accept-close-group" class="govuk-button-group">
+            
+            <button id="cookie-accept-close-button" class="das-button__primary cookies-close" data-module="govuk-button" data-hide-cookie-message>
+                
+                Hide this message about cookie settings
+            
+            </button>
+        
+        </div>
+    
+    </div>
+
+    <div id="cookie-reject-message" class="govuk-cookie-banner__message govuk-width-container js-cookie-banner-confirmation-reject" role="alert" hidden>
+        
+        <div id="cookie-reject-row" class="govuk-grid-row">
+            
+            <div id="cookie-reject-column" class="govuk-grid-column-two-thirds">
+
+                <div id="cookie-reject-banner" class="govuk-cookie-banner__content">
+                    
+                    <p id="cookie-reject-para" class="govuk-body">You've rejected all cookies. You can <a id="cookie-reject-link" class="govuk-link" asp-route="@pageRoute" asp-route-pageUrl="cookies">change your cookie settings</a> at any time.</p>
+                
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="cookie-reject-close-group" class="govuk-button-group">
+
+            <button id="cookie-reject-close-button" class="das-button__primary cookies-close" data-module="govuk-button" data-hide-cookie-message>
+
+                Hide this message about cookie settings
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

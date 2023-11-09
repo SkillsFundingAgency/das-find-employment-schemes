@@ -1,82 +1,99 @@
 ﻿@model HomeModel
 
 @section PreviewErrors {
+
     @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
+
 }
 
-<div id="scheme-home-outer-two-thirds" class="govuk-grid-row">
-    <div id="scheme-home-inner-two-thirds" class="govuk-grid-column-two-thirds">
-        @Model.Preamble
-    </div>
-</div>
+@await Html.PartialAsync(
+    
+    "_PreambleBannerPartial", 
+    
+    new Tuple<string, string, IHtmlContent?>(string.Empty, string.Empty, @Model.Preamble)
 
-<div id="scheme-home-filter-outer" class="govuk-grid-row app-filter-layout">
-    <div id="scheme-home-filter-inner" class="govuk-grid-column-one-third app-filter-layout__filter">
-        <div id="scheme-filter" class="das-filter app-filter @(Model.EnsureSchemesAreVisible?"app-hide-on-mobile-no-js":"")" tabindex="0" data-module="app-show-hide">
-            <form id="scheme-home-filter-form" action="/" method="post">
-                <div id="scheme-home-filter-header-container" class="das-filter__header app-filter__header">
-                    <h2 id="scheme-home-filter-header" class="das-filter__heading">Filter schemes to fit your business</h2>
-                    <button id="close-filter" class="govuk-button govuk-button--secondary">Close</button>
-                </div>
-                <div id="scheme-filter-options" class="das-filter__body">
-                    <div id="number-of-schemes-box">
-                        <span id="number-of-schemes-heading" class="govuk-heading-s">Number of Schemes: <span id="number-of-schemes" role="status">@Model.Schemes.Count()</span></span>
-                    </div>
+)
+
+<div class="govuk-width-container govuk-!-padding-top-6 das-column__filters">
+
+    <div id="scheme-home-filter-outer" class="govuk-grid-row app-filter-layout">
+
+        <div id="scheme-home-filter-inner" class="govuk-grid-column-one-third app-filter-layout__filter filters_mobile_hidden">
+
+            <div id="scheme-filter" class="das-filter app-filter @(Model.EnsureSchemesAreVisible?"app-hide-on-mobile-no-js":"")" tabindex="0" data-module="app-show-hide">
+
+                <form id="scheme-home-filter-form" action="/" method="post">
+
+                    <h2 id="filters" class="das-filter__heading govuk-!-margin-bottom-0">Filters</h2>
+
+                    <a id="close-filter" class="govuk-link desktop_hidden">Back</a>
+
+                    <div id="scheme-filter-options" class="das-filter__body">
+
                         @foreach (var filter in Model.Filters)
                         {
+
                             @await Html.PartialAsync("_FilterGroupPartial", filter)
+
                         }
-                        
-                        <a id="clear-filters" asp-route="@(Model.Preview.IsPreview?"home-preview":"home")" class="govuk-link">Clear filters</a>
-                    
-                        <div id="scheme-home-filter-form-button-group" class="govuk-button-group app-js-desktop-hide">
-                            <button id="filter-box-filter-schemes" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0">Filter schemes</button>
+
+                        <div id="scheme-home-filter-form-button-group" class="govuk-button-group">
+
+                            <button id="filter-box-filter-schemes" class="das-button__primary govuk-!-margin-bottom-0 govuk-!-width-full">Filter schemes</button>
+
                         </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div id="schemes" class="govuk-grid-column-two-thirds app-filter-layout__content">
-        <div id="scheme-home-schemes-container-inner" class="govuk-button-group">
-            @if (Model.EnsureSchemesAreVisible)
-            {
-                <form id="mobile-no-js-filter-form" method="post" action="/?show=filter">
-                    <button class="govuk-button govuk-button--secondary app-show-on-mobile-no-js">Filter schemes</button>
+
+                        <a id="clear-filters" asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="govuk-link govuk-!-margin-bottom-3">Clear filters</a>
+
+                    </div>
+
                 </form>
-            }
-            <a id="filter-schemes" class="govuk-button das-js-show--inline" href="#scheme-filter" data-text-show="Filter schemes" data-text-hide="Hide filter" data-class-hide="govuk-button--secondary">Filter schemes</a>
-            <a id="compare-schemes" class="govuk-button govuk-button--secondary" asp-route="@(Model.Preview.IsPreview?"scheme-comparison-preview":"scheme-comparison")">Compare schemes in a table</a>
+
+            </div>
+
         </div>
-        @foreach (var scheme in Model.Schemes)
-        {
-            @await Html.PartialAsync("_SchemePartial", (scheme, Model.Preview))
-        }
+
+        <div id="schemes" class="govuk-grid-column-two-thirds app-filter-layout__content">
+
+            <div class="govuk-grid-column-full govuk-!-padding-0">
+
+                <a id="filter-schemes" class="das-button__primary desktop_hidden" aria-controls="scheme-filter" aria-expanded="false" tabindex="110">Filter schemes</a>
+
+            </div>
+
+            <div class="govuk-grid-column-full govuk-!-padding-0">
+
+                <label class="govuk-heading-s">Number of schemes: @Model.Schemes.Count()</label>
+
+            </div>
+
+            <div class="govuk-grid-column-full govuk-!-padding-0 govuk-!-padding-top-2 govuk-!-padding-bottom-2">
+
+                <a id="compare-schemes" class="govuk-link" asp-route="@(Model.Preview.IsPreview ? "scheme-comparison-preview" : "scheme-comparison")">Compare these schemes in a table</a>
+
+            </div>
+
+            @foreach (var scheme in Model.Schemes)
+            {
+
+                @await Html.PartialAsync("_SchemePartial", (scheme, Model.Preview))
+
+            }
+
+        </div>
+
     </div>
+
 </div>
 
+@await Html.PartialAsync("_SharePagePartial", string.Empty)
+
 <script asp-add-nonce>
+
     document.addEventListener("DOMContentLoaded", function() {
-        $("#close-filter,#filter-box-filter-schemes").click(function(e) {
-            $([document.documentElement, document.body]).animate({ scrollTop: $("#scheme-home-filter-outer").offset().top }, 0);
-            hideFilterBox();
-            e.preventDefault();
-        });
 
-        $("#filter-schemes").click(function() {
-            onFilterBoxOpenClose();
-            document.activeElement.blur();
-        });
+        initMobileView();
 
-        $("#schemes").removeClass("govuk-grid-column-two-thirds").addClass("govuk-grid-column-full");
-
-        if (window.document.documentMode) {
-            /* if the user agent is ie, fall back to non-js based filtering */
-            $('.das-js-hide').show();
-        }
-        else {
-            initFiltering();
-        }
-
-        onFilterBoxOpenClose();
     });
+
 </script>

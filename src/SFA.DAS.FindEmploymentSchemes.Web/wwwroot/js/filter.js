@@ -7,66 +7,17 @@ const filterSchemesCheckboxSelector = '#scheme-filter-options :checkbox';
 const numberOfSchemesSelector = '#number-of-schemes';
 const filterParamName = 'filter';
 
-function initFiltering(options) {
-    // we need to ensure that when the page is displayed:
-    //  * from a bookmark/copy & pasted link
-    //  * traversing through history
-    // that the correct filters are ticked, the schemes are filtered correctly, and the filter panel is displayed if any filters are selected
-    const filters = updateFiltersFromFragmentAndShowResults();
-    initEvents();
-
-    // if the scheme's are filtered, then ensure the filter panel is displayed
-    if (!NoFilters(filters)) {
-        showFilterBox();
-    }
-}
-
-const Visibility = {
-    Show: true,
-    Hide: false
-};
-
-function showFilterBox() {
-    showHideFilterBox(Visibility.Show);
-}
-
-function hideFilterBox() {
-    showHideFilterBox(Visibility.Hide);
-}
-
-// only call after showHideEls has been created
-function showHideFilterBox(visibility) {
-    var schemeFilter = $('#scheme-filter');
-    if (visibility === Visibility.Show) {
-        schemeFilter.removeClass('app-show-hide__section--show');
-    } else {
-        schemeFilter.addClass('app-show-hide__section--show');
-    }
-    const schemeFilterShowHide = showHideEls['scheme-filter'];
-    schemeFilterShowHide.showHideTarget(schemeFilterShowHide);
-}
-
 function updateFiltersFromFragmentAndShowResults() {
     const hashParams = getHashParams();
     const filters = getFilters(hashParams);
 
-    updateCheckboxesFromFragment(filters);
     showHideSchemes(filters);
-    updateNumberOfSchemes();
 
     return filters;
 }
 
 function NoFilters(filters) {
     return (filters.length === 0 || filters.length === 1 && filters[0] === '');
-}
-
-function updateCheckboxesFromFragment(filters) {
-
-    $(filterSchemesCheckboxSelector).each(function () {
-        const $this = $(this);
-        $this.prop('checked', $.inArray($this.val(), filters) !== -1);
-    });
 }
 
 function getFilters(hashParams) {
@@ -93,7 +44,7 @@ function showHideSchemes(filters) {
 
             return result;
         },
-        {});
+    {});
 
     var schemes = $('[data-scheme]').hide();
 
@@ -110,19 +61,93 @@ function showHideSchemes(filters) {
     schemes.show();
 }
 
-function initEvents() {
-    window.addEventListener('hashchange', function () {
-        updateFiltersFromFragmentAndShowResults();
+function initMobileView() {
+
+    const menuButton = document.querySelector('.govuk-js-header-toggle');
+
+    const mobileNav = document.getElementById('mobile-navigation');
+
+    menuButton.addEventListener('click', function () {
+
+        if (mobileNav.style.display === 'block') {
+
+            mobileNav.style.display = 'none';
+
+            menuButton.setAttribute('aria-expanded', 'false');
+
+        }
+        else {
+
+            mobileNav.style.display = 'block';
+
+            menuButton.setAttribute('aria-expanded', 'true');
+
+        }
+
     });
 
-    $(filterSchemesCheckboxSelector).click(function () {
-        updateFragmentFromCheckboxes();
+    $("#filter-schemes").click(function () {
+
+        if ($(".app-filter-layout__filter").hasClass("filters_mobile_hidden")) {
+
+            $(".app-filter-layout__filter").removeClass("filters_mobile_hidden").addClass("mobile-filter__layout");
+
+        }
+
     });
 
-    $('#clear-filters').click(function() {
-        clearFilters();
-        return false;
+    $("#close-filter").click(function () {
+
+        if (!$(".app-filter-layout__filter").hasClass("filters_mobile_hidden")) {
+
+            $(".app-filter-layout__filter").addClass("filters_mobile_hidden").removeClass("mobile-filter__layout");
+
+        }
+
     });
+
+    $(".govuk-header__navigation-list-mobile-close-btn").click(function () {
+
+        var headingButton = this;
+
+        var dataSection = headingButton.getAttribute("data-menu-section");
+
+        const subMenuElement = document.querySelector('.govuk-header__navigation-item[data-menu-section="' + dataSection + '"]');
+
+        if (subMenuElement !== null && subMenuElement !== 'undefined') {
+
+            const computedStyle = window.getComputedStyle(subMenuElement);
+
+            const display = computedStyle.getPropertyValue('display');
+
+            const timesSVG = headingButton.querySelector(".das-menu-item__close_section");
+
+            const chevronSVG = headingButton.querySelector(".das-menu-item__open_section");
+
+            if (display !== 'none') {
+
+                subMenuElement.style.display = 'none';
+
+                timesSVG.style.display = 'none';
+
+                chevronSVG.style.display = '';
+
+            }
+            else
+            {
+
+                subMenuElement.style.display = 'list-item';
+
+                timesSVG.style.display = '';
+
+                chevronSVG.style.display = 'none';
+
+            }
+
+        }
+
+    });
+
 }
 
 function clearFilters() {

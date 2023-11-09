@@ -1,6 +1,15 @@
 ﻿@model LayoutModel
 
-@{
-    /*we could add support for a second/many level breadcrumbs */
-    <a asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="govuk-back-link">Home</a>
-}
+<div>
+
+    <div class="govuk-width-container">
+
+        @{
+
+            <a asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="govuk-back-link">Home</a>
+        }
+
+    </div>
+
+</div>
+
