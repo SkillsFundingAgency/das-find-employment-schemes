@@ -1203,7 +1203,7 @@ p + .das-tile__body-heading {
     padding: 0 15px;
 }
 
-@media (min-width: 40.0625em) {
+@media (min-width: 769px) {
     .govuk-grid-column-one-third {
         width: 33.3333333333%;
         float: left;
@@ -1229,7 +1229,7 @@ p + .das-tile__body-heading {
     padding: 0 15px;
 }
 
-@media (min-width: 40.0625em) {
+@media (min-width: 769px) {
     .govuk-grid-column-two-thirds {
         width: 66.6666666667%;
         float: left;
@@ -9623,7 +9623,6 @@ p + .das-tile__body-heading {
     line-height: 1.1428571429;
     padding: 10px 0;
     background-color: #f3f2f1;
-    display: none;
 }
 
 #global-cookie-banner .govuk-form-group,

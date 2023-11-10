@@ -76,7 +76,7 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
 
 }
 
-@media (min-width: 40.0625em) {
+@media (min-width: 769px) {
     .das-header__mobile {
         display: none;
     }
@@ -86,7 +86,13 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
     }
 }
 
-@media (max-width: 40.0625em) {
+@media (max-width: 769px) {
+    .das-header__desktop {
+        display: none;
+    }
+}
+
+@media (max-width: 769px) {
     .das-header-mobile__flex_column {
         display: flex;
         align-items: center;
@@ -102,9 +108,7 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
         margin-left: 10px;
     }
 
-    .das-header__desktop {
-        display: none;
-    }
+    
 
     .govuk-header__navigation {
         display: none;
@@ -226,11 +230,11 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
         color: #ffffff;
     }
 
-    @media (min-width: 40.0625em) {
-        #close-filter {
-            display: none;
-        }
+@media (min-width: 769px) {
+    #close-filter {
+        display: none;
     }
+}
 
     @media (max-width: 40.0600em) {
         .app-filter-layout__content {
