@@ -514,6 +514,7 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
 
         .das-horizontal-icon-list li a {
             position: relative;
+            text-align: left;
         }
 
     @media (max-width: 768px) {

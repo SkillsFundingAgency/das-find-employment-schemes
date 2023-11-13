@@ -17,6 +17,7 @@
     </PackageReference>
     <PackageReference Include="contentful.aspnetcore" Version="7.0.1" />
     <PackageReference Include="contentful.csharp" Version="7.0.1" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
     <PackageReference Include="Microsoft.AspNetCore.Html.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
