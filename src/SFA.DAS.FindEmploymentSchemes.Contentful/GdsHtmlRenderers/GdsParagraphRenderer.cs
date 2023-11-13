@@ -1,5 +1,6 @@
 ﻿using Contentful.Core.Models;
 using HtmlAgilityPack;
+using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,7 +62,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
             {
 
                 // Check if the sub content contains html - process accordingly.
-                if (subContent is Text && ContainsHtml(((Text)subContent).Value))
+                if (subContent is Text && ContainsDivHtml(((Text)subContent).Value))
                 {
 
                     // If it contains HTML, append it without HTML encoding
@@ -88,14 +89,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 
         }
 
-        private bool ContainsHtml(string input)
+        private bool ContainsDivHtml(string input)
         {
 
             var doc = new HtmlDocument();
 
             doc.LoadHtml(input);
 
-            return doc.DocumentNode.DescendantsAndSelf().Any(n => n.NodeType == HtmlNodeType.Element);
+            return doc.DocumentNode.DescendantsAndSelf().Any(n => n.Name.Equals("div", StringComparison.OrdinalIgnoreCase));
 
         }
 
