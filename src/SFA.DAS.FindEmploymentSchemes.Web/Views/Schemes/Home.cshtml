@@ -43,7 +43,11 @@
 
                         </div>
 
-                        <a id="clear-filters" asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="govuk-link govuk-!-margin-bottom-3">Clear filters</a>
+                        <div id="scheme-home-filter-form-button-group" class="govuk-button-group">
+
+                            <a id="clear-filters" asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="das-button__secondary govuk-!-width-full">Clear filters</a>
+
+                        </div>
 
                     </div>
 

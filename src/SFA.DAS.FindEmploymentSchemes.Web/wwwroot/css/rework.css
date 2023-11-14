@@ -2263,15 +2263,20 @@ p + .das-tile__body-heading {
 .das-button__primary:hover,
 .das-button__primary:link,
 .das-button__primary:visited,
-.das-button__secondary:active,
-.das-button__secondary:hover,
-.das-button__secondary:link,
-.das-button__secondary:visited,
+
 .das-linkbutton__primary:active,
 .das-linkbutton__primary:hover,
 .das-linkbutton__primary:link,
 .das-linkbutton__primary:visited {
     color: #fff;
+    text-decoration: none;
+}
+
+.das-button__secondary:active,
+.das-button__secondary:hover,
+.das-button__secondary:link,
+.das-button__secondary:visited {
+    color: #0B0C0C;
     text-decoration: none;
 }
 
@@ -2388,9 +2393,9 @@ p + .das-tile__body-heading {
     }
 
 .govuk-button--secondary {
-    background-color: #001d35;
-    box-shadow: 0 2px 0 #929191;
-    color:white;
+    background-color: #ffffff;
+    box-shadow: 0 2px 0 #0B0C0C;
+    color: #0B0C0C;
 }
 
     .govuk-button--secondary,
@@ -2398,7 +2403,7 @@ p + .das-tile__body-heading {
     .govuk-button--secondary:hover,
     .govuk-button--secondary:link,
     .govuk-button--secondary:visited {
-        color: #0b0c0c;
+        color: #0B0C0C;
     }
 
         .govuk-button--secondary:hover {
@@ -9111,11 +9116,17 @@ p + .das-tile__body-heading {
     .das-button:focus,
     .das-button:focus:not(:active):not(:hover),
     .das-button__primary:focus,
-    .das-button__secondary:focus,
     .das-linkbutton__primary:focus {
         color: #fff;
         outline: 2px solid #fd0;
         border-color: #fd0;
+        box-shadow: none;
+    }
+
+    .das-button__secondary:focus {
+        color: #fff;
+        outline: 2px solid #fd0;
+        border-color: #0B0C0C;
         box-shadow: none;
     }
 
@@ -9145,17 +9156,18 @@ p + .das-tile__body-heading {
     }
 
 .das-button__secondary {
-    background-color: #001d35;
+    background-color: #ffffff;
+    border: 2px solid #0B0C0C;
 }
 
     .das-button__secondary:hover {
-        background-color: #033762;
+        background-color: #F3F2F1;
     }
 
     .das-button__secondary:focus,
     .das-button__secondary:focus:not(:active):not(:hover) {
-        color: #fff;
-        background-color: #d53880;
+        color: #0B0C0C;
+        background-color: #ffffff;
     }
 
 .das-linkbutton__primary {
