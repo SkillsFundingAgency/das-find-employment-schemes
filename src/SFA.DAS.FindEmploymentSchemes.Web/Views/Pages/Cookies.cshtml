@@ -1,10 +1,14 @@
 ﻿@model PageModel
 
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 @{
 
     var cookiePage = (CookiePage)Model.Page;
 
     ViewData["Title"] = "Cookies";
+
+    string completeUrl = Url.Action("Cookies", "Pages", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
 
 }
 
@@ -19,7 +23,7 @@
 
     "_PreambleBannerPartial",
 
-    new Tuple<string, string, IHtmlContent?>(Model.Preview.IsPreview ? "home-preview" : "home", string.Empty, null)
+    new Tuple<string, string, IHtmlContent?>(Model.Preview.IsPreview ? "home-preview" : "home", "Cookies on the Business: Find training and employment schemes website ", null)
 
 )
 
@@ -551,271 +555,517 @@
                 </td>
 
                 <td class="govuk-table__cell">
+
                     1 year
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     presence
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     These help to deliver our advertising when you visit Facebook or a digital platform powered by Facebook Advertising
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     When you close your browser
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     sb
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     These help to deliver our advertising when you visit Facebook or a digital platform powered by Facebook Advertising
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     2 years
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     spin
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     These help to deliver our advertising when you visit Facebook or a digital platform powered by Facebook Advertising
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     2 years
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     wd
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     These help to deliver our advertising when you visit Facebook or a digital platform powered by Facebook Advertising
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     2 years
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     xs
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     These help to deliver our advertising when you visit Facebook or a digital platform powered by Facebook Advertising
+                
                 </td>
+
                 <td class="govuk-table__cell">
+
                     2 years
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     _ga
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Snapchat uses Google Analytics to help improve their services. For example, they can use these cookies to learn more about which features are the most popular with their users and which ones might need some tweaks
+                
                 </td>
+
                 <td class="govuk-table__cell">
+
                     2 years
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     sc_at
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Snapchat uses this cookie to deliver advertisements, to make them more relevant and meaningful to consumers, and to track the efficiency of advertising campaigns
+                
                 </td>
+
                 <td class="govuk-table__cell">
+
                     1 year
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     Personalization_id
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Twitter uses this cookie for integration of its services and sharing capabilities from the website to social media, as well as tracking and targeting
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     2 years
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     i/adsct
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Twitter uses this cookie to allow tailored advertising based on our actions on this website
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     session
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     ad_id
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Amazon uses this cookie to allow tailored advertising based on our actions on this website
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     9 months
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     ad_privacy
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Amazon uses this cookie to allow tailored advertising based on our actions on this website
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     9 months
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     _ppcMktoCmp
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     This cookie is set by Marketo with an ID from the link that brought you to the page
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     30 days
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     _mkto_trk
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     This cookie is set by Marketo. This allows a website to track visitor behavior on the sites on which the cookie is installed and to link a visitor to the recipient of an email marketing campaign, to measure campaign effectiveness. Tracking is performed anonymously until a user is identified by submitting a form.
+                
                 </td>
+
                 <td class="govuk-table__cell">
+
                     2 years
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     L1c
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Linkedin uses this cookie to allow tailored advertising based on our actions on this website
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     session
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     BizoID
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Linkedin uses this cookie to allow tailored advertising based on our actions on this website
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     6 months
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     BizoData
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Linkedin uses this cookie to allow tailored advertising based on our actions on this website
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     6 months
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     BizoNetworkPartnerIndex
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Linkedin uses this cookie to allow tailored advertising based on our actions on this website
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     6 months
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     BizoUserMatchHistory
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Linkedin uses this cookie to allow tailored advertising based on our actions on this website
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     6 months
+
                 </td>
+
             </tr>
+
             <tr>
+
                 <td class="govuk-table__cell">
+
                     MarketingCookieConsent
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     Stores if user has accepted marketing cookies
+
                 </td>
+
                 <td class="govuk-table__cell">
+
                     1 year
+
                 </td>
+
             </tr>
+
         </tbody>
+
     </table>
 
     <hr class="govuk-section-break govuk-section-break--l g" />
 
     <h2 class="govuk-heading-l">Change your cookie settings</h2>
+
     <form method="post" novalidate data-module="cookie-settings-shared" class="das-ajax-form">
+
         <fieldset class="govuk-fieldset">
-        <div class="govuk-form-group">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-            Do you want to use cookies that measure your website use?
-            </legend>
-            <div class="govuk-radios" data-module="govuk-radios">
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="analytics-cookies" name="cookies-usage" type="radio" value="on">
-                <label class="govuk-label govuk-radios__label" for="analytics-cookies">
-                Yes
-                </label>
+
+            <div class="govuk-form-group">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+
+                    Do you want to use cookies that measure your website use?
+
+                </legend>
+
+                <div class="govuk-radios" data-module="govuk-radios">
+
+                <div class="govuk-radios__item">
+
+                    <input class="govuk-radios__input" id="analytics-cookies" name="cookies-usage" type="radio" value="on">
+
+                    <label class="govuk-label govuk-radios__label" for="analytics-cookies">
+
+                    Yes
+
+                    </label>
+
+                </div>
+
+                <div class="govuk-radios__item">
+
+                    <input class="govuk-radios__input" id="analytics-cookies-2" name="cookies-usage" type="radio" value="off">
+
+                    <label class="govuk-label govuk-radios__label" for="analytics-cookies-2">
+
+                    No
+
+                    </label>
+
+                </div>
+
+                </div>
+
             </div>
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="analytics-cookies-2" name="cookies-usage" type="radio" value="off">
-                <label class="govuk-label govuk-radios__label" for="analytics-cookies-2">
-                No
-                </label>
+
+            <div class="govuk-form-group">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+
+                    Do you want to use cookies that help with communications and marketing?
+
+                </legend>
+
+                <div class="govuk-radios" data-module="govuk-radios">
+
+                    <div class="govuk-radios__item">
+
+                        <input class="govuk-radios__input" id="marketing-cookies" name="cookies-campaigns" type="radio" value="on">
+
+                        <label class="govuk-label govuk-radios__label" for="marketing-cookies">Yes</label>
+
+                    </div>
+
+                    <div class="govuk-radios__item">
+
+                        <input class="govuk-radios__input" id="marketing-cookies-2" name="cookies-campaigns" type="radio" value="off">
+
+                        <label class="govuk-label govuk-radios__label" for="marketing-cookies-2">No</label>
+
+                    </div>
+
+                </div>
+
             </div>
-            </div>
-        </div>
-        <div class="govuk-form-group">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-            Do you want to use cookies that help with communications and marketing?
-            </legend>
-            <div class="govuk-radios" data-module="govuk-radios">
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="marketing-cookies" name="cookies-campaigns" type="radio" value="on">
-                <label class="govuk-label govuk-radios__label" for="marketing-cookies">
-                Yes
-                </label>
-            </div>
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="marketing-cookies-2" name="cookies-campaigns" type="radio" value="off">
-                <label class="govuk-label govuk-radios__label" for="marketing-cookies-2">
-                No
-                </label>
-            </div>
-            </div>
-        </div>
+
         </fieldset>
 
-        <button class="das-button__primary" data-module="govuk-button">
-        Save cookie settings
-        </button>
+        <button class="das-button__primary" data-module="govuk-button">Save cookie settings</button>
+
     </form>
 
 </div>
 
-@await Html.PartialAsync("_SharePagePartial", "page/cookies")
+@await Html.PartialAsync("_SharePagePartial", completeUrl)

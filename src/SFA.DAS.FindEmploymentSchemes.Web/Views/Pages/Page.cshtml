@@ -1,5 +1,7 @@
 ﻿@model PageModel
 
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 @{
 
     if (!string.IsNullOrWhiteSpace(Model.Page.Title))
@@ -8,6 +10,8 @@
         ViewData["Title"] = Model.Page.Title[..Math.Min(Model.Page.Title.Length, 64)];
 
     }
+
+    string completeUrl = Url.Action(@Model.Page.Url, "Page", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
 
 }
 
@@ -40,4 +44,4 @@
 
 </div>
 
-@await Html.PartialAsync("_SharePagePartial", string.Format("page/{0}", @Model.Page.Url))
+@await Html.PartialAsync("_SharePagePartial", completeUrl)

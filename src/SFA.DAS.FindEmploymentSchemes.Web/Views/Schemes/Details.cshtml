@@ -1,5 +1,7 @@
 @model SchemeDetailsModel
 
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 @{
 
     if (!string.IsNullOrWhiteSpace(Model.Scheme.Name))
@@ -8,6 +10,8 @@
         ViewData["Title"] = Model.Scheme.Name[..Math.Min(Model.Scheme.Name.Length, 64)];
 
     }
+
+    string completeUrl = Url.Action("Details", "schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
 
 }
 
@@ -190,4 +194,4 @@
 
 </div>
 
-@await Html.PartialAsync("_SharePagePartial", string.Format("schemes/{0}", @Model.Scheme.Url))
+@await Html.PartialAsync("_SharePagePartial", completeUrl)

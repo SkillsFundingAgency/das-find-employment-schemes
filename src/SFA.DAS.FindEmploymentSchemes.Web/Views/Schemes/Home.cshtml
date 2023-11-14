@@ -1,5 +1,7 @@
 ﻿@model HomeModel
 
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 @section PreviewErrors {
 
     @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
@@ -13,6 +15,13 @@
     new Tuple<string, string, IHtmlContent?>(string.Empty, string.Empty, @Model.Preamble)
 
 )
+
+@{
+
+    string completeUrl = Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
+
+}
+
 
 <div class="govuk-width-container govuk-!-padding-top-6 das-column__filters">
 
@@ -90,7 +99,7 @@
 
 </div>
 
-@await Html.PartialAsync("_SharePagePartial", string.Empty)
+@await Html.PartialAsync("_SharePagePartial", completeUrl)
 
 <script asp-add-nonce>
 
