@@ -1,6 +1,16 @@
-﻿@{
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
 
     ViewData["Title"] = "Contact";
+
+}
+
+@{
+
+    string route = "contact/index";
+
+    string completeUrl = Url.Action(route, "Home", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
 
 }
 
@@ -181,4 +191,4 @@
 
 </div>
 
-@await Html.PartialAsync("_SharePagePartial", "contact/index")
+@await Html.PartialAsync("_SharePagePartial", completeUrl)
