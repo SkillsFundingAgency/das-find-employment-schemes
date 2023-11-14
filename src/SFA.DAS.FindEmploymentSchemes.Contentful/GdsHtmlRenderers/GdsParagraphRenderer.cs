@@ -57,6 +57,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 
             }
 
+            sb.Append("<p class=\"govuk-body\">");
+
             // Render any nested content within the paragraph
             foreach (var subContent in paragraph.Content)
             {
@@ -73,17 +75,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
                 else
                 {
 
-                    sb.Append("<p class=\"govuk-body\">");
+                    
 
                     var renderer = _rendererCollection.GetRendererForContent(subContent);
 
                     sb.Append(await renderer.RenderAsync(subContent));
 
-                    sb.Append("</p>");
-
                 }
 
             }
+
+            sb.Append("</p>");
 
             return sb.ToString();
 
