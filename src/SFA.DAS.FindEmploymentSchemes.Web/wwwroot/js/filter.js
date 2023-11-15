@@ -63,29 +63,6 @@ function showHideSchemes(filters) {
 
 function initMobileView() {
 
-    /*const menuButton = document.querySelector('.govuk-js-header-toggle');*/
-
-    /*const mobileNav = document.getElementById('mobile-navigation');*/
-
-    //menuButton.addEventListener('click', function () {
-
-    //    if (mobileNav.style.display === 'block') {
-
-    //        mobileNav.style.display = 'none';
-
-    //        menuButton.setAttribute('aria-expanded', 'false');
-
-    //    }
-    //    else {
-
-    //        mobileNav.style.display = 'block';
-
-    //        menuButton.setAttribute('aria-expanded', 'true');
-
-    //    }
-
-    //});
-
     $("#filter-schemes").click(function () {
 
         if ($(".app-filter-layout__filter").hasClass("filters_mobile_hidden")) {
@@ -202,38 +179,4 @@ function setHashParams(hashParams, updateResults) {
 
 function updateNumberOfSchemes() {
     $(numberOfSchemesSelector).html($('[data-scheme]:visible').length);
-}
-
-function onFilterBoxOpenClose() {
-    if ($('#scheme-filter').hasClass('app-show-hide__section--show')) {
-        $(".filter-full-width").removeClass("govuk-grid-column-two-thirds").addClass("govuk-grid-column-full");
-
-        $("#layout-cookie-button-accept").attr("tabIndex", "10");
-        $("#layout-cookie-button-reject").attr("tabIndex", "20");
-        $("#layout-cookie-link").attr("tabIndex", "30");
-        $("#cookie-accept-link").attr("tabIndex", "40");
-        $("#cookie-accept-close-button").attr("tabIndex", "50");
-        $("#cookie-reject-link").attr("tabIndex", "60");
-        $("#cookie-reject-close-button").attr("tabIndex", "70");
-        $("#layout-main-content-link").attr("tabIndex", "80");
-        $("#header-service-link").attr("tabIndex", "90");
-        $("#layout-main-content-banner-link").attr("tabIndex", "100");
-        $("#filter-schemes").attr("tabIndex", "110");
-    }
-    else
-    {
-        $(".filter-full-width").removeClass("govuk-grid-column-full").addClass("govuk-grid-column-two-thirds");
-
-        $("#layout-cookie-button-accept").attr("tabIndex", "0");
-        $("#layout-cookie-button-reject").attr("tabIndex", "0");
-        $("#layout-cookie-link").attr("tabIndex", "0");
-        $("#cookie-accept-link").attr("tabIndex", "0");
-        $("#cookie-accept-close-button").attr("tabIndex", "0");
-        $("#cookie-reject-link").attr("tabIndex", "0");
-        $("#cookie-reject-close-button").attr("tabIndex", "0");
-        $("#layout-main-content-link").attr("tabIndex", "0");
-        $("#header-service-link").attr("tabIndex", "0");
-        $("#layout-main-content-banner-link").attr("tabIndex", "0");
-        $("#filter-schemes").attr("tabIndex", "0");
-    }
 }
