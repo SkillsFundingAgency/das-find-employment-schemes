@@ -9,7 +9,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
     public class SchemeLengthFilterService : FilterService, ISchemeLengthFilterService
     {
         private const string Name = "schemeLength";
-        private const string Description = "Length of scheme?";
+        private const string Description = "Duration of scheme";
         private const string ContentfulTypeName = "schemeLengthFilter";
         public static string Prefix => "scheme-length";
 
