@@ -97,10 +97,11 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
         align-items: center;
     }
 
-        .das-header-mobile__flex_column img.app-header__skills-for-life-logo {
+        .das-header-mobile__flex_column svg.app-header__skills-for-life-logo {
             float: right;
             position: relative;
             width: 130px;
+            margin-top: 0;
         }
 
     .das-mobile-heading {
