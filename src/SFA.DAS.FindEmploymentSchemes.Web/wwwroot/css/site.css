@@ -65,13 +65,12 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
     }
     .app-header__skills-for-life-logo {
         margin-top: 0;
-        width: 200px;
+        width: 168px;
     }
 
     .app-header__department-for-education-logo {
-        width: 135px;
-        height: 65px;
-        margin-bottom: 10px;
+        width: 165px;
+        height: 100px;
     }
 
 }
@@ -97,6 +96,12 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
         display: flex;
         align-items: center;
     }
+
+        .das-header-mobile__flex_column img.app-header__skills-for-life-logo {
+            float: right;
+            position: relative;
+            width: 130px;
+        }
 
     .das-mobile-heading {
         margin: 0;
@@ -149,19 +154,19 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
 
     /*todo: consistent naming of these*/
 
-    @media (max-width: 40.0600em) {
-        body:not(.js-enabled) .app-hide-on-mobile-no-js {
-            display: none;
+        @media (max-width: 40.0600em) {
+            body:not(.js-enabled) .app-hide-on-mobile-no-js {
+                display: none;
+            }
         }
-    }
 
-    @media (min-width: 40.0625em) {
-        body.js-enabled .app-js-desktop-hide {
-            display: none;
+        @media (min-width: 40.0625em) {
+            body.js-enabled .app-js-desktop-hide {
+                display: none;
+            }
         }
-    }
 
-    body.js-enabled .app-show-on-mobile-no-js {
+        body .js-enabled .app-show-on-mobile-no-js {
         display: none;
     }
 

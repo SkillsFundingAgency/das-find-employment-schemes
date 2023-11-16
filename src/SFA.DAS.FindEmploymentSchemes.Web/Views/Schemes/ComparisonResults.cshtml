@@ -1,6 +1,6 @@
 ﻿@model ComparisonResultsModel
 
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@*@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor*@
 
 @await Html.PartialAsync(
 
@@ -10,9 +10,11 @@
 
 )
 
-@{
+@*@{
+
     string completeUrl = Url.Action("Comparison", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
-}
+
+}*@
 
 
 <div class="govuk-width-container">
@@ -102,4 +104,4 @@
 
 </div>
 
-@await Html.PartialAsync("_SharePagePartial", completeUrl)
+@*@await Html.PartialAsync("_SharePagePartial", completeUrl)*@
