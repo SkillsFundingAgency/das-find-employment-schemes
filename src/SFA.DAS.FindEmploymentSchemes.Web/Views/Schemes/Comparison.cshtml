@@ -1,5 +1,7 @@
 ﻿@model ComparisonModel
 
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 @await Html.PartialAsync(
 
     "_PreambleBannerPartial",
@@ -7,6 +9,12 @@
     new Tuple<string, string, IHtmlContent?>(Model.Preview.IsPreview ? "home-preview" : "home", string.Empty, null)
 
 )
+
+@{
+
+    string completeUrl = Url.Action("Comparison", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
+
+}
 
 <div class="govuk-width-container">
 
@@ -85,7 +93,7 @@
 
 </div>
 
-@await Html.PartialAsync("_SharePagePartial", string.Empty)
+@await Html.PartialAsync("_SharePagePartial", completeUrl)
 
 <script asp-add-nonce>
 

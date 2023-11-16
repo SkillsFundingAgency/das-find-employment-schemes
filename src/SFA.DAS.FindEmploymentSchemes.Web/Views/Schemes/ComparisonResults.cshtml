@@ -1,5 +1,7 @@
 ﻿@model ComparisonResultsModel
 
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 @await Html.PartialAsync(
 
     "_PreambleBannerPartial",
@@ -7,6 +9,11 @@
     new Tuple<string, string, IHtmlContent?>(@Model.Preview.IsPreview ? "scheme-comparison-preview" : "scheme-comparison", "Comparison of schemes", null)
 
 )
+
+@{
+    string completeUrl = Url.Action("Comparison", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
+}
+
 
 <div class="govuk-width-container">
 
@@ -87,6 +94,12 @@
 
     </div>
 
+    <div class="govuk-grid-row govuk-!-padding-top-6 govuk-!-padding-bottom-6 govuk-!-padding-left-3">
+
+        <a asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="govuk-link">Return to list of all schemes</a>
+
+    </div>
+
 </div>
 
-@await Html.PartialAsync("_SharePagePartial", string.Empty)
+@await Html.PartialAsync("_SharePagePartial", completeUrl)
