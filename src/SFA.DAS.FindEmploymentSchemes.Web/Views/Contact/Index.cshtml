@@ -1,4 +1,6 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+﻿@model ContactModel
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @{
 
@@ -42,146 +44,49 @@
 
         <div class="govuk-grid-column-full">
 
-            @*Apprenticeships*@
+            @foreach(Contact contact in Model.ContactList)
+            {
 
-            <div class="govuk-inset-text govuk-details__text">
-                <h2 class="govuk-heading-m">Apprenticeships</h2>
-                <ul class="govuk-list">
-                    <li>Telephone: 08000 150 400</li>
-                    <li>Monday to Friday, 8am to 6pm</li>
-                    <li>Email: <a class="govuk-link" href="mailto:nationalhelpdesk@apprenticeships.gov.uk">nationalhelpdesk@apprenticeships.gov.uk</a></li>
-                </ul>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://www.apprenticeships.gov.uk/">Scheme website</a>
-                </p>
-            </div>
+                <div class="govuk-inset-text govuk-details__text">
 
-            @*Apprenticeships*@
+                    <h2 class="govuk-heading-m">@contact.SectionName</h2>
 
-            @*T-Levels*@
+                    <ul class="govuk-list">
 
-            <div class="govuk-inset-text govuk-details__text">
-                <h2 class="govuk-heading-m">T Levels</h2>
-                <ul class="govuk-list govuk-word-break">
-                    <li>Telephone: 08000 150 600</li>
-                    <li>Monday to Friday, 8am to 6pm</li>
-                    <li>Email: <a class="govuk-link" href="mailto:Tlevel.placement@education.gov.uk">Tlevel.placement@education.gov.uk</a></li>
-                </ul>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://employers.tlevels.gov.uk/hc/en-gb/requests/new">Online contact form </a>
-                </p>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://employers.tlevels.gov.uk/hc/en-gb">Scheme website</a>
-                </p>
-            </div>
+                        @foreach(ContactInformation contactInformation in contact.ContactInformation)
+                        {
 
-            @*T-levels*@
+                            <li>
 
-            @*Sector-based Work Academy Programme*@
+                                @contactInformation.Description
 
-            <div class="govuk-inset-text govuk-details__text">
-                <h2 class="govuk-heading-m">Sector-based Work Academy Programme</h2>
-                <ul class="govuk-list">
-                    <li>Telephone: 0800 169 0178</li>
-                    <li>Telephone: 0800 169 0172</li>
-                    <li>Monday to Friday, 9am to 5pm</li>
-                </ul>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://find-employer-schemes.education.gov.uk/schemes/sector-based-work-academy-programme-swap">Scheme website</a>
-                </p>
-            </div>
+                                @if (!string.IsNullOrWhiteSpace(contactInformation.HyperlinkName) && !string.IsNullOrWhiteSpace(contactInformation.HyperlinkSource))
+                                {
 
-            @*Sector-based Work Academy Programme*@
+                                    <a href="@contactInformation.HyperlinkSource" class="govuk-link">@contactInformation.HyperlinkName</a>
 
-            @*Multiply*@
+                                }
 
-            <div class="govuk-inset-text govuk-details__text">
-                <h2 class="govuk-heading-m">Multiply</h2>
-                <ul class="govuk-list">
-                    <li>Email: <a class="govuk-link" href="mailto:multiply.localallocations@education.gov.uk">multiply.localallocations@education.gov.uk</a></li>
-                </ul>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://nationalcareers.service.gov.uk/find-a-course/page?searchTerm=maths%20mathematics%20numeracy%20multiply&distance=10%20miles&town=&orderByValue=Relevance&startDate=Anytime&courseType=&courseHours=&courseStudyTime=&filterA=true&page=1&D=0&coordinates=&campaignCode=&qualificationLevels=">Scheme course finder</a>
-                </p>
-            </div>
+                            </li>
 
-            @*Multiply*@
+                        }
 
-            @*Care Leaver Covenant*@
+                    </ul>
 
-            <div class="govuk-inset-text govuk-details__text">
-                <h2 class="govuk-heading-m">Care Leaver Covenant</h2>
-                <ul class="govuk-list">
-                    <li>Telephone: 0800 077 3557</li>
-                    <li>Email: <a class="govuk-link" href="mailto:info@mycovenant.org.uk">info@mycovenant.org.uk</a></li>
-                </ul>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://mycovenant.org.uk/contact/">Online contact form</a>
-                </p>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://mycovenant.org.uk/">Scheme website</a>
-                </p>
-            </div>
+                    @foreach(ContactLink contactLink in contact.ContactLinks)
+                    {
 
-            @*Care Leaver Covenant*@
+                        <p class="govuk-body">
 
-            @*Skills Bootcamps*@
+                            <a class="govuk-link" href="@contactLink.Hyperlink">@contactLink.Description</a>
 
-            <div class="govuk-inset-text govuk-details__text">
-                <h2 class="govuk-heading-m">Skills Bootcamps</h2>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://www.gov.uk/guidance/find-a-skills-bootcamp">Scheme website</a>
-                </p>
-            </div>
+                        </p>
 
-            @*Skills Bootcamps*@
+                    }
 
-            @*Higher Technical Qualifications*@
+                </div>
 
-            <div class="govuk-inset-text govuk-details__text">
-                <h2 class="govuk-heading-m">Higher Technical Qualifications</h2>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://www.gov.uk/government/publications/higher-technical-qualification-overview">Scheme website</a>
-                </p>
-            </div>
-
-            @*Higher Technical Qualifications*@
-
-            @*Supported Internships*@
-
-            <div class="govuk-inset-text govuk-details__text">
-                <h2 class="govuk-heading-m">Supported Internships</h2>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://www.gov.uk/government/publications/supported-internships-for-young-people-with-learning-difficulties?_ga=2.140947824.39900855.1698662915-1634194323.1693994602">Scheme website</a>
-                </p>
-            </div>
-
-            @*Supported Internships*@
-
-            @*Free Courses and additional free training*@
-
-            <div class="govuk-inset-text govuk-details__text">
-                <h2 class="govuk-heading-m">Free Courses and additional free training</h2>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://nationalcareers.service.gov.uk/find-a-course">Scheme website</a>
-                </p>
-            </div>
-
-            @*Free Courses and additional free training*@
-
-            @*Supporting prisoners and prison leavers*@
-
-            <div class="govuk-inset-text govuk-details__text">
-                <h2 class="govuk-heading-m">Supporting prisoners and prison leavers</h2>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://newfuturesnetwork.gov.uk/register/">Online contact form</a>
-                </p>
-                <p class="govuk-body">
-                    <a class="govuk-link" href="https://newfuturesnetwork.gov.uk/">Scheme website</a>
-                </p>
-            </div>
-
-            @*Supporting prisoners and prison leavers*@
+            }
 
         </div>
 

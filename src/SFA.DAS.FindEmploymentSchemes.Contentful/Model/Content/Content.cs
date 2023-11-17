@@ -13,7 +13,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             IEnumerable<Scheme> schemes,
             Filter motivationsFilter,
             Filter payFilter,
-            Filter schemeLengthFilter)
+            Filter schemeLengthFilter,
+            IEnumerable<Contact> contacts
+        )
         {
             Pages = pages;
             CaseStudyPages = caseStudyPages;
@@ -21,6 +23,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             MotivationsFilter = motivationsFilter;
             PayFilter = payFilter;
             SchemeLengthFilter = schemeLengthFilter;
+            Contacts = contacts;
         }
 
         public IEnumerable<Page> Pages { get; }
@@ -29,5 +32,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public Filter MotivationsFilter { get; }
         public Filter PayFilter { get; }
         public Filter SchemeLengthFilter { get; }
+        public IEnumerable<Contact> Contacts { get; }
     }
 }

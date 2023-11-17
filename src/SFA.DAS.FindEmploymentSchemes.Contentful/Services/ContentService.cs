@@ -22,6 +22,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         private readonly IMotivationFilterService _motivationFilterService;
         private readonly IPayFilterService _payFilterService;
         private readonly ISchemeLengthFilterService _schemeLengthFilterService;
+        private readonly IContactService _contactService;
         private readonly ILogger<ContentService> _logger;
 
         public event EventHandler<EventArgs>? ContentUpdated;
@@ -35,6 +36,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             IMotivationFilterService motivationFilterService,
             IPayFilterService payFilterService,
             ISchemeLengthFilterService schemeLengthFilterService,
+            IContactService contactService,
             ILogger<ContentService> logger)
         {
             _contentfulClient = contentfulClientFactory.ContentfulClient;
@@ -45,6 +47,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             _motivationFilterService = motivationFilterService;
             _payFilterService = payFilterService;
             _schemeLengthFilterService = schemeLengthFilterService;
+            _contactService = contactService;
             _logger = logger;
         }
 
@@ -94,7 +97,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 schemes,
                 await _motivationFilterService.Get(contentfulClient),
                 await _payFilterService.Get(contentfulClient),
-                await _schemeLengthFilterService.Get(contentfulClient));
+                await _schemeLengthFilterService.Get(contentfulClient),
+                await _contactService.GetContacts(contentfulClient)
+            );
         }
 
         public static HtmlRenderer CreateHtmlRenderer()

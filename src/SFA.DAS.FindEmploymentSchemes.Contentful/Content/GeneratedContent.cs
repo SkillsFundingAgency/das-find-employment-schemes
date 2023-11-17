@@ -422,5 +422,12 @@ the website you came from to find out more about this.</p>")
         public IEnumerable<CaseStudyPage> CaseStudyPages => _caseStudyPages ??= new CaseStudyPage[]
         {
         };
+
+
+        private IEnumerable<Contact>? _contacts;
+        public IEnumerable<Contact> Contacts => _contacts ??= new Contact[]
+        {
+        };
+
     }
 }
