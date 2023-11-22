@@ -28,19 +28,19 @@
 
         <div id="layout-cookie-button-group" class="govuk-button-group">
 
-            <button id="layout-cookie-button-accept" value="accept" type="button" name="cookies" class="das-button__primary cookie-consent-button cookies-accept" data-module="govuk-button" data-accept-cookies="true">
+            <button id="layout-cookie-button-accept" value="accept" type="button" role="button" name="cookies" class="das-button__primary cookie-consent-button cookies-accept" data-module="govuk-button" data-accept-cookies="true">
                 
                 Accept cookies
             
             </button>
 
-            <button id="layout-cookie-button-reject" value="reject" type="button" name="cookies" class="das-button__primary cookie-consent-button cookies-reject" data-module="govuk-button" data-reject-cookies="true">
+            <button id="layout-cookie-button-reject" value="reject" type="button" role="button" name="cookies" class="das-button__primary cookie-consent-button cookies-reject" data-module="govuk-button" data-reject-cookies="true">
                 
                 Reject cookies
             
             </button>
 
-            <a id="layout-cookie-link" class="govuk-link" asp-route="@pageRoute" asp-route-pageUrl="cookies">View cookies</a>
+            <a id="layout-cookie-link" class="govuk-link" asp-route="@pageRoute" asp-route-pageUrl="cookies" role="link">View cookies</a>
 
         </div>
 
@@ -54,7 +54,7 @@
 
                 <div id="cookie-accept-banner" class="govuk-cookie-banner__content">
                     
-                    <p id="cookie-accept-para" class="govuk-body">You’ve accepted all cookies. You can <a id="cookie-accept-link" class="govuk-link" asp-route="pageRoute" asp-route-pageUrl="cookies">change your cookie settings</a> at any time.</p>
+                    <p id="cookie-accept-para" class="govuk-body">You’ve accepted all cookies. You can <a id="cookie-accept-link" class="govuk-link" asp-route="pageRoute" asp-route-pageUrl="cookies" role="link">change your cookie settings</a> at any time.</p>
                 
                 </div>
             
@@ -64,7 +64,7 @@
 
         <div id="cookie-accept-close-group" class="govuk-button-group">
             
-            <button id="cookie-accept-close-button" class="das-button__primary cookies-close" data-module="govuk-button" data-hide-cookie-message>
+            <button id="cookie-accept-close-button" class="das-button__primary cookies-close" data-module="govuk-button" data-hide-cookie-message role="button">
                 
                 Hide this message about cookie settings
             
@@ -82,7 +82,7 @@
 
                 <div id="cookie-reject-banner" class="govuk-cookie-banner__content">
                     
-                    <p id="cookie-reject-para" class="govuk-body">You've rejected all cookies. You can <a id="cookie-reject-link" class="govuk-link" asp-route="@pageRoute" asp-route-pageUrl="cookies">change your cookie settings</a> at any time.</p>
+                    <p id="cookie-reject-para" class="govuk-body">You've rejected all cookies. You can <a id="cookie-reject-link" class="govuk-link" asp-route="@pageRoute" asp-route-pageUrl="cookies" role="link">change your cookie settings</a> at any time.</p>
                 
                 </div>
 
@@ -92,7 +92,7 @@
 
         <div id="cookie-reject-close-group" class="govuk-button-group">
 
-            <button id="cookie-reject-close-button" class="das-button__primary cookies-close" data-module="govuk-button" data-hide-cookie-message>
+            <button id="cookie-reject-close-button" class="das-button__primary cookies-close" data-module="govuk-button" data-hide-cookie-message role="button">
 
                 Hide this message about cookie settings
 
