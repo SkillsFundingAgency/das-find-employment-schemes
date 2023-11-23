@@ -91,7 +91,7 @@ function initMobileView() {
 
         const subMenuElement = document.querySelector('.govuk-header__navigation-item[data-menu-section="' + dataSection + '"]');
 
-        if (subMenuElement !== null && subMenuElement !== 'undefined') {
+        if (subMenuElement !== null && subMenuElement != 'undefined') {
 
             const computedStyle = window.getComputedStyle(subMenuElement);
 

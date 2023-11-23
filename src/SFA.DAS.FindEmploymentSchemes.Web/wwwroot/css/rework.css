@@ -2549,8 +2549,7 @@ p + .das-tile__body-heading {
     }
 
 @supports not (caret-color: auto) {
-    .govuk-fieldset,
-    x:-moz-any-link {
+    .govuk-fieldset {
         display: table-cell;
     }
 }
@@ -8902,7 +8901,6 @@ p + .das-tile__body-heading {
     font-size: 1rem;
     line-height: 1.25;
     color: #505a5f;
-    font-weight: 400;
     margin: 0;
     padding: 10px;
     padding-left: 14px;
@@ -9424,7 +9422,6 @@ p + .das-tile__body-heading {
     padding: 30px 30px 45px 30px;
     margin-bottom: 15px;
     border-radius: 30px;
-    min-height: auto;
     outline: solid 0.5px #d6e5ee;
 }
 
