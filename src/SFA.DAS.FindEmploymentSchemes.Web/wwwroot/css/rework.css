@@ -9754,7 +9754,7 @@ p + .das-tile__body-heading {
     margin: 0 15px;
 }
 
-@media (min-width: 1020px) {
+@media (min-width: 1100px) {
     .global-bar .global-bar-message-container,
     .govuk-width-container {
         margin: 0 auto;
@@ -10366,7 +10366,6 @@ p + .das-tile__body-heading {
     }
 
     .das-header-mobile .das-header-mobile__flex_column {
-        padding: 10px;
         box-sizing: border-box;
     }
 

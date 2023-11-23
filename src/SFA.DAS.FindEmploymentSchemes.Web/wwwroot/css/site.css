@@ -104,13 +104,18 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
             margin-top: 0;
         }
 
+        .das-header-mobile__flex_column svg.app-header__department-for-education-logo {
+            width: 140px;
+            height: 80px;
+        }
+
     .das-mobile-heading {
         margin: 0;
     }
 
     .app-header__department-for-education-logo {
-        width: 136px;
-        height: 82px;
+        width: 160px;
+        height: 100px;
         margin-left: 10px;
     }
 
@@ -497,6 +502,11 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
             margin-right: 20px;
             text-align: center;
         }
+
+            .das-share-links li img {
+                width: 30px;
+                margin-right: 10px;
+            }
 
     @media (max-width: 40.0625em) {
         .das-share-links li {
