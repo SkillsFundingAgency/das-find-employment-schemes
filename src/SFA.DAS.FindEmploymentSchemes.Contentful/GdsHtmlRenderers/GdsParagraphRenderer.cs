@@ -91,7 +91,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
 
         }
 
-        private bool ContainsDivHtml(string input)
+        private static bool ContainsDivHtml(string input)
         {
 
             var doc = new HtmlDocument();

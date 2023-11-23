@@ -9098,7 +9098,7 @@ p + .das-tile__body-heading {
 .das-button__secondary,
 .das-linkbutton__primary {
     border-radius: 44px;
-    font-family: "GDS Transport";
+    font-family: "GDS Transport", Arial, sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 19px;
