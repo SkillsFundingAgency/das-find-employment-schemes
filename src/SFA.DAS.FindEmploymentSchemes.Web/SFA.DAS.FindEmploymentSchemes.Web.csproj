@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.SEOHelper" Version="1.0.1" />
+    <PackageReference Include="Azurite" Version="2.6.5" />
     <PackageReference Include="contentful.aspnetcore" Version="7.0.1" />
     <PackageReference Include="Cronos" Version="0.7.1" />
     <PackageReference Include="LigerShark.WebOptimizer.Core" Version="3.0.335" />
@@ -36,10 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\lib\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.FindEmploymentSchemes.Contentful\SFA.DAS.FindEmploymentSchemes.Contentful.csproj" />
   </ItemGroup>
 
@@ -50,6 +47,10 @@
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\department_for_education_logo.png" />
   </ItemGroup>
 
 </Project>

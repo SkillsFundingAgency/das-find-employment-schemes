@@ -1,23 +1,47 @@
 ﻿@model PageModel
 
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 @{
+
     if (!string.IsNullOrWhiteSpace(Model.Page.Title))
     {
-        ViewData["Title"] = Model.Page.Title[..Math.Min(Model.Page.Title.Length, 64)];
-    }
-}
 
-@section BreadCrumbs {
-    @await Html.PartialAsync("_BreadcrumbPartial", Model)
+        ViewData["Title"] = Model.Page.Title[..Math.Min(Model.Page.Title.Length, 64)];
+
+    }
+
+    string completeUrl = Url.Action("Page", "Pages", new { pageUrl = @Model.Page.Url }, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
+
 }
 
 @section PreviewErrors
 {
+
     @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
+
 }
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        @Model.Page.Content
+@await Html.PartialAsync(
+
+    "_PreambleBannerPartial",
+
+    new Tuple<string, string, IHtmlContent?>(Model.Preview.IsPreview ? "home-preview" : "home", Model.Page.Title ?? string.Empty, null)
+
+)
+
+<div class="govuk-width-container govuk-!-padding-top-8">
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            @Model.Page.Content
+
+        </div>
+
     </div>
+
 </div>
+
+@await Html.PartialAsync("_SharePagePartial", completeUrl)

@@ -18,6 +18,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.StartupServices;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Routing;
 using SFA.DAS.FindEmploymentSchemes.Web.GoogleAnalytics;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web
 {
@@ -79,7 +80,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<ICaseStudyPageService, CaseStudyPageService>();
-
+            services.AddSingleton<IContactService, ContactService>();
             services.AddSingleton<IFilterService, FilterService>()
                 .AddSingleton<ISchemesModelService, SchemesModelService>();
 
@@ -152,6 +153,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     "home",
                     "",
                     "Schemes", "Home");
+
+                MapControllerRoute(endpoints,
+                    "contact",
+                    "",
+                    "contact", "index");
 
                 MapControllerRoute(endpoints,
                     "page",

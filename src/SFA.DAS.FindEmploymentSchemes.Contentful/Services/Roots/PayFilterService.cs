@@ -9,7 +9,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
     public class PayFilterService : FilterService, IPayFilterService
     {
         private const string Name = "pay";
-        private const string Description = "I can offer";
+        private const string Description = "Cost of training";
         private const string ContentfulTypeName = "payFilter";
         public static string Prefix => "pay";
 

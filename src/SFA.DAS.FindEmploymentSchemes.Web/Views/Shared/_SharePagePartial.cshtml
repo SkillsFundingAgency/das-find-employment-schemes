@@ -1,0 +1,53 @@
+﻿@model string
+
+<div class="govuk-width-container govuk-!-padding-top-1 govuk-!-padding-bottom-8">
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <h2>Share this page</h2>
+
+    <ul class="das-share-links das-horizontal-icon-list">
+
+        <li>
+
+            <image src="/svg/envelope.svg" alt="Envelope icon">
+
+            <a href="mailto:?body=@Model" role="link">Email</a>
+
+            <span class="sr-only">Share via Email</span>
+
+        </li>
+
+        <li>
+
+            <image src="/svg/square-facebook.svg" alt="Facebook icon">
+
+            <a href="https://www.facebook.com/sharer.php?u=@Model" target="_blank" rel="noopener noreferrer" role="link">Facebook</a>
+
+            <span class="sr-only">Share on Facebook</span>
+
+        </li>
+
+        <li>
+
+            <image src="/svg/square-x-twitter.svg" alt="X (formely twitter) icon">
+            
+            <a href="https://twitter.com/intent/tweet?url=@Model" target="_blank" rel="noopener noreferrer" role="link">X (formerly Twitter)</a>
+
+            <span class="sr-only">Share on X (formerly Twitter)</span>
+
+        </li>
+
+        <li>
+
+            <image src="/svg/linkedin.svg" alt="Linkedin icon">
+
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=@Model" target="_blank" rel="noopener noreferrer" role="link">LinkedIn</a>
+
+            <span class="sr-only">Share on LinkedIn</span>
+
+        </li>
+
+    </ul>
+
+</div>

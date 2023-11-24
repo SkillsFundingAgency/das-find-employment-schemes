@@ -7,66 +7,17 @@ const filterSchemesCheckboxSelector = '#scheme-filter-options :checkbox';
 const numberOfSchemesSelector = '#number-of-schemes';
 const filterParamName = 'filter';
 
-function initFiltering(options) {
-    // we need to ensure that when the page is displayed:
-    //  * from a bookmark/copy & pasted link
-    //  * traversing through history
-    // that the correct filters are ticked, the schemes are filtered correctly, and the filter panel is displayed if any filters are selected
-    const filters = updateFiltersFromFragmentAndShowResults();
-    initEvents();
-
-    // if the scheme's are filtered, then ensure the filter panel is displayed
-    if (!NoFilters(filters)) {
-        showFilterBox();
-    }
-}
-
-const Visibility = {
-    Show: true,
-    Hide: false
-};
-
-function showFilterBox() {
-    showHideFilterBox(Visibility.Show);
-}
-
-function hideFilterBox() {
-    showHideFilterBox(Visibility.Hide);
-}
-
-// only call after showHideEls has been created
-function showHideFilterBox(visibility) {
-    var schemeFilter = $('#scheme-filter');
-    if (visibility === Visibility.Show) {
-        schemeFilter.removeClass('app-show-hide__section--show');
-    } else {
-        schemeFilter.addClass('app-show-hide__section--show');
-    }
-    const schemeFilterShowHide = showHideEls['scheme-filter'];
-    schemeFilterShowHide.showHideTarget(schemeFilterShowHide);
-}
-
 function updateFiltersFromFragmentAndShowResults() {
     const hashParams = getHashParams();
     const filters = getFilters(hashParams);
 
-    updateCheckboxesFromFragment(filters);
     showHideSchemes(filters);
-    updateNumberOfSchemes();
 
     return filters;
 }
 
 function NoFilters(filters) {
     return (filters.length === 0 || filters.length === 1 && filters[0] === '');
-}
-
-function updateCheckboxesFromFragment(filters) {
-
-    $(filterSchemesCheckboxSelector).each(function () {
-        const $this = $(this);
-        $this.prop('checked', $.inArray($this.val(), filters) !== -1);
-    });
 }
 
 function getFilters(hashParams) {
@@ -93,7 +44,7 @@ function showHideSchemes(filters) {
 
             return result;
         },
-        {});
+    {});
 
     var schemes = $('[data-scheme]').hide();
 
@@ -110,19 +61,70 @@ function showHideSchemes(filters) {
     schemes.show();
 }
 
-function initEvents() {
-    window.addEventListener('hashchange', function () {
-        updateFiltersFromFragmentAndShowResults();
+function initMobileView() {
+
+    $("#filter-schemes").click(function () {
+
+        if ($(".app-filter-layout__filter").hasClass("filters_mobile_hidden")) {
+
+            $(".app-filter-layout__filter").removeClass("filters_mobile_hidden").addClass("mobile-filter__layout");
+
+        }
+
     });
 
-    $(filterSchemesCheckboxSelector).click(function () {
-        updateFragmentFromCheckboxes();
+    $("#close-filter").click(function () {
+
+        if (!$(".app-filter-layout__filter").hasClass("filters_mobile_hidden")) {
+
+            $(".app-filter-layout__filter").addClass("filters_mobile_hidden").removeClass("mobile-filter__layout");
+
+        }
+
     });
 
-    $('#clear-filters').click(function() {
-        clearFilters();
-        return false;
+    $(".govuk-header__navigation-list-mobile-close-btn").click(function () {
+
+        var headingButton = this;
+
+        var dataSection = headingButton.getAttribute("data-menu-section");
+
+        const subMenuElement = document.querySelector('.govuk-header__navigation-item[data-menu-section="' + dataSection + '"]');
+
+        if (subMenuElement !== null && subMenuElement != 'undefined') {
+
+            const computedStyle = window.getComputedStyle(subMenuElement);
+
+            const display = computedStyle.getPropertyValue('display');
+
+            const timesSVG = headingButton.querySelector(".das-menu-item__close_section");
+
+            const chevronSVG = headingButton.querySelector(".das-menu-item__open_section");
+
+            if (display !== 'none') {
+
+                subMenuElement.style.display = 'none';
+
+                timesSVG.style.display = 'none';
+
+                chevronSVG.style.display = '';
+
+            }
+            else
+            {
+
+                subMenuElement.style.display = 'list-item';
+
+                timesSVG.style.display = '';
+
+                chevronSVG.style.display = 'none';
+
+            }
+
+        }
+
     });
+
 }
 
 function clearFilters() {
@@ -177,38 +179,4 @@ function setHashParams(hashParams, updateResults) {
 
 function updateNumberOfSchemes() {
     $(numberOfSchemesSelector).html($('[data-scheme]:visible').length);
-}
-
-function onFilterBoxOpenClose() {
-    if ($('#scheme-filter').hasClass('app-show-hide__section--show')) {
-        $(".filter-full-width").removeClass("govuk-grid-column-two-thirds").addClass("govuk-grid-column-full");
-
-        $("#layout-cookie-button-accept").attr("tabIndex", "10");
-        $("#layout-cookie-button-reject").attr("tabIndex", "20");
-        $("#layout-cookie-link").attr("tabIndex", "30");
-        $("#cookie-accept-link").attr("tabIndex", "40");
-        $("#cookie-accept-close-button").attr("tabIndex", "50");
-        $("#cookie-reject-link").attr("tabIndex", "60");
-        $("#cookie-reject-close-button").attr("tabIndex", "70");
-        $("#layout-main-content-link").attr("tabIndex", "80");
-        $("#header-service-link").attr("tabIndex", "90");
-        $("#layout-main-content-banner-link").attr("tabIndex", "100");
-        $("#filter-schemes").attr("tabIndex", "110");
-    }
-    else
-    {
-        $(".filter-full-width").removeClass("govuk-grid-column-full").addClass("govuk-grid-column-two-thirds");
-
-        $("#layout-cookie-button-accept").attr("tabIndex", "0");
-        $("#layout-cookie-button-reject").attr("tabIndex", "0");
-        $("#layout-cookie-link").attr("tabIndex", "0");
-        $("#cookie-accept-link").attr("tabIndex", "0");
-        $("#cookie-accept-close-button").attr("tabIndex", "0");
-        $("#cookie-reject-link").attr("tabIndex", "0");
-        $("#cookie-reject-close-button").attr("tabIndex", "0");
-        $("#layout-main-content-link").attr("tabIndex", "0");
-        $("#header-service-link").attr("tabIndex", "0");
-        $("#layout-main-content-banner-link").attr("tabIndex", "0");
-        $("#filter-schemes").attr("tabIndex", "0");
-    }
 }

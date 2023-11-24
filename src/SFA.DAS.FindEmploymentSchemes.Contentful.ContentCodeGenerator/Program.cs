@@ -1,18 +1,17 @@
-﻿using System;
+﻿using Contentful.Core;
+using Contentful.Core.Configuration;
+using Microsoft.AspNetCore.Html;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging.Abstractions;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Contentful.Core;
-using Contentful.Core.Configuration;
-using Microsoft.AspNetCore.Html;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
@@ -46,6 +45,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 new MotivationFilterService(htmlRenderer),
                 new PayFilterService(htmlRenderer),
                 new SchemeLengthFilterService(htmlRenderer),
+                new ContactService(htmlRenderer, new NullLogger<ContactService>()),
                 new NullLogger<ContentService>());
 
             var content = await contentService.Update();

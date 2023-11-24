@@ -94,7 +94,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
                 .Returns(filteredHomeModel);
 
             // act
-            IActionResult result = SchemesController.Home(SchemeFilterModel, "");
+            IActionResult result = SchemesController.Home(SchemeFilterModel);
 
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.NotNull(viewResult.Model);

@@ -31,6 +31,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Extensions
                 .AddSingleton<ICaseStudyPageService, CaseStudyPageService>()
                 .AddSingleton<IPayFilterService, PayFilterService>()
                 .AddSingleton<ISchemeLengthFilterService, SchemeLengthFilterService>()
+                .AddSingleton<IContactService, ContactService>()
                 .AddTransient<IContentfulClient>(sp =>
                 {
                     var configOptions = sp.GetService<IOptions<ContentfulOptions>>()?.Value;

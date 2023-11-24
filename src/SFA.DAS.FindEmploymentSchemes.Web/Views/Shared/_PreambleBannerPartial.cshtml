@@ -1,0 +1,47 @@
+﻿@model System.Tuple<string, string, IHtmlContent?>
+
+@if (!string.IsNullOrWhiteSpace(@Model.Item1) || !string.IsNullOrWhiteSpace(@Model.Item2))
+{
+
+    <div class="das-primary-banner govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-6 govuk-!-margin-right-0 govuk-!-margin-left-0">
+
+        <div class="govuk-width-container govuk-width-container-large">
+
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-0 govuk-!-padding-left-0">
+
+                @if (!string.IsNullOrWhiteSpace(@Model.Item1))
+                {
+
+                    <a id="scheme-comparison-breadcrumb" asp-route="@Model.Item1" class="govuk-back-link">Back</a>
+
+                }
+
+                @if (!string.IsNullOrWhiteSpace(@Model.Item2))
+                {
+
+                    <h1 id="comparison-results-h1" class="govuk-heading-l govuk-!-margin-top-4">@Model.Item2</h1>
+
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+}
+
+@if (@Model.Item3 != null)
+{
+
+    <div class="das-primary-banner govuk-grid-row govuk-!-padding-top-1 govuk-!-margin-right-0 govuk-!-margin-left-0">
+
+        <div class="govuk-width-container govuk-width-container-large">
+
+            @Html.Raw(@Model.Item3)
+
+        </div>
+
+    </div>
+
+}

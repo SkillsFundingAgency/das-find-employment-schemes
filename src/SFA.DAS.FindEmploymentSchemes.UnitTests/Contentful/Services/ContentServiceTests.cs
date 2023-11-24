@@ -35,6 +35,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         public IMotivationFilterService MotivationFilterService { get; set; }
         public IPayFilterService PayFilterService { get; set; }
         public ISchemeLengthFilterService SchemeLengthFilterService { get; set; }
+
+        public IContactService ContactService { get; set; }
+
         public ContentService ContentService { get; set; }
         public CompareLogic CompareLogic { get; set; }
 
@@ -73,6 +76,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             MotivationFilterService = A.Fake<IMotivationFilterService>();
             PayFilterService = A.Fake<IPayFilterService>();
             SchemeLengthFilterService = A.Fake<ISchemeLengthFilterService>();
+            ContactService = A.Fake<IContactService>();
 
             CreateContentService();
 
@@ -407,6 +411,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
                 MotivationFilterService,
                 PayFilterService,
                 SchemeLengthFilterService,
+                ContactService,
                 Logger);
         }
     }

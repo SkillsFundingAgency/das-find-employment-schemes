@@ -1,4 +1,7 @@
 ﻿using Contentful.Core.Models;
+using HtmlAgilityPack;
+using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,6 +36,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         public bool SupportsContent(IContent content)
         {
             return content is Paragraph;
+
         }
 
         /// <summary>
@@ -43,17 +47,61 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers
         public async Task<string> RenderAsync(IContent content)
         {
             var paragraph = content as Paragraph;
+
             var sb = new StringBuilder();
+
+            if(paragraph == null)
+            {
+
+                return string.Empty;
+
+            }
+
             sb.Append("<p class=\"govuk-body\">");
 
-            foreach (var subContent in paragraph!.Content)
+            // Render any nested content within the paragraph
+            foreach (var subContent in paragraph.Content)
             {
-                var renderer = _rendererCollection.GetRendererForContent(subContent);
-                sb.Append(await renderer.RenderAsync(subContent));
+
+                // Check if the sub content contains html - process accordingly.
+                if (subContent is Text && ContainsDivHtml(((Text)subContent).Value))
+                {
+
+                    // If it contains HTML, append it without HTML encoding
+
+                    sb.Append(((Text)subContent).Value);
+
+                }
+                else
+                {
+
+                    
+
+                    var renderer = _rendererCollection.GetRendererForContent(subContent);
+
+                    sb.Append(await renderer.RenderAsync(subContent));
+
+                }
+
             }
 
             sb.Append("</p>");
+
             return sb.ToString();
+
         }
+
+        private static bool ContainsDivHtml(string input)
+        {
+
+            var doc = new HtmlDocument();
+
+            doc.LoadHtml(input);
+
+            return doc.DocumentNode.DescendantsAndSelf().Any(n => n.Name.Equals("div", StringComparison.OrdinalIgnoreCase));
+
+        }
+
     }
+
 }

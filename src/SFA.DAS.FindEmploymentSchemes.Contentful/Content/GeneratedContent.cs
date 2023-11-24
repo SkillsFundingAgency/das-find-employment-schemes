@@ -322,22 +322,22 @@ providing a stepping-stone for your future apprentices
        private Filter? _motivationsFilter;
         public Filter MotivationsFilter => _motivationsFilter ??= new Filter("motivations", "I want to", new FilterAspect[]
         {
-            new FilterAspect("motivations--full-time-role", "help train someone up into a full-time role"),
-            new FilterAspect("motivations--unpaid-placement", "offer someone an unpaid work placement opportunity"),
-            new FilterAspect("motivations--diversity-or-responsibility", "diversify our workforce or for corporate and social responsibility"),
-        });
-       private Filter? _payFilter;
-        public Filter PayFilter => _payFilter ??= new Filter("pay", "I can offer", new FilterAspect[]
-        {
-            new FilterAspect("pay--minimum-wage", "at least national minimum wage"),
-            new FilterAspect("pay--unpaid", "unpaid placements"),
+            new FilterAspect("motivations--recruit-new-staff", "Recruit new staff"),
+            new FilterAspect("motivations--retrain-or-up-skill-existing-staff", "Retrain or up-skill existing staff"),
+            new FilterAspect("motivations--offer-short-terms-work-experience-placements", "Offer short terms work experience placements"),
         });
        private Filter? _schemeLengthFilter;
-        public Filter SchemeLengthFilter => _schemeLengthFilter ??= new Filter("schemeLength", "Length of scheme?", new FilterAspect[]
+        public Filter SchemeLengthFilter => _schemeLengthFilter ??= new Filter("scheme-length", "Duration of the scheme", new FilterAspect[]
         {
-            new FilterAspect("scheme-length--up-to-4-months", "Up to 4 months"),
-            new FilterAspect("scheme-length--4-months-to-12-months", "4 months to 12 months"),
-            new FilterAspect("scheme-length--a-year-or-more", "A year or more"),
+            new FilterAspect("scheme-length--less-than-6-months", "Less than 6 months"),
+            new FilterAspect("scheme-length--between-6-months-and-1-year", "Between 6 months and 1 year"),
+            new FilterAspect("scheme-length--longer-than-1-year", "Longer than 1 year")
+        });
+       private Filter? _payFilter;
+        public Filter PayFilter => _payFilter ??= new Filter("pay", "Cost of training", new FilterAspect[]
+        {
+            new FilterAspect("pay--free", "Free"),
+            new FilterAspect("pay--may-require-employer-contribution", "May require employer contribution")
         });
         private IEnumerable<Page>? _pages;
         public IEnumerable<Page> Pages => _pages ??= new Page[]
@@ -422,5 +422,12 @@ the website you came from to find out more about this.</p>")
         public IEnumerable<CaseStudyPage> CaseStudyPages => _caseStudyPages ??= new CaseStudyPage[]
         {
         };
+
+
+        private IEnumerable<Contact>? _contacts;
+        public IEnumerable<Contact> Contacts => _contacts ??= new Contact[]
+        {
+        };
+
     }
 }
