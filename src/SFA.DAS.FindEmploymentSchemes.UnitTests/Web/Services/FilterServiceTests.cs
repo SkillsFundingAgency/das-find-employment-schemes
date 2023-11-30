@@ -9,6 +9,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -20,8 +21,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         {
             IContentService contentService = A.Fake<IContentService>();
             ISchemesModelService schemesModelService = A.Fake<ISchemesModelService>();
+            ILogger<FilterService> filterServiceLogger = A.Fake<ILogger<FilterService>>();
 
-            FilterService service = new FilterService(contentService, schemesModelService);
+            FilterService service = new FilterService(contentService, schemesModelService, filterServiceLogger);
             HomeModel model = A.Fake<HomeModel>(x => x.WithArgumentsForConstructor(() => new HomeModel(null, expectedSchemes, null, false)));
             A.CallTo(() => contentService.Content).Returns(new GeneratedContent());
 

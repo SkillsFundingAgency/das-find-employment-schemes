@@ -9,9 +9,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
     {
         public IEnumerable<Scheme> Schemes { get; }
 
-        public ComparisonResultsModel(IEnumerable<Scheme> schemes)
+        public SchemeFilterModel? Filters { get; }
+
+        public ComparisonResultsModel(IEnumerable<Scheme> schemes, SchemeFilterModel? filters)
         {
+
             Schemes = schemes;
+
+            Filters = filters;
+
         }
     }
 }

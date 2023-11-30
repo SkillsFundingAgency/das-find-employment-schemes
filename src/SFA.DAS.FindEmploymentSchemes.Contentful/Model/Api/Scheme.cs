@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using Contentful.Core.Models;
+using Microsoft.AspNetCore.Html;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 {
@@ -11,10 +12,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
     {
         // mandatory
         public string? Name { get; set; }
+        public string? ShortName { get; set; }
+        public string? VisitSchemeInformation { get; set; }
         public Document? ShortDescription { get; set; }
         public Document? ShortCost { get; set; }
         public Document? ShortBenefits { get; set; }
         public Document? ShortTime { get; set; }
+        public string? ComparisonRecruitOrTrain { get; set; }
+        public string? ComparisonAgeCriteria { get; set; }
+        public string? ComparisonCost { get; set; }
+        public string? ComparisonDuration { get; set; }
         public string? Url { get; set; }
         public int Size { get; set; }
         // optional
@@ -33,5 +40,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
         public List<Filter>? MotivationsFilterAspects { get; set; }
         public List<Filter>? PayFilterAspects { get; set; }
         public List<Filter>? SchemeLengthFilterAspects { get; set; }
+
+        public int? DefaultOrder { get; set; }
+
+        public int? PopularityOrder { get; set; }
+
+        public int? DurationOrder { get; set; }
+
+        public int? CostOrder { get; set; }
+
     }
 }

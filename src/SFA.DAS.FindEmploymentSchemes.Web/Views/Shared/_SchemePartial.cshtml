@@ -8,25 +8,41 @@
 
 }
 
-<section id="scheme-section-@scheme.HtmlId" data-scheme @{ RenderFilterIds(scheme.FilterAspects); }>
+<section 
+    
+    class="scheme-section" 
+    
+    id="scheme-section-@scheme.HtmlId"
+    
+    data-default="@scheme.DefaultOrder"
+    
+    data-popularity="@scheme.PopularityOrder"
+
+    data-duration="@scheme.DurationOrder"
+
+    data-cost="@scheme.CostOrder"
+    
+    data-scheme @{ RenderFilterIds(scheme.FilterAspects); }
+
+>
 
     <div class="govuk-grid-column-full govuk-!-padding-0">
 
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-        <div class="filter-full-width govuk-grid-column-two-thirds app-scheme-titles govuk-!-padding-left-0 govuk-!-padding-right-0">
+        <div class="filter-full-width govuk-grid-column-full app-scheme-titles govuk-!-padding-left-0 govuk-!-padding-right-0">
 
-            <h2 id="scheme-header-@scheme.HtmlId" class="govuk-heading-m govuk-!-margin-bottom-3">
+            <h1 id="scheme-header-@scheme.HtmlId" class="govuk-heading-l govuk-!-margin-bottom-3 govuk-!-margin-top-3">
 
-                <a id="scheme-header-link-@scheme.HtmlId" asp-route="@schemesRouteName" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.Name</a>
+                @scheme.Name
 
-            </h2>
+            </h1>
 
         </div>
 
         <div class="govuk-grid-row">
 
-            <div class="filter-full-width govuk-grid-column-two-thirds">
+            <div class="filter-full-width govuk-grid-column-full">
 
                 @scheme.ShortDescription
 
@@ -36,27 +52,49 @@
 
         <div class="govuk-grid-row">
 
-            <div class="govuk-grid-column-one-third">
+            <div class="govuk-grid-column-full">
 
                 <h3 id="scheme-short-cost-header-@scheme.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Cost</h3>
 
-                @scheme.ShortCost
+                <div class="govuk-!-padding-left-2">
+
+                    @scheme.ShortCost
+
+                </div>
 
             </div>
 
-            <div class="govuk-grid-column-one-third">
+            <div class="govuk-grid-column-full">
 
                 <h3 id="scheme-benefits-header-@scheme.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Benefits</h3>
 
-                @scheme.ShortBenefits
+                <div class="govuk-!-padding-left-2">
+
+                    @scheme.ShortBenefits
+
+                </div>
 
             </div>
 
-            <div class="govuk-grid-column-one-third">
+            <div class="govuk-grid-column-full">
 
                 <h3 id="scheme-short-time-header-@scheme.HtmlId" class="govuk-heading-s govuk-!-margin-bottom-2">Time</h3>
 
-                @scheme.ShortTime
+                <div class="govuk-!-padding-left-2">
+
+                    @scheme.ShortTime
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="govuk-grid-row">
+
+            <div class="filter-full-width govuk-grid-column-full govuk-!-padding-top-4 govuk-!-padding-bottom-6">
+
+                <a id="scheme-header-link-@scheme.HtmlId" asp-route="@schemesRouteName" asp-route-schemeUrl="@scheme.Url" class="govuk-link">@scheme.VisitSchemeInformation</a>
 
             </div>
 

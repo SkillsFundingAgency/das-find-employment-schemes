@@ -13,7 +13,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Model
             const string urlThatProducesInvalidId = "---";
 
             var htmlString = new HtmlString("");
-            Assert.Throws<ArgumentException>(() => new Scheme("", htmlString, htmlString, htmlString, htmlString,
+            Assert.Throws<ArgumentException>(() => new Scheme("", "", "", htmlString, htmlString, htmlString, htmlString, string.Empty, string.Empty, string.Empty, string.Empty,
                 urlThatProducesInvalidId, 0, new[] {""} ));
         }
     }

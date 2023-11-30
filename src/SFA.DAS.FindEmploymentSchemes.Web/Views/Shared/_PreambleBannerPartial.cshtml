@@ -1,4 +1,4 @@
-﻿@model System.Tuple<string, string, IHtmlContent?>
+﻿@model System.Tuple<string, string, IHtmlContent?, SchemeFilterModel?>
 
 @if (!string.IsNullOrWhiteSpace(@Model.Item1) || !string.IsNullOrWhiteSpace(@Model.Item2))
 {
@@ -12,14 +12,32 @@
                 @if (!string.IsNullOrWhiteSpace(@Model.Item1))
                 {
 
-                    <a id="scheme-comparison-breadcrumb" asp-route="@Model.Item1" class="govuk-back-link">Back</a>
+                    <a 
+                        
+                        id="scheme-comparison-breadcrumb"
+                        
+                        asp-route="@Model.Item1"
+
+                        asp-route-pay="@(Model.Item4?.Pay != null ? string.Join(',', Model.Item4.Pay) : null)"
+
+                        asp-route-duration="@(Model.Item4?.SchemeLength != null ? string.Join(',', Model.Item4.SchemeLength) : null)"
+
+                        asp-route-motivation="@(Model.Item4?.Motivations != null ? string.Join(',', Model.Item4.Motivations) : null)"
+                        
+                        class="govuk-back-link"
+                    
+                    >
+                        
+                        Back
+                    
+                    </a>
 
                 }
 
                 @if (!string.IsNullOrWhiteSpace(@Model.Item2))
                 {
 
-                    <h1 id="comparison-results-h1" class="govuk-heading-l govuk-!-margin-top-4">@Model.Item2</h1>
+                    <h1 id="comparison-results-h1" class="govuk-heading-xl govuk-!-margin-top-4">@Model.Item2</h1>
 
                 }
 

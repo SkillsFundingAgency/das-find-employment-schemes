@@ -1,23 +1,41 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Web.Helpers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
     public class FilterService : IFilterService
     {
+
         private readonly IContentService _contentService;
+
         private readonly ISchemesModelService _schemesModelService;
 
+        private readonly ILogger<FilterService> _logger;
+
         public FilterService(
+
             IContentService contentService,
-            ISchemesModelService schemesModelService)
+
+            ISchemesModelService schemesModelService,
+
+            ILogger<FilterService> logger
+
+        )
         {
+
             _contentService = contentService;
+
             _schemesModelService = schemesModelService;
+
+            _logger = logger;
+
         }
 
         public HomeModel ApplyFilter(SchemeFilterModel filters)
@@ -67,5 +85,107 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             return new HomeModel(_schemesModelService.HomeModel.Preamble, filteredSchemes, filterGroupModels, true);
         }
+
+        /// <summary>
+        /// Create an instance of the SchemeFilterModel class with pre-populated filter aspects.
+        /// </summary>
+        /// <param name="pay">The pay filter aspects concated into a comma separated string.</param>
+        /// <param name="duration">The scheme length filter aspects concated into a comma separated string.</param>
+        /// <param name="motivation">The motivation filter aspects concated into a comma separated string.</param>
+        /// <returns>An instance of the SFA.DAS.FindEmploymentSchemes.Web.Models.SchemeFilterModel class.</returns>
+        public SchemeFilterModel CreateFilterModel(string pay, string duration, string motivation)
+        {
+
+            try
+            {
+
+                return new SchemeFilterModel()
+                {
+
+                    Pay = StringHelper.SplitAndReturnList(pay, ','),
+
+                    SchemeLength = StringHelper.SplitAndReturnList(duration, ','),
+
+                    Motivations = StringHelper.SplitAndReturnList(motivation, ',')
+
+                };
+
+            }
+            catch (Exception _exception)
+            {
+
+                _logger.LogError("Exception: {MethodName} - Unable to create an instance of {SchemeFilterModelClass}. [Exception: {ExceptionMessage}, InnerException: {InnerException}, StackTrace: {StackTrace}]",
+
+                    nameof(CreateFilterModel),
+
+                    nameof(SchemeFilterModel),
+
+                    _exception.Message,
+
+                    _exception.InnerException,
+
+                    _exception.StackTrace
+
+                );
+
+                return new SchemeFilterModel();
+
+            }
+
+        }
+
+        /// <summary>
+        /// Remap a string conact version of each filter aspect into a new HomeModel instance.
+        /// </summary>
+        /// <param name="pay">The pay filter aspects concated into a comma separated string.</param>
+        /// <param name="duration">The scheme length filter aspects concated into a comma separated string.</param>
+        /// <param name="motivation">The motivation filter aspects concated into a comma separated string.</param>
+        /// <returns>An instance of the SFA.DAS.FindEmploymentSchemes.Web.ModelsHomeModel class.</returns>
+        public HomeModel RemapFilters(string pay, string duration, string motivation)
+        {
+
+            try
+            {
+
+                if (string.IsNullOrWhiteSpace(pay) && string.IsNullOrWhiteSpace(duration) && string.IsNullOrWhiteSpace(motivation))
+                {
+
+                    return _schemesModelService.HomeModel;
+
+                }
+
+                HomeModel remappedHomeModel = ApplyFilter(
+
+                    CreateFilterModel(pay, duration, motivation)
+
+                );
+
+                return remappedHomeModel;
+
+            }
+            catch (Exception _exception)
+            {
+
+                _logger.LogError("Exception: {MethodName} - Unable to create an instance of {SchemeFilterModelClass}. [Exception: {ExceptionMessage}, InnerException: {InnerException}, StackTrace: {StackTrace}]",
+
+                    nameof(RemapFilters),
+
+                    nameof(SchemeFilterModel),
+
+                    _exception.Message,
+
+                    _exception.InnerException,
+
+                    _exception.StackTrace
+
+                );
+
+                return _schemesModelService.HomeModel;
+
+            }
+
+        }
+
     }
+
 }

@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
-using Contentful.Core;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using ApiScheme = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Scheme;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
@@ -30,7 +30,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
             LogErrors(schemes);
 
             return await Task.WhenAll(FilterValidUrl(schemes, _logger)
-                .OrderByDescending(s => s.Size)
+                .OrderBy(s => s.DefaultOrder)
                 .Select(ToContent));
         }
 
@@ -50,10 +50,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 
             return new Scheme(
                 apiScheme.Name!,
+                apiScheme.ShortName!,
+                apiScheme.VisitSchemeInformation!,
                 (await ToHtmlString(apiScheme.ShortDescription))!,
                 (await ToHtmlString(apiScheme.ShortCost))!,
                 (await ToHtmlString(apiScheme.ShortBenefits))!,
                 (await ToHtmlString(apiScheme.ShortTime))!,
+                apiScheme.ComparisonRecruitOrTrain,
+                apiScheme.ComparisonAgeCriteria,
+                apiScheme.ComparisonCost,
+                apiScheme.ComparisonDuration,
                 apiScheme.Url!,
                 apiScheme.Size,
                 (apiScheme.PayFilterAspects?.Select(f => ToFilterAspectId(f, PayFilterService.Prefix)) ?? Enumerable.Empty<string>())
@@ -69,7 +75,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
                 apiScheme.OfferHeader,
                 await ToHtmlString(apiScheme.Offer),
                 await ToHtmlString(apiScheme.AdditionalFooter),
-                subSchemes);
+                subSchemes,
+                apiScheme.DefaultOrder,
+                apiScheme.PopularityOrder,
+                apiScheme.DurationOrder,
+                apiScheme.CostOrder);
         }
 
         private async Task<CaseStudy> ToContent(Model.Api.CaseStudy apiCaseStudy)

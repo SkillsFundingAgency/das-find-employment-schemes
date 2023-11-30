@@ -481,7 +481,7 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
         }
 
             .nhsuk-table-responsive .nhsuk-table__body .nhsuk-table__row td:last-child {
-                border-bottom: 3px solid #b1b4b6;
+                border-bottom: 3px solid #D30172;
             }
     }
 
@@ -559,4 +559,44 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+button.govuk-link {
+    background: none;
+    border: none;
+    color: #1d70b8;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+    button.govuk-link:hover {
+        color: #003078;
+    }
+
+table#comparison-results-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+table#comparison-results-table th:not(:first-child) {
+    width: auto;
+}
+
+table#comparison-results-table th:first-child {
+    width:280px;
+    max-width: 280px;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+}
+
+.govuk-scheme_sort_label {
+    width: 85px;
+    max-width: 85px;
+}
+
+.govuk-scheme_sort_select {
+    width:auto;
 }

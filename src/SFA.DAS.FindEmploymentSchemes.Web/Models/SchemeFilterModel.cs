@@ -18,5 +18,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             SchemeLength = Array.Empty<string>();
             Pay = Array.Empty<string>();
         }
+
+        public Dictionary<string, string> ToRouteValueDictionary()
+        {
+
+            return new Dictionary<string, string>()
+            {
+
+                { "pay", string.Join(',', this.Pay) },
+
+                { "duration", string.Join(',', this.SchemeLength) },
+
+                { "motivation", string.Join(',', this.Motivations) }
+
+            };
+
+        }
+
     }
 }

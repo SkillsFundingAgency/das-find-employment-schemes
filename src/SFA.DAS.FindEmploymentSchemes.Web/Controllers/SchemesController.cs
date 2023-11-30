@@ -1,8 +1,8 @@
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
@@ -20,19 +20,39 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public IActionResult Home()
+        public IActionResult Home(string pay, string duration, string motivation)
         {
-            return View(_schemesModelService.HomeModel);
+
+            return View(
+                
+                _filterService.RemapFilters(pay, duration, motivation)
+                
+            );
+
         }
 
         // if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled
         [HttpPost]
-        public IActionResult Home(SchemeFilterModel filters)
+        public IActionResult Home(string actionButton, SchemeFilterModel filters)
         {
+            
+            if (actionButton == "Compare")
+            {
+
+                string pay = string.Join(",", filters.Pay);
+
+                string duration = string.Join(",", filters.SchemeLength);
+
+                string motivation = string.Join(",", filters.Motivations);
+
+                return RedirectToAction("Comparison", "Schemes", new { pay, duration, motivation });
+
+            } 
 
             HomeModel filteredModel = _filterService.ApplyFilter(filters);
 
-            return View(filteredModel);
+            return View("Home", filteredModel);
+
         }
 
         public async Task<IActionResult> HomePreview()
@@ -59,35 +79,43 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             return View("Details", schemeDetailsModel);
         }
 
-        public IActionResult Comparison()
+        [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
+        public IActionResult Comparison(string pay, string duration, string motivation)
         {
-            return View(_schemesModelService.ComparisonModel);
+
+            SchemeFilterModel schemeFilterModel = _filterService.CreateFilterModel(pay, duration, motivation);
+
+            HomeModel filteredModel = _filterService.ApplyFilter(schemeFilterModel);
+
+            ComparisonResultsModel resultsModel = _schemesModelService.CreateComparisonResultsModel(
+                
+                filteredModel.Schemes.Select(a => a.HtmlId),
+
+                schemeFilterModel
+
+            );
+
+            return View("ComparisonResults", resultsModel);
+
         }
 
-        [HttpPost]
-        public IActionResult Comparison(string[] schemes)
+        public async Task<IActionResult> ComparisonPreview(string pay, string duration, string motivation)
         {
-            if (schemes.Any())
-            {
-                ComparisonResultsModel resultsModel = _schemesModelService.CreateComparisonResultsModel(schemes);
-                return View("ComparisonResults", resultsModel);
-            }
 
-            ComparisonModel model = new ComparisonModel(_schemesModelService.ComparisonModel.Schemes, true);
-            return View(model);
-        }
+            SchemeFilterModel schemeFilterModel = _filterService.CreateFilterModel(pay, duration, motivation);
 
-        public async Task<IActionResult> ComparisonPreview()
-        {
-            var comparisonModel = await _schemesModelService.CreateComparisonModelPreview();
-            return View("Comparison", comparisonModel);
-        }
+            HomeModel filteredModel = _filterService.ApplyFilter(schemeFilterModel);
 
-        [HttpPost]
-        public async Task<IActionResult> ComparisonPreview(string[] schemes)
-        {
-            var model = await _schemesModelService.CreateComparisonResultsModelPreview(schemes);
-            return View("ComparisonResults", model);
+            ComparisonResultsModel resultsModel = await _schemesModelService.CreateComparisonResultsModelPreview(
+
+                filteredModel.Schemes.Select(a => a.HtmlId),
+
+                schemeFilterModel
+
+            );
+
+            return View("ComparisonResults", resultsModel);
+
         }
     }
 }
