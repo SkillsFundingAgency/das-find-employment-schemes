@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 {
@@ -75,7 +75,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "*.qualtrics.com",
                                 /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track",
                                 "cdn.linkedin.oribi.io",
-                                "*.clarity.ms"
+                                "*.clarity.ms",
+                                "https://td.doubleclick.net",
+                                "https://px.ads.linkedin.com/wa/"
                             });
 
                         builder.AddFontSrc()
@@ -91,7 +93,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             {
                                 "https://www.facebook.com",
                                 "*.qualtrics.com",
-                                "*.clarity.ms"
+                                "*.clarity.ms",
+                                "https://td.doubleclick.net"
                             });
 
                         builder.AddImgSrc()
@@ -118,7 +121,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://static.ads-twitter.com",
                                 "https://connect.facebook.net",
                                 "*.qualtrics.com",
-                                "*.clarity.ms"
+                                "*.clarity.ms",
+                                "https://td.doubleclick.net"
                             })
                             // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
@@ -154,7 +158,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://2673654.fls.doubleclick.net",
                                 "https://www.facebook.com",
                                 "*.qualtrics.com",
-                                "*.clarity.ms"
+                                "*.clarity.ms",
+                                "https://td.doubleclick.net"
                             });
 
                         if (env.IsDevelopment())
