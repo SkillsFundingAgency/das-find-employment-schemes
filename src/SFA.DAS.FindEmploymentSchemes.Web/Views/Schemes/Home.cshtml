@@ -22,7 +22,7 @@
     
         Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme) : 
     
-        $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{Model.SelectedFilters.Replace("&", "%26")}";
+        $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{Model.SelectedFilters}";
 
 }
 

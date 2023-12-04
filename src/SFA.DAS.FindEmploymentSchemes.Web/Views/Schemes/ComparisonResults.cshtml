@@ -12,9 +12,9 @@
 
 @{
 
-    var schemesQueryString = string.Join("&", Model.Schemes.Select(t => t.HtmlId).Select(scheme => $"schemes={Uri.EscapeDataString(scheme)}"));
+    string filterQueryString = Model.Filters == null ? string.Empty : Model.Filters.BuildFilterQueryString();
 
-    string completeUrl = $"{Url.Action("Comparison", "Schemes", Model.Schemes, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{schemesQueryString}";
+    string completeUrl = $"{Url.Action("Comparison", "Schemes", Model.Schemes, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{filterQueryString}";
 
 }
 
