@@ -18,7 +18,11 @@
 
 @{
 
-    string completeUrl = $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{Model.SelectedFilters}";
+    string completeUrl = string.IsNullOrWhiteSpace(Model.SelectedFilters) ? 
+    
+        Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme) : 
+    
+        $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{Model.SelectedFilters}";
 
 }
 
