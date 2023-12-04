@@ -83,7 +83,20 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                     content.PayFilter.Aspects.Select(x => new FilterAspect(x.Id, x.Description, filters.Pay.Contains(x.Id))))
             };
 
-            return new HomeModel(_schemesModelService.HomeModel.Preamble, filteredSchemes, filterGroupModels, true);
+            return new HomeModel(
+                
+                _schemesModelService.HomeModel.Preamble, 
+                
+                filteredSchemes, 
+                
+                filterGroupModels, 
+                
+                true,
+
+                filters.BuildFilterQueryString()
+
+            );
+
         }
 
         /// <summary>

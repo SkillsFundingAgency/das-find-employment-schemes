@@ -18,7 +18,7 @@
 
 @{
 
-    string completeUrl = Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
+    string completeUrl = $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{Model.SelectedFilters}";
 
 }
 
