@@ -69,60 +69,82 @@
 
             <div id="schemes" class="govuk-grid-column-two-thirds app-filter-layout__content">
 
-                <div class="govuk-grid-column-full govuk-!-padding-0">
-
-                    <a id="filter-schemes" class="das-button__primary desktop_hidden" aria-controls="scheme-filter" aria-expanded="false" tabindex="110">Filter schemes</a>
-
-                </div>
-
-                <div class="govuk-grid-column-full govuk-!-padding-0">
+                @if(Model.Schemes.Any())
+                {
 
                     <div class="govuk-grid-column-full govuk-!-padding-0">
 
-                        <label class="govuk-heading-s">Number of schemes: @Model.Schemes.Count()</label>
+                        <a id="filter-schemes" class="das-button__primary desktop_hidden" aria-controls="scheme-filter" aria-expanded="false" tabindex="110">Filter schemes</a>
 
                     </div>
 
-                </div>
+                    <div class="govuk-grid-column-full govuk-!-padding-0">
 
-                <div class="govuk-grid-column-full govuk-!-padding-0">
+                        <div class="govuk-grid-column-full govuk-!-padding-0">
 
-                    <div class="govuk-grid-column-one-half govuk-!-padding-0 govuk-!-padding-top-1 govuk-!-margin-bottom-6">
-
-                        <button id="filter-box-filter-schemes" name="actionButton" class="govuk-link govuk-!-padding-left-0" value="Compare">Compare these schemes in a table</button>
-
-                    </div>
-
-                    <div class="govuk-grid-column-one-half govuk-!-padding-0">
-
-                        <div class="govuk-form-group flex-container govuk-!-margin-bottom-0">
-
-                            <label class="govuk-label govuk-!-font-weight-bold govuk-scheme_sort_label" for="scheme-sort">Sort by:</label>
-
-                            <select class="govuk-select govuk-scheme_sort_select" id="scheme-sort" name="Sort" onchange="sortSchemes()">
-
-                                <option value="default" selected>Default</option>
-
-                                <option value="popularity">Popularity (most popular first)</option>
-
-                                <option value="duration">Duration (shortest first)</option>
-
-                                <option value="cost">Cost (cheapest first)</option>
-
-                            </select>
+                            <label class="govuk-heading-s">Number of schemes: @Model.Schemes.Count()</label>
 
                         </div>
 
                     </div>
 
-                </div>
+                    <div class="govuk-grid-column-full govuk-!-padding-0">
+
+                        <div class="govuk-grid-column-one-half govuk-!-padding-0 govuk-!-padding-top-1 govuk-!-margin-bottom-6">
+
+                            <button id="filter-box-filter-schemes" name="actionButton" class="govuk-link govuk-!-padding-left-0" value="Compare">Compare these schemes in a table</button>
+
+                        </div>
+
+                        <div class="govuk-grid-column-one-half govuk-!-padding-0">
+
+                            <div class="govuk-form-group flex-container govuk-!-margin-bottom-0">
+
+                                <label class="govuk-label govuk-!-font-weight-bold govuk-scheme_sort_label" for="scheme-sort">Sort by:</label>
+
+                                <select class="govuk-select govuk-scheme_sort_select" id="scheme-sort" name="Sort" onchange="sortSchemes()">
+
+                                    <option value="default" selected>No sort selected</option>
+
+                                    <option value="popularity">Popularity (most popular first)</option>
+
+                                    <option value="duration">Duration (shortest first)</option>
+
+                                    <option value="cost">Cost (cheapest first)</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                }
 
                 <div id="scheme-holder" class="govuk-!-padding-0">
 
-                    @foreach (var scheme in Model.Schemes)
+                    @if(Model.Schemes.Any())
                     {
 
-                        @await Html.PartialAsync("_SchemePartial", (scheme, Model.Preview))
+                        @foreach (var scheme in Model.Schemes)
+                        {
+
+                            @await Html.PartialAsync("_SchemePartial", (scheme, Model.Preview))
+
+                        }
+
+                    }
+                    else
+                    {
+
+                        <div class="das-employers__no_schemes govuk-grid-column-full govuk-!-padding-left-0 govuk-!-padding-right-0">
+
+                            <h2>There are no matching results</h2>
+
+                            <p>Change your filters or <a id="no-filters-clear" asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="govuk-link">clear all filters</a> to try again.</p>
+
+                        </div>
 
                     }
 

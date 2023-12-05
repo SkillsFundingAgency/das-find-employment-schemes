@@ -600,3 +600,11 @@ table#comparison-results-table th:first-child {
 .govuk-scheme_sort_select {
     width:auto;
 }
+
+.das-employers__section_break {
+    border-bottom: 1px solid #d30172 !important;
+}
+
+.das-employers__no_schemes {
+    background-color: rgba(211, 1, 114, 0.05);
+}
