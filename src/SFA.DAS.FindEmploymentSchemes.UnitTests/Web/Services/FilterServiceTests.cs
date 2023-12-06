@@ -1,15 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using FakeItEasy;
-using Xunit;
+﻿using FakeItEasy;
+using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
-using Microsoft.Extensions.Logging;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -61,7 +61,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             
             );
 
-            Assert.Equal("pay=Pay&duration=Duration&motivation=Motivation", result.SelectedFilters);
+            Assert.Equal("pay=Pay%26duration=Duration%26motivation=Motivation", result.SelectedFilters);
 
         }
 
