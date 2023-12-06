@@ -43,7 +43,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
                 if (Pay.Any())
                 {
 
-                    queryBuilder.Append(string.IsNullOrWhiteSpace(queryBuilder.ToString()) ? "pay=" : "%26pay=");
+                    queryBuilder.Append(string.IsNullOrWhiteSpace(queryBuilder.ToString()) ? "pay=" : "&pay=");
 
                     queryBuilder.Append(Uri.EscapeDataString(string.Join(',', Pay)));
 
@@ -52,7 +52,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
                 if (SchemeLength.Any())
                 {
 
-                    queryBuilder.Append(string.IsNullOrWhiteSpace(queryBuilder.ToString()) ? "duration=" : "%26duration=");
+                    queryBuilder.Append(string.IsNullOrWhiteSpace(queryBuilder.ToString()) ? "duration=" : "&duration=");
 
                     queryBuilder.Append(Uri.EscapeDataString(string.Join(',', SchemeLength)));
 
@@ -61,7 +61,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
                 if (Motivations.Any())
                 {
 
-                    queryBuilder.Append(string.IsNullOrWhiteSpace(queryBuilder.ToString()) ? "motivation=" : "%26motivation=");
+                    queryBuilder.Append(string.IsNullOrWhiteSpace(queryBuilder.ToString()) ? "motivation=" : "&motivation=");
 
                     queryBuilder.Append(Uri.EscapeDataString(string.Join(',', Motivations)));
 

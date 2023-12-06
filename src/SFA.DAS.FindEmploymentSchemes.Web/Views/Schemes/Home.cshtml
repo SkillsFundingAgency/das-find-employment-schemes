@@ -1,4 +1,5 @@
-﻿@model HomeModel
+﻿@using System.Web;
+@model HomeModel
 
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
@@ -22,7 +23,7 @@
     
         Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme) : 
     
-        $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{Model.SelectedFilters}";
+        $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{HttpUtility.UrlEncode(Model.SelectedFilters)}";
 
 }
 
