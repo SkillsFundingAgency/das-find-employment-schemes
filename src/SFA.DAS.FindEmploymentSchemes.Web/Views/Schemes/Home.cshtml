@@ -23,7 +23,7 @@
     
         Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme) : 
     
-        $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{HttpUtility.UrlEncode(Model.SelectedFilters)}";
+        $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{Model.SelectedFilters}";
 
 }
 
