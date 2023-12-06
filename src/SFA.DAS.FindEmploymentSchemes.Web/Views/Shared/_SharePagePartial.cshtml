@@ -1,4 +1,11 @@
-﻿@model string
+﻿@using System.Web;
+@model string
+
+@{
+
+    var encodedURL = HttpUtility.UrlEncode(@Model);
+
+}
 
 <div class="govuk-width-container govuk-!-padding-top-1 govuk-!-padding-bottom-8">
 
@@ -12,7 +19,7 @@
 
             <image src="/svg/envelope.svg" alt="Envelope icon">
 
-            <a href="mailto:?body=@Model" role="link">Email</a>
+                <a href="mailto:?body=@Model" role="link">Email</a>
 
             <span class="sr-only">Share via Email</span>
 
@@ -22,7 +29,7 @@
 
             <image src="/svg/square-facebook.svg" alt="Facebook icon">
 
-            <a href="https://www.facebook.com/sharer.php?u=@Model" target="_blank" rel="noopener noreferrer" role="link">Facebook</a>
+                <a href="https://www.facebook.com/sharer.php?u=@Model" target="_blank" rel="noopener noreferrer" role="link">Facebook</a>
 
             <span class="sr-only">Share on Facebook</span>
 
@@ -31,8 +38,8 @@
         <li>
 
             <image src="/svg/square-x-twitter.svg" alt="X (formely twitter) icon">
-            
-            <a href="https://twitter.com/intent/tweet?url=@Model" target="_blank" rel="noopener noreferrer" role="link">X (formerly Twitter)</a>
+
+                <a href="https://twitter.com/intent/tweet?url=@Model" target="_blank" rel="noopener noreferrer" role="link">X (formerly Twitter)</a>
 
             <span class="sr-only">Share on X (formerly Twitter)</span>
 
@@ -42,7 +49,7 @@
 
             <image src="/svg/linkedin.svg" alt="Linkedin icon">
 
-            <a href="https://www.linkedin.com/sharing/share-offsite/?url=@Model" target="_blank" rel="noopener noreferrer" role="link">LinkedIn</a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=@Model" target="_blank" rel="noopener noreferrer" role="link">LinkedIn</a>
 
             <span class="sr-only">Share on LinkedIn</span>
 
