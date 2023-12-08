@@ -12,25 +12,48 @@
                 @if (!string.IsNullOrWhiteSpace(@Model.Item1))
                 {
 
-                    <a 
-                        
-                        id="scheme-comparison-breadcrumb"
-                        
-                        asp-route="@Model.Item1"
+                    if(Model.Item4 == null)
+                    {
 
-                        asp-route-pay="@(Model.Item4?.Pay != null ? string.Join(',', Model.Item4.Pay) : null)"
+                        <a id="scheme-comparison-breadcrumb"
 
-                        asp-route-duration="@(Model.Item4?.SchemeLength != null ? string.Join(',', Model.Item4.SchemeLength) : null)"
+                           href="javascript:void(0);"
 
-                        asp-route-motivation="@(Model.Item4?.Motivations != null ? string.Join(',', Model.Item4.Motivations) : null)"
+                           onclick="history.back();"
+
+                           class="govuk-back-link"
                         
-                        class="govuk-back-link"
-                    
-                    >
-                        
-                        Back
-                    
-                    </a>
+                        >
+
+                            Back
+
+                        </a>
+
+                    }
+                    else
+                    {
+
+                        <a 
+                            
+                            id="scheme-comparison-breadcrumb"
+
+                            asp-route="@Model.Item1"
+
+                            asp-route-pay="@(Model.Item4?.Pay != null ? string.Join(',', Model.Item4.Pay) : null)"
+
+                            asp-route-duration="@(Model.Item4?.SchemeLength != null ? string.Join(',', Model.Item4.SchemeLength) : null)"
+
+                            asp-route-motivation="@(Model.Item4?.Motivations != null ? string.Join(',', Model.Item4.Motivations) : null)"
+
+                            class="govuk-back-link"
+                           
+                        >
+
+                            Back
+
+                        </a>
+
+                    }
 
                 }
 
