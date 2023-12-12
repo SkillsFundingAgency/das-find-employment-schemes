@@ -1,18 +1,32 @@
 ﻿@model ComparisonResultsModel
 
-@*@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor*@
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @await Html.PartialAsync(
 
     "_PreambleBannerPartial",
 
-    new Tuple<string, string, IHtmlContent?>(@Model.Preview.IsPreview ? "scheme-comparison-preview" : "scheme-comparison", "Comparison of schemes", null)
+    new Tuple<string, string, IHtmlContent?, SchemeFilterModel?>(@Model.Preview.IsPreview ? "home-preview" : "home", "Comparison of schemes", null, Model.Filters)
 
 )
 
+@{
+
+    string filterQueryString = Model.Filters == null ? string.Empty : Model.Filters.BuildFilterQueryString();
+
+    string completeUrl = $"{Url.Action("Comparison", "Schemes", Model.Schemes, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{filterQueryString}";
+
+}
+
 <div class="govuk-width-container">
 
-    <div class="govuk-grid-row govuk-!-padding-top-6">
+    <div class="govuk-grid-row govuk-!-padding-top-6 govuk-!-padding-bottom-6 govuk-!-padding-left-2 govuk-!-padding-right-2">
+
+        <a asp-controller="Schemes" asp-action="@(Model.Preview.IsPreview ? "comparison-preview" : "comparison")" class="das-button__secondary govuk-!-margin-bottom-0" role="button">Clear filters and show all schemes</a>
+
+    </div>
+
+    <div class="govuk-grid-row">
 
         <div class="govuk-grid-column-full">
 
@@ -24,13 +38,15 @@
 
                         <tr class="govuk-table__row">
 
-                            <th scope="col" class="govuk-table__header">Scheme</th>
+                            <th scope="col" class="govuk-table__header">Scheme name</th>
+
+                            <th scope="col" class="govuk-table__header">Recruit new staff or train existing staff</th>
+
+                            <th scope="col" class="govuk-table__header">Age criteria</th>
 
                             <th scope="col" class="govuk-table__header">Cost</th>
 
-                            <th scope="col" class="govuk-table__header">Benefits</th>
-
-                            <th scope="col" class="govuk-table__header">Time</th>
+                            <th scope="col" class="govuk-table__header">Duration</th>
 
                         </tr>
 
@@ -47,31 +63,39 @@
 
                                     <span class="nhsuk-table-responsive__heading">Scheme</span>
 
-                                    <a id="scheme-header-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview ? "schemes-preview" : "schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link" role="link">@scheme.Name</a>
+                                    <a id="scheme-header-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview ? "schemes-preview" : "schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link" role="link">@(string.IsNullOrWhiteSpace(scheme.ShortName) ? scheme.Name : scheme.ShortName)</a>
                                     
+                                </td>
+
+                                <td class="govuk-table__cell nhsuk-table__cell">
+
+                                    <span class="nhsuk-table-responsive__heading">New or existing staff</span>
+
+                                    @scheme.ComparisonRecruitOrTrain
+
+                                </td>
+
+                                <td class="govuk-table__cell nhsuk-table__cell">
+
+                                    <span class="nhsuk-table-responsive__heading">Age</span>
+
+                                    @scheme.ComparisonAgeCriteria
+
                                 </td>
 
                                 <td class="govuk-table__cell nhsuk-table__cell">
 
                                     <span class="nhsuk-table-responsive__heading">Cost</span>
 
-                                    @scheme.ShortCost
+                                    @scheme.ComparisonCost
 
                                 </td>
 
                                 <td class="govuk-table__cell nhsuk-table__cell">
 
-                                    <span class="nhsuk-table-responsive__heading">Benefits</span>
+                                    <span class="nhsuk-table-responsive__heading">Duration</span>
 
-                                    @scheme.ShortBenefits
-
-                                </td>
-
-                                <td class="govuk-table__cell nhsuk-table__cell">
-
-                                    <span class="nhsuk-table-responsive__heading">Time</span>
-
-                                    @scheme.ShortTime
+                                    @scheme.ComparisonDuration
 
                                 </td>
 
@@ -89,10 +113,6 @@
 
     </div>
 
-    <div class="govuk-grid-row govuk-!-padding-top-6 govuk-!-padding-bottom-6 govuk-!-padding-left-3">
-
-        <a asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="govuk-link" role="link">Return to list of all schemes</a>
-
-    </div>
-
 </div>
+
+@await Html.PartialAsync("_SharePagePartial", completeUrl)

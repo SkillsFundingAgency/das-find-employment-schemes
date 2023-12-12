@@ -25,7 +25,7 @@
 
     "_PreambleBannerPartial",
 
-    new Tuple<string, string, IHtmlContent?>(Model.Preview.IsPreview ? "home-preview" : "home", @Model.Scheme.Name ?? string.Empty, null)
+    new Tuple<string, string, IHtmlContent?, SchemeFilterModel?>(Model.Preview.IsPreview ? "home-preview" : "home", @Model.Scheme.Name ?? string.Empty, null, null)
 
 )
 

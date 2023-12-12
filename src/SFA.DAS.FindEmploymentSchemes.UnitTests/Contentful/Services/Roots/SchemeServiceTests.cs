@@ -95,20 +95,20 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
         }
 
         [Fact]
-        public async Task Update_SchemesInDescendingSizeOrderTests()
+        public async Task Update_SchemesInDescendingDefaultOrderTests()
         {
             var schemes = Fixture.CreateMany<Scheme>(3).ToArray();
-            schemes[0].Size = 300;
-            schemes[1].Size = 100;
-            schemes[2].Size = 200;
+            schemes[0].DefaultOrder = 1;
+            schemes[1].DefaultOrder = 2;
+            schemes[2].DefaultOrder = 3;
             ContentfulCollection.Items = schemes;
 
             var schemesResult = await SchemeService.GetAll(ContentfulClient);
 
             var actualSchemes = schemesResult.ToArray();
-            Assert.Equal(300, actualSchemes[0].Size);
-            Assert.Equal(200, actualSchemes[1].Size);
-            Assert.Equal(100, actualSchemes[2].Size);
+            Assert.Equal(1, actualSchemes[0].DefaultOrder);
+            Assert.Equal(2, actualSchemes[1].DefaultOrder);
+            Assert.Equal(3, actualSchemes[2].DefaultOrder);
         }
     }
 }

@@ -11,6 +11,7 @@ using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
@@ -21,6 +22,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         public ComparisonModel ComparisonModel { get; set; }
         public HomeModel PreviewHomeModel { get; set; }
         public ComparisonModel PreviewComparisonModel { get; set; }
+        public ComparisonResultsModel ComparisonResultsModel { get; set; }
         public ISchemesModelService SchemesModelService { get; set; }
         public IFilterService FilterService { get; set; }
         public SchemeFilterModel SchemeFilterModel { get; set; }
@@ -39,22 +41,14 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             SchemesModelService = A.Fake<ISchemesModelService>();
 
             HomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!);
-            PreviewHomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!);
 
-            ComparisonModel = new ComparisonModel(null!);
-            PreviewComparisonModel = new ComparisonModel(null!);
+            PreviewHomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!);
 
             A.CallTo(() => SchemesModelService.HomeModel)
                 .Returns(HomeModel);
 
             A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
                 .Returns(PreviewHomeModel);
-
-            A.CallTo(() => SchemesModelService.ComparisonModel)
-                .Returns(ComparisonModel);
-
-            A.CallTo(() => SchemesModelService.CreateComparisonModelPreview())
-                .Returns(PreviewComparisonModel);
 
             SchemesController = new SchemesController(SchemesModelService, FilterService);
 
@@ -65,7 +59,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         public void Home_DefaultViewTest()
         {
             // act
-            IActionResult result = SchemesController.Home();
+            IActionResult result = SchemesController.Home("", "", "");
 
             Assert.IsType<ViewResult>(result);
             var viewResult = (ViewResult)result;
@@ -76,13 +70,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         public void Home_HomeModelIsUsedTest()
         {
             // act
-            IActionResult result = SchemesController.Home();
+            IActionResult result = SchemesController.Home("", "", "");
 
             Assert.IsType<ViewResult>(result);
             var viewResult = (ViewResult)result;
             Assert.NotNull(viewResult.Model);
-            Assert.IsType<HomeModel>(viewResult.Model);
-            Assert.Equal(HomeModel, viewResult.Model);
+            Assert.IsAssignableFrom<HomeModel>(viewResult.Model);
         }
 
         [Fact]
@@ -94,34 +87,13 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
                 .Returns(filteredHomeModel);
 
             // act
-            IActionResult result = SchemesController.Home(SchemeFilterModel);
+            IActionResult result = SchemesController.Home("HomeAction", SchemeFilterModel);
 
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.NotNull(viewResult.Model);
             Assert.IsType<HomeModel>(viewResult.Model);
             Assert.Equal(filteredHomeModel, viewResult.Model);
         }
-
-        //todo: change cut to return Redirect object instead
-#if Too_much_interals_set_up_for_value
-        [Fact]
-        public void PostHome_ShowFilterRedirectsToHomeTest()
-        {
-            var httpContext = A.Fake<HttpContext>();
-            var httpResponse = A.Fake<HttpResponse>();
-
-            A.CallTo(() => httpContext.Response)
-                .Returns(httpResponse);
-
-            SchemesController.ControllerContext = new ControllerContext(new ActionContext(httpContext, new RouteData(), new ControllerActionDescriptor()));
-
-            // act
-            SchemesController.Home(SchemeFilterModel, "filter");
-
-            A.CallTo(() => httpResponse.Redirect("/"))
-                .MustHaveHappenedOnceExactly();
-        }
-#endif
 
         [Fact]
         public async Task HomePreview_HomeViewTest()
@@ -135,7 +107,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public async Task  HomePreview_HomeModelIsUsedTest()
+        public async Task HomePreview_HomeModelIsUsedTest()
         {
             // act
             IActionResult result = await SchemesController.HomePreview();
@@ -258,78 +230,93 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public void Comparison_ModelTest()
+        public void Comparison_ReturnsViewWithComparisonResultsModel()
         {
-            // act
-            IActionResult result = SchemesController.Comparison();
 
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal(ComparisonModel, viewResult.Model);
-        }
+            var filterServiceMock = A.Fake<IFilterService>();
 
-        [Fact]
-        public void Comparison_DefaultViewTest()
-        {
-            // act
-            IActionResult result = SchemesController.Comparison();
+            var schemesModelServiceMock = A.Fake<ISchemesModelService>();
 
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Null(viewResult.ViewName);
-        }
+            var controller = new SchemesController(schemesModelServiceMock, filterServiceMock);
 
-        [Fact]
-        public async Task ComparisonPreview_ModelTest()
-        {
-            // act
-            IActionResult result = await SchemesController.ComparisonPreview();
+            // Mock data
 
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal(PreviewComparisonModel, viewResult.Model);
-        }
+            var pay = "pay";
 
-        [Fact]
-        public async Task ComparisonPreview_ComparisonViewTest()
-        {
-            // act
-            IActionResult result = await SchemesController.ComparisonPreview();
+            var duration = "duration";
 
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal("Comparison", viewResult.ViewName);
-        }
+            var motivation = "motivation";
 
-        // duplicate - should be testing PostComparisonPreview
-        //[Fact]
-        //public async Task ComparisonPreview_ModelTest()
-        //{
-        //    var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
+            // Mock SchemeFilterModel and HomeModel
 
-        //    PreviewComparisonModel = new ComparisonModel(schemes);
+            var schemeFilterModel = new SchemeFilterModel
+            {
 
-        //    A.CallTo(() => SchemesModelService.CreateComparisonModelPreview())
-        //        .Returns(PreviewComparisonModel);
+            };
 
-        //    // act
-        //    IActionResult result = await SchemesController.ComparisonPreview();
+            // Mock ApplyFilter method
 
-        //    var viewResult = Assert.IsType<ViewResult>(result);
-        //    Assert.Equal(PreviewComparisonModel, viewResult.Model);
-        //}
-
-        [Fact]
-        public async Task PostComparisonPreview_ComparisonResultsViewTest()
-        {
-            var schemes = Fixture.CreateMany<Scheme>(2).ToArray();
-
-            PreviewHomeModel = new HomeModel(null, schemes, null);
-
-            A.CallTo(() => SchemesModelService.CreateHomeModelPreview())
+            A.CallTo(() => FilterService.ApplyFilter(schemeFilterModel))
                 .Returns(PreviewHomeModel);
 
-            // act
-            IActionResult result = await SchemesController.ComparisonPreview(Array.Empty<string>());
+            // Mock CreateComparisonResultsModel method
 
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal("ComparisonResults", viewResult.ViewName);
+            A.CallTo(() => schemesModelServiceMock.CreateComparisonResultsModel(new List<string>(), schemeFilterModel))
+                .Returns(new ComparisonResultsModel(new List<Scheme>(), schemeFilterModel));
+
+            // Act
+            var result = controller.Comparison(pay, duration, motivation) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal("ComparisonResults", result.ViewName);
+            Assert.IsAssignableFrom<ComparisonResultsModel>(result.Model);
         }
+
+        [Fact]
+        public async Task ComparisonPreview_ReturnsViewWithComparisonResultsModel()
+        {
+
+            var filterServiceMock = A.Fake<IFilterService>();
+
+            var schemesModelServiceMock = A.Fake<ISchemesModelService>();
+
+            var controller = new SchemesController(schemesModelServiceMock, filterServiceMock);
+
+            // Mock data
+
+            var pay = "pay";
+
+            var duration = "duration";
+
+            var motivation = "motivation";
+
+            // Mock SchemeFilterModel and HomeModel
+
+            var schemeFilterModel = new SchemeFilterModel
+            {
+
+            };
+
+            // Mock ApplyFilter method
+
+            A.CallTo(() => FilterService.ApplyFilter(schemeFilterModel))
+                .Returns(PreviewHomeModel);
+
+            // Mock CreateComparisonResultsModelPreview method
+
+            A.CallTo(() => schemesModelServiceMock.CreateComparisonResultsModelPreview(new List<string>(), schemeFilterModel))
+                .Returns(new ComparisonResultsModel(new List<Scheme>(), schemeFilterModel));
+
+            // Act
+            var result = await controller.ComparisonPreview(pay, duration, motivation) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal("ComparisonResults", result.ViewName);
+            Assert.IsAssignableFrom<ComparisonResultsModel>(result.Model);
+        }
+
     }
+
 }

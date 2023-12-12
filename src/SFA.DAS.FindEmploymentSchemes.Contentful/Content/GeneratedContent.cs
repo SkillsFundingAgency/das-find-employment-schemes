@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
+using System.Collections.Generic;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
 {
@@ -24,11 +23,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
         public IEnumerable<Scheme> Schemes => _schemes ??= new Scheme[]
         {
             new Scheme("Apprenticeships",
+                "",
+                "Find out more about apprenticeships.",
                 new HtmlString(@"<p class=""govuk-body"">Paid employment for over 16s, combining work and study in a job allowing you to develop your workforce and business.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Apprentice minimum wage and 5% training contribution depending on business size</p>"),
                 new HtmlString(@"<p class=""govuk-body"">You develop a motivated, skilled and qualified workforce with knowledge of your business</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Minimum of 12 months employment</p>"),
-                "apprenticeships", 403000,
+                "Both",
+                "16 and over",
+                "Free or costed",
+                "Over 1 year",
+                "apprenticeships", 
+                403000,
              new string[] {                "pay--minimum-wage", "motivations--full-time-role", "motivations--diversity-or-responsibility", "scheme-length--4-months-to-12-months", "scheme-length--a-year-or-more"             },
                 new CaseStudy[] {
                     new CaseStudy("Apprenticeships - government incentives",
@@ -61,12 +67,18 @@ developing a workforce with skills specific to your business
                 }
                 ),
             new Scheme("T Levels: industry placements",
+                "T Levels",
+                "Find about about T levels for employers",
                 new HtmlString(@"<p class=""govuk-body"">Provide a 45-day (315 hours) industry placement for 16 to 19 year-olds, which gives you early access to the brightest young people entering the market and the opportunity to develop your workforce of the future.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Allows you to grow your workforce in the short-term with little or no cost and scout future talent in your area
-</p>"),
+                new HtmlString(@"<p class=""govuk-body"">Allows you to grow your workforce in the short-term with little or no cost and scout future talent in your area</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Short term 45-day industry placement</p>"),
-                "t-levels-industry-placements", 72000,
+                "New",
+                "16 to 19",
+                "Free",
+                "Under 1 year",
+                "t-levels-industry-placements", 
+                72000,
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
@@ -85,11 +97,18 @@ developing a workforce with skills specific to your business
                 }
                 ),
             new Scheme("Sector-based Work Academy Programme (SWAP)",
+                "SWAPs",
+                "Find out more about SWAPs.",
                 new HtmlString(@"<p class=""govuk-body"">Up to 6-week placement for benefit claimants for those aged 18 and over designed to help you recruit a workforce with the right skills to sustain and grow your business.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Helps you recruit or train staff through fully-funded pre-employment training</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Up to 6-weeks</p>"),
-                "sector-based-work-academy-programme-swap", 70000,
+                "New",
+                "16 and over",
+                "Free",
+                "Under 1 year",
+                "sector-based-work-academy-programme-swap", 
+                70000,
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
@@ -106,13 +125,18 @@ developing a workforce with skills specific to your business
                 }
                 ),
             new Scheme("Skills Bootcamps",
+                "",
+                "Find out more about Skills Bootcamps.",
                 new HtmlString(@"<p class=""govuk-body"">Flexible training courses for aged 19 and over to fast-track specialist skill development, for existing or new talent for your business.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Cost is dependent on the size of your business. There is no cost to the employer if the learner is not currently employed by you</p>"),
-                new HtmlString(@"<p class=""govuk-body""> A new starter will be trained in a specialist skill specific to your business and be highly motivated by a guaranteed interview afterwards
-
-</p>"),
+                new HtmlString(@"<p class=""govuk-body""> A new starter will be trained in a specialist skill specific to your business and be highly motivated by a guaranteed interview afterwards</p>"),
                 new HtmlString(@"<p class=""govuk-body"">up to 16-weeks</p>"),
-                "skills-bootcamps", 68000,
+                "Both",
+                "19s and over",
+                "Free or costed",
+                "Under 1 year",
+                "skills-bootcamps", 
+                68000,
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
@@ -186,40 +210,20 @@ of the course.</p><p class=""govuk-body"">
                 new HtmlString(@"<p class=""govuk-body"">Get started with offering Skills Bootcamps and find providers offering courses in your area.</p><p class=""govuk-body""><a href=""https://www.gov.uk/government/publications/find-a-skills-bootcamp"" title="""" class=""govuk-link"">Find Skills Bootcamps in your area</a></p>"),
                 null,
                 new SubScheme[] {
-                }
-                ),
-            new Scheme("Traineeships",
-                new HtmlString(@"<p class=""govuk-body"">A 6-week to 12 months skills development programme that includes an unpaid work placement to help 16- to 24-year-olds prepare for an apprenticeship or employment.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Provides a stepping stone for your future apprentices or employees to gain valuable skills relevant to your business</p>"),
-                new HtmlString(@"<p class=""govuk-body"">70 to 240 hours work placement</p>"),
-                "traineeships", 43000,
-             new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
-                new CaseStudy[] {
-                },
-                new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-traineeships"" title="""" class=""govuk-link"">how businesses are using traineeships</a>.</p>"),
-                null,
-                new HtmlString(@"<p class=""govuk-body"">A traineeship is a work based skills development programme that includes a work placement.</p><p class=""govuk-body"">The full programme can last from 6 weeks up to 1 year, though most traineeships last for between 6-weeks and 12-weeks.</p><p class=""govuk-body"">Your business needs to be able to offer a safe, meaningful and high-quality work experience placement of at least 70 hours to 240 hours.</p><p class=""govuk-body"">You will work with a training provider to design what is included in the programme.</p><p class=""govuk-body"">Trainees can gain English, maths, digital and work-related qualifications which can lead them on to:</p><ul class=""govuk-list govuk-list--bullet""><li>an apprenticeship</li><li>work</li><li>further education</li></ul><p class=""govuk-body""></p>"),
-                new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay the wages and any payments for expenses such as travel and living costs.
-</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Employers need to provide:</p><ul class=""govuk-list govuk-list--bullet""><li>a safe, meaningful and high-quality work experience placement</li><li>a minimum of 70 hours of work experience placement over the duration of the traineeship (if the trainee claims benefits, the placement cannot last longer than 240 hours)</li><li>constructive feedback and advice to the trainee</li><li>an interview for an apprenticeship or job in their organisation at the end of the traineeship if one is available</li><li>an exit interview at the end of the traineeship with meaningful written feedback if no job is available</li></ul><p class=""govuk-body""></p>"),
-                new HtmlString(@"<p class=""govuk-body"">Traineeships can benefit your business by:</p><ul class=""govuk-list govuk-list--bullet""><li>
-providing a stepping-stone for your future apprentices
-</li><li>allowing you to test out a new position in your business without committing to full time hires
-</li><li>helping your business attract a new generation of talent
-</li><li>offering financial incentives of up to &#163;1,000 per trainee</li></ul><p class=""govuk-body"">Find out <a href=""https://www.gov.uk/guidance/traineeship-information-for-employers"" title="""" class=""govuk-link"">how traineeships can benefit your business</a>.</p><p class=""govuk-body""></p>"),
-                "Offer a traineeship",
-                new HtmlString(@"<p class=""govuk-body"">Get started with offering a traineeship.</p><p class=""govuk-body""><a href=""https://www.gov.uk/guidance/traineeship-information-for-employers#get-started"" title="""" class=""govuk-link"">Contact the National Apprenticeship Service</a></p><p class=""govuk-body"">Alternatively, call <a href=""tel:08000150600"" title="""" class=""govuk-link"">08000 150 600</a></p>"),
-                null,
-                new SubScheme[] {
-                }
-                ),
+                }),
             new Scheme("Supported Internships for learners with an education, health and care plan",
+                "SEND",
+                "Supported internships for people with SEND.",
                 new HtmlString(@"<p class=""govuk-body"">An unpaid 6 to 12-month work placement for 16 to 24-year-olds with additional needs, including Special Educational Needs and Disabilities (SEND), supported by a qualified job coach.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Increases your confidence and ability to employ individuals with additional needs, improving and expanding your business' recruitment prospects</p>"),
                 new HtmlString(@"<p class=""govuk-body"">6 to 12-months</p>"),
-                "supported-internships", 20000,
+                "New",
+                "16 to 24",
+                "Free",
+                "Under 1 year",
+                "supported-internships", 
+                20000,
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--4-months-to-12-months"             },
                 new CaseStudy[] {
                 },
@@ -235,12 +239,19 @@ providing a stepping-stone for your future apprentices
                 new SubScheme[] {
                 }
                 ),
-            new Scheme("Care-Leaver covenant",
+            new Scheme("Care-Leaver Covenant",
+                "",
+                "Explore the Care-leaver Covenant",
                 new HtmlString(@"<p class=""govuk-body"">Help 16 to 25-year-olds who were in local authority care become independent through practical job-related support, in whatever way suits your business.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs related to the practical offer you make to care leavers</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Helping care-leavers to move to independent living and bring their life skills to enrich your business</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Length of time can vary</p>"),
-                "care-leaver-covenant", 2000,
+                "New",
+                "16 to 25",
+                "Free",
+                "Variable",
+                "care-leaver-covenant", 
+                2000,
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
@@ -257,11 +268,18 @@ providing a stepping-stone for your future apprentices
                 }
                 ),
             new Scheme("Employing prisoners and prison leavers",
+                "",
+                "Employing prisoners and prison leavers.",
                 new HtmlString(@"<p class=""govuk-body"">Employ prisoners and prison leavers aged 18 and over to help your business fill skills gaps and develop a loyal and talented workforce.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Access a workforce that is highly motivated to grow through work</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Variable depending on employer and prisoner and prison leaver</p>"),
-                "employing-prisoners-and-prison-leavers", 1000,
+                "New",
+                "Ault prisoners",
+                "Free",
+                "Variable",
+                "employing-prisoners-and-prison-leavers", 
+                1000,
              new string[] {                "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
@@ -278,11 +296,18 @@ providing a stepping-stone for your future apprentices
                 }
                 ),
             new Scheme("Free courses and additional training for your employees",
+                "Free courses for jobs",
+                "Free courses and additional training.",
                 new HtmlString(@"<p class=""govuk-body"">Additional ways to train up existing employees through free qualifications, career advice and financial support.</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Courses are fully funded for eligible adults but employees may need time to study and attend classes</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Help improve productivity, and develop a loyal and talented workforce in a rapidly changing labour market</p>"),
                 new HtmlString(@"<p class=""govuk-body"">Length of time can vary</p>"),
-                "free-courses-and-additional-training-for-your-employees", -1000,
+                "Existing",
+                "19 and over",
+                "Free",
+                "Variable",
+                "free-courses-and-additional-training-for-your-employees", 
+                -1000,
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },

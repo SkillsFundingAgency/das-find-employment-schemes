@@ -61,6 +61,42 @@ function showHideSchemes(filters) {
     schemes.show();
 }
 
+function sortSchemes() {
+
+    var dropdown = document.getElementById("scheme-sort");
+
+    var selectedValue = dropdown.value;
+
+    var elements = document.getElementsByClassName("scheme-section");
+
+    var elementArray = Array.from(elements);
+
+    elementArray.sort(function (a, b) {
+
+        var aValue = parseFloat(a.getAttribute("data-" + selectedValue));
+
+        var bValue = parseFloat(b.getAttribute("data-" + selectedValue));
+
+        return aValue - bValue;
+
+    });
+
+    var elementContainer = document.getElementById("scheme-holder");
+
+    while (elementContainer.firstChild) {
+
+        elementContainer.removeChild(elementContainer.firstChild);
+
+    }
+
+    elementArray.forEach(function (element) {
+
+        elementContainer.appendChild(element);
+
+    });
+
+}
+
 function initMobileView() {
 
     $("#filter-schemes").click(function () {

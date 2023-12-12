@@ -18,7 +18,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private readonly IContentService _contentService;
         private IReadOnlyDictionary<string, SchemeDetailsModel> _schemeDetailsModels;
 
-        public HomeModel HomeModel { get; private set; }
+        public HomeModel HomeModel { get; set; }
         public ComparisonModel ComparisonModel { get; private set; }
 
 #pragma warning disable CS8618
@@ -59,15 +59,49 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             return new ComparisonModel(content.Schemes);
         }
 
-        private ComparisonResultsModel CreateComparisonResultsModel(IEnumerable<string> schemes, IContent content)
+        private ComparisonResultsModel CreateComparisonResultsModel(IEnumerable<string> schemes, SchemeFilterModel filters, IContent content)
         {
-            return new ComparisonResultsModel(
-                content.Schemes.Where(x => schemes.Contains(x.HtmlId)));
+
+            if(schemes.Any())
+            {
+
+                return new ComparisonResultsModel(
+                
+                    content.Schemes.Where(x => schemes.Contains(x.HtmlId)),
+
+                    filters
+
+                );
+
+            }
+            else
+            {
+
+                return new ComparisonResultsModel(
+
+                    content.Schemes,
+
+                    filters
+
+                );
+
+            }
+
         }
 
-        public ComparisonResultsModel CreateComparisonResultsModel(IEnumerable<string> schemes)
+        public ComparisonResultsModel CreateComparisonResultsModel(IEnumerable<string> schemes, SchemeFilterModel filters)
         {
-            return CreateComparisonResultsModel(schemes, _contentService.Content);
+
+            return CreateComparisonResultsModel(
+
+                schemes,
+
+                filters, 
+                
+                _contentService.Content
+
+            );
+
         }
 
         public async Task<HomeModel> CreateHomeModelPreview()
@@ -90,11 +124,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             return comparisonModel;
         }
 
-        public async Task<ComparisonResultsModel> CreateComparisonResultsModelPreview(IEnumerable<string> schemes)
+        public async Task<ComparisonResultsModel> CreateComparisonResultsModelPreview(IEnumerable<string> schemes, SchemeFilterModel filters)
         {
             IContent previewContent = await _contentService.UpdatePreview();
 
-            var comparisonResultsModel = CreateComparisonResultsModel(schemes, previewContent);
+            var comparisonResultsModel = CreateComparisonResultsModel(schemes, filters, previewContent);
             comparisonResultsModel.Preview = new PreviewModel(Enumerable.Empty<HtmlString>());
 
             return comparisonResultsModel;
