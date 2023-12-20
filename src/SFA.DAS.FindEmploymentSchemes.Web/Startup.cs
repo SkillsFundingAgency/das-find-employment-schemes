@@ -69,7 +69,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                         "/js/show_hide.js", 
                         "/js/app.js", 
                         "/js/filter.js", 
-                        "/js/feedback.js",
                         "/js/cookies/utils.js",
                         "/js/cookies/consent.js",
                         "/js/cookies/cookie-banner.js",
