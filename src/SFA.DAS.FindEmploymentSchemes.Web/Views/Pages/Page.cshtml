@@ -11,7 +11,7 @@
 
     }
 
-    string completeUrl = Url.Action("Page", "Pages", new { pageUrl = @Model.Page.Url }, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
+    string completeUrl = Url.Action("Page", "Pages", new { pageUrl = @Model.Page.Url }, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!;
 
 }
 

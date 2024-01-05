@@ -25,7 +25,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Extensions
                 });
                 options.AddConsole(); //NOSONAR logging configuration is safe
 
-                nLogConfiguration.ConfigureNLog(configuration["NLog:LogLevel"]);
+                nLogConfiguration.ConfigureNLog(configuration["NLog:LogLevel"]!);
             });
 
             return serviceCollection;

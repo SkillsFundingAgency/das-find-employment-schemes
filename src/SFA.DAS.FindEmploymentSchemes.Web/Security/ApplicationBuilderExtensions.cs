@@ -50,7 +50,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
             IWebHostEnvironment env,
             IConfiguration configuration)
         {
-            string cdnUrl = configuration["cdn:url"];
+            string cdnUrl = configuration["cdn:url"]!;
 
 #pragma warning disable S1075
             app.UseSecurityHeaders(policies =>

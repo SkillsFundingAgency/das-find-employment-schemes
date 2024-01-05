@@ -14,7 +14,7 @@
 
     string filterQueryString = Model.Filters == null ? string.Empty : Model.Filters.BuildFilterQueryString();
 
-    string completeUrl = $"{Url.Action("Comparison", "Schemes", Model.Schemes, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{filterQueryString}";
+    string completeUrl = $"{Url.Action("Comparison", "Schemes", Model.Schemes, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!}?{filterQueryString}";
 
 }
 

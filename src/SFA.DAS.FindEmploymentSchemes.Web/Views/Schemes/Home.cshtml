@@ -10,21 +10,14 @@
 }
 
 @await Html.PartialAsync(
-    
     "_PreambleBannerPartial",
-    
     new Tuple<string, string, IHtmlContent?, SchemeFilterModel?>(string.Empty, string.Empty, @Model.Preamble, null)
-
 )
 
 @{
-
-    string completeUrl = string.IsNullOrWhiteSpace(Model.SelectedFilters) ? 
-    
-        Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme) : 
-    
-        $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme)}?{Model.SelectedFilters}";
-
+    string completeUrl = string.IsNullOrWhiteSpace(Model.SelectedFilters) 
+      ?  Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)! 
+      : $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!}?{Model.SelectedFilters}";
 }
 
 <form id="scheme-home-filter-form" action="/" method="post">

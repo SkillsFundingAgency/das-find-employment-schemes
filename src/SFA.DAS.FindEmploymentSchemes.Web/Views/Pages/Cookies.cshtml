@@ -8,7 +8,7 @@
 
     ViewData["Title"] = "Cookies";
 
-    string completeUrl = Url.Action("Cookies", "Pages", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
+    string completeUrl = Url.Action("Cookies", "Pages", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!;
 
 }
 

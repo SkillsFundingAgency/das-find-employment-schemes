@@ -1,6 +1,6 @@
-﻿using System.Runtime.Serialization;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
@@ -13,6 +13,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         {
         }
 
+        [Obsolete("", DiagnosticId = "SYSLIB0051")]
         protected ContentUpdateServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
