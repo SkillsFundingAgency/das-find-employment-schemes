@@ -12,6 +12,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions
         {
         }
 
+        [Obsolete("The base constructor is marked obsolete", DiagnosticId = "SYSLIB0051")]
         protected ConfigurationMissingException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

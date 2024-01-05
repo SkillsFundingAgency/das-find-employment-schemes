@@ -13,7 +13,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         {
         }
 
-        [Obsolete("", DiagnosticId = "SYSLIB0051")]
+        [Obsolete("The base constructor is marked obsolete", DiagnosticId = "SYSLIB0051")]
         protected ContentUpdateServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
