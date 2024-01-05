@@ -56,7 +56,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 #else
-            var googleAnalyticsConfiguration = Configuration.GetSection("GoogleAnalytics").Get<GoogleAnalyticsConfiguration>();
+            var googleAnalyticsConfiguration = Configuration.GetSection("GoogleAnalytics").Get<GoogleAnalyticsConfiguration>()!;
             services.AddControllersWithViews(options => options.Filters.Add(new EnableGoogleAnalyticsAttribute(googleAnalyticsConfiguration)));
 #endif
 

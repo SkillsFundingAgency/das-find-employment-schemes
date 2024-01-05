@@ -1,33 +1,22 @@
-﻿using Contentful.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
-using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 {
 
     public class ContactService : ContentRootService, IContactService
     {
-
-        #region Properties
-
-        private readonly ILogger<ContactService> _logger;
-
-        #endregion
-
         #region Constructors
 
-        public ContactService(HtmlRenderer htmlRenderer, ILogger<ContactService> logger) : base(htmlRenderer)
+        public ContactService(HtmlRenderer htmlRenderer) : base(htmlRenderer)
         {
-
-            _logger = logger;
-
         }
 
         #endregion
