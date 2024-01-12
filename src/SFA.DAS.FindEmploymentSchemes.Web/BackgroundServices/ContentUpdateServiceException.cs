@@ -1,6 +1,6 @@
-﻿using System.Runtime.Serialization;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
 {
@@ -13,6 +13,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices
         {
         }
 
+#pragma warning disable S1133 // Deprecated code should be removed
+        [Obsolete("The base constructor is marked obsolete", DiagnosticId = "SYSLIB0051")]
+#pragma warning restore S1133 // Deprecated code should be removed
         protected ContentUpdateServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

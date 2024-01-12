@@ -1,9 +1,9 @@
-﻿using Contentful.Core.Models;
-using Microsoft.AspNetCore.Html;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contentful.Core.Models;
+using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 
@@ -25,8 +25,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
 
         protected static string Slugify(string? name)
         {
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
+            ArgumentNullException.ThrowIfNull(name);
 
             return name.ToLower().Replace(' ', '-');
         }
@@ -58,7 +57,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
             return new HtmlString(html);
         }
 
-        protected IEnumerable<T> FilterValidUrl<T>(IEnumerable<T> roots, ILogger logger)
+        protected static IEnumerable<T> FilterValidUrl<T>(IEnumerable<T> roots, ILogger logger)
             where T : IRootContent
         {
             var rootsWithValidUrl = roots.Where(p => !string.IsNullOrWhiteSpace(p.Url));
@@ -72,7 +71,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
             return rootsWithValidUrl;
         }
 
-        protected void LogErrors<T>(ContentfulCollection<T> contentfulCollection)
+        protected static void LogErrors<T>(ContentfulCollection<T> contentfulCollection)
         {
             //todo: log errors
             //todo: show error when previewing

@@ -1,10 +1,10 @@
-﻿using AutoFixture;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoFixture;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
@@ -20,7 +20,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
         public ContactServiceTests()
         {
 
-            CaseStudyPageService = new ContactService(HtmlRenderer, Logger);
+            CaseStudyPageService = new ContactService(HtmlRenderer);
 
         }
 

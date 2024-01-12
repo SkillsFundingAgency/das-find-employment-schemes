@@ -2,19 +2,19 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-	  <Nullable>enable</Nullable>
-	  <EnableNETAnalyzers>True</EnableNETAnalyzers>
-	  <AnalysisLevel>latest</AnalysisLevel>
-	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	  <WarningsNotAsErrors>S125</WarningsNotAsErrors>
-	  <NoWarn>S1135</NoWarn>
-	  <UserSecretsId>40bda939-659a-4503-bc3a-567b79bae4f0</UserSecretsId>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>S125</WarningsNotAsErrors>
+    <NoWarn>S1135</NoWarn>
+    <UserSecretsId>40bda939-659a-4503-bc3a-567b79bae4f0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="contentful.csharp" Version="7.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.22" />
+    <PackageReference Include="contentful.csharp" Version="7.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,7 +10,7 @@
 
 @{
 
-    string completeUrl = Url.Action("Index", "Contact", null, protocol: HttpContextAccessor.HttpContext.Request.Scheme);
+    string completeUrl = Url.Action("Index", "Contact", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!;
 
 }
 

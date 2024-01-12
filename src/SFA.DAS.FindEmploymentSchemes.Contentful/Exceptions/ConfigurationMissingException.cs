@@ -12,6 +12,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions
         {
         }
 
+#pragma warning disable S1133 // Deprecated code should be removed
+        [Obsolete("The base constructor is marked obsolete", DiagnosticId = "SYSLIB0051")]
+#pragma warning restore S1133 // Deprecated code should be removed
         protected ConfigurationMissingException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

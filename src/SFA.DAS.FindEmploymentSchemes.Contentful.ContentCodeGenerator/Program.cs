@@ -1,4 +1,10 @@
-﻿using Contentful.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Contentful.Core;
 using Contentful.Core.Configuration;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Configuration;
@@ -6,19 +12,13 @@ using Microsoft.Extensions.Logging.Abstractions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 {
     [ExcludeFromCodeCoverage]
     internal class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             var config = new ConfigurationBuilder()
                 .AddUserSecrets<Program>()
@@ -33,19 +33,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                     Environment = config["Environment"]
                 });
 
-            var contenfulClientFactory = new ContentfulClientFactory(new[] {client});
+            var contenfulClientFactory = new ContentfulClientFactory(new[] { client });
 
             var htmlRenderer = ContentService.CreateHtmlRenderer();
 
             var contentService = new ContentService(
-                contenfulClientFactory, 
+                contenfulClientFactory,
                 new SchemeService(htmlRenderer, new NullLogger<SchemeService>()),
                 new PageService(htmlRenderer, new NullLogger<PageService>()),
                 new CaseStudyPageService(htmlRenderer, new NullLogger<CaseStudyPageService>()),
                 new MotivationFilterService(htmlRenderer),
                 new PayFilterService(htmlRenderer),
                 new SchemeLengthFilterService(htmlRenderer),
-                new ContactService(htmlRenderer, new NullLogger<ContactService>()),
+                new ContactService(htmlRenderer),
                 new NullLogger<ContentService>());
 
             var content = await contentService.Update();
@@ -157,7 +157,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             string typeName = nameof(SubScheme);
 
             Console.WriteLine($"                new {typeName}[] {{");
-            
+
             foreach (var subScheme in subSchemes)
             {
                 Console.WriteLine($"                    new {typeName}(\"{subScheme.Title}\",");

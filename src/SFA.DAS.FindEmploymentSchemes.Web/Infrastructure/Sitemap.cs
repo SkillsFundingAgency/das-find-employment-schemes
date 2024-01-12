@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Microsoft.AspNetCore.Hosting;
 using AspNetCore.SEOHelper.Sitemap;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 
@@ -42,21 +42,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Infrastructure
 
             var content = _contentService.Content;
 
-            nodes.AddRange(content.Schemes.Select(x => new SitemapNode {
+            nodes.AddRange(content.Schemes.Select(x => new SitemapNode
+            {
                 Priority = 1.0,
                 Frequency = SitemapFrequency.Weekly,
-                Url = new Uri(baseUri, string.Concat("schemes", x.Url.StartsWith("/") ? x.Url : $"/{x.Url}"))
+                Url = new Uri(baseUri, string.Concat("schemes", x.Url.StartsWith('/') ? x.Url : $"/{x.Url}"))
                             .AbsoluteUri
             }));
             nodes.AddRange(content.Pages.Select(x => new SitemapNode
             {
                 Priority = 1.0,
                 Frequency = SitemapFrequency.Weekly,
-                Url = new Uri(baseUri, string.Concat("page", x.Url.StartsWith("/") ? x.Url : $"/{x.Url}"))
+                Url = new Uri(baseUri, string.Concat("page", x.Url.StartsWith('/') ? x.Url : $"/{x.Url}"))
                             .AbsoluteUri
             }));
 
-            SitemapNode? home = nodes.FirstOrDefault(x => x.Url.EndsWith("/home"));
+            SitemapNode? home = nodes.Find(x => x.Url.EndsWith("/home"));
             if (home != null)
                 home.Url = home.Url[..^9];
 

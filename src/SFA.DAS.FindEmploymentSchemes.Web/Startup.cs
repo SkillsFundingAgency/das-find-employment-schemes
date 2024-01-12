@@ -1,24 +1,23 @@
+using System.Diagnostics.CodeAnalysis;
+using AspNetCore.SEOHelper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using AspNetCore.SEOHelper;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Extensions;
 using SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices;
 using SFA.DAS.FindEmploymentSchemes.Web.Extensions;
+using SFA.DAS.FindEmploymentSchemes.Web.GoogleAnalytics;
+using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
 using SFA.DAS.FindEmploymentSchemes.Web.Security;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
-using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.StartupServices;
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Routing;
-using SFA.DAS.FindEmploymentSchemes.Web.GoogleAnalytics;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web
 {
@@ -35,7 +34,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                 .AddConfiguration(configuration)
                 .AddAzureTableStorage(options =>
                 {
-                    options.ConfigurationKeys = configuration["ConfigNames"].Split(",");
+                    options.ConfigurationKeys = configuration["ConfigNames"]!.Split(",");
                     options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
                     options.EnvironmentName = configuration["EnvironmentName"];
                     options.PreFixConfigurationKeys = false;
@@ -52,12 +51,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     .AddHealthChecks();
             services.AddApplicationInsightsTelemetry();
 
-            
+
 
 #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 #else
-            var googleAnalyticsConfiguration = Configuration.GetSection("GoogleAnalytics").Get<GoogleAnalyticsConfiguration>();
+            var googleAnalyticsConfiguration = Configuration.GetSection("GoogleAnalytics").Get<GoogleAnalyticsConfiguration>()!;
             services.AddControllersWithViews(options => options.Filters.Add(new EnableGoogleAnalyticsAttribute(googleAnalyticsConfiguration)));
 #endif
 
@@ -66,9 +65,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                 if (!_currentEnvironment.IsDevelopment())
                 {
                     assetPipeline.AddJavaScriptBundle("/js/site.js",
-                        "/js/show_hide.js", 
-                        "/js/app.js", 
-                        "/js/filter.js", 
+                        "/js/show_hide.js",
+                        "/js/app.js",
+                        "/js/filter.js",
                         "/js/cookies/utils.js",
                         "/js/cookies/consent.js",
                         "/js/cookies/cookie-banner.js",
@@ -208,7 +207,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
         /// <remarks>
         /// Work around the over enthusiastic duplicate code quality gate in SonarCloud
         /// </remarks>
-        private void MapControllerRoute(IEndpointRouteBuilder builder, string name, string pattern, string controller, string action)
+        private static void MapControllerRoute(IEndpointRouteBuilder builder, string name, string pattern, string controller, string action)
         {
             builder.MapControllerRoute(name, pattern, new { controller, action });
         }
