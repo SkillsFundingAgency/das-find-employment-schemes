@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using AutoFixture;
 using AutoFixture.Kernel;
+using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
@@ -16,10 +17,20 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
         public SchemeDetailsModelTests()
         {
             Fixture = new Fixture();
+
+            Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+                .ForEach(b => Fixture.Behaviors.Remove(b));
+            Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
             Fixture.Customizations.Add(
                 new TypeRelay(
                     typeof(IHtmlContent),
                     typeof(HtmlString)));
+
+            Fixture.Customizations.Add(
+            new TypeRelay(
+                typeof(IContent),
+                typeof(Document)));
 
             Schemes = Fixture.CreateMany<Scheme>(5).ToArray();
         }

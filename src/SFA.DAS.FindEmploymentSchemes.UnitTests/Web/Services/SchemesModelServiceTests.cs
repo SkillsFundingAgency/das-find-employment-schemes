@@ -4,15 +4,16 @@ using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
 using FakeItEasy;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
+using IContent2 = Contentful.Core.Models.IContent;
 using System.Collections;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -39,6 +40,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
                 new TypeRelay(
                     typeof(IContent),
                     typeof(Paragraph)));
+
+            Fixture.Customizations.Add(
+            new TypeRelay(
+                typeof(IContent2),
+                typeof(Document)));
 
             ContentService = A.Fake<IContentService>();
             (Content, NotHomepages) = CreateContent();

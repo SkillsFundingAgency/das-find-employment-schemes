@@ -8,6 +8,7 @@ using System.Threading;
 using System;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
 {
@@ -24,6 +25,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
         public RootServiceTestBase()
         {
             Fixture = new Fixture();
+
+            Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+
+                .ForEach(b => Fixture.Behaviors.Remove(b));
+
+            Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
             (Document, ExpectedContent) = SampleDocumentAndExpectedContent();
 
