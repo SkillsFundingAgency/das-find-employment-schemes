@@ -1,0 +1,58 @@
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model
+@using SFA.DAS.FindEmploymentSchemes.Web.Services
+@model InterimPageComponent
+
+<div data-id="@Model.ComponentID" data-type="@Model.ComponentType" class="govuk-grid-column-full govuk-!-padding-left-0 govuk-!-padding-right-3 govuk-!-padding-bottom-3"
+     style="border: 1px solid @(string.IsNullOrWhiteSpace(Model.ComponentBorderColor) ? "#F8F8F8" : Model.ComponentBorderColor.Trim()); background-color: @(string.IsNullOrWhiteSpace(Model.ComponentBackgroundColor) ? "#F8F8F8" : Model.ComponentBackgroundColor.Trim()); border-radius: 20px">
+
+    <div class="govuk-grid-row govuk-!-padding-right-7">
+
+        @if (!string.IsNullOrWhiteSpace(Model.ComponentHeading) || !string.IsNullOrWhiteSpace(Model.ComponentSubHeading))
+        {
+
+            <div class="govuk-grid-column-full">
+
+                @if (!string.IsNullOrWhiteSpace(Model.ComponentHeading))
+                {
+
+                    <h1 class="govuk-heading-m">@Model.ComponentHeading</h1>
+
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Model.ComponentSubHeading))
+                {
+
+                    <p class="govuk-body govuk-!-margin-bottom-0">@Model.ComponentSubHeading</p>
+
+                }
+
+            </div>
+
+        }
+
+        @if (Model.ComponentContent != null)
+        {
+
+            <div class="govuk-grid-column-full">
+
+                @InterimPageService.ToHtmlString(Model.ComponentContent);
+
+            </div>
+
+        }
+
+    </div>
+
+</div>
+
+@if (Model.SubComponents.Any())
+{
+
+    @foreach (InterimPageComponent component in Model.SubComponents.OrderBy(a => a.ComponentOrder))
+    {
+
+        @Html.Raw(InterimPageService.GenerateSubComponent(component))
+
+    }
+
+}

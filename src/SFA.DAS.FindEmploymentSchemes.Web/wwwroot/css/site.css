@@ -608,3 +608,11 @@ table#comparison-results-table th:first-child {
 .das-employers__no_schemes {
     background-color: rgba(211, 1, 114, 0.05);
 }
+
+.interim-contents-section-component ul {
+    padding-left: 28px !important;
+}
+
+    .interim-contents-section-component ul li::marker {
+        color: #1D70B8;
+    }

@@ -1,0 +1,50 @@
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model
+@using SFA.DAS.FindEmploymentSchemes.Web.Services
+@model InterimPageComponent
+
+<div data-id="@Model.ComponentID" data-type="@Model.ComponentType" class="govuk-grid-column-full govuk-!-margin-bottom-7 govuk-!-padding-left-0"
+     style="border: 1px solid @(string.IsNullOrWhiteSpace(Model.ComponentBorderColor) ? "#F8F8F8" : Model.ComponentBorderColor.Trim()); background-color: @(string.IsNullOrWhiteSpace(Model.ComponentBackgroundColor) ? "#F8F8F8" : Model.ComponentBackgroundColor.Trim()); border-radius: 20px">
+
+    <details class="govuk-details govuk-!-margin-bottom-0">
+
+        <summary class="govuk-details__summary">
+
+            <span class="govuk-details__summary-text">
+
+                @if (!string.IsNullOrWhiteSpace(@Model.ComponentHeading))
+                {
+
+                    @Model.ComponentHeading
+
+                }
+
+            </span>
+
+        </summary>
+
+        <div class="govuk-details__text">
+
+            @if (Model.ComponentContent != null)
+            {
+
+                @InterimPageService.ToHtmlString(Model.ComponentContent)
+
+            }
+
+            @if (Model.SubComponents.Any())
+            {
+
+                @foreach (InterimPageComponent component in Model.SubComponents.OrderBy(a => a.ComponentOrder))
+                {
+
+                    @Html.Raw(InterimPageService.GenerateSubComponent(component))
+
+                }
+
+            }
+
+        </div>
+
+    </details>
+
+</div>

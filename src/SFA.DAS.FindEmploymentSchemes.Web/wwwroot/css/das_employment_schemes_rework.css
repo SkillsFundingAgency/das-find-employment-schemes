@@ -9449,6 +9449,7 @@ p + .das-tile__body-heading {
     }
 
 .das-primary-banner {
+    border:1px solid #FFDFEF;
     background-color: #F6EFF3;
     color: #000;
     padding: 0 10px 10px 10px;
