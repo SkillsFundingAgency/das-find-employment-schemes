@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Extensions;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices;
 using SFA.DAS.FindEmploymentSchemes.Web.Extensions;
 using SFA.DAS.FindEmploymentSchemes.Web.GoogleAnalytics;
@@ -35,13 +36,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             Configuration = new ConfigurationBuilder()
                 .AddConfiguration(configuration)
-                .AddAzureTableStorage(options =>
-                {
-                    options.ConfigurationKeys = configuration["ConfigNames"]?.Split(",");
-                    options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
-                    options.EnvironmentName = configuration["EnvironmentName"];
-                    options.PreFixConfigurationKeys = false;
-                })
+                //.AddAzureTableStorage(options =>
+                //{
+                //    options.ConfigurationKeys = configuration["ConfigNames"]?.Split(",");
+                //    options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
+                //    options.EnvironmentName = configuration["EnvironmentName"];
+                //    options.PreFixConfigurationKeys = false;
+                //})
                 .Build();
         }
 
@@ -83,7 +84,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             services.AddScoped<IViewRenderService, ViewRenderService>();
 
-            services.AddSingleton<HtmlRenderer>();
+            services.AddSingleton<HtmlRenderer>(a => ContentService.CreateHtmlRenderer());
 
 #pragma warning disable ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
             var serviceProvider = services.BuildServiceProvider();
@@ -94,6 +95,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             var viewRenderService = serviceProvider.GetRequiredService<IViewRenderService>();
 
             var htmlRenderer = serviceProvider.GetRequiredService<HtmlRenderer>();
+
+
 
             var logger = serviceProvider.GetRequiredService<ILogger<object>>();
 
