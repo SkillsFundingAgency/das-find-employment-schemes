@@ -27,6 +27,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
+        #region Methods
+
         public static void Initialize(ILogger logger, IViewRenderService viewRenderService, HtmlRenderer htmlRenderer)
         {
 
@@ -39,10 +41,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         }
 
         /// <summary>
-        /// 
+        /// Private placeholder method for future expansion of interim components functionality and view building.
         /// </summary>
-        /// <param name="scheme"></param>
-        /// <returns></returns>
+        /// <param name="scheme">Encapsulated scheme information.</param>
+        /// <returns>Microsoft.AspNetCore.Mvc.Rendering.TagBuilder with pre rendered interim components.</returns>
         public static TagBuilder GenerateView(Scheme scheme)
         {
 
@@ -51,10 +53,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         }
 
         /// <summary>
-        /// 
+        /// Private placeholder method for future expansion of interim components functionality.
         /// </summary>
-        /// <param name="scheme"></param>
-        /// <returns></returns>
+        /// <param name="scheme">Encapsulated scheme information.</param>
+        /// <returns>Microsoft.AspNetCore.Mvc.Rendering.TagBuilder with pre rendered interim components.</returns>
         private static TagBuilder GenerateInterimPageAsync(Scheme scheme)
         {
 
@@ -63,10 +65,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         }
 
         /// <summary>
-        /// 
+        /// Generate all interim components linked to a scheme.
         /// </summary>
-        /// <param name="scheme"></param>
-        /// <returns></returns>
+        /// <param name="scheme">Encapsulated scheme information.</param>
+        /// <returns>Microsoft.AspNetCore.Mvc.Rendering.TagBuilder with pre rendered interim components.</returns>
         private static TagBuilder GenerateComponents(Scheme scheme)
         {
 
@@ -86,7 +88,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         }
 
         /// <summary>
-        /// 
+        /// Dictionary or the purpose of mapping partial views to interim component types.
         /// </summary>
         private static readonly Dictionary<string, string> MappedTypesToPartials = new Dictionary<string, string>()
         {
@@ -104,10 +106,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         };
 
         /// <summary>
-        /// 
+        /// Generate specified partial view via the component type property.
         /// </summary>
-        /// <param name="component"></param>
-        /// <param name="tag"></param>
+        /// <param name="component">Encapsulated information regarding the unique component object.</param>
+        /// <param name="tag">Tag to append the rendered partial view to.</param>
         private static void GenerateComponent(InterimPageComponent component, TagBuilder tag)
         {
 
@@ -134,6 +136,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
+        /// <summary>
+        /// Generate a SFA.DAS.FindEmploymentSchemes.Contentful.Model.InterimPageComponent sub component.
+        /// </summary>
+        /// <param name="component"></param>
+        /// <returns></returns>
         public static string GenerateSubComponent(InterimPageComponent component)
         {
 
@@ -163,10 +170,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         }
 
         /// <summary>
-        /// 
+        /// Convert a long text html document to a html string.
         /// </summary>
-        /// <param name="document"></param>
-        /// <returns></returns>
+        /// <param name="document">Contentful.Core.Models.Document object with encapsulated html node information.</param>
+        /// <returns>Microsoft.AspNetCore.Html.HtmlString.</returns>
         public static HtmlString? ToHtmlString(Document? document)
         {
             if (document == null)
@@ -183,10 +190,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         }
 
         /// <summary>
-        /// 
+        /// Normalize html string removed any new line or quotation marks.
         /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
+        /// <param name="html">Prenormalized html string as string.</param>
+        /// <returns>Microsoft.AspNetCore.Html.HtmlString.</returns>
         public static HtmlString ToNormalisedHtmlString(string html)
         {
 
@@ -199,6 +206,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             return new HtmlString(html);
 
         }
+
+        #endregion
 
     }
 

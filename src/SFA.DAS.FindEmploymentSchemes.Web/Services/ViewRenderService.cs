@@ -19,6 +19,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
     public class ViewRenderService : IViewRenderService
     {
 
+        #region Properties
+
         private readonly ILogger<ViewRenderService> _logger;
 
         private readonly IServiceProvider _serviceProvider;
@@ -26,6 +28,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private readonly ICompositeViewEngine _viewEngine;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
+
+        #endregion
+
+        #region Constructors
 
         public ViewRenderService(
             
@@ -50,13 +56,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
-        /// 
+        /// Render partial views as string for output to the front end.
         /// </summary>
-        /// <typeparam name="TModel"></typeparam>
-        /// <param name="viewName"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <typeparam name="TModel">Output type to render the view as.</typeparam>
+        /// <param name="viewName">Specifide name of the partial view.</param>
+        /// <param name="model">Output type to render the view as.</param>
+        /// <returns>System.string rendered html output of the partial view.</returns>
         public async Task<string> RenderToStringAsync<TModel>(string viewName, TModel model)
         {
 
@@ -121,6 +131,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             }
 
         }
+
+        #endregion
 
     }
 
