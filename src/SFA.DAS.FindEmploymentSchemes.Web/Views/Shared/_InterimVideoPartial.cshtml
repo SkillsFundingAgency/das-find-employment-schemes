@@ -2,10 +2,10 @@
 @using SFA.DAS.FindEmploymentSchemes.Web.Services
 @model InterimPageComponent
 
-<div data-id="@Model.ComponentID" data-type="@Model.ComponentType" class="govuk-grid-column-full govuk-!-margin-bottom-7 govuk-!-padding-left-0"
+<div data-id="@Model.ComponentID" data-type="@Model.ComponentType" class="govuk-!-padding-right-0 govuk-grid-column-full govuk-!-margin-bottom-7 govuk-!-padding-left-0"
      style="border: 1px solid @(string.IsNullOrWhiteSpace(Model.ComponentBorderColor) ? "#F8F8F8" : Model.ComponentBorderColor.Trim()); background-color: @(string.IsNullOrWhiteSpace(Model.ComponentBackgroundColor) ? "#F8F8F8" : Model.ComponentBackgroundColor.Trim()); border-radius: 20px">
 
-    <div class="govuk-grid-row govuk-!-padding-right-7">
+    <div class="govuk-grid-row">
 
         <div class="govuk-grid-column-full">
 
@@ -26,7 +26,7 @@
             @if(!string.IsNullOrWhiteSpace(Model.ComponentVideoSource))
             {
 
-                <iframe height="315" style="width:100%" src="@Model.ComponentVideoSource" title="@Html.Raw(Model.ComponentHeading)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                <iframe class="video-scheme-iframe" style="height: 370px; width:100%" src="@Model.ComponentVideoSource" title="@Html.Raw(Model.ComponentHeading)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
 
             }
 

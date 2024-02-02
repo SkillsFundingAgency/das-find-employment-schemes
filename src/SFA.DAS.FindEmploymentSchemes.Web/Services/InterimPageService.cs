@@ -74,7 +74,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             var pageLayoutRow = new TagBuilder("div");
 
-            pageLayoutRow.AddCssClass($"{GovukReferences.GOVUK_GRID_ROW} {GovukReferences.PADDING_RIGHT_5}");
+            pageLayoutRow.AddCssClass($"{GovukReferences.GOVUK_GRID_ROW} {GovukReferences.PADDING_RIGHT_0}");
 
             foreach (InterimPageComponent component in scheme.Components)
             {
