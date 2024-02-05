@@ -8,13 +8,11 @@ function InitializeInterimContentLinks() {
 
     $("[data-type='interim-content-section'] ul li").click(function () {
 
-        var anchor = $(this).find("a");
+        let anchor = $(this).find("a");
 
             if (anchor.length > 0) {
 
-                var targetId = anchor.attr("href");
-
-                console.log(targetId);
+                let targetId = anchor.attr("href");
 
                 scrollToElement(targetId);
 
@@ -28,7 +26,7 @@ function InitializeInterimContentLinks() {
 
 function scrollToElement(targetId) {
 
-    var targetElement = $("[data-id='" + targetId + "']");
+    let targetElement = $("[data-id='" + targetId + "']");
 
     if (targetElement.length > 0) {
 

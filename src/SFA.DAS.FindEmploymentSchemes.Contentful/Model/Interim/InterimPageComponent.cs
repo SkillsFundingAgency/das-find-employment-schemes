@@ -1,9 +1,11 @@
 ﻿using Contentful.Core.Models;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model
 {
 
+    [ExcludeFromCodeCoverage]
     public class InterimPageComponent
     {
 

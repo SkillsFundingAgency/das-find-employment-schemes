@@ -26,7 +26,7 @@
             @if(!string.IsNullOrWhiteSpace(Model.ComponentVideoSource))
             {
 
-                <iframe class="video-scheme-iframe" style="height: 370px; width:100%" src="@Model.ComponentVideoSource" title="@Html.Raw(Model.ComponentHeading)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                <iframe class="video-scheme-iframe" style="height: 370px; width:100%" src="@Model.ComponentVideoSource" title="@Html.Raw(Model.ComponentHeading)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
 
             }
 
