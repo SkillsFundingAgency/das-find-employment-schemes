@@ -285,7 +285,7 @@ a:focus {
 
 @media (min-width: 40.0625em) {
     .govuk-heading-xl {
-        margin-bottom: 50px;
+        margin-bottom: 30px;
     }
 }
 
@@ -2124,6 +2124,11 @@ p + .das-tile__body-heading {
 }
 
 @media (max-width: 40.0525em) {
+
+    .video-scheme-iframe {
+        height:186px !important;
+    }
+
     .govuk-breadcrumbs--collapse-on-mobile .govuk-breadcrumbs__list-item {
         display: none;
     }
@@ -9449,6 +9454,7 @@ p + .das-tile__body-heading {
     }
 
 .das-primary-banner {
+    border:1px solid #FFDFEF;
     background-color: #F6EFF3;
     color: #000;
     padding: 0 10px 10px 10px;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Html;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 {
@@ -61,6 +62,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public IEnumerable<string> FilterAspects { get; }
         public string HtmlId { get; }
 
+        public List<InterimPageComponent> Components { get; set; } = new List<InterimPageComponent>();
+
+        public InterimPreamble? InterimPreamble { get; set; }
+
         public Scheme(
             string? name, 
             string? shortName,
@@ -90,7 +95,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             int? defaultOrder = null,
             int? popularityOrder = null,
             int? durationOrder = null,
-            int? costOrder = null
+            int? costOrder = null,
+            List<InterimPageComponent>? components = null,
+            InterimPreamble? interimPreamble = null
         )
         {
             Name = name;
@@ -127,6 +134,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             PopularityOrder = popularityOrder;
             DurationOrder = durationOrder;
             CostOrder = costOrder;
+
+            Components = components ?? new List<InterimPageComponent>();
+
+            InterimPreamble = interimPreamble;
+
         }
 
         private string SanitizeHtmlId(string unsanitizedId)

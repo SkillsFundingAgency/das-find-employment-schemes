@@ -1,0 +1,66 @@
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model
+@using SFA.DAS.FindEmploymentSchemes.Web.Services
+@model InterimPageComponent
+
+<div data-id="@Model.ComponentID" data-type="@Model.ComponentType" class="govuk-!-padding-right-0 govuk-grid-column-full govuk-!-margin-bottom-7 govuk-!-padding-left-0"
+     style="border: 1px solid @(string.IsNullOrWhiteSpace(Model.ComponentBorderColor) ? "#F8F8F8" : Model.ComponentBorderColor.Trim()); background-color: @(string.IsNullOrWhiteSpace(Model.ComponentBackgroundColor) ? "#F8F8F8" : Model.ComponentBackgroundColor.Trim()); border-radius: 20px">
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            @if (Model.ComponentHeading != null)
+            {
+
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">@Model.ComponentHeading</h2>
+
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Model.ComponentVideoDescription))
+            {
+
+                <p>@Model.ComponentVideoDescription</p>
+
+            }
+
+            @if(!string.IsNullOrWhiteSpace(Model.ComponentVideoSource))
+            {
+
+                <iframe class="video-scheme-iframe" style="height: 370px; width:100%" src="@Model.ComponentVideoSource" title="@Html.Raw(Model.ComponentHeading)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+            }
+
+        </div>
+
+        @if (Model.ComponentVideoTranscript != null)
+        {
+
+            <div class="govuk-grid-column-full govuk-!-margin-top-3">
+
+                <details class="govuk-details govuk-!-margin-bottom-0">
+
+                    <summary class="govuk-details__summary">
+
+                        <span class="govuk-details__summary-text">
+
+                            Video Transcript
+
+                        </span>
+
+                    </summary>
+
+                    <div class="govuk-details__text">
+
+                        @InterimPageService.ToHtmlString(Model.ComponentVideoTranscript)
+
+                    </div>
+
+                </details>
+
+            </div>
+
+        }
+
+    </div>
+
+</div>

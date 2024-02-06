@@ -1,17 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoFixture;
+﻿using AutoFixture;
 using AutoFixture.Kernel;
-using Microsoft.AspNetCore.Mvc;
+using Contentful.Core.Models;
 using FakeItEasy;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-using Xunit;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
@@ -32,10 +32,22 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         public SchemesControllerTests()
         {
             Fixture = new Fixture();
+
+            Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+
+                .ForEach(b => Fixture.Behaviors.Remove(b));
+
+            Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
             Fixture.Customizations.Add(
                 new TypeRelay(
                     typeof(IHtmlContent),
                     typeof(HtmlString)));
+
+            Fixture.Customizations.Add(
+            new TypeRelay(
+                typeof(IContent),
+                typeof(Document)));
 
             FilterService = A.Fake<IFilterService>();
             SchemesModelService = A.Fake<ISchemesModelService>();

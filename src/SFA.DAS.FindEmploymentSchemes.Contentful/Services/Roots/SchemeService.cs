@@ -14,24 +14,33 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 {
     public class SchemeService : ContentRootService, ISchemeService
     {
+
         private readonly ILogger<SchemeService> _logger;
 
-        public SchemeService(
-            HtmlRenderer htmlRenderer,
-            ILogger<SchemeService> logger) : base(htmlRenderer)
+        public SchemeService(HtmlRenderer htmlRenderer, ILogger<SchemeService> logger) : base(htmlRenderer)
         {
+
             _logger = logger;
+
         }
 
         public async Task<IEnumerable<Scheme>> GetAll(IContentfulClient contentfulClient)
         {
-            var builder = QueryBuilder<ApiScheme>.New.ContentTypeIs("scheme").Include(1);
+
+            var builder = QueryBuilder<ApiScheme>.New.ContentTypeIs("scheme").Include(3);
+
             var schemes = await contentfulClient.GetEntries(builder);
+
             LogErrors(schemes);
 
-            return await Task.WhenAll(FilterValidUrl(schemes, _logger)
+            return await Task.WhenAll(
+                
+                    FilterValidUrl(schemes, _logger)
+
                 .OrderBy(s => s.DefaultOrder)
+
                 .Select(ToContent));
+
         }
 
         private async Task<Scheme> ToContent(ApiScheme apiScheme)
@@ -79,7 +88,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
                 apiScheme.DefaultOrder,
                 apiScheme.PopularityOrder,
                 apiScheme.DurationOrder,
-                apiScheme.CostOrder);
+                apiScheme.CostOrder,
+                apiScheme.Components.OrderBy(a => a.ComponentOrder ?? 0).ToList(),
+                apiScheme.InterimPreamble
+            );
         }
 
         private async Task<CaseStudy> ToContent(Model.Api.CaseStudy apiCaseStudy)

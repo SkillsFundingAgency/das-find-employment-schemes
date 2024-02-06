@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Contentful.Core.Models;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using Contentful.Core.Models;
-using Microsoft.AspNetCore.Html;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 {
@@ -49,5 +49,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 
         public int? CostOrder { get; set; }
 
+        public List<InterimPageComponent> Components { get; set; } = new List<InterimPageComponent>();
+
+        public InterimPreamble? InterimPreamble { get; set; }
+
     }
+
 }

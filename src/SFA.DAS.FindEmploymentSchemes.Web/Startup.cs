@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using AspNetCore.SEOHelper;
+using Contentful.Core.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -8,12 +9,15 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Extensions;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.BackgroundServices;
 using SFA.DAS.FindEmploymentSchemes.Web.Extensions;
 using SFA.DAS.FindEmploymentSchemes.Web.GoogleAnalytics;
 using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
+using SFA.DAS.FindEmploymentSchemes.Web.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Security;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
@@ -34,7 +38,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                 .AddConfiguration(configuration)
                 .AddAzureTableStorage(options =>
                 {
-                    options.ConfigurationKeys = configuration["ConfigNames"]!.Split(",");
+                    options.ConfigurationKeys = configuration["ConfigNames"]?.Split(",");
                     options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
                     options.EnvironmentName = configuration["EnvironmentName"];
                     options.PreFixConfigurationKeys = false;
@@ -75,6 +79,28 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     assetPipeline.AddCssBundle("/css/site.css", "/css/site.css");
                 }
             });
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddScoped<IViewRenderService, ViewRenderService>();
+
+            services.AddSingleton<HtmlRenderer>(a => ContentService.CreateHtmlRenderer());
+
+#pragma warning disable ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
+            var serviceProvider = services.BuildServiceProvider();
+#pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
+
+            services.AddLogging(builder => builder.AddConsole());
+
+            var viewRenderService = serviceProvider.GetRequiredService<IViewRenderService>();
+
+            var htmlRenderer = serviceProvider.GetRequiredService<HtmlRenderer>();
+
+
+
+            var logger = serviceProvider.GetRequiredService<ILogger<object>>();
+
+            InterimPageService.Initialize(logger, viewRenderService, htmlRenderer);
 
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<ICaseStudyPageService, CaseStudyPageService>();
@@ -147,6 +173,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             app.UseEndpoints(endpoints =>
             {
+
                 MapControllerRoute(endpoints,
                     "home",
                     "",
