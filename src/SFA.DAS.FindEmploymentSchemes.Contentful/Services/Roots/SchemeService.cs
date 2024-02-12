@@ -90,7 +90,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
                 apiScheme.DurationOrder,
                 apiScheme.CostOrder,
                 apiScheme.Components.OrderBy(a => a.ComponentOrder ?? 0).ToList(),
-                apiScheme.InterimPreamble
+                apiScheme.InterimPreamble,
+                apiScheme.InterimBreadcrumbs
             );
         }
 

@@ -1,4 +1,7 @@
-﻿<header class="govuk-header das-header das-header__desktop js-enabled" data-module="govuk-header">
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
+@model IEnumerable<InterimMenuItem>
+
+<header class="govuk-header das-header das-header__desktop js-enabled" data-module="govuk-header">
 
     <div class="govuk-header__container das-header__container">
 
@@ -36,11 +39,21 @@
 
                         <ul id="navigation" class="govuk-header__navigation-list">
 
-                            <li class="govuk-header__navigation-item das-header-navigation-item-chevron-mobile govuk-header__navigation-item--active">
+                            @if(Model.Any())
+                            {
 
-                                <a class="govuk-header__link" href="/" role="link">Business Home</a>
+                                foreach(InterimMenuItem item in Model)
+                                {
 
-                            </li>
+                                    <li class="govuk-header__navigation-item das-header-navigation-item-chevron-mobile govuk-header__navigation-item--active">
+
+                                        <a class="govuk-header__link" href="@item.InterimMenuItemSource" role="link">@item.InterimMenuItemText</a>
+
+                                    </li>
+
+                                }
+
+                            }
 
                         </ul>
 
@@ -55,3 +68,34 @@
     </div>
 
 </header>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        var path = window.location.pathname;
+
+        path = path.replace(/\/$/, "");
+
+        var navigationItems = document.querySelectorAll(".govuk-header__navigation-item");
+
+        navigationItems.forEach(function (item) {
+
+            var href = item.querySelector("a").getAttribute("href");
+
+            href = href.replace(/\/$/, "");
+
+            if (href === path) {
+               
+                item.classList.add("govuk-header__navigation-item--active");
+            } 
+            else {
+
+                item.classList.remove("govuk-header__navigation-item--active");
+
+            }
+        });
+
+    });
+
+</script>

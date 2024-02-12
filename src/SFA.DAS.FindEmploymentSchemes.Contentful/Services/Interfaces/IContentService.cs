@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces
 {
@@ -14,5 +15,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces
 
         Task<IContent> Update();
         Task<IContent> UpdatePreview();
+
+        InterimPage? GetInterimPageByURL(string url);
+
     }
 }

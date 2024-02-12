@@ -43,7 +43,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
             var schemeUrl = Schemes[selectedScheme].Url;
 
             //Act
-            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes);
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes, []);
 
             Assert.Equal(Schemes[2], schemeDetailsModel.Scheme);
         }
@@ -56,7 +56,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
             var schemeUrl = Schemes[0].Url;
 
             //Act
-            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes);
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes, []);
 
             Assert.Equal(Schemes, schemeDetailsModel.Schemes);
         }

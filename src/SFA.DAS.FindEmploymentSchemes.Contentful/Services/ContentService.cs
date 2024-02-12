@@ -1,14 +1,16 @@
 ﻿using Contentful.Core;
-using System.Threading.Tasks;
-using System;
+using Contentful.Core.Models;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
+using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
-using Contentful.Core.Models;
-using SFA.DAS.FindEmploymentSchemes.Contentful.GdsHtmlRenderers;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 {
@@ -23,6 +25,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         private readonly IPayFilterService _payFilterService;
         private readonly ISchemeLengthFilterService _schemeLengthFilterService;
         private readonly IContactService _contactService;
+        private readonly IInterimService _interimService;
         private readonly ILogger<ContentService> _logger;
 
         public event EventHandler<EventArgs>? ContentUpdated;
@@ -37,6 +40,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             IPayFilterService payFilterService,
             ISchemeLengthFilterService schemeLengthFilterService,
             IContactService contactService,
+            IInterimService interimService,
             ILogger<ContentService> logger)
         {
             _contentfulClient = contentfulClientFactory.ContentfulClient;
@@ -48,6 +52,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             _payFilterService = payFilterService;
             _schemeLengthFilterService = schemeLengthFilterService;
             _contactService = contactService;
+            _interimService = interimService;
             _logger = logger;
         }
 
@@ -89,7 +94,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         private async Task<IContent> Update(IContentfulClient contentfulClient)
         {
+
             var schemes = await _schemeService.GetAll(contentfulClient);
+
+            var interimLandingPage = await _interimService.GetLandingPage(contentfulClient);
+
+            var interimMenuItems = await _interimService.GetMenuItems(contentfulClient);
+
+            var interimPages = await _interimService.GetInterimPages(contentfulClient);
 
             return new Model.Content.Content(
                 await _pageService.GetAll(contentfulClient),
@@ -98,7 +110,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
                 await _motivationFilterService.Get(contentfulClient),
                 await _payFilterService.Get(contentfulClient),
                 await _schemeLengthFilterService.Get(contentfulClient),
-                await _contactService.GetContacts(contentfulClient)
+                await _contactService.GetContactPage(contentfulClient),
+                interimLandingPage,
+                interimMenuItems,
+                interimPages
             );
         }
 
@@ -123,5 +138,31 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
             return htmlRenderer;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public InterimPage? GetInterimPageByURL(string url)
+        {
+
+            try
+            {
+
+                return this.Content.InterimPages.FirstOrDefault(a => a.InterimPageURL == url);
+
+            }
+            catch(Exception _exception)
+            {
+
+                _logger.LogError(_exception, "Unable to get interim page by url: {URL}", url);
+
+                return null;
+
+            }
+
+        }
+
     }
+
 }

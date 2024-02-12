@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using System.Diagnostics.CodeAnalysis;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {
@@ -18,12 +19,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             IHtmlContent? preamble,
             IEnumerable<Scheme> schemes,
             IEnumerable<Filter> filters,
+            IEnumerable<InterimMenuItem> menuItems,
             bool ensureSchemesAreVisible = false,
             string selectedFilters = "")
         {
             Preamble = preamble;
             Schemes = schemes;
             Filters = filters;
+            MenuItems = menuItems;
             EnsureSchemesAreVisible = ensureSchemesAreVisible;
             SelectedFilters = selectedFilters;
         }

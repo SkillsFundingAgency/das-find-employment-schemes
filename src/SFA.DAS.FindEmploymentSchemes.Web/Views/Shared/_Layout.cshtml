@@ -58,9 +58,9 @@
 
     <a id="layout-main-content-link" href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
-    @await Html.PartialAsync("_HomeMenuDesktopPartial")
+    @await Html.PartialAsync("_HomeMenuDesktopPartial", Model?.MenuItems)
 
-    @await Html.PartialAsync("_HomeMenuMobilePartial")
+    @await Html.PartialAsync("_HomeMenuMobilePartial", Model?.MenuItems)
 
     <div class="govuk-width-container">
         <div class="das-grid">
@@ -99,9 +99,17 @@
     <script src="/js/interim-pages.js" no-cdn></script>
 
     <script asp-add-nonce>
-        //window.GOVUKFrontend.initAll();
+
         window.DASFrontend.initAll();
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            initMobileView();
+
+        });
+
     </script>
+
     <environment include="Development">
         <script src="/js/show_hide.js" no-cdn></script>
         <script src="/js/app.js" no-cdn></script>

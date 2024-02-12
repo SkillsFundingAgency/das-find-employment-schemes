@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
 {

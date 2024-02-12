@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
+﻿namespace SFA.DAS.FindEmploymentSchemes.Contentful.Interfaces
 {
     public interface IFilter
     {

@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using Microsoft.AspNetCore.Html;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
@@ -55,7 +56,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             foreach (Page page in standardPages)
             {
-                pageModels.Add(page.Url.ToLowerInvariant(), new PageModel(page));
+
+                pageModels.Add(
+                    
+                    page.Url.ToLowerInvariant(), 
+                    
+                    new PageModel(page, _contentService.Content.MenuItems)
+                    
+                );
+
             }
 
             var cookiePageModel = GetCookiePageModel(_contentService.Content, false);
@@ -80,12 +89,29 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         public PageModel? GetCookiePageModel(IContent content, bool showMessage)
         {
+
             Page? analyticsPage = content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == AnalyticsCookiesPageUrl);
+
             Page? marketingPage = content.Pages.FirstOrDefault(p => p.Url.ToLowerInvariant() == MarketingCookiesPageUrl);
+
             if (analyticsPage == null || marketingPage == null)
+            {
+
                 return null;
 
-            return new PageModel(new CookiePage(analyticsPage, marketingPage, showMessage), "Cookies");
+            }
+
+            InterimPreamble? preamble = analyticsPage.InterimPreamble ?? marketingPage.InterimPreamble;
+
+            InterimBreadcrumbs? breadcrumbs = analyticsPage.InterimBreadcrumbs ?? marketingPage.InterimBreadcrumbs;
+
+            return new PageModel(
+                
+                new CookiePage(analyticsPage, marketingPage, showMessage, breadcrumbs, preamble), 
+                
+                content.MenuItems, "Cookies"
+                
+            );
 
         }
 
@@ -109,7 +135,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             if (page == null)
                 return null;
 
-            return new PageModel(page, "Page")
+            return new PageModel(page, previewContent.MenuItems, "Page")
             {
                 Preview = new PreviewModel(GetErrors(page))
             };

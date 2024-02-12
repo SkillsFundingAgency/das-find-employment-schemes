@@ -20,7 +20,7 @@
       : $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!}?{Model.SelectedFilters}";
 }
 
-<form id="scheme-home-filter-form" action="/" method="post">
+<form id="scheme-home-filter-form" action="/schemes" method="post">
 
     <div class="govuk-width-container govuk-!-padding-top-6 das-column__filters">
 
@@ -28,7 +28,7 @@
 
             <div id="scheme-home-filter-inner" class="govuk-grid-column-one-third app-filter-layout__filter filters_mobile_hidden">
 
-                <div id="scheme-filter" class="das-filter app-filter @(Model.EnsureSchemesAreVisible?"app-hide-on-mobile-no-js":"")" tabindex="0" data-module="app-show-hide">
+                <div id="scheme-filter" class="das-filter app-filter @(Model.EnsureSchemesAreVisible ? "app-hide-on-mobile-no-js" : "")" tabindex="0" data-module="app-show-hide">
 
                     <h2 id="filters" class="govuk-heading-l das-filter__heading govuk-!-margin-bottom-0">Filters</h2>
 
@@ -51,7 +51,7 @@
 
                         <div id="scheme-home-filter-form-button-group" class="govuk-button-group">
 
-                            <a id="clear-filters" asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="das-button__secondary govuk-!-width-full">Clear filters</a>
+                            <a id="clear-filters" asp-route="@(Model.Preview.IsPreview ? "schemes/home-preview" : "schemes/home")" class="das-button__secondary govuk-!-width-full">Clear filters</a>
 
                         </div>
 
@@ -136,7 +136,7 @@
 
                             <h2>There are no matching results</h2>
 
-                            <p>Change your filters or <a id="no-filters-clear" asp-route="@(Model.Preview.IsPreview ? "home-preview" : "home")" class="govuk-link">clear all filters</a> to try again.</p>
+                            <p>Change your filters or <a id="no-filters-clear" asp-route="@(Model.Preview.IsPreview ? "schemes/home-preview" : "schemes/home")" class="govuk-link">clear all filters</a> to try again.</p>
 
                         </div>
 
@@ -153,13 +153,3 @@
 </form>
 
 @await Html.PartialAsync("_SharePagePartial", completeUrl)
-
-<script asp-add-nonce>
-
-    document.addEventListener("DOMContentLoaded", function() {
-
-        initMobileView();
-
-    });
-
-</script>

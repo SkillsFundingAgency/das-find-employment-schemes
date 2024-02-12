@@ -59,12 +59,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 
         // when we display the matching schemes on the filter page, we'll sort largest to smallest
         public int Size { get; }
+
         public IEnumerable<string> FilterAspects { get; }
+
         public string HtmlId { get; }
 
         public List<InterimPageComponent> Components { get; set; } = new List<InterimPageComponent>();
 
         public InterimPreamble? InterimPreamble { get; set; }
+
+        public InterimBreadcrumbs? InterimBreadcrumbs { get; set; }
 
         public Scheme(
             string? name, 
@@ -97,7 +101,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             int? durationOrder = null,
             int? costOrder = null,
             List<InterimPageComponent>? components = null,
-            InterimPreamble? interimPreamble = null
+            InterimPreamble? interimPreamble = null,
+            InterimBreadcrumbs? interimBreadcrumbs = null
         )
         {
             Name = name;
@@ -138,6 +143,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             Components = components ?? new List<InterimPageComponent>();
 
             InterimPreamble = interimPreamble;
+
+            InterimBreadcrumbs = interimBreadcrumbs;
 
         }
 

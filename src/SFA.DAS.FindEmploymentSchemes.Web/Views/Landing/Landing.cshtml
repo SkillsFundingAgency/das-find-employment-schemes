@@ -1,0 +1,47 @@
+﻿@using System.Web;
+@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
+@model LandingModel
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@section PreviewErrors {
+
+    @await Html.PartialAsync("_PreviewErrorsPartial", Model == null ? false : Model.Preview)
+
+}
+
+@await Html.PartialAsync(
+
+    "_InterimPreambleGeneralPartial",
+
+    new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool>(Model.InterimLandingPagePreamble, null, true)
+
+)
+
+@{
+
+    string? completeUrl = Url.Action("Landing", "Landing", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!;
+
+}
+
+<div class="govuk-width-container govuk-!-padding-left-2 govuk-!-padding-right-2">
+
+    <div class="govuk-main-wrapper">
+
+        @for(int i = 0; i < Model.InterimTileSections.Count(); i++)
+        {
+            @await Html.PartialAsync(
+
+                "_InterimTileSectionPartial",
+
+                (Model.InterimTileSections[i], i > 0)
+
+            )
+
+        }
+
+    </div>
+
+</div>
+
+@await Html.PartialAsync("_SharePagePartial", completeUrl)

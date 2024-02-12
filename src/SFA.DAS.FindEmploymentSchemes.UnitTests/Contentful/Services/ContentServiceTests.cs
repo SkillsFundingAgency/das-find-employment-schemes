@@ -16,6 +16,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Xunit;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 {
@@ -36,6 +37,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         public IPayFilterService PayFilterService { get; set; }
         public ISchemeLengthFilterService SchemeLengthFilterService { get; set; }
 
+        public IInterimService InterimService { get; set; }
         public IContactService ContactService { get; set; }
 
         public ContentService ContentService { get; set; }
@@ -77,6 +79,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             PayFilterService = A.Fake<IPayFilterService>();
             SchemeLengthFilterService = A.Fake<ISchemeLengthFilterService>();
             ContactService = A.Fake<IContactService>();
+            InterimService = A.Fake<IInterimService>();
 
             CreateContentService();
 
@@ -412,6 +415,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
                 PayFilterService,
                 SchemeLengthFilterService,
                 ContactService,
+                InterimService,
                 Logger);
         }
     }

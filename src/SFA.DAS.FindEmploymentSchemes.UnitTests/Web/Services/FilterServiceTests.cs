@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Routing;
 using System.ComponentModel;
 using System.Text;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -27,7 +28,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             ILogger<FilterService> filterServiceLogger = A.Fake<ILogger<FilterService>>();
 
             FilterService service = new FilterService(contentService, schemesModelService, filterServiceLogger);
-            HomeModel model = A.Fake<HomeModel>(x => x.WithArgumentsForConstructor(() => new HomeModel(null, expectedSchemes, null, false, "")));
+            HomeModel model = A.Fake<HomeModel>(x => x.WithArgumentsForConstructor(() => new HomeModel(null, expectedSchemes, null, new List<InterimMenuItem>(), false, "")));
             A.CallTo(() => contentService.Content).Returns(new GeneratedContent());
 
             HomeModel result = service.ApplyFilter(filters);

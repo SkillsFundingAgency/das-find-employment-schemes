@@ -27,7 +27,7 @@
             @if (Model.ComponentContent != null)
             {
 
-                @InterimPageService.ToHtmlString(Model.ComponentContent)
+                @InterimComponentService.ToHtmlString(Model.ComponentContent)
 
             }
 
@@ -37,7 +37,7 @@
                 @foreach (InterimPageComponent component in Model.SubComponents.OrderBy(a => a.ComponentOrder))
                 {
 
-                    @Html.Raw(InterimPageService.GenerateSubComponent(component))
+                    @Html.Raw(InterimComponentService.GenerateSubComponent(component))
 
                 }
 

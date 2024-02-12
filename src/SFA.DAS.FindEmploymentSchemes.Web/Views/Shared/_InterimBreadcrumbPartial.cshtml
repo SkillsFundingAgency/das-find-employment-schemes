@@ -1,0 +1,41 @@
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
+@model InterimBreadcrumbs
+
+@if(Model != null)
+{
+
+    <div class="govuk-width-container govuk-width-container-large">
+
+        <div class="govuk-breadcrumbs govuk-breadcrumbs--collapse-on-mobile das-breadcrumbs">
+
+            <ol class="govuk-breadcrumbs__list">
+
+                @foreach (InterimBreadcrumbLink link in Model.InterimBreadcrumLinks.OrderBy(t => t.InterimBreadcrumbLinkOrder))
+                {
+
+                    if (link.InterimBreadcrumbLinkActive)
+                    {
+
+                        <li class="govuk-breadcrumbs__list-item">
+
+                            <a class="govuk-breadcrumbs__link" href="@link.InterimBreadcrumbLinkSource">@link.InterimBreadcrumbLinkText</a>
+
+                        </li>
+
+                    }
+                    else
+                    {
+
+                        <li class="govuk-breadcrumbs__list-item">@link.InterimBreadcrumbLinkText</li>
+
+                    }
+
+                }
+
+            </ol>
+
+        </div>
+
+    </div>
+
+}

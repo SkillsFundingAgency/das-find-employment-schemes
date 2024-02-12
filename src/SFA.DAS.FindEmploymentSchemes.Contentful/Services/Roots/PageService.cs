@@ -14,18 +14,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 {
     public class PageService : ContentRootService, IPageService
     {
+
         private readonly ILogger<PageService> _logger;
 
-        public PageService(
-            HtmlRenderer htmlRenderer,
-            ILogger<PageService> logger) : base(htmlRenderer)
+        public PageService(HtmlRenderer htmlRenderer, ILogger<PageService> logger) : base(htmlRenderer)
         {
+
             _logger = logger;
+
         }
 
         public async Task<IEnumerable<Page>> GetAll(IContentfulClient contentfulClient)
         {
-            var builder = QueryBuilder<ApiPage>.New.ContentTypeIs("page").Include(1);
+            var builder = QueryBuilder<ApiPage>.New.ContentTypeIs("page").Include(3);
             var pages = await contentfulClient.GetEntries(builder);
             LogErrors(pages);
 
@@ -38,7 +39,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
             return new Page(
                 apiPage.Title!,
                 apiPage.Url!,
-                (await ToHtmlString(apiPage.Content))!);
+                (await ToHtmlString(apiPage.Content))!,
+                apiPage.InterimPreamble,
+                apiPage.InterimBreadcrumbs);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model PageModel
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
+@model PageModel
 
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
@@ -21,9 +22,11 @@
 
 @await Html.PartialAsync(
 
-    "_PreambleBannerPartial",
+        "_InterimPreambleGeneralPartial",
 
-    new Tuple<string, string, IHtmlContent?, SchemeFilterModel?>(Model.Preview.IsPreview ? "home-preview" : "home", "Cookies on the Business: Find training and employment schemes website ", null, null)
+        new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool>(Model.Page.InterimPreamble, Model.Page.InterimBreadcrumbs, false)
+
+    )
 
 )
 

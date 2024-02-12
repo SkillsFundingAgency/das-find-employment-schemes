@@ -24,7 +24,7 @@
 
 @await Html.PartialAsync(
 
-    "_InterimPreamblePartial",
+    "_InterimPreambleSchemePartial",
 
     Model.Scheme
 
@@ -36,7 +36,7 @@
 
         <div id="scheme-details-inner-two-thirds" class="govuk-grid-column-two-thirds">
 
-            @InterimPageService.GenerateView(@Model.Scheme)
+            @InterimComponentService.GenerateSchemeView(@Model.Scheme)
 
         </div>
 
@@ -62,7 +62,7 @@
                         else
                         {
 
-                            <a id="scheme-details-inner-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview?"schemes-preview":"schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link" role="link">@scheme.Name</a>
+                            <a id="scheme-details-inner-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview ? "schemes-preview" : "schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link" role="link">@scheme.Name</a>
                     
                         }
 

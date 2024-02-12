@@ -12,6 +12,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
 
         public Document? SecondarySection { get; set; }
 
+        public required bool InterimPreambleHideNavigation { get; set; }
+
     }
 
 }

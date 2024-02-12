@@ -87,9 +87,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 
                 _schemesModelService.HomeModel.Preamble, 
                 
-                filteredSchemes, 
+                filteredSchemes,
                 
-                filterGroupModels, 
+                filterGroupModels,
+
+                content.MenuItems,
                 
                 true,
 

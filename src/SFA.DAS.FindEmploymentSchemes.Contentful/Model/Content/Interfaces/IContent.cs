@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
+using System.Collections.Generic;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
 {
@@ -16,7 +17,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
         Filter SchemeLengthFilter { get; }
         Filter PayFilter { get; }
 
-        IEnumerable<Contact> Contacts { get; }
+        ContactPage? ContactPage { get; }
+
+        InterimLandingPage? InterimLandingPage { get; }
+
+        IEnumerable<InterimMenuItem> MenuItems { get; }
+
+        IEnumerable<InterimPage> InterimPages { get; }
 
     }
 }

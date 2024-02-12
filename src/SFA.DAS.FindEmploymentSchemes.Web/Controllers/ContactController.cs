@@ -21,7 +21,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         public IActionResult Index()
         {
 
-            return View(_contactService.GetContactModel());
+            return View(_contactService.GetContactPageModel());
 
         }
 

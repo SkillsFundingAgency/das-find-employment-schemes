@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using Contentful.Core.Models;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 {

@@ -1,4 +1,5 @@
 ﻿using Contentful.Core.Models;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,8 +11,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
     [ExcludeFromCodeCoverage]
     public class Scheme : IRootContent
     {
-        // mandatory
+
         public string? Name { get; set; }
+
+        public InterimBreadcrumbs? InterimBreadcrumbs { get; set; }
+
         public string? ShortName { get; set; }
         public string? VisitSchemeInformation { get; set; }
         public Document? ShortDescription { get; set; }

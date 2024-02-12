@@ -24,14 +24,16 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             _ContactController = new ContactController(_ContactService);
 
-            A.CallTo(() => _ContactService.GetContactModel())
+            A.CallTo(() => _ContactService.GetContactPageModel())
 
                 .Returns(
                 
-                    new ContactModel()
+                    new ContactPageModel()
                     {
 
-                        ContactList = new List<Contact>()
+                        ContactPageTitle = "Title",
+
+                        Contacts = new List<Contact>()
                         {
 
                             new Contact()
@@ -59,7 +61,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             var viewResult = Assert.IsType<ViewResult>(result);
 
-            Assert.Single(((ContactModel)viewResult.Model).ContactList);
+            Assert.Single(((ContactPageModel)viewResult.Model).Contacts);
 
         }
 

@@ -46,6 +46,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 new PayFilterService(htmlRenderer),
                 new SchemeLengthFilterService(htmlRenderer),
                 new ContactService(htmlRenderer),
+                new InterimService(htmlRenderer, new NullLogger<InterimService>()),
                 new NullLogger<ContentService>());
 
             var content = await contentService.Update();

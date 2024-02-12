@@ -4,17 +4,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 using SFA.DAS.FindEmploymentSchemes.Web.Enums;
 using SFA.DAS.FindEmploymentSchemes.Web.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.References;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
 
-    public static class InterimPageService
+    public static class InterimComponentService
     {
 
         #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -40,15 +40,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
+        #region Scheme Generation
+
         /// <summary>
         /// Private placeholder method for future expansion of interim components functionality and view building.
         /// </summary>
         /// <param name="scheme">Encapsulated scheme information.</param>
         /// <returns>Microsoft.AspNetCore.Mvc.Rendering.TagBuilder with pre rendered interim components.</returns>
-        public static TagBuilder GenerateView(Scheme scheme)
+        public static TagBuilder GenerateSchemeView(Scheme scheme)
         {
 
-            return GenerateInterimPageAsync(scheme);
+            return GenerateSchemeComponents(scheme);
 
         }
 
@@ -57,12 +59,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         /// </summary>
         /// <param name="scheme">Encapsulated scheme information.</param>
         /// <returns>Microsoft.AspNetCore.Mvc.Rendering.TagBuilder with pre rendered interim components.</returns>
-        private static TagBuilder GenerateInterimPageAsync(Scheme scheme)
+        private static TagBuilder GenerateSchemeComponents(Scheme scheme)
         {
 
             return GenerateComponents(scheme);
 
         }
+
+        #endregion
 
         /// <summary>
         /// Generate all interim components linked to a scheme.

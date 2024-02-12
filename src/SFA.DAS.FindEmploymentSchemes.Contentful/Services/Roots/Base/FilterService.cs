@@ -7,6 +7,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using Contentful.Core.Search;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using ApiFilter = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api.Filter;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
 {
@@ -46,7 +47,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
             return filterAspects.OrderBy(f => f.Order).Select(ToContent);
         }
 
-        private FilterAspect ToContent(Model.Api.IFilter apiFilter)
+        private FilterAspect ToContent(IFilter apiFilter)
         {
             return new FilterAspect(ToFilterAspectId(apiFilter, _prefix), apiFilter.Description!);
         }

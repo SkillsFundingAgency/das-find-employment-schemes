@@ -51,12 +51,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             return new HomeModel(
                 content.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
                 content.Schemes,
-                new[] { content.MotivationsFilter, content.SchemeLengthFilter, content.PayFilter });
+                new[] { content.MotivationsFilter, content.SchemeLengthFilter, content.PayFilter },
+                content.MenuItems
+            );
         }
 
         private ComparisonModel CreateComparisonModel(IContent content)
         {
-            return new ComparisonModel(content.Schemes);
+            return new ComparisonModel(content.Schemes, content.MenuItems);
         }
 
         private ComparisonResultsModel CreateComparisonResultsModel(IEnumerable<string> schemes, SchemeFilterModel filters, IContent content)
@@ -69,7 +71,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 
                     content.Schemes.Where(x => schemes.Contains(x.HtmlId)),
 
-                    filters
+                    filters,
+
+                    content.MenuItems
 
                 );
 
@@ -81,7 +85,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                     content.Schemes,
 
-                    filters
+                    filters,
+
+                    content.MenuItems
 
                 );
 
@@ -138,9 +144,26 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         {
             var schemeDetailsModels = new Dictionary<string, SchemeDetailsModel>();
 
+            var menuItems = _contentService.Content.MenuItems;
+
             foreach (string schemeUrl in _contentService.Content.Schemes.Select(s => s.Url))
             {
-                schemeDetailsModels.Add(schemeUrl, new SchemeDetailsModel(schemeUrl, _contentService.Content.Schemes));
+                schemeDetailsModels.Add(
+                    
+                    schemeUrl, 
+                    
+                    new SchemeDetailsModel(
+                        
+                        schemeUrl, 
+                        
+                        _contentService.Content.Schemes,
+
+                        menuItems
+
+                    )
+                    
+                );
+
             }
 
             return new ReadOnlyDictionary<string, SchemeDetailsModel>(schemeDetailsModels);
@@ -158,7 +181,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             try
             {
-                var model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes);
+                var model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes, previewContent.MenuItems);
                 model.Preview = new PreviewModel(GetSchemeDetailsErrors(model));
                 return model;
             }
