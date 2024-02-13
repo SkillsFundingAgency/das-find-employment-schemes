@@ -91,7 +91,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
                 apiScheme.CostOrder,
                 apiScheme.Components.OrderBy(a => a.ComponentOrder ?? 0).ToList(),
                 apiScheme.InterimPreamble,
-                apiScheme.InterimBreadcrumbs
+                apiScheme.InterimBreadcrumbs,
+                apiScheme.InterimTileSections
             );
         }
 

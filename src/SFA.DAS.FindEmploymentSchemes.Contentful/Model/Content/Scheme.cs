@@ -70,6 +70,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 
         public InterimBreadcrumbs? InterimBreadcrumbs { get; set; }
 
+        public List<InterimTileSection> InterimTileSections { get; set; } = [];
+
         public Scheme(
             string? name, 
             string? shortName,
@@ -102,7 +104,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             int? costOrder = null,
             List<InterimPageComponent>? components = null,
             InterimPreamble? interimPreamble = null,
-            InterimBreadcrumbs? interimBreadcrumbs = null
+            InterimBreadcrumbs? interimBreadcrumbs = null,
+            List<InterimTileSection>? interimTileSections = null
         )
         {
             Name = name;
@@ -145,6 +148,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             InterimPreamble = interimPreamble;
 
             InterimBreadcrumbs = interimBreadcrumbs;
+
+            InterimTileSections = interimTileSections ?? [];
 
         }
 

@@ -74,6 +74,31 @@
 
         </div>
 
+        @if (Model.Scheme.InterimTileSections.Any())
+        {
+
+            <div class="govuk-grid-row">
+
+                <div class="govuk-grid-column-full">
+
+                    @for (int i = 0; i < Model.Scheme.InterimTileSections.Count(); i++)
+                    {
+                        @await Html.PartialAsync(
+
+                            "_InterimTileSectionPartial",
+
+                            (Model.Scheme.InterimTileSections[i], i > 0)
+
+                        )
+
+                    }
+
+                </div>
+
+            </div>
+
+        }
+
         @if (@Model.Scheme.AdditionalFooter != null)
         {
 

@@ -13,9 +13,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
     {
 
         public string? Name { get; set; }
-
-        public InterimBreadcrumbs? InterimBreadcrumbs { get; set; }
-
         public string? ShortName { get; set; }
         public string? VisitSchemeInformation { get; set; }
         public Document? ShortDescription { get; set; }
@@ -56,6 +53,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
         public List<InterimPageComponent> Components { get; set; } = new List<InterimPageComponent>();
 
         public InterimPreamble? InterimPreamble { get; set; }
+
+        public List<InterimTileSection>? InterimTileSections { get; set; } = [];
+
+        public InterimBreadcrumbs? InterimBreadcrumbs { get; set; }
 
     }
 

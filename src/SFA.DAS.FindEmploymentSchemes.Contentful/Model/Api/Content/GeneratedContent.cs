@@ -64,7 +64,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 {
                     InterimLandingPageID = "interim-landing-page",
                     InterimLandingPageTitle = "Interim Landing Page",
-                    InterimLandingPagePreamble = new InterimPreamble() { PreambleTitle = "Landing Page Preamble", InterimPreambleHideNavigation = true }
+                    InterimLandingPagePreamble = new InterimPreamble() { PreambleTitle = "Landing Page Preamble" }
                 };
             }
         }
