@@ -1,5 +1,6 @@
 ﻿using Contentful.Core.Models;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -37,10 +38,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
         public string? OfferHeader { get; set; }
         public Document? Offer { get; set; }
         public Document? AdditionalFooter { get; set; }
-
-        public List<Filter>? MotivationsFilterAspects { get; set; }
-        public List<Filter>? PayFilterAspects { get; set; }
-        public List<Filter>? SchemeLengthFilterAspects { get; set; }
+        public List<SchemeFilterAspect> SchemeFilterAspects { get; set; } = [];
 
         public int? DefaultOrder { get; set; }
 
@@ -50,7 +48,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
 
         public int? CostOrder { get; set; }
 
-        public List<InterimPageComponent> Components { get; set; } = new List<InterimPageComponent>();
+        public List<InterimPageComponent> Components { get; set; } = [];
 
         public InterimPreamble? InterimPreamble { get; set; }
 

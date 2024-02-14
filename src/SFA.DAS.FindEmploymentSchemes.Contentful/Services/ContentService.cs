@@ -21,9 +21,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         private readonly ISchemeService _schemeService;
         private readonly IPageService _pageService;
         private readonly ICaseStudyPageService _caseStudyPageService;
-        private readonly IMotivationFilterService _motivationFilterService;
-        private readonly IPayFilterService _payFilterService;
-        private readonly ISchemeLengthFilterService _schemeLengthFilterService;
+        private readonly ISchemeFilterService _schemeFilterService;
         private readonly IContactService _contactService;
         private readonly IInterimService _interimService;
         private readonly ILogger<ContentService> _logger;
@@ -36,9 +34,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             ISchemeService schemeService,
             IPageService pageService,
             ICaseStudyPageService caseStudyPageService,
-            IMotivationFilterService motivationFilterService,
-            IPayFilterService payFilterService,
-            ISchemeLengthFilterService schemeLengthFilterService,
+            ISchemeFilterService schemeFilterService,
             IContactService contactService,
             IInterimService interimService,
             ILogger<ContentService> logger)
@@ -48,9 +44,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
             _schemeService = schemeService;
             _pageService = pageService;
             _caseStudyPageService = caseStudyPageService;
-            _motivationFilterService = motivationFilterService;
-            _payFilterService = payFilterService;
-            _schemeLengthFilterService = schemeLengthFilterService;
+            _schemeFilterService = schemeFilterService;
             _contactService = contactService;
             _interimService = interimService;
             _logger = logger;
@@ -101,20 +95,36 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
             var interimMenuItems = await _interimService.GetMenuItems(contentfulClient);
 
+            var betaBanner = await _interimService.GetBetaBanner(contentfulClient);
+
             var interimPages = await _interimService.GetInterimPages(contentfulClient);
 
+            var schemeComparison = await _schemeService.GetSchemeComparison(contentfulClient); 
+
             return new Model.Content.Content(
+
                 await _pageService.GetAll(contentfulClient),
+
                 await _caseStudyPageService.GetAll(contentfulClient, schemes),
+
                 schemes,
-                await _motivationFilterService.Get(contentfulClient),
-                await _payFilterService.Get(contentfulClient),
-                await _schemeLengthFilterService.Get(contentfulClient),
+
+                await _schemeFilterService.GetSchemeFilters(contentfulClient),
+
                 await _contactService.GetContactPage(contentfulClient),
+
                 interimLandingPage,
+
                 interimMenuItems,
-                interimPages
+
+                interimPages,
+
+                schemeComparison,
+
+                betaBanner
+
             );
+
         }
 
         public static HtmlRenderer CreateHtmlRenderer()

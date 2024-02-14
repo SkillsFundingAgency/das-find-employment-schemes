@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,19 +28,86 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         public async Task<IEnumerable<Scheme>> GetAll(IContentfulClient contentfulClient)
         {
 
-            var builder = QueryBuilder<ApiScheme>.New.ContentTypeIs("scheme").Include(3);
+            try
+            {
 
-            var schemes = await contentfulClient.GetEntries(builder);
+                var builder = QueryBuilder<ApiScheme>.New.ContentTypeIs("scheme").Include(3);
 
-            LogErrors(schemes);
+                var schemes = await contentfulClient.GetEntries(builder);
 
-            return await Task.WhenAll(
-                
-                    FilterValidUrl(schemes, _logger)
+                LogErrors(schemes);
 
-                .OrderBy(s => s.DefaultOrder)
+                return await Task.WhenAll(
 
-                .Select(ToContent));
+                        FilterValidUrl(schemes, _logger)
+
+                    .OrderBy(s => s.DefaultOrder)
+
+                    .Select(ToContent));
+
+            }
+            catch(Exception _exception)
+            {
+
+                _logger.LogError(_exception, "Unable to get schemes from contentful.");
+
+                return Enumerable.Empty<Scheme>();
+
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contentfulClient"></param>
+        /// <returns></returns>
+        public async Task<SchemeComparison?> GetSchemeComparison(IContentfulClient contentfulClient)
+        {
+
+            _logger.LogInformation("Beginning {MethodName}...", nameof(GetSchemeComparison));
+
+            try
+            {
+
+                var query = new QueryBuilder<SchemeComparison>()
+
+                    .ContentTypeIs("schemeComparison")
+
+                    .Include(3);
+
+                var results = await contentfulClient.GetEntries(query);
+
+                List<SchemeComparison> resultList = results.Items.ToList();
+
+                if (resultList.Any())
+                {
+
+                    SchemeComparison schemeComparison = resultList[0];
+
+                    _logger.LogInformation("Retrieved scheme comparison: {Title}", schemeComparison.SchemeComparisonTitle);
+
+                    return schemeComparison;
+
+                }
+                else
+                {
+
+                    _logger.LogInformation("No matching scheme comparison found.");
+
+                    return null;
+
+                }
+
+            }
+            catch (Exception _Exception)
+            {
+
+                _logger.LogError(_Exception, "Unable to get the scheme comparison model.");
+
+                return null;
+
+            }
 
         }
 
@@ -71,9 +139,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
                 apiScheme.ComparisonDuration,
                 apiScheme.Url!,
                 apiScheme.Size,
-                (apiScheme.PayFilterAspects?.Select(f => ToFilterAspectId(f, PayFilterService.Prefix)) ?? Enumerable.Empty<string>())
-                    .Concat(apiScheme.MotivationsFilterAspects?.Select(f => ToFilterAspectId(f, MotivationFilterService.Prefix)) ?? Enumerable.Empty<string>())
-                    .Concat(apiScheme.SchemeLengthFilterAspects?.Select(f => ToFilterAspectId(f, SchemeLengthFilterService.Prefix)) ?? Enumerable.Empty<string>()),
+                apiScheme.SchemeFilterAspects,
+                apiScheme.SchemeFilterAspects?.Select(f => ToFilterAspectId(f)) ?? new List<string>(),
                 caseStudies,
                 await ToHtmlString(apiScheme.CaseStudies),
                 await ToHtmlString(apiScheme.DetailsPageOverride),

@@ -1,8 +1,10 @@
 ﻿using Contentful.Core.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
 {
 
+    [ExcludeFromCodeCoverage]
     public class InterimTile
     {
 

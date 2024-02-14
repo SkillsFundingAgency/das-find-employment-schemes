@@ -5781,6 +5781,14 @@ p + .das-tile__body-heading {
     border-bottom: 1px solid #b1b4b6;
 }
 
+.govuk-phase-banner p {
+    margin-bottom: 0;
+}
+
+    .govuk-phase-banner .govuk-body, .govuk-phase-banner a {
+        font-size: 14px;
+    }
+
 .govuk-phase-banner__content {
     font-family: arial, sans-serif;
     -webkit-font-smoothing: antialiased;

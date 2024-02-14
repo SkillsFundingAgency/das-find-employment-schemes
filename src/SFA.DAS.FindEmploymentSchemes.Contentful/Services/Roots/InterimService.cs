@@ -2,6 +2,7 @@
 using Contentful.Core.Models;
 using Contentful.Core.Search;
 using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base;
@@ -168,6 +169,54 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
                 _logger.LogError(_Exception, "Unable to get the interim pages.");
 
                 return Enumerable.Empty<InterimPage>();
+
+            }
+
+        }
+
+        public async Task<BetaBanner?> GetBetaBanner(IContentfulClient contentfulClient)
+        {
+
+            _logger.LogInformation("Beginning {MethodName}...", nameof(GetBetaBanner));
+
+            try
+            {
+
+                var query = new QueryBuilder<BetaBanner>()
+                .FieldEquals(a => a.BetaBannerID, "employer-schemes-beta-banner")
+                .ContentTypeIs("betaBanner")
+                .Include(2);
+
+                var results = await contentfulClient.GetEntries(query);
+
+                List<BetaBanner> resultList = results.Items.ToList();
+
+                if (resultList.Any())
+                {
+
+                    BetaBanner banner = resultList[0];
+
+                    _logger.LogInformation("Retrieved beta banner: {Title}", banner.BetaBannerTitle);
+
+                    return banner;
+
+                }
+                else
+                {
+
+                    _logger.LogInformation("No matching beta banner.");
+
+                    return null;
+
+                }
+
+            }
+            catch (Exception _Exception)
+            {
+
+                _logger.LogError(_Exception, "Unable to get the beta banner.");
+
+                return null;
 
             }
 

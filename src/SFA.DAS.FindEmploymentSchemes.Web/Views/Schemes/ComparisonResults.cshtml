@@ -1,14 +1,7 @@
-﻿@model ComparisonResultsModel
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
+@model ComparisonResultsModel
 
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-
-@await Html.PartialAsync(
-
-    "_PreambleBannerPartial",
-
-    new Tuple<string, string, IHtmlContent?, SchemeFilterModel?>(@Model.Preview.IsPreview ? "home-preview" : "home", "Comparison of schemes", null, Model.Filters)
-
-)
 
 @{
 
@@ -18,100 +11,113 @@
 
 }
 
+@await Html.PartialAsync(
+
+    "_InterimPreambleGeneralPartial",
+
+    new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool>(Model.SchemeComparison?.InterimPreamble, Model.SchemeComparison?.InterimBreadcrumbs, false)
+
+)
+
 <div class="govuk-width-container">
 
-    <div class="govuk-grid-row govuk-!-padding-top-6 govuk-!-padding-bottom-6 govuk-!-padding-left-2 govuk-!-padding-right-2">
+    @if(Model.SchemeComparison != null)
+    {
 
-        <a asp-controller="Schemes" asp-action="@(Model.Preview.IsPreview ? "comparison-preview" : "comparison")" class="das-button__secondary govuk-!-margin-bottom-0" role="button">Clear filters and show all schemes</a>
+        <div class="govuk-grid-row govuk-!-padding-top-6 govuk-!-padding-bottom-6 govuk-!-padding-left-2 govuk-!-padding-right-2">
 
-    </div>
+            <a asp-controller="Schemes" asp-action="@(Model.Preview.IsPreview ? "comparison-preview" : "comparison")" class="das-button__secondary govuk-!-margin-bottom-0" role="button">@Model.SchemeComparison?.SchemeComparisonActionButtonText</a>
 
-    <div class="govuk-grid-row">
+        </div>
 
-        <div class="govuk-grid-column-full">
+        <div class="govuk-grid-row">
 
-            <div class="nhsuk-table-container govuk-!-margin-bottom-0">
+            <div class="govuk-grid-column-full">
 
-                <table id="comparison-results-table" class="govuk-table nhsuk-table-responsive govuk-!-margin-bottom-0" aria-labelledby="comparison-results-h1">
-                        
-                    <thead class="nhsuk-table__head">
+                <div class="nhsuk-table-container govuk-!-margin-bottom-0">
 
-                        <tr class="govuk-table__row">
+                    <table id="comparison-results-table" class="govuk-table nhsuk-table-responsive govuk-!-margin-bottom-0" aria-labelledby="comparison-results-h1">
 
-                            <th scope="col" class="govuk-table__header">Scheme name</th>
+                        <thead class="nhsuk-table__head">
 
-                            <th scope="col" class="govuk-table__header">Recruit new staff or train existing staff</th>
+                            <tr class="govuk-table__row">
 
-                            <th scope="col" class="govuk-table__header">Age criteria</th>
+                                <th scope="col" class="govuk-table__header">@Model.SchemeComparison?.SchemeComparisonTitleColumnHeading</th>
 
-                            <th scope="col" class="govuk-table__header">Cost</th>
+                                <th scope="col" class="govuk-table__header">@Model.SchemeComparison?.SchemeComparisonRecruitOrTrainHeading</th>
 
-                            <th scope="col" class="govuk-table__header">Duration</th>
+                                <th scope="col" class="govuk-table__header">@Model.SchemeComparison?.SchemeComparisonAgeHeading</th>
 
-                        </tr>
+                                <th scope="col" class="govuk-table__header">@Model.SchemeComparison?.SchemeComparisonCostHeading</th>
 
-                    </thead>
-
-                    <tbody class="govuk-table__body nhsuk-table__body">
-
-                        @foreach (Scheme scheme in Model.Schemes)
-                        {
-
-                            <tr class="govuk-table__row nhsuk-table__row">
-
-                                <td class="govuk-table__cell nhsuk-table__cell">
-
-                                    <span class="nhsuk-table-responsive__heading">Scheme</span>
-
-                                    <a id="scheme-header-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview ? "schemes-preview" : "schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link" role="link">@(string.IsNullOrWhiteSpace(scheme.ShortName) ? scheme.Name : scheme.ShortName)</a>
-                                    
-                                </td>
-
-                                <td class="govuk-table__cell nhsuk-table__cell">
-
-                                    <span class="nhsuk-table-responsive__heading">New or existing staff</span>
-
-                                    @scheme.ComparisonRecruitOrTrain
-
-                                </td>
-
-                                <td class="govuk-table__cell nhsuk-table__cell">
-
-                                    <span class="nhsuk-table-responsive__heading">Age</span>
-
-                                    @scheme.ComparisonAgeCriteria
-
-                                </td>
-
-                                <td class="govuk-table__cell nhsuk-table__cell">
-
-                                    <span class="nhsuk-table-responsive__heading">Cost</span>
-
-                                    @scheme.ComparisonCost
-
-                                </td>
-
-                                <td class="govuk-table__cell nhsuk-table__cell">
-
-                                    <span class="nhsuk-table-responsive__heading">Duration</span>
-
-                                    @scheme.ComparisonDuration
-
-                                </td>
+                                <th scope="col" class="govuk-table__header">@Model.SchemeComparison?.SchemeComparisonDurationHeading</th>
 
                             </tr>
 
-                        }
+                        </thead>
 
-                    </tbody>
+                        <tbody class="govuk-table__body nhsuk-table__body">
 
-                </table>
+                            @foreach (Scheme scheme in Model.Schemes)
+                            {
+
+                                <tr class="govuk-table__row nhsuk-table__row">
+
+                                    <td class="govuk-table__cell nhsuk-table__cell">
+
+                                        <span class="nhsuk-table-responsive__heading">Scheme</span>
+
+                                        <a id="scheme-header-link-@scheme.HtmlId" asp-route="@(Model.Preview.IsPreview ? "schemes-preview" : "schemes")" asp-route-schemeUrl="@scheme.Url" class="govuk-link" role="link">@(string.IsNullOrWhiteSpace(scheme.ShortName) ? scheme.Name : scheme.ShortName)</a>
+
+                                    </td>
+
+                                    <td class="govuk-table__cell nhsuk-table__cell">
+
+                                        <span class="nhsuk-table-responsive__heading">New or existing staff</span>
+
+                                        @scheme.ComparisonRecruitOrTrain
+
+                                    </td>
+
+                                    <td class="govuk-table__cell nhsuk-table__cell">
+
+                                        <span class="nhsuk-table-responsive__heading">Age</span>
+
+                                        @scheme.ComparisonAgeCriteria
+
+                                    </td>
+
+                                    <td class="govuk-table__cell nhsuk-table__cell">
+
+                                        <span class="nhsuk-table-responsive__heading">Cost</span>
+
+                                        @scheme.ComparisonCost
+
+                                    </td>
+
+                                    <td class="govuk-table__cell nhsuk-table__cell">
+
+                                        <span class="nhsuk-table-responsive__heading">Duration</span>
+
+                                        @scheme.ComparisonDuration
+
+                                    </td>
+
+                                </tr>
+
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+    }
 
 </div>
 

@@ -61,7 +61,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                     
                     page.Url.ToLowerInvariant(), 
                     
-                    new PageModel(page, _contentService.Content.MenuItems)
+                    new PageModel(
+                        
+                        page, 
+                        
+                        _contentService.Content.MenuItems, 
+                        
+                        _contentService.Content.BetaBanner
+                        
+                    )
                     
                 );
 
@@ -109,7 +117,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 
                 new CookiePage(analyticsPage, marketingPage, showMessage, breadcrumbs, preamble), 
                 
-                content.MenuItems, "Cookies"
+                content.MenuItems, 
+                
+                content.BetaBanner, 
+                
+                "Cookies"
                 
             );
 
@@ -135,7 +147,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             if (page == null)
                 return null;
 
-            return new PageModel(page, previewContent.MenuItems, "Page")
+            return new PageModel(page, previewContent.MenuItems, previewContent.BetaBanner, "Page")
             {
                 Preview = new PreviewModel(GetErrors(page))
             };

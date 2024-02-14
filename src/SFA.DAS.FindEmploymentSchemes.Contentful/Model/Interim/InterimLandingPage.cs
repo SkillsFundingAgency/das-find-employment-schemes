@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
 {
 
+    [ExcludeFromCodeCoverage]
     public class InterimLandingPage
     {
 

@@ -1,6 +1,9 @@
-﻿namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
 {
 
+    [ExcludeFromCodeCoverage]
     public class InterimBreadcrumbLink
     {
 

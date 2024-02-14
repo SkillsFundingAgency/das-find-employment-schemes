@@ -85,6 +85,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 "Over 1 year",
                 "apprenticeships", 
                 403000,
+                new List<SchemeFilterAspect>(),
              new string[] {                "pay--minimum-wage", "motivations--full-time-role", "motivations--diversity-or-responsibility", "scheme-length--4-months-to-12-months", "scheme-length--a-year-or-more"             },
                 new CaseStudy[] {
                     new CaseStudy("Apprenticeships - government incentives",
@@ -129,6 +130,7 @@ developing a workforce with skills specific to your business
                 "Under 1 year",
                 "t-levels-industry-placements", 
                 72000,
+                new List<SchemeFilterAspect>(),
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
@@ -159,6 +161,7 @@ developing a workforce with skills specific to your business
                 "Under 1 year",
                 "sector-based-work-academy-programme-swap", 
                 70000,
+                new List<SchemeFilterAspect>(),
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
@@ -187,6 +190,7 @@ developing a workforce with skills specific to your business
                 "Under 1 year",
                 "skills-bootcamps", 
                 68000,
+                new List<SchemeFilterAspect>(),
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
@@ -274,6 +278,7 @@ of the course.</p><p class=""govuk-body"">
                 "Under 1 year",
                 "supported-internships", 
                 20000,
+                new List<SchemeFilterAspect>(),
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--4-months-to-12-months"             },
                 new CaseStudy[] {
                 },
@@ -302,6 +307,7 @@ of the course.</p><p class=""govuk-body"">
                 "Variable",
                 "care-leaver-covenant", 
                 2000,
+                new List<SchemeFilterAspect>(),
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
@@ -330,6 +336,7 @@ of the course.</p><p class=""govuk-body"">
                 "Variable",
                 "employing-prisoners-and-prison-leavers", 
                 1000,
+                new List<SchemeFilterAspect>(),
              new string[] {                "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
@@ -358,6 +365,7 @@ of the course.</p><p class=""govuk-body"">
                 "Variable",
                 "free-courses-and-additional-training-for-your-employees", 
                 -1000,
+                new List<SchemeFilterAspect>(),
              new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
                 new CaseStudy[] {
                 },
@@ -394,26 +402,26 @@ of the course.</p><p class=""govuk-body"">
                 }
                 ),
         };
-       private Filter? _motivationsFilter;
-        public Filter MotivationsFilter => _motivationsFilter ??= new Filter("motivations", "I want to", new FilterAspect[]
-        {
-            new FilterAspect("motivations--recruit-new-staff", "Recruit new staff"),
-            new FilterAspect("motivations--retrain-or-up-skill-existing-staff", "Retrain or up-skill existing staff"),
-            new FilterAspect("motivations--offer-short-terms-work-experience-placements", "Offer short terms work experience placements"),
-        });
-       private Filter? _schemeLengthFilter;
-        public Filter SchemeLengthFilter => _schemeLengthFilter ??= new Filter("scheme-length", "Duration of the scheme", new FilterAspect[]
-        {
-            new FilterAspect("scheme-length--less-than-6-months", "Less than 6 months"),
-            new FilterAspect("scheme-length--between-6-months-and-1-year", "Between 6 months and 1 year"),
-            new FilterAspect("scheme-length--longer-than-1-year", "Longer than 1 year")
-        });
-       private Filter? _payFilter;
-        public Filter PayFilter => _payFilter ??= new Filter("pay", "Cost of training", new FilterAspect[]
-        {
-            new FilterAspect("pay--free", "Free"),
-            new FilterAspect("pay--may-require-employer-contribution", "May require employer contribution")
-        });
+        private List<SchemeFilter>? _schemeFilters;
+        public List<SchemeFilter> SchemeFilters => _schemeFilters ??= new List<SchemeFilter>();
+        //{
+            //new FilterAspect("motivations--recruit-new-staff", "Recruit new staff"),
+            //new FilterAspect("motivations--retrain-or-up-skill-existing-staff", "Retrain or up-skill existing staff"),
+            //new FilterAspect("motivations--offer-short-terms-work-experience-placements", "Offer short terms work experience placements"),
+        //});
+       //private Filter? _schemeLengthFilter;
+       // public Filter SchemeLengthFilter => _schemeLengthFilter ??= new Filter("scheme-length", "Duration of the scheme", new FilterAspect[]
+       // {
+       //     new FilterAspect("scheme-length--less-than-6-months", "Less than 6 months"),
+       //     new FilterAspect("scheme-length--between-6-months-and-1-year", "Between 6 months and 1 year"),
+       //     new FilterAspect("scheme-length--longer-than-1-year", "Longer than 1 year")
+       // });
+       //private Filter? _payFilter;
+       // public Filter PayFilter => _payFilter ??= new Filter("pay", "Cost of training", new FilterAspect[]
+       // {
+       //     new FilterAspect("pay--free", "Free"),
+       //     new FilterAspect("pay--may-require-employer-contribution", "May require employer contribution")
+       // });
         private IEnumerable<Page>? _pages;
         public IEnumerable<Page> Pages => _pages ??= new Page[]
         {
@@ -500,6 +508,36 @@ the website you came from to find out more about this.</p>")
 
         private ContactPage? _contactPage;
         public ContactPage? ContactPage => _contactPage ??= new ContactPage() { ContactPageTitle = "Contact Page" };
+
+        private SchemeComparison? _schemeComparison;
+        public SchemeComparison? SchemeComparison => _schemeComparison ??= new SchemeComparison() 
+        {
+
+            SchemeComparisonTitle = "Scheme Comparison",
+
+            SchemeComparisonActionButtonText = "Clear filters and show all schemes",
+
+            SchemeComparisonTitleColumnHeading = "Scheme name",
+
+            SchemeComparisonRecruitOrTrainHeading = "Recruit new staff or train existing staff",
+
+            SchemeComparisonAgeHeading = "Age criteria",
+
+            SchemeComparisonCostHeading = "Cost",
+
+            SchemeComparisonDurationHeading = "Duration",
+
+        };
+
+        private BetaBanner? _betaBanner;
+        public BetaBanner? BetaBanner => _betaBanner ??= new BetaBanner()
+        {
+
+            BetaBannerID = "employer-schemes-beta-banner",
+
+            BetaBannerTitle = "Employer schemes beta banner"
+
+        };
 
     }
 }

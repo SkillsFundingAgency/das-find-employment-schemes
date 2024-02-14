@@ -9,18 +9,36 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
     public class ComparisonModel : LayoutModel
     {
 
+        public SchemeComparison? SchemeComparison { get; }
+
         public IEnumerable<Scheme> Schemes { get; }
 
         public bool NoneSelected { get; }
 
-        public ComparisonModel(IEnumerable<Scheme> schemes, IEnumerable<InterimMenuItem> menuItems, bool noneSelected = false)
+        public ComparisonModel(
+            
+            SchemeComparison? comparison, 
+            
+            IEnumerable<Scheme> schemes, 
+            
+            IEnumerable<InterimMenuItem> menuItems, 
+
+            BetaBanner? banner,
+            
+            bool noneSelected = false
+            
+        )
         {
+
+            SchemeComparison = comparison;
 
             Schemes = schemes;
 
             NoneSelected = noneSelected;
 
             MenuItems = menuItems;
+
+            BetaBanner = banner;
 
         }
 

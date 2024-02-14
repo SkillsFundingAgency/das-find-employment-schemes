@@ -13,9 +13,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
         /// </summary>
         IEnumerable<Scheme> Schemes { get; }
 
-        Filter MotivationsFilter { get; }
-        Filter SchemeLengthFilter { get; }
-        Filter PayFilter { get; }
+        List<SchemeFilter> SchemeFilters { get; }
 
         ContactPage? ContactPage { get; }
 
@@ -24,6 +22,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
         IEnumerable<InterimMenuItem> MenuItems { get; }
 
         IEnumerable<InterimPage> InterimPages { get; }
+
+        SchemeComparison? SchemeComparison { get; }
+
+        BetaBanner? BetaBanner { get; }
 
     }
 }

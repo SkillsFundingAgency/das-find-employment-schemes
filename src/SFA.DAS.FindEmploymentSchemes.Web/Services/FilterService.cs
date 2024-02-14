@@ -42,56 +42,26 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         {
             var content = _contentService.Content;
 
-            IEnumerable<Scheme> motivationSchemes =   filters.Motivations.Any() ?
+            IEnumerable<Scheme> filteredSchemes =   filters.FilterAspects.Any() ?
                                                             from Scheme s in content.Schemes
-                                                            from string m in filters.Motivations
+                                                            from string m in filters.FilterAspects
                                                             where s.FilterAspects.Contains(m)
                                                             select s :
                                                             content.Schemes;
-            IEnumerable<Scheme> schemeLengthSchemes = filters.SchemeLength.Any() ?
-                                                            from Scheme s in content.Schemes
-                                                            from string l in filters.SchemeLength
-                                                            where s.FilterAspects.Contains(l)
-                                                            select s :
-                                                            content.Schemes;
-            IEnumerable<Scheme> paySchemes =          filters.Pay.Any() ?
-                                                            from Scheme s in content.Schemes
-                                                            from string p in filters.Pay
-                                                            where s.FilterAspects.Contains(p)
-                                                            select s :
-                                                            content.Schemes;
-            IEnumerable<Scheme> filteredSchemes = (filters.AllFilters.Any() ?
-                                                      (from Scheme s in content.Schemes
-                                                       join Scheme m in motivationSchemes
-                                                       on s equals m
-                                                       join Scheme l in schemeLengthSchemes
-                                                       on s equals l
-                                                       join Scheme p in paySchemes
-                                                       on s equals p
-                                                       select s
-                                                      ).Distinct() :
-                                                      content.Schemes);
 
-            var filterGroupModels = new[]
-            {
-                new Filter(content.MotivationsFilter.Name, content.MotivationsFilter.Description,
-                    content.MotivationsFilter.Aspects.Select(x =>
-                        new FilterAspect(x.Id, x.Description, filters.Motivations.Contains(x.Id)))),
-                new Filter(content.SchemeLengthFilter.Name, content.SchemeLengthFilter.Description,
-                    content.SchemeLengthFilter.Aspects.Select(x => new FilterAspect(x.Id, x.Description, filters.SchemeLength.Contains(x.Id)))),
-                new Filter(content.PayFilter.Name, content.PayFilter.Description,
-                    content.PayFilter.Aspects.Select(x => new FilterAspect(x.Id, x.Description, filters.Pay.Contains(x.Id))))
-            };
+            
 
             return new HomeModel(
                 
-                _schemesModelService.HomeModel.Preamble, 
+                _schemesModelService.HomeModel.Preamble,
                 
                 filteredSchemes,
-                
-                filterGroupModels,
+
+                _schemesModelService.GetFilterSections(content.SchemeFilters, filters),
 
                 content.MenuItems,
+
+                content.BetaBanner,
                 
                 true,
 
@@ -108,7 +78,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         /// <param name="duration">The scheme length filter aspects concated into a comma separated string.</param>
         /// <param name="motivation">The motivation filter aspects concated into a comma separated string.</param>
         /// <returns>An instance of the SFA.DAS.FindEmploymentSchemes.Web.Models.SchemeFilterModel class.</returns>
-        public SchemeFilterModel CreateFilterModel(string pay, string duration, string motivation)
+        public SchemeFilterModel CreateFilterModel(string filters)
         {
 
             try
@@ -117,11 +87,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 return new SchemeFilterModel()
                 {
 
-                    Pay = StringHelper.SplitAndReturnList(pay, ','),
-
-                    SchemeLength = StringHelper.SplitAndReturnList(duration, ','),
-
-                    Motivations = StringHelper.SplitAndReturnList(motivation, ',')
+                    FilterAspects = StringHelper.SplitAndReturnList(filters, ',')
 
                 };
 
@@ -156,13 +122,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         /// <param name="duration">The scheme length filter aspects concated into a comma separated string.</param>
         /// <param name="motivation">The motivation filter aspects concated into a comma separated string.</param>
         /// <returns>An instance of the SFA.DAS.FindEmploymentSchemes.Web.ModelsHomeModel class.</returns>
-        public HomeModel RemapFilters(string pay, string duration, string motivation)
+        public HomeModel RemapFilters(string filters)
         {
 
             try
             {
 
-                if (string.IsNullOrWhiteSpace(pay) && string.IsNullOrWhiteSpace(duration) && string.IsNullOrWhiteSpace(motivation))
+                if (string.IsNullOrWhiteSpace(filters))
                 {
 
                     return _schemesModelService.HomeModel;
@@ -171,7 +137,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                 HomeModel remappedHomeModel = ApplyFilter(
 
-                    CreateFilterModel(pay, duration, motivation)
+                    CreateFilterModel(filters)
 
                 );
 

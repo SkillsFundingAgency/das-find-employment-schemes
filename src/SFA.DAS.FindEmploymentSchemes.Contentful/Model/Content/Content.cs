@@ -17,11 +17,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 
             IEnumerable<Scheme> schemes,
 
-            Filter motivationsFilter,
-
-            Filter payFilter,
-
-            Filter schemeLengthFilter,
+            List<SchemeFilter> schemeFilters,
 
             ContactPage? contactPage,
 
@@ -29,7 +25,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 
             IEnumerable<InterimMenuItem> menuItems,
 
-            IEnumerable<InterimPage> interimPages
+            IEnumerable<InterimPage> interimPages,
+
+            SchemeComparison? schemeComparison,
+
+            BetaBanner? betaBanner
 
         )
         {
@@ -44,15 +44,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 
             Schemes = schemes;
 
-            MotivationsFilter = motivationsFilter;
-
-            PayFilter = payFilter;
-
-            SchemeLengthFilter = schemeLengthFilter;
+            SchemeFilters = schemeFilters;
 
             ContactPage = contactPage;
 
             InterimPages = interimPages;
+
+            SchemeComparison = schemeComparison;
+
+            BetaBanner = betaBanner;
 
         }
 
@@ -66,15 +66,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 
         public IEnumerable<Scheme> Schemes { get; }
 
-        public Filter MotivationsFilter { get; }
-
-        public Filter PayFilter { get; }
-
-        public Filter SchemeLengthFilter { get; }
+        public List<SchemeFilter> SchemeFilters { get; }
 
         public ContactPage? ContactPage { get; }
 
         public IEnumerable<InterimPage> InterimPages { get; }
+
+        public SchemeComparison? SchemeComparison { get; }
+
+        public BetaBanner? BetaBanner { get; }
 
     }
 

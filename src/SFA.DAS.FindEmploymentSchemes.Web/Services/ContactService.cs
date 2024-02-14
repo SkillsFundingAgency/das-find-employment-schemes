@@ -39,8 +39,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                 Contacts = _contentService.Content.ContactPage.Contacts,
 
-                MenuItems = _contentService.Content.MenuItems
-                
+                MenuItems = _contentService.Content.MenuItems,
+
+                BetaBanner = _contentService.Content.BetaBanner
+
             };
 
         }

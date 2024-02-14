@@ -1,27 +1,27 @@
-﻿@model Filter
+﻿@model FilterSectionModel
 
-<div id="filter-group-@Model.Name" class="govuk-form-group das-filter__section">
+<div id="filter-group-@Model.FilterSectionModelID" class="govuk-form-group das-filter__section">
 
-    <fieldset id="filter-group-fieldset-@Model.Name" class="govuk-fieldset">
+    <fieldset id="filter-group-fieldset-@Model.FilterSectionModelID" class="govuk-fieldset">
 
-        <legend id="filter-group-legend-@Model.Name" class="govuk-fieldset__legend govuk-fieldset__legend--m">
+        <legend id="filter-group-legend-@Model.FilterSectionModelID" class="govuk-fieldset__legend govuk-fieldset__legend--m">
 
-            @Model.Description
+            @Model.FilterSectionModelName
 
         </legend>
 
-        <div id="filter-group-checkboxes-container-outer-@Model.Name" class="govuk-checkboxes govuk-checkboxes--small">
+        <div id="filter-group-checkboxes-container-outer-@Model.FilterSectionModelID" class="govuk-checkboxes govuk-checkboxes--small">
 
-            @foreach (var aspect in Model.Aspects)
+            @foreach (var aspect in Model.FilterSectionModelAspects)
             {
 
-                <div id="filter-group-checkboxe-container-inner-@aspect.Id" class="govuk-checkboxes__item">
+                <div id="filter-group-checkboxe-container-inner-@aspect.FilterSectionAspectModelID" class="govuk-checkboxes__item">
 
-                    <input class="govuk-checkboxes__input" id="@aspect.Id" name="@Model.Name" type="checkbox" value="@aspect.Id" @(aspect.Selected ? "checked" : "")>
+                    <input class="govuk-checkboxes__input" id="@aspect.FilterSectionAspectModelID" name="FilterAspects" type="checkbox" value="@aspect.FilterSectionAspectModelID" @(aspect.FilterSectionAspectSelected ? "checked" : "")>
 
-                    <label id="filter-group-checkbox-label-@aspect.Id" class="govuk-label govuk-checkboxes__label" for="@aspect.Id">
+                    <label id="filter-group-checkbox-label-@aspect.FilterSectionAspectModelID" class="govuk-label govuk-checkboxes__label" for="@aspect.FilterSectionAspectModelID">
 
-                        @aspect.Description
+                        @aspect.FilterSectionAspectDisplayName
 
                     </label>
 

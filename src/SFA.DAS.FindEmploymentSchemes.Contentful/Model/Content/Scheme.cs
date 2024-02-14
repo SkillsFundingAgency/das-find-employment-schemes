@@ -60,8 +60,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         // when we display the matching schemes on the filter page, we'll sort largest to smallest
         public int Size { get; }
 
-        public IEnumerable<string> FilterAspects { get; }
-
         public string HtmlId { get; }
 
         public List<InterimPageComponent> Components { get; set; } = new List<InterimPageComponent>();
@@ -71,6 +69,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public InterimBreadcrumbs? InterimBreadcrumbs { get; set; }
 
         public List<InterimTileSection> InterimTileSections { get; set; } = [];
+
+        public List<SchemeFilterAspect> SchemeFilterAspects { get; set; } = [];
+
+        public IEnumerable<string> FilterAspects { get; set; }
 
         public Scheme(
             string? name, 
@@ -86,6 +88,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             string? comparisonDuration,
             string url, 
             int size,
+            List<SchemeFilterAspect> schemeFilterAspects,
             IEnumerable<string> filterAspects,
             IEnumerable<CaseStudy>? caseStudies = null,
             HtmlString? caseStudiesPreamble = null,
@@ -121,7 +124,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             ComparisonDuration = comparisonDuration;
             Url = url;
             Size = size;
-            FilterAspects = filterAspects;
             CaseStudies = caseStudies ?? Enumerable.Empty<CaseStudy>();
             CaseStudiesPreamble = caseStudiesPreamble;
             DetailsPageOverride = detailsPageOverride;
@@ -150,6 +152,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             InterimBreadcrumbs = interimBreadcrumbs;
 
             InterimTileSections = interimTileSections ?? [];
+
+            SchemeFilterAspects = schemeFilterAspects;
+
+            FilterAspects = filterAspects;
 
         }
 

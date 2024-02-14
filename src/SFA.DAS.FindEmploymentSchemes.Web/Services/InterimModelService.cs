@@ -61,7 +61,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                     InterimPageBreadcrumbs = interimPage.InterimPageBreadcrumbs,
 
-                    MenuItems = _contentService.Content.MenuItems
+                    MenuItems = _contentService.Content.MenuItems,
+
+                    BetaBanner = _contentService.Content.BetaBanner
 
                 };
 
@@ -103,7 +105,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                     InterimTileSections = landingPage.InterimTileSections,
 
-                    MenuItems = _contentService.Content.MenuItems
+                    MenuItems = _contentService.Content.MenuItems,
+
+                    BetaBanner = _contentService.Content.BetaBanner
 
                 };
 

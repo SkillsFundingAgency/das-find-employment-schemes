@@ -38,12 +38,8 @@
                             id="scheme-comparison-breadcrumb"
 
                             asp-route="@Model.Item1"
-
-                            asp-route-pay="@(Model.Item4?.Pay != null ? string.Join(',', Model.Item4.Pay) : null)"
-
-                            asp-route-duration="@(Model.Item4?.SchemeLength != null ? string.Join(',', Model.Item4.SchemeLength) : null)"
-
-                            asp-route-motivation="@(Model.Item4?.Motivations != null ? string.Join(',', Model.Item4.Motivations) : null)"
+                            
+                            asp-route-filters="@(Model.Item4?.FilterAspects != null ? string.Join(',', Model.Item4.FilterAspects) : null)"
 
                             class="govuk-back-link"
                            

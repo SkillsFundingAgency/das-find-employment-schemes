@@ -1,4 +1,6 @@
-﻿using SFA.DAS.FindEmploymentSchemes.Web.Models;
+﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using System.Collections.Generic;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
 {
@@ -8,9 +10,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
 
         HomeModel ApplyFilter(SchemeFilterModel filters);
 
-        SchemeFilterModel CreateFilterModel(string pay, string duration, string motivation);
+        SchemeFilterModel CreateFilterModel(string filters);
 
-        HomeModel RemapFilters(string pay, string duration, string motivation);
+        HomeModel RemapFilters(string filters);
 
     }
 
