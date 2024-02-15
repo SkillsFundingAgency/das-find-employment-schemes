@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.ViewModels

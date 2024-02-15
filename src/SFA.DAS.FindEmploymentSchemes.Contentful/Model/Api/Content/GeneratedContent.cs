@@ -103,16 +103,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 },
                 new HtmlString(@"<p class=""govuk-body"">Read how other businesses have used an apprenticeship scheme</p>"),
                 null,
-                new HtmlString(@"<p class=""govuk-body"">Applies to England</p><p class=""govuk-body"">Apprenticeships are for those aged 16 or over and combine working with studying to gain skills and knowledge in a job role.</p><p class=""govuk-body"">Apprentices can be new or current employees.</p><p class=""govuk-body"">Apprentices:</p><ul class=""govuk-list govuk-list--bullet""><li>work with experienced staff</li><li>learn skills relevant to your organisation</li><li>get time for training or study during their working week (at least 20% of their normal working hours)</li></ul><p class=""govuk-body""></p>"),
-                new HtmlString(@"<p class=""govuk-body"">Apprentices are paid <a href=""https://www.gov.uk/national-minimum-wage-rates"" title="""" class=""govuk-link"">the minimum wage</a>.</p><p class=""govuk-body"">You may have to contribute 5% of the apprentice's training and assessment costs - depending on the size of your business and the age of your apprentice.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Employers need to provide:</p><ul class=""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>opportunities for the student to develop their technical skills within your industry</li><li>20% 'Off-the-job' training delivered by a training provider during your apprentice&#39;s normal working hours</li><li>'On-the-job' training and additional support to ensure your apprentice's success</li></ul><p class=""govuk-body"">Employers need to have:</p><ul class=""govuk-list govuk-list--bullet""><li>a signed apprenticeship agreement and apprenticeship commitment statement from the learner and training provider</li></ul><p class=""govuk-body""></p>"),
-                new HtmlString(@"<p class=""govuk-body"">Apprenticeships can benefit your business by:</p><ul class=""govuk-list govuk-list--bullet""><li>
-developing a workforce with skills specific to your business
-</li><li>allowing existing employees to pass on their knowledge with your next generation of employees
-</li><li>providing you with a motivated and fast-developing workforce</li></ul><p class=""govuk-body"">
-</p><p class=""govuk-body"">Find out <a href=""https://www.apprenticeships.gov.uk/"" title="""" class=""govuk-link"">how apprenticeships can benefit your business</a>.</p>"),
                 "Offer an apprenticeship",
-                new HtmlString(@"<p class=""govuk-body"">Get started with offering an apprenticeship.</p><p class=""govuk-body""><a href=""https://www.apprenticeships.gov.uk/employers/hiring-an-apprentice"" title="""" class=""govuk-link"">Hire an apprentice</a></p><p class=""govuk-body"">Alternatively, call <a href=""tel:08000150400"" title="""" class=""govuk-link"">08000 150 400</a></p>"),
                 new HtmlString(@"<h2 class=""govuk-heading-l""><strong>Scotland, Wales and Northern Ireland</strong></h2><p class=""govuk-body"">If you're an employer, you can contact the:</p><p class=""govuk-body""><a href=""https://www.apprenticeships.scot/"" title="""" class=""govuk-link"">Apprenticeship authority in Scotland</a></p><p class=""govuk-body""><a href=""https://businesswales.gov.wales/skillsgateway/apprenticeships"" title="""" class=""govuk-link"">Apprenticeship authority in Wales</a></p><p class=""govuk-body""><a href=""https://www.nidirect.gov.uk/campaigns/apprenticeships"" title="""" class=""govuk-link"">Apprenticeship authority in Northern Ireland</a></p>"),
                 new SubScheme[] {
                 }
@@ -136,14 +127,7 @@ developing a workforce with skills specific to your business
                 },
                 new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-t-level-industry-placements"" title="""" class=""govuk-link"">how businesses are using T Levels industry placements</a>.</p>"),
                 null,
-                new HtmlString(@"<p class=""govuk-body"">T Levels are qualifications for students aged 16 to 19 who have finished GCSEs. They are a 2-year qualification and the equivalent to studying 3 A levels.</p><p class=""govuk-body"">They have been designed with employers, to give them the skilled workforce they need by helping young people develop their knowledge, attitude and practical skills to thrive in the workplace.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay wages and cover expenses such as travel and living costs.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Employers need to provide:</p><ul class=""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>opportunities for the student to develop their technical skills within your industry</li><li>a line manager to support, supervise and mentor the student</li><li>an induction which includes explaining relevant policies and procedures</li><li>formal feedback on the student's progress against the agreed learning goals at the end of the placement</li></ul><p class=""govuk-body""></p>"),
-                new HtmlString(@"<p class=""govuk-body"">T Levels are available in more than 20 courses, covering 11 skill areas.</p><p class=""govuk-body"">T Levels can support your business:</p><ul class=""govuk-list govuk-list--bullet""><li>you to build a pipeline of entry-level positions with &#163;1,000 incentive payments for employers hosting placements between 27 May 2021 and 31 July 2022</li><li>evaluate future talent</li><li>with recruitment, improve innovation and increase your organisation's productivity</li><li>to fill skills shortages&#160;</li><li>to support your local community and improve diversity</li><li>to provide existing staff gain management and mentoring skills</li></ul><p class=""govuk-body"">Find out <a href=""https://www.tlevels.gov.uk/employers"" title="""" class=""govuk-link"">how T Levels can benefit your business</a>.
-
-</p>"),
                 "Offer an industry placement",
-                new HtmlString(@"<p class=""govuk-body"">Get started with offering an industry placement.</p><p class=""govuk-body""><a href=""https://employers.tlevels.gov.uk/hc/en-gb/requests/new"" title="""" class=""govuk-link"">Take the next steps with T Levels</a></p><p class=""govuk-body"">Alternatively, call <a href=""tel:08000150600"" title="""" class=""govuk-link"">08000 150 600</a> (choose option 4)</p>"),
                 null,
                 new SubScheme[] {
                 }
@@ -167,12 +151,7 @@ developing a workforce with skills specific to your business
                 },
                 new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-sector-based-work-academies"" title="""" class=""govuk-link"">how employers are using sector-based work academy programmes</a>.</p>"),
                 null,
-                new HtmlString(@"<p class=""govuk-body"">Sector-based Work Academy Programmes (SWAPs) help prepare those receiving unemployment benefits to apply for jobs in a different area of work.</p><p class=""govuk-body"">Placements run up to 6 weeks and are designed to help you recruit a workforce with the right skills to sustain and grow your business.</p><p class=""govuk-body"">They are tailored to meet your recruitment needs, including pre-employment training, a work experience placement, and your guarantee of a job interview for participants.</p><p class=""govuk-body"">Jobcentre Plus manages SWAPs in England and Scotland.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">In order for both businesses and individuals to benefit from the work experience placement, Jobcentre Plus will ask that you:</p><ul class=""govuk-list govuk-list--bullet""><li>explain what you need the scheme's participants to do</li><li>inform them of management and reporting arrangements</li><li>encourage positive working relationships</li><li>provide an overview of your business and its values and culture</li><li>give a tour of the workplace</li><li>provide guidance on using any equipment</li><li>provide guidance on health and safety</li><li>explain standard workplace practices such as security procedures, dress code, sick leave and absences and break times</li></ul><p class=""govuk-body""></p>"),
-                new HtmlString(@"<p class=""govuk-body"">Find out <a href=""https://www.gov.uk/government/publications/sector-based-work-academies-employer-guide/sector-based-work-academies-employer-guide"" title="""" class=""govuk-link"">how SWAP could benefit your business</a>.</p>"),
                 "Offer a SWAP",
-                new HtmlString(@"<p class=""govuk-body"">Contact the Employer Services Line on <a href=""tel:08001690178"" title="""" class=""govuk-link"">0800 169 0178</a></p><p class=""govuk-body"">They will put you in touch with a local Jobcentre Plus employer team.</p>"),
                 null,
                 new SubScheme[] {
                 }
@@ -196,72 +175,7 @@ developing a workforce with skills specific to your business
                 },
                 null,
                 null,
-                new HtmlString(@"<p class=""govuk-body"">Skills Bootcamps are free, flexible courses of up to 16 weeks for adults aged 19 or over. They give people the opportunity to build up valuable sector-specific skills based on local employer demand and provide a direct path to a job on completion. </p><p class=""govuk-body"">Skills Bootcamps are primarily aimed at delivering flexible training at levels 3-5 (medium to higher level technical skills) and are co-designed with employers to respond to their skills shortages. </p><p class=""govuk-body"">This training is for adults who are either in work, self-employed, recently unemployed or returning to work after a break. Skills Bootcamps are also open to serving prisoners due to be released within 6 months of completing a Skills Bootcamp and those on temporary release.
-</p><p class=""govuk-body"">Skills Bootcamps are available in:</p><ul class=""govuk-list govuk-list--bullet""><li>digital courses such as digital marketing or coding</li><li>technical training in skills like engineering or welding</li><li>green skills like solar energy</li><li>construction</li><li>logistics
-(HGV driving)</li></ul><p class=""govuk-body""></p><p class=""govuk-body"">Employers can work with providers to develop and deliver Skills Bootcamps to help them fill skill shortage vacancies. Employers can also apply to be a part of the Skills Bootcamp programme if the model suits their business need. </p><p class=""govuk-body"">Invitation to Tender for the further procurement of Skills Bootcamps during FY22/23 (Wave
-3) is now live and can be accessed here: <a href=""https://www.contractsfinder.service.gov.uk/Notice/6e5dce5a-c772-4e75-ab9c-d6bd5da0f878"" title="""" class=""govuk-link"">Call for competition: Wave 3 Skills Bootcamps Procurement consisting of 7 defined Lots - Contracts Finder</a></p><p class=""govuk-body"">
-
-
-
-
-
-
-
-</p><p class=""govuk-body"">. </p><p class=""govuk-body"">
-
-
-
-
-
-
-
-
-
-</p><p class=""govuk-body"">
-
-
-
-
-
-
-
-
-
-</p><p class=""govuk-body"">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</p>"),
-                new HtmlString(@"<p class=""govuk-body"">There is no cost to employers who want to get
-involved in co-designing Skills Bootcamps to recruit new employees. </p><p class=""govuk-body"">Employers who want to use Skills Bootcamps for
-their existing employees contribute 30% of the cost if they are a large
-employer, or 10% if they are a small to medium employer (SME). </p><p class=""govuk-body"">Existing employees may need time to study and
-attend classes depending on their working hours and status and the flexibility
-of the course.</p><p class=""govuk-body"">
-
-
-
-
-
-</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Employers need to provide:</p><ul class=""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>a line manager to support, supervise and mentor the student</li><li>a guaranteed interview as part of the Skills Bootcamp provision</li></ul><p class=""govuk-body""></p>"),
-                new HtmlString(@"<p class=""govuk-body"">They help your business:</p><ul class=""govuk-list govuk-list--bullet""><li>develop a loyal and talented workforce with the skills you need quickly</li><li>futureproof your business in a rapidly changing labour market</li><li>improve your productivity; learners are motivated to learn new skills, provide new ideas and a fresh perspective</li><li>recruit staff with the right training and skills from the outset</li><li>get access to a pipeline of skilled adults by working with existing Skills Bootcamp providers </li></ul><p class=""govuk-body""></p>"),
                 "Offer a Skills Bootcamps",
-                new HtmlString(@"<p class=""govuk-body"">Get started with offering Skills Bootcamps and find providers offering courses in your area.</p><p class=""govuk-body""><a href=""https://www.gov.uk/government/publications/find-a-skills-bootcamp"" title="""" class=""govuk-link"">Find Skills Bootcamps in your area</a></p>"),
                 null,
                 new SubScheme[] {
                 }),
@@ -284,12 +198,7 @@ of the course.</p><p class=""govuk-body"">
                 },
                 null,
                 null,
-                new HtmlString(@"<p class=""govuk-body"">Supported internships are a work-based study programme for young people aged 16 to 24 with Special Educational Needs and Disabilities (SEND), who have an <a href=""https://www.gov.uk/children-with-special-educational-needs/extra-SEN-help"" title="""" class=""govuk-link"">education health and care (EHC) plan</a>.</p><p class=""govuk-body"">Supported internships equip young people with the skills they need to secure and sustain employment through learning in the workplace, with support from a qualified job coach. They last between 6 to 12 months.</p><p class=""govuk-body"">Supported interns are enrolled with and supported by a learning provider, but spend most of their learning time - typically around 70% in the workplace.</p><p class=""govuk-body"">Alongside their time with the employer, supported interns complete a personalised study programme delivered by the school/college, which includes the chance to study for relevant qualifications, if appropriate, and English and maths at an appropriate level.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs.</p><p class=""govuk-body"">Some employers may choose to pay wages and cover expenses such as travel and living costs.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Employers provide:</p><ul class=""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>workplaces adjustments the supported intern may need</li><li>a line manager to support, supervise and mentor the student</li><li>an induction which includes explaining relevant policies and procedures</li><li>a welcoming environment and be willing to work collaboratively with the job coach, to support the young person to succeed</li></ul><p class=""govuk-body""></p>"),
-                new HtmlString(@"<p class=""govuk-body"">Supported internships:</p><ul class=""govuk-list govuk-list--bullet""><li>create and support a diverse workforce</li><li>provide a job coach who will support the intern and increase your confidence of employing individuals with additional needs</li><li>increase your capacity and productivity</li><li>allows you to shape a job role that suits both the needs of your business and the needs of the supported intern</li></ul><p class=""govuk-body""></p>"),
                 "Offer a supported internship",
-                new HtmlString(@"<p class=""govuk-body"">Offer a Supported Internship by contacting the lead for your region from the <a href=""https://www.preparingforadulthood.org.uk/about-us/meet-the-team.htm#Regional%20Leads"" title="""" class=""govuk-link"">Preparing for Adulthood Team</a></p>"),
                 null,
                 new SubScheme[] {
                 }
@@ -313,12 +222,7 @@ of the course.</p><p class=""govuk-body"">
                 },
                 new HtmlString(@"<p class=""govuk-body"">Read how <a href=""https://mycovenant.org.uk/covenant-stories/"" title="""" class=""govuk-link"">companies have been making a difference to the lives of care leavers</a></p>"),
                 null,
-                new HtmlString(@"<p class=""govuk-body"">The Care-leaver Covenant is a way companies can support 16 to 25-year-olds leaving care to become independent.</p><p class=""govuk-body"">Organisations can pledge support including apprenticeships, work experience or free or discounted goods or services.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs related to the practical offer your business makes to care leavers.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Employers will provide:</p><ul class=""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>an induction which includes explaining relevant policies and procedures</li><li>practical help that makes a difference to the life of a care leaver</li></ul><p class=""govuk-body""></p>"),
-                new HtmlString(@"<p class=""govuk-body"">You create and support a diverse and loyal workforce for your business.</p>"),
                 "Offer a Care Leavers Covenant",
-                new HtmlString(@"<p class=""govuk-body""><a href=""https://mycovenant.org.uk/support-the-covenant/organisation-sign-up/"" title="""" class=""govuk-link"">Find out how to join the Care Leavers Covenant</a> and tailor what opportunities your business would like to offer to care leavers.</p><p class=""govuk-body"">Alternatively, contact the Care Leavers Covenant via telephone on 0800 077 3557</p>"),
                 null,
                 new SubScheme[] {
                 }
@@ -342,12 +246,7 @@ of the course.</p><p class=""govuk-body"">
                 },
                 new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://newfuturesnetwork.gov.uk/case-studies/#"" title="""" class=""govuk-link"">how businesses are working with serving prisoners and hiring prison leavers</a>.</p>"),
                 null,
-                new HtmlString(@"<p class=""govuk-body"">New Futures Network (NFN) arranges partnerships between prisons and employers in England and Wales. These partnerships help you:</p><ul class=""govuk-list govuk-list--bullet""><li>fill skills gaps in your business</li><li>reduce recruitment costs</li><li>increase staff retention</li><li>transform prison leavers&#39; lives</li></ul><p class=""govuk-body""></p>"),
-                new HtmlString(@"<p class=""govuk-body"">Free government scheme but you may have your own business costs. If you recruit someone you must pay <a href=""https://www.gov.uk/national-minimum-wage-rates"" title="""" class=""govuk-link"">the minimum wage</a>.</p>"),
-                new HtmlString(@"<p class=""govuk-body"">Employers need to provide:</p><ul class=""govuk-list govuk-list--bullet""><li>a safe work environment</li><li>a line manager to support, supervise and mentor</li><li>an induction which includes explaining relevant policies and procedures</li></ul><p class=""govuk-body""></p>"),
-                new HtmlString(@"<p class=""govuk-body"">Over 400 businesses already work in partnership with prisons to provide work and employment opportunities.</p><p class=""govuk-body"">Of those surveyed, more than 80% of employers positively rated those they employed as reliable and hard-working.</p>"),
                 "Offer prisoners and prison leavers employment",
-                new HtmlString(@"<p class=""govuk-body""><a href=""https://newfuturesnetwork.gov.uk/register/"" title="""" class=""govuk-link"">Register your interest on the New Futures Network</a>.</p><p class=""govuk-body"">A member of the team will be in touch to discuss the process.</p>"),
                 null,
                 new SubScheme[] {
                 }
@@ -371,12 +270,7 @@ of the course.</p><p class=""govuk-body"">
                 },
                 null,
                 null,
-                new HtmlString(@"<p class=""govuk-body"">Free training, financial support and career advice available to your workforce.</p><p class=""govuk-body"">Some of the benefits of your employees taking a free course or training outside of employment include:</p><ul class=""govuk-list govuk-list--bullet""><li>upskilling your existing employees</li><li>progressing your current employees into higher skilled roles</li><li>filling vacancies or skill shortages within your business</li><li>gaining a workforce with the right knowledge, skills, and behaviours for your company to succeed</li></ul><p class=""govuk-body""></p>"),
-                null,
-                null,
-                null,
                 "How to offer",
-                null,
                 null,
                 new SubScheme[] {
                     new SubScheme("Higher Technical Qualifications (HTQs)",

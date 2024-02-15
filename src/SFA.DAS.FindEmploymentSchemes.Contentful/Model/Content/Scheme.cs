@@ -44,15 +44,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         #region Optional in Contentful
 
         public HtmlString? DetailsPageOverride { get; }
-        public HtmlString? Description { get; }
         public IEnumerable<SubScheme> SubSchemes { get; }
-        public HtmlString? Cost { get; }
-        public HtmlString? Responsibility { get; }
-        public HtmlString? Benefits { get; }
         public IEnumerable<CaseStudy> CaseStudies { get; }
         public HtmlString? CaseStudiesPreamble { get; }
         public string? OfferHeader { get; }
-        public HtmlString? Offer { get; }
         public HtmlString? AdditionalFooter { get; }
 
         #endregion Optional in Contentful
@@ -93,12 +88,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             IEnumerable<CaseStudy>? caseStudies = null,
             HtmlString? caseStudiesPreamble = null,
             HtmlString? detailsPageOverride = null,
-            HtmlString? description = null, 
-            HtmlString? cost = null, 
-            HtmlString? responsibility = null, 
-            HtmlString? benefits = null,
             string? offerHeader = null, 
-            HtmlString? offer = null, 
             HtmlString? additionalFooter = null,
             IEnumerable<SubScheme>? subSchemes = null,
             int? defaultOrder = null,
@@ -128,12 +118,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             CaseStudiesPreamble = caseStudiesPreamble;
             DetailsPageOverride = detailsPageOverride;
             SubSchemes = subSchemes ?? Enumerable.Empty<SubScheme>();
-            Description = description;
-            Cost = cost;
-            Responsibility = responsibility;
-            Benefits = benefits;
             OfferHeader = offerHeader;
-            Offer = offer;
             AdditionalFooter = additionalFooter;
 
             HtmlId = SanitizeHtmlId(url);

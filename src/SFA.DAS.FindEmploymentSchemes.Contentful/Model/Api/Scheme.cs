@@ -28,15 +28,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
         public int Size { get; set; }
         // optional
         public Document? DetailsPageOverride { get; set; }
-        public Document? Description { get; set; }
         public List<SubScheme>? SubSchemes { get; set; }
-        public Document? Cost { get; set; }
-        public Document? Responsibility { get; set; }
-        public Document? Benefits { get; set; }
         public Document? CaseStudies { get; set; }
         public List<CaseStudy>? CaseStudyReferences { get; set; }
         public string? OfferHeader { get; set; }
-        public Document? Offer { get; set; }
         public Document? AdditionalFooter { get; set; }
         public List<SchemeFilterAspect> SchemeFilterAspects { get; set; } = [];
 

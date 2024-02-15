@@ -132,12 +132,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
                 Console.WriteLine($"                {GenerateHtmlString(scheme.CaseStudiesPreamble)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.DetailsPageOverride)},");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.Description)},");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.Cost)},");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.Responsibility)},");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.Benefits)},");
                 Console.WriteLine($"                \"{scheme.OfferHeader}\",");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.Offer)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.AdditionalFooter)},");
 
                 GenerateSubSchemesContent(scheme.SubSchemes);
