@@ -404,24 +404,7 @@ of the course.</p><p class=""govuk-body"">
         };
         private List<SchemeFilter>? _schemeFilters;
         public List<SchemeFilter> SchemeFilters => _schemeFilters ??= new List<SchemeFilter>();
-        //{
-            //new FilterAspect("motivations--recruit-new-staff", "Recruit new staff"),
-            //new FilterAspect("motivations--retrain-or-up-skill-existing-staff", "Retrain or up-skill existing staff"),
-            //new FilterAspect("motivations--offer-short-terms-work-experience-placements", "Offer short terms work experience placements"),
-        //});
-       //private Filter? _schemeLengthFilter;
-       // public Filter SchemeLengthFilter => _schemeLengthFilter ??= new Filter("scheme-length", "Duration of the scheme", new FilterAspect[]
-       // {
-       //     new FilterAspect("scheme-length--less-than-6-months", "Less than 6 months"),
-       //     new FilterAspect("scheme-length--between-6-months-and-1-year", "Between 6 months and 1 year"),
-       //     new FilterAspect("scheme-length--longer-than-1-year", "Longer than 1 year")
-       // });
-       //private Filter? _payFilter;
-       // public Filter PayFilter => _payFilter ??= new Filter("pay", "Cost of training", new FilterAspect[]
-       // {
-       //     new FilterAspect("pay--free", "Free"),
-       //     new FilterAspect("pay--may-require-employer-contribution", "May require employer contribution")
-       // });
+
         private IEnumerable<Page>? _pages;
         public IEnumerable<Page> Pages => _pages ??= new Page[]
         {
