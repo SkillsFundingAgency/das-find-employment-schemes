@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using NLog.Filters;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using System.Linq;
@@ -9,20 +8,31 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class SchemesController : Controller
     {
+
         private readonly ISchemesModelService _schemesModelService;
+
         private readonly IFilterService _filterService;
 
         public SchemesController(
+
             ISchemesModelService schemesModelService,
-            IFilterService filterService)
+
+            IFilterService filterService
+            
+        )
         {
+
             _schemesModelService = schemesModelService;
+
             _filterService = filterService;
+
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Home(string filters)
         {
+
+            ViewData["Title"] = "Find training and employment schemes for your business - Scheme Home";
 
             return View(
                 
@@ -36,7 +46,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [HttpPost]
         public IActionResult Home(string actionButton, SchemeFilterModel filters)
         {
-            
+
+            ViewData["Title"] = "Find training and employment schemes for your business - Scheme Home";
+
             if (actionButton == "Compare")
             {
 
@@ -54,31 +66,50 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         public async Task<IActionResult> HomePreview()
         {
+
             return View("home", await _schemesModelService.CreateHomeModelPreview());
+
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Details(string schemeUrl)
         {
+
             var schemeDetailsModel = _schemesModelService.GetSchemeDetailsModel(schemeUrl);
+
             if (schemeDetailsModel == null)
+            {
+
                 return NotFound();
+
+            }
+                
+            ViewData["Title"] = $"Find training and employment schemes for your business - {schemeDetailsModel.Scheme.Name}";
 
             return View(schemeDetailsModel);
         }
 
         public async Task<IActionResult> DetailsPreview(string schemeUrl)
         {
+
             var schemeDetailsModel = await _schemesModelService.GetSchemeDetailsModelPreview(schemeUrl);
+
             if (schemeDetailsModel == null)
+            {
+
                 return NotFound();
 
+            }
+
             return View("Details", schemeDetailsModel);
+
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Comparison(string filters)
         {
+
+            ViewData["Title"] = "Find training and employment schemes for your business - Scheme Comparison";
 
             SchemeFilterModel schemeFilterModel = _filterService.CreateFilterModel(filters);
 

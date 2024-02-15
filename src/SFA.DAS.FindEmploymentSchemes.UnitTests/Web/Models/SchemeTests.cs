@@ -39,6 +39,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
                 "Free or costed",
                 "Over 1 year",
                 url, 403000,
+                new System.Collections.Generic.List<SchemeFilterAspect>(),
                 new string[]
                 {
                     "pay--minimum-wage", "motivations--full-time-role", "motivations--diversity-or-responsibility",

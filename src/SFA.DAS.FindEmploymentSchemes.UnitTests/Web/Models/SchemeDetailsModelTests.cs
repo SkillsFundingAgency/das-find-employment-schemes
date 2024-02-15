@@ -14,8 +14,13 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
         public Fixture Fixture { get; set; }
         public Scheme[] Schemes { get; set; }
 
+        private readonly BetaBanner BetaBanner;
+
         public SchemeDetailsModelTests()
         {
+
+            BetaBanner = new BetaBanner() { BetaBannerID = "BetaBannerID", BetaBannerTitle = "BetaBannerTitle", BetaBannerContent = null };
+
             Fixture = new Fixture();
 
             Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
@@ -43,7 +48,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
             var schemeUrl = Schemes[selectedScheme].Url;
 
             //Act
-            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes, []);
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes, [], BetaBanner);
 
             Assert.Equal(Schemes[2], schemeDetailsModel.Scheme);
         }
@@ -56,7 +61,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
             var schemeUrl = Schemes[0].Url;
 
             //Act
-            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes, []);
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes, [], BetaBanner);
 
             Assert.Equal(Schemes, schemeDetailsModel.Schemes);
         }

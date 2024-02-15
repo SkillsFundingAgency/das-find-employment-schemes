@@ -40,17 +40,37 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         public HomeModel ApplyFilter(SchemeFilterModel filters)
         {
+
             var content = _contentService.Content;
 
-            IEnumerable<Scheme> filteredSchemes =   filters.FilterAspects.Any() ?
-                                                            from Scheme s in content.Schemes
-                                                            from string m in filters.FilterAspects
-                                                            where s.FilterAspects.Contains(m)
-                                                            select s :
-                                                            content.Schemes;
+            List<Scheme> filteredSchemes = new List<Scheme>(); 
 
-            
+            if(!filters.FilterAspects.Any())
+            {
 
+                filteredSchemes = content.Schemes.ToList();
+            }
+            else
+            {
+
+                foreach (Scheme scheme in content.Schemes)
+                {
+
+                    #pragma warning disable S6603 // The collection-specific "TrueForAll" method should be used instead of the "All" extension
+                    bool containsAll = filters.FilterAspects.All(item => scheme.FilterAspects.Contains(item));
+                    #pragma warning restore S6603 // The collection-specific "TrueForAll" method should be used instead of the "All" extension
+
+                    if (containsAll)
+                    {
+
+                        filteredSchemes.Add(scheme);
+
+                    }
+
+                }
+
+            }
+           
             return new HomeModel(
                 
                 _schemesModelService.HomeModel.Preamble,

@@ -21,6 +21,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         public IActionResult Landing()
         {
 
+            ViewData["Title"] = $"Find training and employment schemes for your business - Landing Page";
+
             LandingModel? landingModel = _interimModelService.GetLandingModel();
 
             return View(nameof(Landing), landingModel);
