@@ -43,31 +43,51 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             var content = _contentService.Content;
 
-            List<Scheme> filteredSchemes = new List<Scheme>(); 
+            var filterSections = content.SchemeFilters;
 
-            if(!filters.FilterAspects.Any())
+            List<Scheme> filteredSchemes = content.Schemes.ToList();
+
+            if (filters.FilterAspects.Any())
             {
 
-                filteredSchemes = content.Schemes.ToList();
+                foreach (SchemeFilter filterSection in filterSections)
+                {
+
+                    // Get the selected aspects from the current filter section
+                    string[] aspectsFromSection = filterSection.SchemeFilterAspects.Select(a => ToFilterAspectId(a)).ToArray();
+
+                    string[] selectedAspectsFromSection = aspectsFromSection.Where(a => filters.FilterAspects.Contains(a)).ToArray();
+
+                    if(aspectsFromSection.Length == selectedAspectsFromSection.Length)
+                    {
+
+                        continue;
+
+                    }
+
+                    if(selectedAspectsFromSection.Any())
+                    {
+
+                        // Filter schemes based on the selected aspects from the current filter section
+                        var filteredSchemesFromSection = from Scheme s in content.Schemes
+                                                         from string m in selectedAspectsFromSection
+                                                         where s.FilterAspects.Contains(m)
+                                                         select s;
+
+                        // Add the filtered schemes from the current filter section to the result
+                        filteredSchemes = filteredSchemesFromSection.ToList();
+
+                    }
+
+                }
 
             }
-            else
-            {
 
-                filteredSchemes = (filters.FilterAspects.Any() ?
-                                    from Scheme s in content.Schemes
-                                    from string m in filters.FilterAspects
-                                    where s.FilterAspects.Contains(m)
-                                    select s :
-                                    content.Schemes).Distinct().ToList();
-
-            }
-           
             return new HomeModel(
                 
                 _schemesModelService.HomeModel.Preamble,
                 
-                filteredSchemes,
+                filteredSchemes.Distinct(),
 
                 _schemesModelService.GetFilterSections(content.SchemeFilters, filters),
 
@@ -81,6 +101,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             );
 
+        }
+
+        private string ToFilterAspectId(SchemeFilterAspect filterAspect)
+        {
+            return $"{filterAspect.SchemeFilterAspectPrefix}--{Slugify(filterAspect.SchemeFilterAspectName)}";
+        }
+
+        private string Slugify(string? name)
+        {
+            ArgumentNullException.ThrowIfNull(name);
+
+            return name.ToLower().Replace(' ', '-');
         }
 
         /// <summary>
