@@ -29,7 +29,7 @@
 
         <div class="govuk-grid-column-full">
 
-            @foreach(Contact contact in Model.Contacts)
+            @foreach(Contact contact in Model.Contacts.OrderBy(a => a.Order))
             {
 
                 <div class="govuk-inset-text govuk-details__text">
