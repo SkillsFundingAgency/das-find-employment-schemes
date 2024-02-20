@@ -76,9 +76,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         {
             public IEnumerator<object[]> GetEnumerator()
             {
-                string fourToTwelveMonths = "scheme-length--4-months-to-12-months";
-                string yearOrMore = "scheme-length--a-year-or-more";
-                string unpaid = "pay--unpaid";
+                string recruitNewStaff = "motivation--recruit-new-staff";
+                string sixAndOneYear = "duration--between-6-months-and-1-year";
+                string longerThanOneYear = "duration--longer-than-1-year";
+                string free = "cost--free";
 
                 var generatedContent = new GeneratedContent();
 
@@ -86,26 +87,30 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
                     generatedContent.Schemes,
                     new SchemeFilterModel()
                 };
-                //yield return new object[] {
-                //    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths)),
-                //    new SchemeFilterModel { FilterAspects = new[] { fourToTwelveMonths }}
-                //};
-                //yield return new object[] {
-                //    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore)),
-                //    new SchemeFilterModel { FilterAspects = new[] { yearOrMore }}
-                //};
-                //yield return new object[] {
-                //    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(unpaid)),
-                //    new SchemeFilterModel { FilterAspects = new[] { unpaid }}
-                //};
-                //yield return new object[] {
-                //    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore) && s.FilterAspects.Contains(unpaid)),
-                //    new SchemeFilterModel { FilterAspects = new[] { yearOrMore, unpaid }}
-                //};
-                //yield return new object[] {
-                //    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) && s.FilterAspects.Contains(yearOrMore)),
-                //    new SchemeFilterModel { FilterAspects = new[] { fourToTwelveMonths, yearOrMore }}
-                //};
+                yield return new object[] {
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(sixAndOneYear)),
+                    new SchemeFilterModel { FilterAspects = new[] { sixAndOneYear }}
+                };
+                yield return new object[] {
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(longerThanOneYear)),
+                    new SchemeFilterModel { FilterAspects = new[] { longerThanOneYear }}
+                };
+                yield return new object[] {
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(free)),
+                    new SchemeFilterModel { FilterAspects = new[] { free }}
+                };
+                yield return new object[] {
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(longerThanOneYear) && s.FilterAspects.Contains(free)),
+                    new SchemeFilterModel { FilterAspects = new[] { longerThanOneYear, free }}
+                };
+                yield return new object[] {
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(recruitNewStaff) && s.FilterAspects.Contains(free)),
+                    new SchemeFilterModel { FilterAspects = new[] { recruitNewStaff, free }}
+                };
+                yield return new object[] {
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(sixAndOneYear) || s.FilterAspects.Contains(longerThanOneYear)),
+                    new SchemeFilterModel { FilterAspects = new[] { sixAndOneYear, longerThanOneYear }}
+                };
             }
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }

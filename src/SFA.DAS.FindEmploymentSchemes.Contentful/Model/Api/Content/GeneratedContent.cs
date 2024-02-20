@@ -86,7 +86,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 "apprenticeships", 
                 403000,
                 new List<SchemeFilterAspect>(),
-             new string[] {                "pay--minimum-wage", "motivations--full-time-role", "motivations--diversity-or-responsibility", "scheme-length--4-months-to-12-months", "scheme-length--a-year-or-more"             },
+             new string[] { "motivation--recruit-new-staff", "motivation--retrain-or-upskill-existing-staff", "duration--longer-than-1-year", "cost--may-require-employer-contribution" },
                 new CaseStudy[] {
                     new CaseStudy("Apprenticeships - government incentives",
                     "How businesses are using government incentives to hire apprentices",
@@ -122,7 +122,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 "t-levels-industry-placements", 
                 72000,
                 new List<SchemeFilterAspect>(),
-             new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "scheme-length--up-to-4-months"             },
+             new string[] { "motivation--recruit-new-staff", "motivation--offer-short-terms-work-experience-placements", "duration--less-than-6-months", "cost--free" },
                 new CaseStudy[] {
                 },
                 new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-t-level-industry-placements"" title="""" class=""govuk-link"">how businesses are using T Levels industry placements</a>.</p>"),
@@ -146,7 +146,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 "sector-based-work-academy-programme-swap", 
                 70000,
                 new List<SchemeFilterAspect>(),
-             new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--up-to-4-months"             },
+             new string[] { "motivation--recruit-new-staff", "motivation--offer-short-terms-work-experience-placements", "duration--less-than-6-months", "cost--free" },
                 new CaseStudy[] {
                 },
                 new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://www.gov.uk/government/case-studies/how-employers-are-benefitting-from-sector-based-work-academies"" title="""" class=""govuk-link"">how employers are using sector-based work academy programmes</a>.</p>"),
@@ -170,7 +170,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 "skills-bootcamps", 
                 68000,
                 new List<SchemeFilterAspect>(),
-             new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
+             new string[] { "motivation--recruit-new-staff", "motivation--retrain-or-upskill-existing-staff", "motivation--offer-short-terms-work-experience-placements", "duration--less-than-6-months", "cost--may-require-employer-contribution" },
                 new CaseStudy[] {
                 },
                 null,
@@ -193,7 +193,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 "supported-internships", 
                 20000,
                 new List<SchemeFilterAspect>(),
-             new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--4-months-to-12-months"             },
+             new string[] { "motivation--offer-short-terms-work-experience-placements", "motivation--recruit-new-staff", "duration--between-6-months-and-1-year", "cost--free" },
                 new CaseStudy[] {
                 },
                 null,
@@ -217,7 +217,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 "care-leaver-covenant", 
                 2000,
                 new List<SchemeFilterAspect>(),
-             new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
+             new string[] { "motivation--recruit-new-staff", "duration--less-than-6-months", "duration--between-6-months-and-1-year", "duration--longer-than-1-year", "cost--free" },
                 new CaseStudy[] {
                 },
                 new HtmlString(@"<p class=""govuk-body"">Read how <a href=""https://mycovenant.org.uk/covenant-stories/"" title="""" class=""govuk-link"">companies have been making a difference to the lives of care leavers</a></p>"),
@@ -241,7 +241,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 "employing-prisoners-and-prison-leavers", 
                 1000,
                 new List<SchemeFilterAspect>(),
-             new string[] {                "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
+             new string[] { "motivation--recruit-new-staff", "duration--less-than-6-months", "duration--between-6-months-and-1-year", "duration--longer-than-1-year", "cost--free" },
                 new CaseStudy[] {
                 },
                 new HtmlString(@"<p class=""govuk-body"">Read about <a href=""https://newfuturesnetwork.gov.uk/case-studies/#"" title="""" class=""govuk-link"">how businesses are working with serving prisoners and hiring prison leavers</a>.</p>"),
@@ -264,8 +264,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 "Variable",
                 "free-courses-and-additional-training-for-your-employees", 
                 -1000,
-                new List<SchemeFilterAspect>(),
-             new string[] {                "pay--unpaid", "pay--minimum-wage", "motivations--diversity-or-responsibility", "motivations--unpaid-placement", "motivations--full-time-role", "scheme-length--a-year-or-more", "scheme-length--4-months-to-12-months", "scheme-length--up-to-4-months"             },
+                new List<SchemeFilterAspect>()
+                {
+
+                    //new SchemeFilterAspect() { SchemeFilterAspectName = "" }
+
+                },
+             new string[] { "duration--less-than-6-months", "duration--between-6-months-and-1-year", "duration--longer-than-1-year", "cost--free", "motivation--retrain-or-upskill-existing-staff" },
                 new CaseStudy[] {
                 },
                 null,
@@ -297,7 +302,80 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 ),
         };
         private List<SchemeFilter>? _schemeFilters;
-        public List<SchemeFilter> SchemeFilters => _schemeFilters ??= new List<SchemeFilter>();
+        public List<SchemeFilter> SchemeFilters => _schemeFilters ??= new List<SchemeFilter>()
+        {
+
+            new SchemeFilter()
+            {
+
+                SchemeFilterName = "Scheme Filter - Motivation",
+
+                SchemeFilterDescription = "I want to",
+
+                SchemeFilterPrefix = "motivation",
+
+                SchemeFilterOrder = 1,
+
+                SchemeFilterAspects = new List<SchemeFilterAspect>()
+                {
+
+                    new SchemeFilterAspect(){ SchemeFilterAspectTitle = "SchemeFilterAspect - Motivation - Recruit New Staff", SchemeFilterAspectPrefix = "motivation", SchemeFilterAspectName = "Recruit new staff", SchemeFilterAspectOrder = 1 },
+
+                    new SchemeFilterAspect(){ SchemeFilterAspectTitle = "SchemeFilterAspect - Motivation - Retrain or upskill existing staff", SchemeFilterAspectPrefix = "motivation", SchemeFilterAspectName = "Retrain or upskill existing staff", SchemeFilterAspectOrder = 2 },
+
+                    new SchemeFilterAspect(){ SchemeFilterAspectTitle = "SchemeFilterAspect - Motivation - Offer short terms work experience placements", SchemeFilterAspectPrefix = "motivation", SchemeFilterAspectName = "Offer short terms work experience placements", SchemeFilterAspectOrder = 3 }
+
+                },
+
+            },
+
+            new SchemeFilter()
+            {
+
+                SchemeFilterName = "Scheme Filter - Duraton",
+
+                SchemeFilterDescription = "Duration of scheme",
+
+                SchemeFilterPrefix = "duration",
+
+                SchemeFilterOrder = 2,
+
+                SchemeFilterAspects = new List<SchemeFilterAspect>()
+                {
+
+                    new SchemeFilterAspect(){ SchemeFilterAspectTitle = "SchemeFilterAspect - Duration - Less than 6 months", SchemeFilterAspectPrefix = "duration", SchemeFilterAspectName = "Less than 6 months", SchemeFilterAspectOrder = 1 },
+
+                    new SchemeFilterAspect(){ SchemeFilterAspectTitle = "SchemeFilterAspect - Duration - Between 6 months and 1 year", SchemeFilterAspectPrefix = "duration", SchemeFilterAspectName = "Between 6 months and 1 year", SchemeFilterAspectOrder = 2 },
+
+                    new SchemeFilterAspect(){ SchemeFilterAspectTitle = "SchemeFilterAspect - Duration - Longer than 1 year", SchemeFilterAspectPrefix = "duration", SchemeFilterAspectName = "Longer than 1 year", SchemeFilterAspectOrder = 3 }
+
+                },
+
+            },
+
+            new SchemeFilter()
+            {
+
+                SchemeFilterName = "Scheme Filter - Cost",
+
+                SchemeFilterDescription = "Cost of training",
+
+                SchemeFilterPrefix = "cost",
+
+                SchemeFilterOrder = 2,
+
+                SchemeFilterAspects = new List<SchemeFilterAspect>()
+                {
+
+                    new SchemeFilterAspect(){ SchemeFilterAspectTitle = "SchemeFilterAspect - Cost - Free", SchemeFilterAspectPrefix = "cost", SchemeFilterAspectName = "Free", SchemeFilterAspectOrder = 1 },
+
+                    new SchemeFilterAspect(){ SchemeFilterAspectTitle = "SchemeFilterAspect - Cost - May require employer contribution", SchemeFilterAspectPrefix = "cost", SchemeFilterAspectName = "May require employer contribution", SchemeFilterAspectOrder = 2 }
+
+                },
+
+            }
+
+        };
 
         private IEnumerable<Page>? _pages;
         public IEnumerable<Page> Pages => _pages ??= new Page[]
