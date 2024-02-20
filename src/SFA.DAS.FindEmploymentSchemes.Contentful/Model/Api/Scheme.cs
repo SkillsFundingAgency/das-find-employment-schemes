@@ -17,6 +17,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api
         public string? ShortName { get; set; }
         public string? VisitSchemeInformation { get; set; }
         public Document? ShortDescription { get; set; }
+        public required string ShortCostHeading { get; set; }
+        public required string ShortBenefitsHeading { get; set; }
+        public required string ShortTimeHeading { get; set; }
         public Document? ShortCost { get; set; }
         public Document? ShortBenefits { get; set; }
         public Document? ShortTime { get; set; }

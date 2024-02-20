@@ -26,16 +26,31 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public int? CostOrder { get; }
 
         public string? Name { get; }
+
         public string? ShortName { get; }
+
         public string? VisitSchemeInformation { get; }
+
         public HtmlString? ShortDescription { get; }
+
+        public string? ShortCostHeading { get; }
+
         public HtmlString? ShortCost { get; }
+
+        public string? ShortBenefitsHeading { get; }
+
         public HtmlString? ShortBenefits { get; }
+
+        public string? ShortTimeHeading { get; }
+
         public HtmlString? ShortTime { get; }
 
         public string? ComparisonRecruitOrTrain { get; }
+
         public string? ComparisonAgeCriteria { get; }
+
         public string? ComparisonCost { get; }
+
         public string? ComparisonDuration { get; }
 
         #endregion Mandatory in Contentful
@@ -73,7 +88,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             string? name, 
             string? shortName,
             string? visitSchemeInformation,
-            HtmlString? shortDescription, 
+            HtmlString? shortDescription,
+            string shortBenefitsHeading,
+            string shortCostHeading,
+            string shortTimeHeading,
             HtmlString? shortCost, 
             HtmlString? shortBenefits, 
             HtmlString? shortTime,
@@ -105,6 +123,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
             ShortName = shortName;
             VisitSchemeInformation = visitSchemeInformation;
             ShortDescription = shortDescription;
+            ShortBenefitsHeading = shortBenefitsHeading;
+            ShortCostHeading = shortCostHeading;
+            ShortTimeHeading = shortTimeHeading;
             ShortCost = shortCost;
             ShortBenefits = shortBenefits;
             ShortTime = shortTime;
