@@ -50,7 +50,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             if (filters.FilterAspects.Any())
             {
 
-                foreach (SchemeFilter filterSection in filterSections)
+                foreach (SchemeFilter filterSection in filterSections.OrderBy(a => a.SchemeFilterOrder))
                 {
 
                     // Get the selected aspects from the current filter section
@@ -69,13 +69,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                     {
 
                         // Filter schemes based on the selected aspects from the current filter section
-                        var filteredSchemesFromSection = from Scheme s in content.Schemes
+                        var filteredSchemesFromSection = from Scheme s in filteredSchemes
                                                          from string m in selectedAspectsFromSection
                                                          where s.FilterAspects.Contains(m)
                                                          select s;
 
                         // Add the filtered schemes from the current filter section to the result
-                        filteredSchemes = filteredSchemesFromSection.ToList();
+                        filteredSchemes = filteredSchemesFromSection.Distinct().ToList();
 
                     }
 
