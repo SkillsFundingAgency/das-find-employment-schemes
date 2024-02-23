@@ -610,3 +610,7 @@ table#comparison-results-table th:first-child {
     .interim-contents-section-component ul li::marker {
         color: #1D70B8;
     }
+
+[data-type="interim-container"] a {
+    font-weight: bold;
+}
