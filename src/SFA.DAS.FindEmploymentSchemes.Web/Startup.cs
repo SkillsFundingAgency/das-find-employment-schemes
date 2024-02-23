@@ -36,13 +36,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             Configuration = new ConfigurationBuilder()
                 .AddConfiguration(configuration)
-                //.AddAzureTableStorage(options =>
-                //{
-                //    options.ConfigurationKeys = configuration["ConfigNames"]?.Split(",");
-                //    options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
-                //    options.EnvironmentName = configuration["EnvironmentName"];
-                //    options.PreFixConfigurationKeys = false;
-                //})
+                .AddAzureTableStorage(options =>
+                {
+                    options.ConfigurationKeys = configuration["ConfigNames"]?.Split(",");
+                    options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
+                    options.EnvironmentName = configuration["EnvironmentName"];
+                    options.PreFixConfigurationKeys = false;
+                })
                 .Build();
         }
 

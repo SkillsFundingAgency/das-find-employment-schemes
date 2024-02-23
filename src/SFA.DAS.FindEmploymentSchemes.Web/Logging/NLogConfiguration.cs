@@ -21,7 +21,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Logging
 
             if (string.IsNullOrEmpty(env) || env.Equals("LOCAL", StringComparison.CurrentCultureIgnoreCase))
             {
-                //AddLocalTarget(config, appName, LogLevel.FromString(minimumLogLevel));
+                AddLocalTarget(config, appName, LogLevel.FromString(minimumLogLevel));
             }
             else
             {
@@ -32,18 +32,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Logging
             LogManager.Configuration = config; //NOSONAR logging configuration is safe
         }
 
-        //private static void AddLocalTarget(LoggingConfiguration config, string appName, LogLevel minimumLogLevel)
-        //{
-        //    InternalLogger.LogFile = Path.Combine(Directory.GetCurrentDirectory(), $"logs\\nlog-internal.{appName}.log");
-        //    var fileTarget = new FileTarget("Disk")
-        //    {
-        //        FileName = Path.Combine(Directory.GetCurrentDirectory(), $"logs\\{appName}.${{shortdate}}.log"),
-        //        Layout = "${longdate} [${uppercase:${level}}] [${logger}] - ${message} ${onexception:${exception:format=tostring}}"
-        //    };
-        //    config.AddTarget(fileTarget);
+        private static void AddLocalTarget(LoggingConfiguration config, string appName, LogLevel minimumLogLevel)
+        {
+            InternalLogger.LogFile = Path.Combine(Directory.GetCurrentDirectory(), $"logs\\nlog-internal.{appName}.log");
+            var fileTarget = new FileTarget("Disk")
+            {
+                FileName = Path.Combine(Directory.GetCurrentDirectory(), $"logs\\{appName}.${{shortdate}}.log"),
+                Layout = "${longdate} [${uppercase:${level}}] [${logger}] - ${message} ${onexception:${exception:format=tostring}}"
+            };
+            config.AddTarget(fileTarget);
 
-        //    config.AddRule(minimumLogLevel, LogLevel.Fatal, "Disk");
-        //}
+            config.AddRule(minimumLogLevel, LogLevel.Fatal, "Disk");
+        }
 
         private static void AddRedisTarget(LoggingConfiguration config, string appName, LogLevel minimumLogLevel)
         {
