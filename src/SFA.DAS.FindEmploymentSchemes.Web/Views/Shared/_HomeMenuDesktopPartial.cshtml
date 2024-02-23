@@ -85,13 +85,28 @@
 
             href = href.replace(/\/$/, "");
 
+            console.log(href);
+
+            console.log(path);
+
             if (href === path) {
                
+
+
                 item.classList.add("govuk-header__navigation-item--active");
+
+                item.querySelector("a").setAttribute("tabindex", "-1");
+
+                item.setAttribute("tabindex", "-1");
+
             } 
             else {
 
                 item.classList.remove("govuk-header__navigation-item--active");
+
+                item.querySelector("a").setAttribute("tabindex", "");
+
+                item.setAttribute("tabindex", "");
 
             }
         });

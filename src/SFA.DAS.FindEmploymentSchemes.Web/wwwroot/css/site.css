@@ -124,11 +124,6 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
         display: none;
     }
 
-    .das-header__mobile .govuk-header__navigation-list li.govuk-header__navigation-item {
-        border-top: 1px solid #d30172;
-        border-bottom: 1px solid #d30172;
-    }
-
 }
 
     .app-show-hide {

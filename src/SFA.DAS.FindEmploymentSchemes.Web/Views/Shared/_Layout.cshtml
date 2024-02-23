@@ -46,6 +46,11 @@
     <link href="/css/das_employment_schemes_rework.css" rel="stylesheet" no-cdn />
     <!--<![endif]-->
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
+
+    @await Html.PartialAsync("_HomeMenuDesktopPartial", Model?.MenuItems)
+
+    @await Html.PartialAsync("_HomeMenuMobilePartial", Model?.MenuItems)
+
 </head>
 
 <body id="layout-body" class="govuk-template__body">
@@ -57,10 +62,6 @@
     @await Html.PartialAsync("_CookieBannerPartial", Model)
 
     <a id="layout-main-content-link" href="#main-content" class="govuk-skip-link">Skip to main content</a>
-
-    @await Html.PartialAsync("_HomeMenuDesktopPartial", Model?.MenuItems)
-
-    @await Html.PartialAsync("_HomeMenuMobilePartial", Model?.MenuItems)
 
     @await Html.PartialAsync("_BetaBannerPartial", Model?.BetaBanner)
 
