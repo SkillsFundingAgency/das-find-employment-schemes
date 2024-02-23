@@ -65,15 +65,19 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         private HomeModel CreateHomeModel(IContent content)
         {
 
-            return new HomeModel(
+            Page? page = content.Pages.FirstOrDefault(p => p.Url == HomepagePreambleUrl);
 
-                content.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
+            return new HomeModel(
 
                 content.Schemes,
 
                 GetFilterSections(content.SchemeFilters),
 
                 content.MenuItems,
+
+                page?.InterimPreamble,
+
+                page?.InterimBreadcrumbs,
 
                 content.BetaBanner
 
@@ -244,7 +248,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         {
             var errors = new List<HtmlString>();
 
-            if (model.Preamble == null)
+            if (model.InterimPreamble == null)
             {
                 errors.Add(new HtmlString("Preamble must not be blank"));
             }

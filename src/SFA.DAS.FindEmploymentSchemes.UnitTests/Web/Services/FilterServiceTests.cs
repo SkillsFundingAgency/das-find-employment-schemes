@@ -35,7 +35,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             ILogger<FilterService> filterServiceLogger = A.Fake<ILogger<FilterService>>();
 
             FilterService service = new FilterService(contentService, schemesModelService, filterServiceLogger);
-            HomeModel model = A.Fake<HomeModel>(x => x.WithArgumentsForConstructor(() => new HomeModel(null, expectedSchemes, null, new List<InterimMenuItem>(), BetaBanner, false, "")));
+            HomeModel model = A.Fake<HomeModel>(x => x.WithArgumentsForConstructor(() => new HomeModel(expectedSchemes, Enumerable.Empty<FilterSectionModel>(), Enumerable.Empty<InterimMenuItem>(), null, null, BetaBanner, false, "")));
             A.CallTo(() => contentService.Content).Returns(new GeneratedContent());
 
             HomeModel result = service.ApplyFilter(filters);

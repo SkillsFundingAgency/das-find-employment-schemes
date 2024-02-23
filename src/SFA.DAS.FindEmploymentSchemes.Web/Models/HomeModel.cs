@@ -9,22 +9,25 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
     [ExcludeFromCodeCoverage]
     public class HomeModel : LayoutModel
     {
-        public IHtmlContent? Preamble { get; }
         public IEnumerable<Scheme> Schemes { get; }
         public IEnumerable<FilterSectionModel> Filters { get; }
+        public InterimPreamble? InterimPreamble { get; }
+        public InterimBreadcrumbs? InterimPageBreadcrumbs { get; }
         public bool EnsureSchemesAreVisible { get; }
         public string SelectedFilters { get; }
 
         public HomeModel(
-            IHtmlContent? preamble,
             IEnumerable<Scheme> schemes,
             IEnumerable<FilterSectionModel> filters,
             IEnumerable<InterimMenuItem> menuItems,
+            InterimPreamble? interimPreamble,
+            InterimBreadcrumbs? interimPageBreadcrumbs,
             BetaBanner? banner,
             bool ensureSchemesAreVisible = false,
             string selectedFilters = "")
         {
-            Preamble = preamble;
+            InterimPreamble = interimPreamble;
+            InterimPageBreadcrumbs = interimPageBreadcrumbs;
             Schemes = schemes;
             Filters = filters;
             MenuItems = menuItems;

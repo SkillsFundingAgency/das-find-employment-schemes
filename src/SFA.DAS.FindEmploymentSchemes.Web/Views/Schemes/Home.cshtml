@@ -1,4 +1,5 @@
 ﻿@using System.Web;
+@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
 @model HomeModel
 
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
@@ -10,9 +11,13 @@
 }
 
 @await Html.PartialAsync(
-    "_PreambleBannerPartial",
-    new Tuple<string, string, IHtmlContent?, SchemeFilterModel?>(string.Empty, string.Empty, @Model.Preamble, null)
+
+    "_InterimPreambleGeneralPartial",
+
+    new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool>(Model.InterimPreamble, Model.InterimPageBreadcrumbs, true)
+
 )
+
 
 @{
     string completeUrl = string.IsNullOrWhiteSpace(Model.SelectedFilters) 

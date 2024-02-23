@@ -85,13 +85,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             return new HomeModel(
                 
-                _schemesModelService.HomeModel.Preamble,
-                
                 filteredSchemes.Distinct(),
 
                 _schemesModelService.GetFilterSections(content.SchemeFilters, filters),
 
                 content.MenuItems,
+
+                _schemesModelService.HomeModel.InterimPreamble,
+
+                _schemesModelService.HomeModel.InterimPageBreadcrumbs,
 
                 content.BetaBanner,
                 

@@ -78,9 +78,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             FilterService = A.Fake<IFilterService>();
             SchemesModelService = A.Fake<ISchemesModelService>();
 
-            HomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!, [], BetaBanner);
+            HomeModel = new HomeModel([], [], [], null, null!, BetaBanner);
 
-            PreviewHomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!, [], BetaBanner);
+            PreviewHomeModel = new HomeModel([], [], [], null, null!, BetaBanner);
 
             A.CallTo(() => SchemesModelService.HomeModel)
                 .Returns(HomeModel);
@@ -119,7 +119,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         [Fact]
         public void PostHome_FilteredHomeModelIsUsedTest()
         {
-            var filteredHomeModel = new HomeModel(null!, null!, null!, [], BetaBanner);
+            var filteredHomeModel = new HomeModel([], [], [], null, null!, BetaBanner);
 
             A.CallTo(() => FilterService.ApplyFilter(SchemeFilterModel))
                 .Returns(filteredHomeModel);

@@ -5,12 +5,14 @@ using FakeItEasy;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Xunit;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
@@ -27,7 +29,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         public IContentService ContentService { get; set; }
         public SchemesModelService SchemesModelService { get; set; }
 
-        public const string HomePagePreamble = "expectedPreamble";
+        public const string HomePagePreamblePrimary = "expectedPrimaryPreamble";
+
+        public const string HomePagePreambleSecondary = "expectedSecondaryPreamble";
 
         private readonly ILogger<SchemesModelService> _logger;
 
@@ -69,7 +73,20 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             var content = A.Fake<IContent>();
 
             var notHomepages = Fixture.CreateMany<Page>(3);
-            var homePage = new Page("", "home", new HtmlString(HomePagePreamble));
+
+            var homePage = new Page(
+                
+                "", 
+                
+                "home", 
+                
+                null, 
+                
+                new InterimPreamble(),
+
+                new InterimBreadcrumbs() { InterimBreadcrumbTitle = "InterimBreadcrumbTitle" }
+
+            );
 
             var pages = notHomepages.Concat(new[] { homePage }).ToArray();
 
@@ -85,13 +102,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         }
 
         [Fact]
-        public void HomeModel_HomepagePreambleTest()
-        {
-            Assert.IsType<HtmlString>(SchemesModelService.HomeModel.Preamble);
-            Assert.Equal(HomePagePreamble, ((HtmlString) SchemesModelService.HomeModel.Preamble).Value);
-        }
-
-        [Fact]
         public void ContentServiceContentUpdated_UpdatesHomeModel()
         {
             const string updatedPreamble = "updatedPreamble";
@@ -99,7 +109,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             SchemesModelService = new SchemesModelService(_logger, ContentService);
 
             var notHomepages = Fixture.CreateMany<Page>(3);
-            var homePage = new Page("", "home", new HtmlString(updatedPreamble));
+            var homePage = new Page(string.Empty, "home", new HtmlString(updatedPreamble), new InterimPreamble() { PreambleTitle = "PreambleTitle1" }, new InterimBreadcrumbs() { InterimBreadcrumbTitle = "InterimBreadcrumbTitle1" });
 
             var pages = notHomepages.Concat(new[] { homePage }).ToArray();
 
@@ -109,8 +119,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             // Act
             ContentService.ContentUpdated += Raise.WithEmpty();
 
-            Assert.IsType<HtmlString>(SchemesModelService.HomeModel.Preamble);
-            Assert.Equal(updatedPreamble, ((HtmlString)SchemesModelService.HomeModel.Preamble).Value);
+            Assert.Equal("PreambleTitle1", SchemesModelService.HomeModel.InterimPreamble.PreambleTitle);
+
+            Assert.Equal("InterimBreadcrumbTitle1", SchemesModelService.HomeModel.InterimPageBreadcrumbs.InterimBreadcrumbTitle);
+
         }
 
         [Fact]
