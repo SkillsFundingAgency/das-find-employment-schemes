@@ -18,10 +18,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Model
 
             var htmlString = new HtmlString("");
             Assert.Throws<ArgumentException>(() => new Scheme(
-                string.Empty, string.Empty, string.Empty, 
-                htmlString, htmlString, htmlString, htmlString, 
-                string.Empty, string.Empty, string.Empty, string.Empty,
-                urlThatProducesInvalidId, 0, new System.Collections.Generic.List<SchemeFilterAspect>(), Enumerable.Empty<string>()));
+                string.Empty, string.Empty, string.Empty,
+                htmlString, string.Empty, string.Empty, string.Empty, htmlString, htmlString,
+                htmlString, string.Empty, string.Empty, string.Empty, string.Empty, urlThatProducesInvalidId, 
+                0, new System.Collections.Generic.List<SchemeFilterAspect>(), Enumerable.Empty<string>()));
         }
     }
 }

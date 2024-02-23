@@ -30,6 +30,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
                 "Find out more about Apprenticeships",
                 new HtmlString(
                     @"<p>Paid employment for over 16s, combining work and study in a job allowing you to develop your workforce and business.</p>"),
+                "ShortBenefitsHeading", "ShortCostHeading", "ShortTimeHeading",
                 new HtmlString(
                     @"<p>Apprentice minimum wage and 5% training contribution depending on business size</p>"),
                 new HtmlString(@"<p>You develop a motivated, skilled, and qualified workforce</p>"),
