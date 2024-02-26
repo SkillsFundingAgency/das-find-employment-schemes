@@ -47,6 +47,8 @@
     <!--<![endif]-->
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
 
+    <a id="layout-main-content-link" href="#main-content" class="govuk-skip-link">Skip to main content</a>
+
     @await Html.PartialAsync("_HomeMenuDesktopPartial", Model?.MenuItems)
 
     @await Html.PartialAsync("_HomeMenuMobilePartial", Model?.MenuItems)
@@ -60,8 +62,6 @@
     </script>
 
     @await Html.PartialAsync("_CookieBannerPartial", Model)
-
-    <a id="layout-main-content-link" href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
     @await Html.PartialAsync("_BetaBannerPartial", Model?.BetaBanner)
 
