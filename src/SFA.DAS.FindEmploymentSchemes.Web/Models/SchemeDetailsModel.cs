@@ -10,12 +10,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
         public Scheme Scheme { get; }
         public IEnumerable<Scheme> Schemes { get; }
 
-        public SchemeDetailsModel(string schemeUrl, IEnumerable<Scheme> schemes, IEnumerable<InterimMenuItem> menuItems, BetaBanner? banner)
+        public SchemeDetailsModel(string schemeUrl, IEnumerable<Scheme> schemes, IEnumerable<InterimMenuItem> menuItems, BetaBanner? banner, InterimFooterLinks? footerLinks)
         {
             Schemes = schemes.ToArray();
             Scheme = Schemes.First(s => s.Url == schemeUrl);
             MenuItems = menuItems;
             BetaBanner = banner;
+            InterimFooterLinks = footerLinks;
         }
     }
 }

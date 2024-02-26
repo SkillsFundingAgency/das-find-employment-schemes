@@ -26,7 +26,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             
             IEnumerable<InterimMenuItem> menuItems,
 
-            BetaBanner? banner
+            BetaBanner? banner,
+
+            InterimFooterLinks? footerLinks
             
         )
         {
@@ -40,6 +42,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             MenuItems = menuItems;
 
             BetaBanner = banner;
+
+            InterimFooterLinks = footerLinks;
 
         }
 

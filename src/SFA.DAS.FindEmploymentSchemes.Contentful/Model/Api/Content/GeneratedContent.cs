@@ -518,5 +518,120 @@ the website you came from to find out more about this.</p>")
 
         };
 
+        private InterimFooterLinks? _interimFooterLinks;
+        public InterimFooterLinks InterimFooterLinks => _interimFooterLinks ??= new InterimFooterLinks()
+        {
+
+            InterimFooterLinksTitle = "Interim Footer - Apprenticeship schemes footer",
+
+            InterimFooterLinksID = "employer-schemes-footer",
+
+            InterimFooterLinksPrimarySectionTitle = "Our policies",
+
+            InterimFooterLinksSecondarySectionTitle = "Sites for other UK countries",
+
+            InterimFooterLinksPrimarySectionLinks = new List<InterimFooterLink>()
+            {
+
+                new InterimFooterLink()
+                {
+
+                    InterimFooterLinkTitle = "InterimFooterLink - Accessibility Statement",
+
+                    InterimFooterLinkSource = "/page/accessibility-statement",
+
+                    InterimFooterLinkText = "Accessibility",
+
+                    InterimFooterLinkOrder = 1
+
+                },
+
+                new InterimFooterLink()
+                {
+
+                    InterimFooterLinkTitle = "InterimFooterLink - Cookies",
+
+                    InterimFooterLinkSource = "/page/cookies",
+
+                    InterimFooterLinkText = "Cookies",
+
+                    InterimFooterLinkOrder = 2
+
+                },
+
+                new InterimFooterLink()
+                {
+
+                    InterimFooterLinkTitle = "InterimFooterLink - Privacy",
+
+                    InterimFooterLinkSource = "https://www.gov.uk/government/organisations/department-for-education/about/personal-information-charter",
+
+                    InterimFooterLinkText = "Privacy",
+
+                    InterimFooterLinkOrder = 3
+
+                },
+
+                new InterimFooterLink()
+                {
+
+                    InterimFooterLinkTitle = "InterimFooterLink - Contact",
+
+                    InterimFooterLinkSource = "/contact/index",
+
+                    InterimFooterLinkText = "Contact",
+
+                    InterimFooterLinkOrder = 4
+
+                }
+
+            }, 
+
+            InterimFooterLinksSecondarySectionLinks = new List<InterimFooterLink>()
+            {
+
+                new InterimFooterLink()
+                {
+
+                    InterimFooterLinkTitle = "InterimFooterLink - Scotland",
+
+                    InterimFooterLinkSource = "https://findbusinesssupport.gov.scot/service/training/get-funded-training-for-new-or-existing-staff-through-apprenticeships",
+
+                    InterimFooterLinkText = "Scotland",
+
+                    InterimFooterLinkOrder = 1
+
+                },
+
+                new InterimFooterLink()
+                {
+
+                    InterimFooterLinkTitle = "InterimFooterLink - Wales",
+
+                    InterimFooterLinkSource = "https://careerswales.gov.wales/employers",
+
+                    InterimFooterLinkText = "Wales",
+
+                    InterimFooterLinkOrder = 2
+
+                },
+
+                new InterimFooterLink()
+                {
+
+                    InterimFooterLinkTitle = "InterimFooterLink - Northern Ireland",
+
+                    InterimFooterLinkSource = "https://www.nibusinessinfo.co.uk/",
+
+                    InterimFooterLinkText = "Northern Ireland",
+
+                    InterimFooterLinkOrder = 3
+
+                }
+
+            }
+
+        };
+
     }
 }

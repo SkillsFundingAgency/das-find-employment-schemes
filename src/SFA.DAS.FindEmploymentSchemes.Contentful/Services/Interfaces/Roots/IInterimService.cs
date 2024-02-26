@@ -18,6 +18,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots
 
         Task<BetaBanner?> GetBetaBanner(IContentfulClient contentfulClient);
 
+        Task<InterimFooterLinks?> GetFooter(IContentfulClient contentfulClient);
+
     }
 
 }

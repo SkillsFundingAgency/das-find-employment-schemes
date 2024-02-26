@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Html;
-using System.Collections.Generic;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-using System.Diagnostics.CodeAnalysis;
+﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 {
@@ -23,6 +22,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             InterimPreamble? interimPreamble,
             InterimBreadcrumbs? interimPageBreadcrumbs,
             BetaBanner? banner,
+            InterimFooterLinks? interimFooterLinks,
             bool ensureSchemesAreVisible = false,
             string selectedFilters = "")
         {
@@ -34,6 +34,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             EnsureSchemesAreVisible = ensureSchemesAreVisible;
             SelectedFilters = selectedFilters;
             BetaBanner = banner;
+            InterimFooterLinks = interimFooterLinks;
         }
     }
 }

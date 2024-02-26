@@ -79,7 +79,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                 page?.InterimBreadcrumbs,
 
-                content.BetaBanner
+                content.BetaBanner,
+
+                content.InterimFooterLinks
 
             );
 
@@ -118,7 +120,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                     content.MenuItems,
 
-                    content.BetaBanner
+                    content.BetaBanner,
+
+                    content.InterimFooterLinks
 
                 );
 
@@ -136,7 +140,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                     content.MenuItems,
 
-                    content.BetaBanner
+                    content.BetaBanner,
+
+                    content.InterimFooterLinks
 
                 );
 
@@ -193,10 +199,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         {
             var schemeDetailsModels = new Dictionary<string, SchemeDetailsModel>();
 
-            var menuItems = _contentService.Content.MenuItems;
-
-            var banner = _contentService.Content.BetaBanner;
-
             foreach (string schemeUrl in _contentService.Content.Schemes.Select(s => s.Url))
             {
                 schemeDetailsModels.Add(
@@ -209,9 +211,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                         
                         _contentService.Content.Schemes,
 
-                        menuItems,
+                        _contentService.Content.MenuItems,
 
-                        banner
+                         _contentService.Content.BetaBanner,
+
+                        _contentService.Content.InterimFooterLinks
 
                     )
                     
@@ -234,7 +238,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             try
             {
-                var model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes, previewContent.MenuItems, previewContent.BetaBanner);
+                var model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes, previewContent.MenuItems, previewContent.BetaBanner, previewContent.InterimFooterLinks);
                 model.Preview = new PreviewModel(GetSchemeDetailsErrors(model));
                 return model;
             }

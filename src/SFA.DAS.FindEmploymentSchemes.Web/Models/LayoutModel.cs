@@ -17,7 +17,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 
         public BetaBanner? BetaBanner { get; set; }
 
-        public LayoutModel(IEnumerable<InterimMenuItem> menuItems, BetaBanner? betaBanner)
+        public InterimFooterLinks? InterimFooterLinks { get; set; }
+
+        public LayoutModel(IEnumerable<InterimMenuItem> menuItems, BetaBanner? betaBanner, InterimFooterLinks? interimFooterLinks)
         {
 
             Preview = PreviewModel.NotPreviewModel;
@@ -25,6 +27,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             MenuItems = menuItems.Any() ? menuItems : Enumerable.Empty<InterimMenuItem>();
 
             BetaBanner = betaBanner;
+
+            InterimFooterLinks = interimFooterLinks;
 
         }
 

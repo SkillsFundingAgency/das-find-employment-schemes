@@ -96,6 +96,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 _schemesModelService.HomeModel.InterimPageBreadcrumbs,
 
                 content.BetaBanner,
+
+                content.InterimFooterLinks,
                 
                 true,
 

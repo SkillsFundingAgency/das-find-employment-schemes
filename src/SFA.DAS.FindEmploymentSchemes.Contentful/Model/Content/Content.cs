@@ -29,7 +29,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 
             SchemeComparison? schemeComparison,
 
-            BetaBanner? betaBanner
+            BetaBanner? betaBanner,
+
+            InterimFooterLinks? footerLinks
 
         )
         {
@@ -54,6 +56,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
 
             BetaBanner = betaBanner;
 
+            InterimFooterLinks = footerLinks;
+
         }
 
         public InterimLandingPage? InterimLandingPage { get; }
@@ -75,6 +79,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content
         public SchemeComparison? SchemeComparison { get; }
 
         public BetaBanner? BetaBanner { get; }
+
+        public InterimFooterLinks? InterimFooterLinks { get; }
 
     }
 

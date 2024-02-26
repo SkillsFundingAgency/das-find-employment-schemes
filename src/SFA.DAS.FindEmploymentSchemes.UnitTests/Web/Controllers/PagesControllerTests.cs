@@ -46,7 +46,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             const string viewName = "viewName";
 
             A.CallTo(() => PageService.GetPageModel(pageUrl))
-                .Returns(new PageModel(new Page("title", "url", null), [], BetaBanner, viewName));
+                .Returns(new PageModel(new Page("title", "url", null), [], BetaBanner, null, viewName));
 
             // act
             IActionResult result = PagesController.Page(pageUrl);
@@ -77,7 +77,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             const string viewName = "viewName";
 
             A.CallTo(() => PageService.GetPageModelPreview(pageUrl))
-                .Returns(new PageModel(new Page("title", "url", null), [], BetaBanner, viewName));
+                .Returns(new PageModel(new Page("title", "url", null), [], BetaBanner, null, viewName));
 
             // act
             IActionResult result = await PagesController.PagePreview(pageUrl);

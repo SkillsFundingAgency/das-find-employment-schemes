@@ -75,7 +75,7 @@
 
     </main>
 
-    @await Html.PartialAsync("_FooterPartial")
+    @await Html.PartialAsync("_FooterPartial", Model?.InterimFooterLinks)
 
     <script src="/libs/govuk-frontend/all.js"></script>
     <script src="/libs/jquery/jquery.min.js"></script>

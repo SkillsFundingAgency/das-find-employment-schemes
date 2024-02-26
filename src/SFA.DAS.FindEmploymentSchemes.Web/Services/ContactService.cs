@@ -41,7 +41,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                 MenuItems = _contentService.Content.MenuItems,
 
-                BetaBanner = _contentService.Content.BetaBanner
+                BetaBanner = _contentService.Content.BetaBanner,
+
+                InterimFooterLinks = _contentService.Content.InterimFooterLinks
 
             };
 

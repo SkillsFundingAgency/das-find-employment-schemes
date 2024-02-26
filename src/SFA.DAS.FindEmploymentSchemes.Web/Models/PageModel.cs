@@ -13,7 +13,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 
         public string? ViewName { get; }
 
-        public PageModel(Page page, IEnumerable<InterimMenuItem> menuItems, BetaBanner? banner, string? viewName = null)
+        public PageModel(Page page, IEnumerable<InterimMenuItem> menuItems, BetaBanner? banner, InterimFooterLinks? links, string? viewName = null)
         {
 
             Page = page;
@@ -23,6 +23,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
             MenuItems = menuItems;
 
             BetaBanner = banner;
+
+            InterimFooterLinks = links;
 
         }
 

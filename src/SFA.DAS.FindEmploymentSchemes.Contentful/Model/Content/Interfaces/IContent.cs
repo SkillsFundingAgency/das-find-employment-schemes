@@ -3,9 +3,12 @@ using System.Collections.Generic;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
 {
+
     public interface IContent
     {
+
         IEnumerable<Page> Pages { get; }
+
         IEnumerable<CaseStudyPage> CaseStudyPages { get; }
 
         /// <summary>
@@ -27,5 +30,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
 
         BetaBanner? BetaBanner { get; }
 
+        InterimFooterLinks? InterimFooterLinks { get; }
+
     }
+
 }

@@ -99,7 +99,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
             var interimPages = await _interimService.GetInterimPages(contentfulClient);
 
-            var schemeComparison = await _schemeService.GetSchemeComparison(contentfulClient); 
+            var schemeComparison = await _schemeService.GetSchemeComparison(contentfulClient);
+
+            var footerLinks = await _interimService.GetFooter(contentfulClient);
 
             return new Model.Content.Content(
 
@@ -121,7 +123,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
                 schemeComparison,
 
-                betaBanner
+                betaBanner,
+
+                footerLinks
 
             );
 

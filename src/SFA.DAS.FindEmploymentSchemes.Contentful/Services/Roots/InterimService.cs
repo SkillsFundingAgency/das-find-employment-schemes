@@ -174,6 +174,67 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contentfulClient"></param>
+        /// <returns></returns>
+        public async Task<InterimFooterLinks?> GetFooter(IContentfulClient contentfulClient)
+        {
+
+            _logger.LogInformation("Beginning {MethodName}...", nameof(GetFooter));
+
+            try
+            {
+
+                var query = new QueryBuilder<InterimFooterLinks>()
+
+                .FieldEquals(a => a.InterimFooterLinksID, "employer-schemes-footer")
+
+                .ContentTypeIs("interimFooterLinks")
+
+                .Include(2);
+
+                var results = await contentfulClient.GetEntries(query);
+
+                List<InterimFooterLinks> resultList = results.Items.ToList();
+
+                if (resultList.Any())
+                {
+
+                    InterimFooterLinks footer = resultList[0];
+
+                    _logger.LogInformation("Retrieved footer: {Title}", footer.InterimFooterLinksTitle);
+
+                    return footer;
+
+                }
+                else
+                {
+
+                    _logger.LogInformation("No matching footer.");
+
+                    return null;
+
+                }
+
+            }
+            catch (Exception _Exception)
+            {
+
+                _logger.LogError(_Exception, "Unable to get the footer.");
+
+                return null;
+
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contentfulClient"></param>
+        /// <returns></returns>
         public async Task<BetaBanner?> GetBetaBanner(IContentfulClient contentfulClient)
         {
 
@@ -183,8 +244,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
             {
 
                 var query = new QueryBuilder<BetaBanner>()
+
                 .FieldEquals(a => a.BetaBannerID, "employer-schemes-beta-banner")
+
                 .ContentTypeIs("betaBanner")
+
                 .Include(2);
 
                 var results = await contentfulClient.GetEntries(query);
