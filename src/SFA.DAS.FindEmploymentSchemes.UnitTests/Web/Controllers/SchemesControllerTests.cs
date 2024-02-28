@@ -199,7 +199,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public void Details_UnknownSchemeUrlReturnsNotFoundTest()
+        public void Details_UnknownSchemeUrlReturnsRedirectToErrorTest()
         {
             const string schemeUrl = "unknown-scheme";
 
@@ -209,7 +209,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // act
             IActionResult result = SchemesController.Details(schemeUrl);
 
-            Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<RedirectToActionResult>(result);
         }
 
         [Fact]
