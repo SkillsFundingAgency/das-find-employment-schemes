@@ -2,6 +2,7 @@
 using AutoFixture.Kernel;
 using Contentful.Core;
 using Contentful.Core.Models;
+using Contentful.Core.Search;
 using FakeItEasy;
 using KellermanSoftware.CompareNetObjects;
 using Microsoft.AspNetCore.Html;
@@ -12,8 +13,11 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -410,5 +414,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
                 InterimService,
                 Logger);
         }
+
     }
+
 }
