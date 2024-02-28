@@ -80,7 +80,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             if (schemeDetailsModel == null)
             {
 
-                return NotFound();
+                return RedirectToAction("PageNotFound", "Error");
 
             }
                 

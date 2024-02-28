@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
@@ -213,7 +214,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                         _contentService.Content.MenuItems,
 
-                         _contentService.Content.BetaBanner,
+                        _contentService.Content.BetaBanner,
 
                         _contentService.Content.InterimFooterLinks
 
@@ -228,8 +229,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         public SchemeDetailsModel? GetSchemeDetailsModel(string schemeUrl)
         {
+
             _schemeDetailsModels.TryGetValue(schemeUrl, out SchemeDetailsModel? schemeDetailsModel);
+
             return schemeDetailsModel;
+
         }
 
         public async Task<SchemeDetailsModel?> GetSchemeDetailsModelPreview(string schemeUrl)
