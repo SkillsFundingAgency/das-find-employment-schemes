@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using Xunit;
+using AutoFixture.Kernel;
+using Contentful.Core.Models.Management;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
 {
@@ -16,6 +18,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
         public SchemeServiceTests()
         {
             SchemeService = new SchemeService(HtmlRenderer, Logger);
+
+            Fixture.Customizations.Add(
+            new TypeRelay(
+            typeof(IFieldValidator),
+            typeof(Asset)));
+
         }
 
         [Fact]

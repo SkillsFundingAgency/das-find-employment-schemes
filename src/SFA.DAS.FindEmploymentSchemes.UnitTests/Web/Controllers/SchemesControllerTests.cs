@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core.Models;
+using Contentful.Core.Models.Management;
 using FakeItEasy;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
@@ -74,6 +75,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             new TypeRelay(
                 typeof(IContent),
                 typeof(Document)));
+
+            Fixture.Customizations.Add(
+            new TypeRelay(
+            typeof(IFieldValidator),
+            typeof(Asset)));
 
             FilterService = A.Fake<IFilterService>();
             SchemesModelService = A.Fake<ISchemesModelService>();

@@ -12,6 +12,7 @@ using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfac
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Html;
+using Contentful.Core.Models.Management;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -35,6 +36,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
                 new TypeRelay(
                     typeof(global::Contentful.Core.Models.IContent),
                     typeof(Paragraph)));
+
+            Fixture.Customizations.Add(
+            new TypeRelay(
+            typeof(IFieldValidator),
+            typeof(Asset)));
 
             Content = A.Fake<IContent>();
             ContentService = A.Fake<IContentService>();

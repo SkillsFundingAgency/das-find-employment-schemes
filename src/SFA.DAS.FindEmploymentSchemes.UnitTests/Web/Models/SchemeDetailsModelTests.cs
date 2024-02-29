@@ -2,6 +2,7 @@
 using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core.Models;
+using Contentful.Core.Models.Management;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
@@ -36,6 +37,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
             new TypeRelay(
                 typeof(IContent),
                 typeof(Document)));
+
+            Fixture.Customizations.Add(
+            new TypeRelay(
+            typeof(IFieldValidator),
+            typeof(Asset)));
 
             Schemes = Fixture.CreateMany<Scheme>(5).ToArray();
         }

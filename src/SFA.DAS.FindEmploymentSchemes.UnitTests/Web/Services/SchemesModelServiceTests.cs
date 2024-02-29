@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core.Models;
+using Contentful.Core.Models.Management;
 using FakeItEasy;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
@@ -47,6 +48,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
                 new TypeRelay(
                     typeof(IContent),
                     typeof(Paragraph)));
+
+            Fixture.Customizations.Add(
+            new TypeRelay(
+            typeof(IFieldValidator),
+            typeof(Asset)));
 
             Fixture.Customizations.Add(
             new TypeRelay(
