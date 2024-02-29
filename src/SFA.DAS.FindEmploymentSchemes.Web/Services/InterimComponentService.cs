@@ -211,6 +211,33 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
+        public static string GetMediaImageSource(Asset? mediaAsset)
+        {
+
+            try
+            {
+
+                if(mediaAsset == null || mediaAsset.File == null || string.IsNullOrWhiteSpace(mediaAsset.File.Url))
+                {
+
+                    return string.Empty;
+
+                }
+
+                return mediaAsset.File.Url;
+
+            }
+            catch(Exception _exception)
+            {
+
+                _logger.LogError(_exception, "Unable to get media asset source");
+
+                return string.Empty;
+
+            }
+
+        }
+
         #endregion
 
     }

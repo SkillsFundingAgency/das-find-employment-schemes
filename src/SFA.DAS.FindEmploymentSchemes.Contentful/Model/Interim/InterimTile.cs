@@ -14,13 +14,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
 
         public required string InterimTileSource { get; set; }
 
-        public required string InterimTileImageSource { get; set; }
-
         public required string InterimTileHeading { get; set; }
 
         public Document? InterimTileDescription { get; set; }
 
         public int? InterimTileOrder { get; set; } = 0;
+
+        public Asset? InterimTileImage { get; set; }
 
     }
 
