@@ -47,7 +47,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             var scheme = ContentfulCollection.Items.First();
             int differentiator = 0;
             Document document;
-            HtmlString expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
+            HtmlString expectedAdditionalFooter, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride,
                 expectedShortBenefits, expectedShortCost, expectedShortDescription, expectedShortTime;
 
             (document, expectedAdditionalFooter) = SampleDocumentAndExpectedContent(++differentiator);
