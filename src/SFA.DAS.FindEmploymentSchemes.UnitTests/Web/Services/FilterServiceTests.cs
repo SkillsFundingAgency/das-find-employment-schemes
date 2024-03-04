@@ -19,6 +19,16 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
         private readonly BetaBanner BetaBanner;
 
+        private static readonly string[] FilterAspects = new string[] { "aspect" };
+
+        private static readonly string recruitNewStaff = "motivation--recruit-new-staff";
+        
+        private static readonly string sixAndOneYear = "duration--between-6-months-and-1-year";
+        
+        private static readonly string longerThanOneYear = "duration--longer-than-1-year";
+        
+        private static readonly string free = "cost--free";
+
         public FilterServiceTests()
         {
 
@@ -62,7 +72,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             
                 {
 
-                    FilterAspects = new string[1] { "aspect" }
+                    FilterAspects = FilterAspects
 
                 }
             
@@ -76,10 +86,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         {
             public IEnumerator<object[]> GetEnumerator()
             {
-                string recruitNewStaff = "motivation--recruit-new-staff";
-                string sixAndOneYear = "duration--between-6-months-and-1-year";
-                string longerThanOneYear = "duration--longer-than-1-year";
-                string free = "cost--free";
 
                 var generatedContent = new GeneratedContent();
 
