@@ -16,7 +16,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
     public class ContactService : ContentRootService, IContactService
     {
 
+        #region Properties
+
         private readonly ILogger<ContactService>? _logger;
+
+        #endregion
 
         #region Constructors
 

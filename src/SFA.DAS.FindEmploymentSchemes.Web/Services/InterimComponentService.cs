@@ -17,7 +17,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
     public static class InterimComponentService
     {
 
-        #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        #region Properties
+
+        #pragma warning disable CS8618
 
         private static ILogger _logger;
 
@@ -25,7 +27,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         private static HtmlRenderer _htmlRenderer;
 
-        #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        #pragma warning restore CS8618
+
+        #endregion
 
         #region Methods
 
@@ -144,7 +148,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         /// Generate a SFA.DAS.FindEmploymentSchemes.Contentful.Model.InterimPageComponent sub component.
         /// </summary>
         /// <param name="component"></param>
-        /// <returns></returns>
+        /// <returns>System.string.</returns>
         public static string GenerateSubComponent(InterimPageComponent component)
         {
 
@@ -211,6 +215,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
+        /// <summary>
+        /// Retrieves the source URL of the media asset if available.
+        /// </summary>
+        /// <param name="mediaAsset">The media asset.</param>
+        /// <returns>Returns the source URL of the media asset, or an empty string if the asset is null or the URL is not available.</returns>
         public static string GetMediaImageSource(Asset? mediaAsset)
         {
 

@@ -11,11 +11,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
     public class InterimModelService : IInterimModelService
     {
 
+        #region Properties
+
         private readonly ILogger<InterimModelService> _logger;
 
         private readonly IContentService _contentService;
 
         public LandingModel? LandingModel { get; set; }
+
+        #endregion
+
+        #region Constructors
 
         public InterimModelService(ILogger<InterimModelService> logger, IContentService contentService) 
         {
@@ -26,11 +32,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
-        /// 
+        /// Retrieves the interim page model containing data associated with the specified interim URL.
         /// </summary>
-        /// <param name="interimURL"></param>
-        /// <returns></returns>
+        /// <param name="interimURL">The URL of the interim page.</param>
+        /// <returns>Returns the interim page model if available, otherwise returns null.</returns>
         public InterimPageModel? GetInterimPageModel(string interimURL)
         {
 
@@ -81,6 +91,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
+        /// <summary>
+        /// Retrieves the landing model containing data from various content sources.
+        /// </summary>
+        /// <returns>Returns the landing model if available, otherwise returns null.</returns>
         public LandingModel? GetLandingModel()
         {
 
@@ -126,6 +140,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             }
 
         }
+
+        #endregion
 
     }
 

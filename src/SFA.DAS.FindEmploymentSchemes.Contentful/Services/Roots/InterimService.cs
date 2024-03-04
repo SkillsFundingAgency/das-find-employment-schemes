@@ -27,10 +27,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the interim landing page from the Contentful CMS using the provided Contentful client.
         /// </summary>
-        /// <param name="contentfulClient"></param>
-        /// <returns></returns>
+        /// <param name="contentfulClient">The Contentful client used to retrieve data from the CMS.</param>
+        /// <returns>Returns an interim landing page object if found, otherwise returns null.</returns>
         public async Task<InterimLandingPage?> GetLandingPage(IContentfulClient contentfulClient)
         {
 
@@ -83,10 +83,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the menu items from the Contentful CMS using the provided Contentful client.
         /// </summary>
-        /// <param name="contentfulClient"></param>
-        /// <returns></returns>
+        /// <param name="contentfulClient">The Contentful client used to retrieve data from the CMS.</param>
+        /// <returns>Returns a collection of interim menu items if found, otherwise returns an empty collection.</returns>
         public async Task<IEnumerable<InterimMenuItem>> GetMenuItems(IContentfulClient contentfulClient)
         {
 
@@ -129,10 +129,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         }
 
         /// <summary>
-        /// 
+        /// Retrieves interim pages from the Contentful CMS using the provided Contentful client.
         /// </summary>
-        /// <param name="contentfulClient"></param>
-        /// <returns></returns>
+        /// <param name="contentfulClient">The Contentful client used to retrieve data from the CMS.</param>
+        /// <returns>Returns a collection of interim pages if found, otherwise returns an empty collection.</returns>
         public async Task<IEnumerable<InterimPage>> GetInterimPages(IContentfulClient contentfulClient)
         {
 
@@ -175,10 +175,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the footer links from the Contentful CMS using the provided Contentful client.
         /// </summary>
-        /// <param name="contentfulClient"></param>
-        /// <returns></returns>
+        /// <param name="contentfulClient">The Contentful client used to retrieve data from the CMS.</param>
+        /// <returns>Returns the interim footer links if found, otherwise returns null.</returns>
         public async Task<InterimFooterLinks?> GetFooter(IContentfulClient contentfulClient)
         {
 
@@ -231,10 +231,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the beta banner information from the Contentful CMS using the provided Contentful client.
         /// </summary>
-        /// <param name="contentfulClient"></param>
-        /// <returns></returns>
+        /// <param name="contentfulClient">The Contentful client used to retrieve data from the CMS.</param>
+        /// <returns>Returns the beta banner if found, otherwise returns null.</returns>
         public async Task<BetaBanner?> GetBetaBanner(IContentfulClient contentfulClient)
         {
 

@@ -8,7 +8,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
     public class ContactService : IContactService
     {
 
+        #region Properties
+
         private readonly IContentService _contentService;
+
+        #endregion
+
+        #region Constructors
 
         #pragma warning disable CS8618
         public ContactService(IContentService contentService)
@@ -18,6 +24,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Retrieves the contact page model containing contact-related data.
+        /// </summary>
+        /// <returns>Returns the contact page model if available, otherwise returns null.</returns>
         public ContactPageModel? GetContactPageModel()
         {
 
@@ -48,6 +62,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             };
 
         }
+
+        #endregion
 
     }
 
