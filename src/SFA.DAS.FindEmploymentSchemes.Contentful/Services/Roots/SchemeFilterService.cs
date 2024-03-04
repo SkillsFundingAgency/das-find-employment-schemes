@@ -24,10 +24,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         }
 
         /// <summary>
-        /// 
+        /// Retrieves scheme filters from the Contentful CMS using the provided Contentful client.
         /// </summary>
-        /// <param name="contentfulClient"></param>
-        /// <returns></returns>
+        /// <param name="contentfulClient">The Contentful client used to retrieve data from the CMS.</param>
+        /// <returns>Returns a list of scheme filters if available, otherwise returns an empty list.</returns>
         public async Task<List<SchemeFilter>> GetSchemeFilters(IContentfulClient contentfulClient)
         {
 

@@ -58,10 +58,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the scheme comparison model from the Contentful CMS using the provided Contentful client.
         /// </summary>
-        /// <param name="contentfulClient"></param>
-        /// <returns></returns>
+        /// <param name="contentfulClient">The Contentful client used to retrieve data from the CMS.</param>
+        /// <returns>Returns the scheme comparison model if available, otherwise returns null.</returns>
         public async Task<SchemeComparison?> GetSchemeComparison(IContentfulClient contentfulClient)
         {
 

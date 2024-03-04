@@ -35,7 +35,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 
         #region Get Landing Page Tests
 
-        [Fact(DisplayName = "InterimService - GetContactPage - WithMatchingPage - ReturnsLandingPage")]
+        [Fact(DisplayName = "InterimService - GetLandingPage - WithMatchingPage - ReturnsLandingPage")]
         public async Task InterimService_GetLandingPage_WithMatchingPage_ReturnsLandingPage()
         {
 
@@ -69,7 +69,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 
         }
 
-        [Fact(DisplayName = "InterimService - GetContactPage - WithNoMatchingPage - ReturnsNull")]
+        [Fact(DisplayName = "InterimService - GetLandingPage - WithNoMatchingPage - ReturnsNull")]
         public async Task InterimService_GetLandingPage_WithNoMatchingPage_ReturnsNull()
         {
 
@@ -87,8 +87,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 
         }
 
-        [Fact(DisplayName = "InterimService - GetContactPage - WithException - ReturnsNull")]
-        public async Task InterimService_GetContactPage_WithException_ReturnsNull()
+        [Fact(DisplayName = "InterimService - GetLandingPage - WithException - ReturnsNull")]
+        public async Task InterimService_GetLandingPage_WithException_ReturnsNull()
         {
 
             var contentfulClient = A.Fake<IContentfulClient>();

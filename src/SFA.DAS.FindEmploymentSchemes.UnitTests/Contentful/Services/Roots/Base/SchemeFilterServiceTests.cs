@@ -42,29 +42,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots.Base
 
         }
 
-        //[Theory]
-        //[InlineData("prefix--the-name", "the name")]
-        //[InlineData("prefix--thename", "thename")]
-        //[InlineData("prefix--the-name", "the-name")]
-        ////todo: stop double spaces, so code doesn't get confused with prefix/name separator?
-        //[InlineData("prefix--the--name", "the  name")]
-        //[InlineData("prefix--", "")]
-        //[InlineData("prefix--1234567890-qwertyuiop-asdfghjkl-zxcvbnm", "1234567890 qwertyuiop asdfghjkl zxcvbnm")]
-        //public async Task Get_FilterIdTests(string expectedFilterAspectId, string filterName)
-        //{
-
-        //    var filters = Fixture.CreateMany<SchemeFilter>(1).ToArray();
-
-        //    filters.First().SchemeFilterDescription = filterName;
-
-        //    ContentfulCollection.Items = filters;
-
-        //    var filter = await SchemeFilterService.GetSchemeFilters(ContentfulClient);
-
-        //    Assert.Equal(expectedFilterAspectId, filter.First().);
-
-        //}
-
         [Fact]
         public async Task Get_FiltersOrderTests()
         {

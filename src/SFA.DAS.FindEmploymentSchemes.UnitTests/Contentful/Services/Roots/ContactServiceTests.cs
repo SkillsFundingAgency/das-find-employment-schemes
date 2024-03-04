@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoFixture;
+﻿using Contentful.Core;
+using Contentful.Core.Models;
+using Contentful.Core.Search;
+using FakeItEasy;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
@@ -13,34 +16,89 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
     public class ContactServiceTests : RootServiceTestBase<Contact, ContactService>
     {
 
-        public ContactPage ContactPage { get; set; }
-
-        public IContactService CaseStudyPageService { get; set; }
+        public HtmlRenderer htmlRenderer { get; set; }
 
         public ContactServiceTests()
         {
 
-            CaseStudyPageService = new ContactService(HtmlRenderer);
+            htmlRenderer = A.Fake<HtmlRenderer>();
 
         }
 
-        //[Fact(DisplayName = "ContactServiceTests - GetContacts - SameNumberOfContactsTest")]
-        //public async Task ContactServiceTests_GetContacts_SameNumberOfContactsTest()
-        //{
+        [Fact(DisplayName = "ContactService - GetLandingPage - WithMatchingPage - ReturnsLandingPage")]
+        public async Task InterimService_GetLandingPage_WithMatchingPage_ReturnsLandingPage()
+        {
 
-        //    const int numberOfContacts = 5;
+            var contentfulClient = A.Fake<IContentfulClient>();
 
-        //    ContactPage = Fixture.Create<ContactPage>();
+            var contactService = new ContactService(htmlRenderer);
 
-        //    Fixture.Inject(Fixture.Create<Contact>());
+            var entries = new ContentfulCollection<ContactPage>();
 
-        //    ContentfulCollection.Items = Fixture.CreateMany<Contact>(numberOfContacts);
+            entries.Items = [
 
-        //    ContactPage _page = await CaseStudyPageService.GetContactPage(ContentfulClient);
+                new ContactPage()
+                {
 
-        //    Assert.NotNull(_page);
+                    ContactPageTitle = "ContactPageTitle",
 
-        //}
+                    Contacts = new List<Contact>()
+                    {
+
+                        new Contact() { SectionName = "SectionName" }
+
+                    }
+
+                }
+
+            ];
+
+            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<ContactPage>>._, A<CancellationToken>._)).Returns(entries);
+
+            var result = await contactService.GetContactPage(contentfulClient);
+
+            Assert.NotNull(result);
+
+            Assert.Equal("ContactPageTitle", result.ContactPageTitle);
+
+        }
+
+        [Fact(DisplayName = "ContactService - GetContactPage - WithNoMatchingPage - ReturnsNull")]
+        public async Task InterimService_GetContactPage_WithNoMatchingPage_ReturnsNull()
+        {
+
+            var contentfulClient = A.Fake<IContentfulClient>();
+
+            var contactService = new ContactService(htmlRenderer);
+
+            var fakeResult = new ContentfulCollection<ContactPage> { Items = new List<ContactPage>() };
+
+            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<ContactPage>>._, A<CancellationToken>._)).Returns(fakeResult);
+
+            var result = await contactService.GetContactPage(contentfulClient);
+
+            Assert.Null(result);
+
+        }
+
+        [Fact(DisplayName = "ContactService - GetContactPage - WithException - ReturnsNull")]
+        public async Task InterimService_GetContactPage_WithException_ReturnsNull()
+        {
+
+            var contentfulClient = A.Fake<IContentfulClient>();
+
+            var contactService = new ContactService(htmlRenderer);
+
+            var fakeResult = new ContentfulCollection<ContactPage> { Items = new List<ContactPage>() };
+
+            A.CallTo(() => contentfulClient.GetEntries(A<QueryBuilder<ContactPage>>._, A<CancellationToken>._)).Throws(new Exception());
+
+            var result = await contactService.GetContactPage(contentfulClient);
+
+            Assert.Null(result);
+
+        }
+
 
     }
 

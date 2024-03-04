@@ -154,9 +154,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
         }
 
         /// <summary>
-        /// 
+        /// Retrieves an interim page from the content by its URL.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="url">The URL of the interim page to retrieve.</param>
+        /// <returns>Returns the interim page with the specified URL if found, otherwise returns null.</returns>
         public InterimPage? GetInterimPageByURL(string url)
         {
 
