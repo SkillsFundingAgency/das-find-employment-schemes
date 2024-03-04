@@ -304,10 +304,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         }
 
         /// <summary>
-        /// 
+        /// Retrieves a list of filter section models based on the provided scheme filters and optional model.
         /// </summary>
-        /// <param name="schemeFilters"></param>
-        /// <returns></returns>
+        /// <param name="schemeFilters">The list of scheme filters to build filter section models from.</param>
+        /// <param name="model">Optional. The scheme filter model to use for determining selected aspects.</param>
+        /// <returns>Returns a list of filter section models.</returns>
         public List<FilterSectionModel> GetFilterSections(List<SchemeFilter> schemeFilters, SchemeFilterModel? model = null)
         {
 
@@ -323,8 +324,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                     FilterSectionModel sectionModel = new FilterSectionModel()
                     {
-
-
 
                         FilterSectionModelID = ToConvertedID(schemeFilter.SchemeFilterPrefix, schemeFilter.SchemeFilterDescription),
 
@@ -371,6 +370,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
+        /// <summary>
+        /// Converts the given strings into a formatted ID by combining the specified prefix and a slugified version of the postfix.
+        /// </summary>
+        /// <param name="prefix">The prefix to be included in the formatted ID.</param>
+        /// <param name="postfix">The string to be slugified and included in the formatted ID.</param>
+        /// <returns>Returns the formatted ID created by combining the prefix and slugified postfix.</returns>
         private static string ToConvertedID(string prefix, string postfix)
         {
 
@@ -378,6 +383,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
+        /// <summary>
+        /// Slugifies the given string by converting it to lowercase and replacing spaces with hyphens.
+        /// </summary>
+        /// <param name="name">The string to be slugified.</param>
+        /// <returns>Returns the slugified version of the input string.</returns>
         private static string Slugify(string name)
         {
 
