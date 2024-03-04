@@ -4894,10 +4894,6 @@ p + .das-tile__body-heading {
     pointer-events:none;
 }
 
-.govuk-header__navigation-item:not(.govuk-header__navigation-item--active) a:hover {
-    cursor: pointer;
-}
-
 @media print {
     .govuk-header__navigation-item a,
     .das-header .govuk-header__navigation-list-mobile-heading a {

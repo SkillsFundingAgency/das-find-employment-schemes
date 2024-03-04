@@ -371,7 +371,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
-        private string ToConvertedID(string prefix, string postfix)
+        private static string ToConvertedID(string prefix, string postfix)
         {
 
             return $"{prefix}--{Slugify(postfix)}";

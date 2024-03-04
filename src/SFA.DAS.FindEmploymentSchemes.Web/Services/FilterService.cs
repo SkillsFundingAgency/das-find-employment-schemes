@@ -107,7 +107,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
-        private string ToFilterAspectId(SchemeFilterAspect filterAspect)
+        private static string ToFilterAspectId(SchemeFilterAspect filterAspect)
         {
             return $"{filterAspect.SchemeFilterAspectPrefix}--{Slugify(filterAspect.SchemeFilterAspectName)}";
         }

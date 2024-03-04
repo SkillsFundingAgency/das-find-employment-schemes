@@ -12,7 +12,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.ViewModels
         [ClassData(typeof(SchemeFilterViewModelTestData))]
         public void Constructor_AllFiltersCount(int expectedAllFiltersCount, SchemeFilterModel model)
         {
-            Assert.Equal(expectedAllFiltersCount, model.FilterAspects.Count());
+            Assert.Equal(expectedAllFiltersCount, model.FilterAspects.Length);
         }
 
         public class SchemeFilterViewModelTestData : IEnumerable<object[]>
