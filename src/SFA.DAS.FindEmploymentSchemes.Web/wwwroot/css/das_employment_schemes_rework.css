@@ -4890,7 +4890,6 @@ p + .das-tile__body-heading {
     }
 }
 
-.das-header .govuk-header__navigation-item--active.govuk-header__navigation-list-mobile-heading a,
 .das-header .govuk-header__navigation-item.govuk-header__navigation-item--active a {
     pointer-events:none;
 }
@@ -9302,6 +9301,7 @@ p + .das-tile__body-heading {
     .das-header .govuk-header__navigation-item.govuk-header__navigation-item--active a {
         color: white;
         font-weight: bold;
+        pointer-events: none;
     }
 
 .das-header__desktop .govuk-header__navigation-item.govuk-header__navigation-item--active {
