@@ -4596,11 +4596,6 @@ p + .das-tile__body-heading {
     color: #000000;
 }
 
-/*.govuk-header__link:active,
-.govuk-header__link:hover {
-    color: rgba(255, 255, 255, 0.99);
-}*/
-
 .govuk-header__link:focus {
     color: #0b0c0c;
 }
@@ -9311,11 +9306,6 @@ p + .das-tile__body-heading {
 
 .das-header__desktop .govuk-header__navigation-item.govuk-header__navigation-item--active {
     background-color: #d30172;
-}
-
-.das-header__desktop .govuk-header__navigation-item.govuk-header__navigation-item--active a {
-    color: white;
-    font-weight: bold;
 }
 
 .das-header__desktop .govuk-header__navigation-item.govuk-header__navigation-item--active a {

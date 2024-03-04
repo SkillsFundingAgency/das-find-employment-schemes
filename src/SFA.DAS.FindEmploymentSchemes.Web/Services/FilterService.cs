@@ -112,7 +112,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             return $"{filterAspect.SchemeFilterAspectPrefix}--{Slugify(filterAspect.SchemeFilterAspectName)}";
         }
 
-        private string Slugify(string? name)
+        private static string Slugify(string? name)
         {
             ArgumentNullException.ThrowIfNull(name);
 

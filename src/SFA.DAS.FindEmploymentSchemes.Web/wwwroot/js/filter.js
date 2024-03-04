@@ -121,8 +121,6 @@ function initMobileView() {
 
     $(".govuk-header__mobile-menu-button, .govuk-header__navigation-list-mobile-close-btn").click(function () {
 
-        var menuButton = this;
-
         const subMenuElement = document.getElementById('mobile-navigation');
 
         if (subMenuElement !== null && subMenuElement != 'undefined') {

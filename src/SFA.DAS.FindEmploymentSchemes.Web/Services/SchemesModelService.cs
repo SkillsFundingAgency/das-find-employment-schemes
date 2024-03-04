@@ -378,7 +378,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
-        private string Slugify(string name)
+        private static string Slugify(string name)
         {
 
             return name.ToLower().Replace(' ', '-');
