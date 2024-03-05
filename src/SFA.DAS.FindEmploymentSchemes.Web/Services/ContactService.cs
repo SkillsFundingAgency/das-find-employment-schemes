@@ -1,11 +1,6 @@
-﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
@@ -13,9 +8,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
     public class ContactService : IContactService
     {
 
+        #region Properties
+
         private readonly IContentService _contentService;
 
-        private IReadOnlyList<Contact> _contactModels;
+        #endregion
+
+        #region Constructors
 
         #pragma warning disable CS8618
         public ContactService(IContentService contentService)
@@ -23,44 +22,48 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             _contentService = contentService;
 
-            contentService.ContentUpdated += OnContentUpdated;
-
-            BuildModels();
-
         }
 
-        private void BuildModels()
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Retrieves the contact page model containing contact-related data.
+        /// </summary>
+        /// <returns>Returns the contact page model if available, otherwise returns null.</returns>
+        public ContactPageModel? GetContactPageModel()
         {
 
-            _contactModels = BuildContactModelList();
+            if(_contentService.Content.ContactPage == null)
+            {
 
-        }
+                return null;
 
-        private void OnContentUpdated(object? sender, EventArgs args)
-        {
+            }
 
-            BuildModels();
-
-        }
-
-        private ReadOnlyCollection<Contact> BuildContactModelList()
-        {
-
-            return _contentService.Content.Contacts.ToList().AsReadOnly();
-
-        }
-
-        public ContactModel GetContactModel()
-        {
-
-            return new ContactModel()
+            return new ContactPageModel()
             {
                 
-                ContactList = _contactModels.ToList()
-                
+                ContactPageTitle = _contentService.Content.ContactPage.ContactPageTitle,
+
+                InterimBreadcrumbs = _contentService.Content.ContactPage.InterimBreadcrumbs,
+
+                InterimPreamble = _contentService.Content.ContactPage.InterimPreamble,
+
+                Contacts = _contentService.Content.ContactPage.Contacts,
+
+                MenuItems = _contentService.Content.MenuItems,
+
+                BetaBanner = _contentService.Content.BetaBanner,
+
+                InterimFooterLinks = _contentService.Content.InterimFooterLinks
+
             };
 
         }
+
+        #endregion
 
     }
 

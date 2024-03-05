@@ -1,44 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
     public class SchemesModelService : ISchemesModelService
     {
+
         private const string HomepagePreambleUrl = "home";
 
         private readonly IContentService _contentService;
+
         private IReadOnlyDictionary<string, SchemeDetailsModel> _schemeDetailsModels;
 
         public HomeModel HomeModel { get; set; }
+
         public ComparisonModel ComparisonModel { get; private set; }
 
+        private readonly ILogger<SchemesModelService> _logger;
+
 #pragma warning disable CS8618
-        public SchemesModelService(IContentService contentService)
+        public SchemesModelService(ILogger<SchemesModelService> logger, IContentService contentService)
         {
+
+            _logger = logger;
+
             _contentService = contentService;
+
             contentService.ContentUpdated += OnContentUpdated;
 
             BuildModels();
+
         }
-#pragma warning restore CS8618
+        #pragma warning restore CS8618
 
         // tried https://github.com/manuelroemer/Nullable (as we're using a legacy lts release, but didn't work)
         //[MemberNotNull(nameof(HomeModel))]
         //[MemberNotNull(nameof(SchemeDetailsModels))]
         private void BuildModels()
         {
+
             HomeModel = CreateHomeModel(_contentService.Content);
+
             ComparisonModel = CreateComparisonModel(_contentService.Content);
+
             _schemeDetailsModels = BuildSchemeDetailsModelsDictionary();
+
         }
 
         private void OnContentUpdated(object? sender, EventArgs args)
@@ -48,15 +65,44 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         private HomeModel CreateHomeModel(IContent content)
         {
+
+            Page? page = content.Pages.FirstOrDefault(p => p.Url == HomepagePreambleUrl);
+
             return new HomeModel(
-                content.Pages.First(p => p.Url == HomepagePreambleUrl).Content,
+
                 content.Schemes,
-                new[] { content.MotivationsFilter, content.SchemeLengthFilter, content.PayFilter });
+
+                GetFilterSections(content.SchemeFilters),
+
+                content.MenuItems,
+
+                page?.InterimPreamble,
+
+                page?.InterimBreadcrumbs,
+
+                content.BetaBanner,
+
+                content.InterimFooterLinks
+
+            );
+
         }
 
         private ComparisonModel CreateComparisonModel(IContent content)
         {
-            return new ComparisonModel(content.Schemes);
+
+            return new ComparisonModel(
+                
+                content.SchemeComparison, 
+                
+                content.Schemes, 
+                
+                content.MenuItems, 
+                
+                content.BetaBanner
+                
+            );
+
         }
 
         private ComparisonResultsModel CreateComparisonResultsModel(IEnumerable<string> schemes, SchemeFilterModel filters, IContent content)
@@ -66,10 +112,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             {
 
                 return new ComparisonResultsModel(
+
+                    content.SchemeComparison,
                 
                     content.Schemes.Where(x => schemes.Contains(x.HtmlId)),
 
-                    filters
+                    filters,
+
+                    content.MenuItems,
+
+                    content.BetaBanner,
+
+                    content.InterimFooterLinks
 
                 );
 
@@ -79,9 +133,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                 return new ComparisonResultsModel(
 
+                    content.SchemeComparison,
+
                     content.Schemes,
 
-                    filters
+                    filters,
+
+                    content.MenuItems,
+
+                    content.BetaBanner,
+
+                    content.InterimFooterLinks
 
                 );
 
@@ -96,7 +158,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
                 schemes,
 
-                filters, 
+                filters,
                 
                 _contentService.Content
 
@@ -140,7 +202,26 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             foreach (string schemeUrl in _contentService.Content.Schemes.Select(s => s.Url))
             {
-                schemeDetailsModels.Add(schemeUrl, new SchemeDetailsModel(schemeUrl, _contentService.Content.Schemes));
+                schemeDetailsModels.Add(
+                    
+                    schemeUrl, 
+                    
+                    new SchemeDetailsModel(
+                        
+                        schemeUrl, 
+                        
+                        _contentService.Content.Schemes,
+
+                        _contentService.Content.MenuItems,
+
+                        _contentService.Content.BetaBanner,
+
+                        _contentService.Content.InterimFooterLinks
+
+                    )
+                    
+                );
+
             }
 
             return new ReadOnlyDictionary<string, SchemeDetailsModel>(schemeDetailsModels);
@@ -148,8 +229,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         public SchemeDetailsModel? GetSchemeDetailsModel(string schemeUrl)
         {
+
             _schemeDetailsModels.TryGetValue(schemeUrl, out SchemeDetailsModel? schemeDetailsModel);
+
             return schemeDetailsModel;
+
         }
 
         public async Task<SchemeDetailsModel?> GetSchemeDetailsModelPreview(string schemeUrl)
@@ -158,7 +242,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
             try
             {
-                var model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes);
+                var model = new SchemeDetailsModel(schemeUrl, previewContent.Schemes, previewContent.MenuItems, previewContent.BetaBanner, previewContent.InterimFooterLinks);
                 model.Preview = new PreviewModel(GetSchemeDetailsErrors(model));
                 return model;
             }
@@ -172,7 +256,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         {
             var errors = new List<HtmlString>();
 
-            if (model.Preamble == null)
+            if (model.InterimPreamble == null)
             {
                 errors.Add(new HtmlString("Preamble must not be blank"));
             }
@@ -208,36 +292,108 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             if (model.Scheme.DetailsPageOverride != null)
                 return errors;
 
-            if (model.Scheme.Description == null)
-            {
-                errors.Add(new HtmlString("If there is no details page override, the description must not be blank"));
-            }
-
             if (model.Scheme.SubSchemes.Any())
                 return errors;
 
-            if (model.Scheme.Cost == null)
-            {
-                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the cost must not be blank"));
-            }
-            if (model.Scheme.Responsibility == null)
-            {
-                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the responsibility must not be blank"));
-            }
-            if (model.Scheme.Benefits == null)
-            {
-                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the benefits must not be blank"));
-            }
             if (model.Scheme.OfferHeader == null)
             {
                 errors.Add(new HtmlString("If there is no details page override and no sub schemes, the offer header must not be blank"));
             }
-            if (model.Scheme.Offer == null)
-            {
-                errors.Add(new HtmlString("If there is no details page override and no sub schemes, the offer must not be blank"));
-            }
 
             return errors;
         }
+
+        /// <summary>
+        /// Retrieves a list of filter section models based on the provided scheme filters and optional model.
+        /// </summary>
+        /// <param name="schemeFilters">The list of scheme filters to build filter section models from.</param>
+        /// <param name="model">Optional. The scheme filter model to use for determining selected aspects.</param>
+        /// <returns>Returns a list of filter section models.</returns>
+        public List<FilterSectionModel> GetFilterSections(List<SchemeFilter> schemeFilters, SchemeFilterModel? model = null)
+        {
+
+            _logger.LogInformation("Beginning {MethodName}", nameof(GetFilterSections));
+
+            try
+            {
+
+                List<FilterSectionModel> filterModels = new List<FilterSectionModel>();
+
+                foreach (SchemeFilter schemeFilter in schemeFilters.OrderBy(a => a.SchemeFilterOrder))
+                {
+
+                    FilterSectionModel sectionModel = new FilterSectionModel()
+                    {
+
+                        FilterSectionModelID = ToConvertedID(schemeFilter.SchemeFilterPrefix, schemeFilter.SchemeFilterDescription),
+
+                        FilterSectionModelName = schemeFilter.SchemeFilterDescription,
+
+                        FilterSectionModelAspects = schemeFilter.SchemeFilterAspects.Select(a =>
+
+                        {
+
+                            string aspectID = ToConvertedID(a.SchemeFilterAspectPrefix, a.SchemeFilterAspectName);
+
+                            return new FilterSectionAspectModel()
+                            {
+
+                                FilterSectionAspectModelID = aspectID,
+
+                                FilterSectionAspectDisplayName = a.SchemeFilterAspectName,
+
+                                FilterSectionAspectSelected = model != null && model.FilterAspects.Any() && model.FilterAspects.Contains(aspectID)
+
+                            };
+
+                        }
+
+                        ).ToList()
+
+                    };
+
+                    filterModels.Add(sectionModel);
+
+                }
+
+                return filterModels;
+
+            }
+            catch (Exception _exception)
+            {
+
+                _logger.LogError(_exception, "Unable to build out filter section models");
+
+                return new List<FilterSectionModel>();
+
+            }
+
+        }
+
+        /// <summary>
+        /// Converts the given strings into a formatted ID by combining the specified prefix and a slugified version of the postfix.
+        /// </summary>
+        /// <param name="prefix">The prefix to be included in the formatted ID.</param>
+        /// <param name="postfix">The string to be slugified and included in the formatted ID.</param>
+        /// <returns>Returns the formatted ID created by combining the prefix and slugified postfix.</returns>
+        private static string ToConvertedID(string prefix, string postfix)
+        {
+
+            return $"{prefix}--{Slugify(postfix)}";
+
+        }
+
+        /// <summary>
+        /// Slugifies the given string by converting it to lowercase and replacing spaces with hyphens.
+        /// </summary>
+        /// <param name="name">The string to be slugified.</param>
+        /// <returns>Returns the slugified version of the input string.</returns>
+        private static string Slugify(string name)
+        {
+
+            return name.ToLower().Replace(' ', '-');
+
+        }
+
     }
 }

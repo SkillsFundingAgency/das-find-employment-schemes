@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core.Models;
+using Contentful.Core.Models.Management;
 using FakeItEasy;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
@@ -29,8 +30,34 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
         public SchemesController SchemesController { get; set; }
 
+        private BetaBanner BetaBanner { get; set; }
+
+        private SchemeComparison SchemeComparison { get; set; }
+
         public SchemesControllerTests()
         {
+
+            BetaBanner = new BetaBanner() { BetaBannerID = "BetaBannerID", BetaBannerTitle = "BetaBannerTitle", BetaBannerContent = null };
+
+            SchemeComparison = new SchemeComparison() 
+            { 
+            
+                SchemeComparisonTitle = "SchemeComparisonTitle",
+
+                SchemeComparisonActionButtonText = "SchemeComparisonActionButtonText",
+
+                SchemeComparisonAgeHeading = "SchemeComparisonAgeHeading",
+
+                SchemeComparisonCostHeading = "SchemeComparisonCostHeading",
+
+                SchemeComparisonDurationHeading = "SchemeComparisonDurationHeading",
+
+                SchemeComparisonRecruitOrTrainHeading = "SchemeComparisonRecruitOrTrainHeading",
+
+                SchemeComparisonTitleColumnHeading = "SchemeComparisonTitleColumnHeading"
+
+            };
+
             Fixture = new Fixture();
 
             Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
@@ -49,12 +76,17 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
                 typeof(IContent),
                 typeof(Document)));
 
+            Fixture.Customizations.Add(
+            new TypeRelay(
+            typeof(IFieldValidator),
+            typeof(Asset)));
+
             FilterService = A.Fake<IFilterService>();
             SchemesModelService = A.Fake<ISchemesModelService>();
 
-            HomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!);
+            HomeModel = new HomeModel([], [], [], null, null!, BetaBanner, null);
 
-            PreviewHomeModel = new HomeModel(Fixture.Create<IHtmlContent>(), null!, null!);
+            PreviewHomeModel = new HomeModel([], [], [], null, null!, BetaBanner, null);
 
             A.CallTo(() => SchemesModelService.HomeModel)
                 .Returns(HomeModel);
@@ -71,7 +103,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         public void Home_DefaultViewTest()
         {
             // act
-            IActionResult result = SchemesController.Home("", "", "");
+            IActionResult result = SchemesController.Home(string.Empty);
 
             Assert.IsType<ViewResult>(result);
             var viewResult = (ViewResult)result;
@@ -82,7 +114,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         public void Home_HomeModelIsUsedTest()
         {
             // act
-            IActionResult result = SchemesController.Home("", "", "");
+            IActionResult result = SchemesController.Home(string.Empty);
 
             Assert.IsType<ViewResult>(result);
             var viewResult = (ViewResult)result;
@@ -93,7 +125,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         [Fact]
         public void PostHome_FilteredHomeModelIsUsedTest()
         {
-            var filteredHomeModel = new HomeModel(null!, null!, null!);
+            var filteredHomeModel = new HomeModel([], [], [], null, null!, BetaBanner, null);
 
             A.CallTo(() => FilterService.ApplyFilter(SchemeFilterModel))
                 .Returns(filteredHomeModel);
@@ -138,7 +170,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             string schemeUrl = schemes.First().Url;
 
-            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes);
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes, [], BetaBanner, null);
 
             A.CallTo(() => SchemesModelService.GetSchemeDetailsModel(schemeUrl))
                 .Returns(schemeDetailsModel);
@@ -158,7 +190,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             string schemeUrl = schemes.First().Url;
 
-            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes);
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes, [], BetaBanner, null);
 
             A.CallTo(() => SchemesModelService.GetSchemeDetailsModel(schemeUrl))
                 .Returns(schemeDetailsModel);
@@ -173,7 +205,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public void Details_UnknownSchemeUrlReturnsNotFoundTest()
+        public void Details_UnknownSchemeUrlReturnsRedirectToErrorTest()
         {
             const string schemeUrl = "unknown-scheme";
 
@@ -183,7 +215,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // act
             IActionResult result = SchemesController.Details(schemeUrl);
 
-            Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<RedirectToActionResult>(result);
         }
 
         [Fact]
@@ -193,7 +225,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             string schemeUrl = schemes.First().Url;
 
-            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes);
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes, [], BetaBanner, null);
 
             A.CallTo(() => SchemesModelService.GetSchemeDetailsModelPreview(schemeUrl))
                 .Returns(schemeDetailsModel);
@@ -213,7 +245,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             string schemeUrl = schemes.First().Url;
 
-            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes);
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, schemes, [], BetaBanner, null);
 
             A.CallTo(() => SchemesModelService.GetSchemeDetailsModelPreview(schemeUrl))
                 .Returns(schemeDetailsModel);
@@ -253,11 +285,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             // Mock data
 
-            var pay = "pay";
-
-            var duration = "duration";
-
-            var motivation = "motivation";
+            string filters = "filters";
 
             // Mock SchemeFilterModel and HomeModel
 
@@ -274,10 +302,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // Mock CreateComparisonResultsModel method
 
             A.CallTo(() => schemesModelServiceMock.CreateComparisonResultsModel(new List<string>(), schemeFilterModel))
-                .Returns(new ComparisonResultsModel(new List<Scheme>(), schemeFilterModel));
+                .Returns(new ComparisonResultsModel(SchemeComparison, new List<Scheme>(), schemeFilterModel, [], BetaBanner, null));
 
             // Act
-            var result = controller.Comparison(pay, duration, motivation) as ViewResult;
+            var result = controller.Comparison(filters) as ViewResult;
 
             // Assert
             Assert.NotNull(result);
@@ -297,11 +325,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             // Mock data
 
-            var pay = "pay";
-
-            var duration = "duration";
-
-            var motivation = "motivation";
+            var filters = "filters";
 
             // Mock SchemeFilterModel and HomeModel
 
@@ -318,10 +342,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             // Mock CreateComparisonResultsModelPreview method
 
             A.CallTo(() => schemesModelServiceMock.CreateComparisonResultsModelPreview(new List<string>(), schemeFilterModel))
-                .Returns(new ComparisonResultsModel(new List<Scheme>(), schemeFilterModel));
+                .Returns(new ComparisonResultsModel(SchemeComparison, new List<Scheme>(), schemeFilterModel, [], BetaBanner, null));
 
             // Act
-            var result = await controller.ComparisonPreview(pay, duration, motivation) as ViewResult;
+            var result = await controller.ComparisonPreview(filters) as ViewResult;
 
             // Assert
             Assert.NotNull(result);

@@ -42,10 +42,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
                 new SchemeService(htmlRenderer, new NullLogger<SchemeService>()),
                 new PageService(htmlRenderer, new NullLogger<PageService>()),
                 new CaseStudyPageService(htmlRenderer, new NullLogger<CaseStudyPageService>()),
-                new MotivationFilterService(htmlRenderer),
-                new PayFilterService(htmlRenderer),
-                new SchemeLengthFilterService(htmlRenderer),
+                new SchemeFilterService(new NullLogger<SchemeFilterService>()),
                 new ContactService(htmlRenderer),
+                new InterimService(htmlRenderer, new NullLogger<InterimService>()),
                 new NullLogger<ContentService>());
 
             var content = await contentService.Update();
@@ -56,9 +55,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
             GenerateSchemesContent(content.Schemes);
 
-            GenerateFilterContent(content.MotivationsFilter);
-            GenerateFilterContent(content.PayFilter);
-            GenerateFilterContent(content.SchemeLengthFilter);
+            GenerateFilterContent(content.SchemeFilters);
 
             GeneratePagesContent(content.Pages);
             GenerateCaseStudyPagesContent(content.CaseStudyPages);
@@ -135,12 +132,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
 
                 Console.WriteLine($"                {GenerateHtmlString(scheme.CaseStudiesPreamble)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.DetailsPageOverride)},");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.Description)},");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.Cost)},");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.Responsibility)},");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.Benefits)},");
                 Console.WriteLine($"                \"{scheme.OfferHeader}\",");
-                Console.WriteLine($"                {GenerateHtmlString(scheme.Offer)},");
                 Console.WriteLine($"                {GenerateHtmlString(scheme.AdditionalFooter)},");
 
                 GenerateSubSchemesContent(scheme.SubSchemes);
@@ -169,20 +161,36 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.ContentCodeGenerator
             Console.WriteLine(@"                }");
         }
 
-        private static void GenerateFilterContent(Filter filter)
+        private static void GenerateFilterContent(List<SchemeFilter> filters)
         {
-            string upperName = $"{char.ToUpperInvariant(filter.Name[0])}{filter.Name.Substring(1)}";
-
-            Console.WriteLine($@"       private Filter? _{filter.Name}Filter;
-        public Filter {upperName}Filter => _{filter.Name}Filter ??= new Filter(""{filter.Name}"", ""{filter.Description}"", new FilterAspect[]
-        {{");
-
-            foreach (var filterAspect in filter.Aspects)
+            foreach (SchemeFilter schemeFilter in filters)
             {
-                Console.WriteLine($"            new FilterAspect(\"{filterAspect.Id}\", \"{filterAspect.Description}\"),");
-            }
+                string upperName = $"{char.ToUpperInvariant(schemeFilter.SchemeFilterName[0])}{schemeFilter.SchemeFilterName.Substring(1)}";
 
-            Console.WriteLine("        });");
+                Console.WriteLine($@"       private SchemeFilter? _{schemeFilter.SchemeFilterName}Filter;
+                public SchemeFilter {upperName}Filter => _{schemeFilter.SchemeFilterName}Filter ??= new SchemeFilter
+                {{
+                    SchemeFilterName = ""{schemeFilter.SchemeFilterName}"",
+                    SchemeFilterPrefix = ""{schemeFilter.SchemeFilterPrefix}"",
+                    SchemeFilterDescription = ""{schemeFilter.SchemeFilterDescription}"",
+                    SchemeFilterOrder = {schemeFilter.SchemeFilterOrder},
+                    SchemeFilterAspects = new List<SchemeFilterAspect>
+                    {{");
+
+                    foreach (var filterAspect in schemeFilter.SchemeFilterAspects)
+                    {
+                        Console.WriteLine($@"        new SchemeFilterAspect
+                        {{
+                            SchemeFilterAspectTitle = ""{filterAspect.SchemeFilterAspectTitle}"",
+                            SchemeFilterAspectPrefix = ""{filterAspect.SchemeFilterAspectPrefix}"",
+                            SchemeFilterAspectName = ""{filterAspect.SchemeFilterAspectName}"",
+                            SchemeFilterAspectOrder = {filterAspect.SchemeFilterAspectOrder}
+                        }},");
+                    }
+
+                    Console.WriteLine($@"    }},
+                }};");
+            }
         }
 
         private static void GenerateCaseStudies(IEnumerable<CaseStudy> caseStudies)

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
@@ -14,5 +15,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
         Task<ComparisonResultsModel> CreateComparisonResultsModelPreview(IEnumerable<string> schemes, SchemeFilterModel filters);
         SchemeDetailsModel? GetSchemeDetailsModel(string schemeUrl);
         Task<SchemeDetailsModel?> GetSchemeDetailsModelPreview(string schemeUrl);
+
+        List<FilterSectionModel> GetFilterSections(List<SchemeFilter> schemeFilters, SchemeFilterModel? model = null);
+
     }
 }

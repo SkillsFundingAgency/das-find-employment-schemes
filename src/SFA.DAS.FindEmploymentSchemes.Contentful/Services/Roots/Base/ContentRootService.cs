@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
 {
@@ -18,9 +19,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.Base
             _htmlRenderer = htmlRenderer;
         }
 
-        protected static string ToFilterAspectId(IFilter filter, string filterPrefix)
+        protected static string ToFilterAspectId(SchemeFilterAspect filterAspect)
         {
-            return $"{filterPrefix}--{Slugify(filter.Name)}";
+            return $"{filterAspect.SchemeFilterAspectPrefix}--{Slugify(filterAspect.SchemeFilterAspectName)}";
         }
 
         protected static string Slugify(string? name)

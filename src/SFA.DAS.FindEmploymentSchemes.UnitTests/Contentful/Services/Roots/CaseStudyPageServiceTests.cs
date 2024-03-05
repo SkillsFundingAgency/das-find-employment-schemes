@@ -1,4 +1,7 @@
 ﻿using AutoFixture;
+using AutoFixture.Kernel;
+using Contentful.Core.Models.Management;
+using Contentful.Core.Models;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Api;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots;
@@ -18,6 +21,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
         public CaseStudyPageServiceTests()
         {
             CaseStudyPageService = new CaseStudyPageService(HtmlRenderer, Logger);
+
+            Fixture.Customizations.Add(
+            new TypeRelay(
+            typeof(IFieldValidator),
+            typeof(Asset)));
+
         }
 
         [Fact]

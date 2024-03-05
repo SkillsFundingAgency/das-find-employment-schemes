@@ -1,19 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoFixture;
+﻿using AutoFixture;
 using AutoFixture.Kernel;
-using FakeItEasy;
-using Xunit;
-using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using Contentful.Core.Models;
+using Contentful.Core.Models.Management;
+using FakeItEasy;
 using Microsoft.AspNetCore.Html;
+using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using SFA.DAS.FindEmploymentSchemes.Web.Services;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using Xunit;
 using IContent = SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces.IContent;
 using IContent2 = Contentful.Core.Models.IContent;
-using System.Collections;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
@@ -26,7 +30,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         public IContentService ContentService { get; set; }
         public SchemesModelService SchemesModelService { get; set; }
 
-        public const string HomePagePreamble = "expectedPreamble";
+        public const string HomePagePreamblePrimary = "expectedPrimaryPreamble";
+
+        public const string HomePagePreambleSecondary = "expectedSecondaryPreamble";
+
+        private readonly ILogger<SchemesModelService> _logger;
 
         public SchemesModelServiceTests()
         {
@@ -43,6 +51,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             Fixture.Customizations.Add(
             new TypeRelay(
+            typeof(IFieldValidator),
+            typeof(Asset)));
+
+            Fixture.Customizations.Add(
+            new TypeRelay(
                 typeof(IContent2),
                 typeof(Document)));
 
@@ -56,7 +69,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             A.CallTo(() => ContentService.UpdatePreview())
                 .Returns(PreviewContent);
 
-            SchemesModelService = new SchemesModelService(ContentService);
+            _logger = A.Fake<ILogger<SchemesModelService>>();
+
+            SchemesModelService = new SchemesModelService(_logger, ContentService);
         }
 
         private (IContent, IEnumerable<Page>) CreateContent()
@@ -64,7 +79,20 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             var content = A.Fake<IContent>();
 
             var notHomepages = Fixture.CreateMany<Page>(3);
-            var homePage = new Page("", "home", new HtmlString(HomePagePreamble));
+
+            var homePage = new Page(
+                
+                "", 
+                
+                "home", 
+                
+                null, 
+                
+                new InterimPreamble(),
+
+                new InterimBreadcrumbs() { InterimBreadcrumbTitle = "InterimBreadcrumbTitle" }
+
+            );
 
             var pages = notHomepages.Concat(new[] { homePage }).ToArray();
 
@@ -80,21 +108,14 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         }
 
         [Fact]
-        public void HomeModel_HomepagePreambleTest()
-        {
-            Assert.IsType<HtmlString>(SchemesModelService.HomeModel.Preamble);
-            Assert.Equal(HomePagePreamble, ((HtmlString) SchemesModelService.HomeModel.Preamble).Value);
-        }
-
-        [Fact]
         public void ContentServiceContentUpdated_UpdatesHomeModel()
         {
             const string updatedPreamble = "updatedPreamble";
 
-            SchemesModelService = new SchemesModelService(ContentService);
+            SchemesModelService = new SchemesModelService(_logger, ContentService);
 
             var notHomepages = Fixture.CreateMany<Page>(3);
-            var homePage = new Page("", "home", new HtmlString(updatedPreamble));
+            var homePage = new Page(string.Empty, "home", new HtmlString(updatedPreamble), new InterimPreamble() { PreambleTitle = "PreambleTitle1" }, new InterimBreadcrumbs() { InterimBreadcrumbTitle = "InterimBreadcrumbTitle1" });
 
             var pages = notHomepages.Concat(new[] { homePage }).ToArray();
 
@@ -104,8 +125,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             // Act
             ContentService.ContentUpdated += Raise.WithEmpty();
 
-            Assert.IsType<HtmlString>(SchemesModelService.HomeModel.Preamble);
-            Assert.Equal(updatedPreamble, ((HtmlString)SchemesModelService.HomeModel.Preamble).Value);
+            Assert.Equal("PreambleTitle1", SchemesModelService.HomeModel.InterimPreamble.PreambleTitle);
+
+            Assert.Equal("InterimBreadcrumbTitle1", SchemesModelService.HomeModel.InterimPageBreadcrumbs.InterimBreadcrumbTitle);
+
         }
 
         [Fact]
@@ -175,8 +198,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             // act
             var model = await SchemesModelService.GetSchemeDetailsModelPreview(PreviewContent.Schemes.First().Url);
 
-            Assert.Collection(model.Preview.PreviewErrors,
-                e => Assert.Equal(expected, e.Value));
+            Assert.Collection(model.Preview.PreviewErrors, e => Assert.Equal(expected, e.Value));
+
         }
 
         [Fact]
@@ -231,17 +254,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         {
             public IEnumerator<object[]> GetEnumerator()
             {
-                yield return new object[] { "Name must not be blank", new Scheme(null, "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
-                yield return new object[] { "Short description must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", null, new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
-                yield return new object[] { "Short cost must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), null, new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
-                yield return new object[] { "Short benefits must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), new HtmlString("shortCost"), null, new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
-                yield return new object[] { "Short time must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), null, "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
-                yield return new object[] { "If there is no details page override, the description must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, null, new HtmlString("cost"), new HtmlString("responsibility"), new HtmlString("benefits"), "offer header", new HtmlString("offer")) };
-                yield return new object[] { "If there is no details page override and no sub schemes, the cost must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, new HtmlString("description"), null, new HtmlString("responsibility"), new HtmlString("benefits"), "offer header", new HtmlString("offer")) };
-                yield return new object[] { "If there is no details page override and no sub schemes, the responsibility must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, new HtmlString("description"), new HtmlString("cost"), null, new HtmlString("benefits"), "offer header", new HtmlString("offer")) };
-                yield return new object[] { "If there is no details page override and no sub schemes, the benefits must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, new HtmlString("description"), new HtmlString("cost"), new HtmlString("responsibility"), null, "offer header", new HtmlString("offer")) };
-                yield return new object[] { "If there is no details page override and no sub schemes, the offer header must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, new HtmlString("description"), new HtmlString("cost"), new HtmlString("responsibility"), new HtmlString("benefits"), null, new HtmlString("offer")) };
-                yield return new object[] { "If there is no details page override and no sub schemes, the offer must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, new HtmlString("description"), new HtmlString("cost"), new HtmlString("responsibility"), new HtmlString("benefits"), "offer header") };
+                yield return new object[] { "Name must not be blank", new Scheme(null, "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), "ShortBenefitsHeading", "ShortCostHeading", "ShortTimeHeading", new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, new List<SchemeFilterAspect>(), Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
+                yield return new object[] { "Short description must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", null, "ShortBenefitsHeading", "ShortCostHeading", "ShortTimeHeading", new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, new List<SchemeFilterAspect>(), Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
+                yield return new object[] { "Short cost must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), "ShortBenefitsHeading", "ShortCostHeading", "ShortTimeHeading", null, new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, new List<SchemeFilterAspect>(), Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
+                yield return new object[] { "Short benefits must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), "ShortBenefitsHeading", "ShortCostHeading", "ShortTimeHeading", new HtmlString("shortCost"), null, new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, new List<SchemeFilterAspect>(), Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
+                yield return new object[] { "Short time must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), "ShortBenefitsHeading", "ShortCostHeading", "ShortTimeHeading", new HtmlString("shortCost"), new HtmlString("shortBenefits"), null, "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, new List<SchemeFilterAspect>(), Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), new HtmlString("detailsPageOverride")) };
+                yield return new object[] { "If there is no details page override and no sub schemes, the offer header must not be blank", new Scheme("name", "shortname", "visitSchemeInformation", new HtmlString("shortDescription"), "ShortBenefitsHeading", "ShortCostHeading", "ShortTimeHeading", new HtmlString("shortCost"), new HtmlString("shortBenefits"), new HtmlString("shortTime"), "comparisonRecruitOrTrain", "comparisonAgeCriteria", "comparisonCost", "comparisonDuration", "url", 0, new List<SchemeFilterAspect>(), Enumerable.Empty<string>(), Enumerable.Empty<CaseStudy>(), new HtmlString("caseStudiesPreamble"), null, null) };
             }
 
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

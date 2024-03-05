@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
+using System.Collections.Generic;
 
 namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
 {
+
     public interface IContent
     {
+
         IEnumerable<Page> Pages { get; }
+
         IEnumerable<CaseStudyPage> CaseStudyPages { get; }
 
         /// <summary>
@@ -12,11 +16,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces
         /// </summary>
         IEnumerable<Scheme> Schemes { get; }
 
-        Filter MotivationsFilter { get; }
-        Filter SchemeLengthFilter { get; }
-        Filter PayFilter { get; }
+        List<SchemeFilter> SchemeFilters { get; }
 
-        IEnumerable<Contact> Contacts { get; }
+        ContactPage? ContactPage { get; }
+
+        InterimLandingPage? InterimLandingPage { get; }
+
+        IEnumerable<InterimMenuItem> MenuItems { get; }
+
+        IEnumerable<InterimPage> InterimPages { get; }
+
+        SchemeComparison? SchemeComparison { get; }
+
+        BetaBanner? BetaBanner { get; }
+
+        InterimFooterLinks? InterimFooterLinks { get; }
 
     }
+
 }

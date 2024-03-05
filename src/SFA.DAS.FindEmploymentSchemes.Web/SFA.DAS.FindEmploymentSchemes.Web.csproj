@@ -12,6 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\InterimPageComponents\**" />
+    <Content Remove="Views\InterimPageComponents\**" />
+    <EmbeddedResource Remove="Views\InterimPageComponents\**" />
+    <None Remove="Views\InterimPageComponents\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.SEOHelper" Version="1.0.1" />
     <PackageReference Include="Azurite" Version="2.6.5" />
     <PackageReference Include="contentful.aspnetcore" Version="7.5.0" />
@@ -24,6 +31,9 @@
     <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.8" />
     <PackageReference Include="SFA.DAS.Configuration.AzureTableStorage" Version="3.0.84" />
     <PackageReference Include="SFA.DAS.NLog.Targets.Redis" Version="1.2.1" />
+    <PackageReference Include="System.Net.Security" Version="4.3.2" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageReference Include="WebEssentials.AspNetCore.CdnTagHelpers" Version="1.0.21" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0" />
     <PackageReference Include="AsyncFixer" Version="1.6.0">
@@ -51,10 +61,6 @@
 
   <ItemGroup>
     <None Include="wwwroot\images\department_for_education_logo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\InterimPageComponents\" />
   </ItemGroup>
 
 </Project>

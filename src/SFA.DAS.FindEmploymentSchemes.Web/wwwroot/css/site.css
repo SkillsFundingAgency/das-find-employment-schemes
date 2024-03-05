@@ -100,7 +100,8 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
         .das-header-mobile__flex_column svg.app-header__skills-for-life-logo {
             float: right;
             position: relative;
-            width: 130px;
+            width: 120px;
+            height: 51px;
             margin-top: 0;
         }
 
@@ -114,20 +115,13 @@ h1, h2, h3, h4, p, span, legend, label, ul, li, a, button { /* .font-override h1
     }
 
     .app-header__department-for-education-logo {
-        width: 160px;
-        height: 100px;
-        margin-left: 10px;
+        width: 120px;
+        height: 70px;
+        margin-left: 8px;
     }
-
-    
 
     .govuk-header__navigation {
         display: none;
-    }
-
-    .das-header__mobile .govuk-header__navigation-list li.govuk-header__navigation-item {
-        border-top: 1px solid #d30172;
-        border-bottom: 1px solid #d30172;
     }
 
 }
@@ -616,3 +610,7 @@ table#comparison-results-table th:first-child {
     .interim-contents-section-component ul li::marker {
         color: #1D70B8;
     }
+
+[data-type="interim-container"] a {
+    font-weight: bold;
+}

@@ -4,20 +4,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 using SFA.DAS.FindEmploymentSchemes.Web.Enums;
 using SFA.DAS.FindEmploymentSchemes.Web.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.References;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
 
-    public static class InterimPageService
+    public static class InterimComponentService
     {
 
-        #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        #region Properties
+
+        #pragma warning disable CS8618
 
         private static ILogger _logger;
 
@@ -25,7 +27,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         private static HtmlRenderer _htmlRenderer;
 
-        #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        #pragma warning restore CS8618
+
+        #endregion
 
         #region Methods
 
@@ -40,15 +44,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
+        #region Scheme Generation
+
         /// <summary>
         /// Private placeholder method for future expansion of interim components functionality and view building.
         /// </summary>
         /// <param name="scheme">Encapsulated scheme information.</param>
         /// <returns>Microsoft.AspNetCore.Mvc.Rendering.TagBuilder with pre rendered interim components.</returns>
-        public static TagBuilder GenerateView(Scheme scheme)
+        public static TagBuilder GenerateSchemeView(Scheme scheme)
         {
 
-            return GenerateInterimPageAsync(scheme);
+            return GenerateSchemeComponents(scheme);
 
         }
 
@@ -57,12 +63,14 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         /// </summary>
         /// <param name="scheme">Encapsulated scheme information.</param>
         /// <returns>Microsoft.AspNetCore.Mvc.Rendering.TagBuilder with pre rendered interim components.</returns>
-        private static TagBuilder GenerateInterimPageAsync(Scheme scheme)
+        private static TagBuilder GenerateSchemeComponents(Scheme scheme)
         {
 
             return GenerateComponents(scheme);
 
         }
+
+        #endregion
 
         /// <summary>
         /// Generate all interim components linked to a scheme.
@@ -140,7 +148,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         /// Generate a SFA.DAS.FindEmploymentSchemes.Contentful.Model.InterimPageComponent sub component.
         /// </summary>
         /// <param name="component"></param>
-        /// <returns></returns>
+        /// <returns>System.string.</returns>
         public static string GenerateSubComponent(InterimPageComponent component)
         {
 
@@ -204,6 +212,38 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             html = html.Replace("\r", "\r\n");
 
             return new HtmlString(html);
+
+        }
+
+        /// <summary>
+        /// Retrieves the source URL of the media asset if available.
+        /// </summary>
+        /// <param name="mediaAsset">The media asset.</param>
+        /// <returns>Returns the source URL of the media asset, or an empty string if the asset is null or the URL is not available.</returns>
+        public static string GetMediaImageSource(Asset? mediaAsset)
+        {
+
+            try
+            {
+
+                if(mediaAsset == null || mediaAsset.File == null || string.IsNullOrWhiteSpace(mediaAsset.File.Url))
+                {
+
+                    return string.Empty;
+
+                }
+
+                return mediaAsset.File.Url;
+
+            }
+            catch(Exception _exception)
+            {
+
+                _logger.LogError(_exception, "Unable to get media asset source");
+
+                return string.Empty;
+
+            }
 
         }
 

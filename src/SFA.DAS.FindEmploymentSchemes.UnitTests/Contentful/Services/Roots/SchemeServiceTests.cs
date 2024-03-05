@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using Xunit;
+using AutoFixture.Kernel;
+using Contentful.Core.Models.Management;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
 {
@@ -16,6 +18,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
         public SchemeServiceTests()
         {
             SchemeService = new SchemeService(HtmlRenderer, Logger);
+
+            Fixture.Customizations.Add(
+            new TypeRelay(
+            typeof(IFieldValidator),
+            typeof(Asset)));
+
         }
 
         [Fact]
@@ -39,25 +47,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             var scheme = ContentfulCollection.Items.First();
             int differentiator = 0;
             Document document;
-            HtmlString expectedAdditionalFooter, expectedBenefits, expectedCaseStudiesPreamble, expectedCost, expectedDescription, expectedDetailsPageOverride, expectedOffer, expectedResponsibility,
+            HtmlString expectedAdditionalFooter, expectedCaseStudiesPreamble, expectedDetailsPageOverride,
                 expectedShortBenefits, expectedShortCost, expectedShortDescription, expectedShortTime;
 
             (document, expectedAdditionalFooter) = SampleDocumentAndExpectedContent(++differentiator);
             scheme.AdditionalFooter = document;
-            (document, expectedBenefits) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Benefits = document;
             (document, expectedCaseStudiesPreamble) = SampleDocumentAndExpectedContent(++differentiator);
             scheme.CaseStudies = document;
-            (document, expectedCost) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Cost = document;
-            (document, expectedDescription) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Description = document;
             (document, expectedDetailsPageOverride) = SampleDocumentAndExpectedContent(++differentiator);
             scheme.DetailsPageOverride = document;
-            (document, expectedOffer) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Offer = document;
-            (document, expectedResponsibility) = SampleDocumentAndExpectedContent(++differentiator);
-            scheme.Responsibility = document;
             (document, expectedShortBenefits) = SampleDocumentAndExpectedContent(++differentiator);
             scheme.ShortBenefits = document;
             (document, expectedShortCost) = SampleDocumentAndExpectedContent(++differentiator);
@@ -80,13 +78,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services.Roots
             Assert.Equal(expectedSourceScheme.OfferHeader, actualScheme.OfferHeader);
             Assert.Equal(expectedSourceScheme.Size, actualScheme.Size);
             Assert.Equal(expectedAdditionalFooter.Value, actualScheme.AdditionalFooter.Value);
-            Assert.Equal(expectedBenefits.Value, actualScheme.Benefits.Value);
             Assert.Equal(expectedCaseStudiesPreamble.Value, actualScheme.CaseStudiesPreamble.Value);
-            Assert.Equal(expectedCost.Value, actualScheme.Cost.Value);
-            Assert.Equal(expectedDescription.Value, actualScheme.Description.Value);
             Assert.Equal(expectedDetailsPageOverride.Value, actualScheme.DetailsPageOverride.Value);
-            Assert.Equal(expectedOffer.Value, actualScheme.Offer.Value);
-            Assert.Equal(expectedResponsibility.Value, actualScheme.Responsibility.Value);
             Assert.Equal(expectedShortBenefits.Value, actualScheme.ShortBenefits.Value);
             Assert.Equal(expectedShortCost.Value, actualScheme.ShortCost.Value);
             Assert.Equal(expectedShortDescription.Value, actualScheme.ShortDescription.Value);

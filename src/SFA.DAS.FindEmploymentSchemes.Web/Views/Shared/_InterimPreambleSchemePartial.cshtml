@@ -7,41 +7,35 @@
 
     <div class="das-primary-banner govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-6 govuk-!-margin-right-0 govuk-!-margin-left-0">
 
+        @await Html.PartialAsync(
+
+            "_InterimBreadcrumbPartial",
+
+            Model.InterimBreadcrumbs
+
+        )
+
         <div class="govuk-width-container govuk-width-container-large">
 
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-6">
-
-                <a id="scheme-comparison-breadcrumb"
-
-                    href="javascript:void(0);"
-
-                    onclick="history.back();"
-
-                    class="govuk-back-link"
-                    
-                >
-
-                    Back
-
-                </a>
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2 govuk-!-padding-left-0">
 
                 <h1 id="comparison-results-h1" class="govuk-heading-xl govuk-!-margin-top-4">@Model.Name</h1>
 
                 @if (Model.InterimPreamble?.PrimarySection != null)
                 {
 
-                    @InterimPageService.ToHtmlString(Model.InterimPreamble.PrimarySection)
+                    @InterimComponentService.ToHtmlString(Model.InterimPreamble.PrimarySection)
 
                 }
 
             </div>
 
-            <div class="govuk-grid-column-one-third govuk-!-padding-top-8">
+            <div class="govuk-grid-column-one-third govuk-!-padding-top-0">
 
                 @if (Model.InterimPreamble?.SecondarySection != null)
                 {
 
-                    @InterimPageService.ToHtmlString(Model.InterimPreamble.SecondarySection)
+                    @InterimComponentService.ToHtmlString(Model.InterimPreamble.SecondarySection)
 
                 }
 

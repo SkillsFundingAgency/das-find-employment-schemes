@@ -18,8 +18,13 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         public IPageService PageService { get; set; }
         public PagesController PagesController { get; set; }
 
+        private readonly BetaBanner BetaBanner;
+
         public PagesControllerTests()
         {
+
+            BetaBanner = new BetaBanner() { BetaBannerID = "BetaBannerID", BetaBannerTitle = "BetaBannerTitle", BetaBannerContent = null };
+
             ContentService = A.Fake<IContentService>();
             PageService = A.Fake<IPageService>();
 
@@ -41,7 +46,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             const string viewName = "viewName";
 
             A.CallTo(() => PageService.GetPageModel(pageUrl))
-                .Returns(new PageModel(new Page("title", "url", null), viewName));
+                .Returns(new PageModel(new Page("title", "url", null), [], BetaBanner, null, viewName));
 
             // act
             IActionResult result = PagesController.Page(pageUrl);
@@ -72,7 +77,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
             const string viewName = "viewName";
 
             A.CallTo(() => PageService.GetPageModelPreview(pageUrl))
-                .Returns(new PageModel(new Page("title", "url", null), viewName));
+                .Returns(new PageModel(new Page("title", "url", null), [], BetaBanner, null, viewName));
 
             // act
             IActionResult result = await PagesController.PagePreview(pageUrl);

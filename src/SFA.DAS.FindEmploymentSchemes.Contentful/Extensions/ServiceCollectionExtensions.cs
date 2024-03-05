@@ -27,10 +27,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Extensions
                 .AddSingleton<IContentService, ContentService>()
                 .AddSingleton<ISchemeService, SchemeService>()
                 .AddSingleton<IPageService, PageService>()
-                .AddSingleton<IMotivationFilterService, MotivationFilterService>()
+                .AddSingleton<ISchemeFilterService, SchemeFilterService>()
                 .AddSingleton<ICaseStudyPageService, CaseStudyPageService>()
-                .AddSingleton<IPayFilterService, PayFilterService>()
-                .AddSingleton<ISchemeLengthFilterService, SchemeLengthFilterService>()
                 .AddSingleton<IContactService, ContactService>()
                 .AddTransient<IContentfulClient>(sp =>
                 {

@@ -96,11 +96,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             var htmlRenderer = serviceProvider.GetRequiredService<HtmlRenderer>();
 
-
-
             var logger = serviceProvider.GetRequiredService<ILogger<object>>();
 
-            InterimPageService.Initialize(logger, viewRenderService, htmlRenderer);
+            InterimComponentService.Initialize(logger, viewRenderService, htmlRenderer);
+
+            services.AddSingleton<IInterimModelService, InterimModelService>();
+            services.AddSingleton<Contentful.Services.Interfaces.Roots.IInterimService, SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots.InterimService>();
 
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<ICaseStudyPageService, CaseStudyPageService>();
@@ -175,8 +176,18 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             {
 
                 MapControllerRoute(endpoints,
-                    "home",
+                    "interim",
+                    "interim/{interimURL}",
+                    "InterimPage", "InterimPage");
+
+                MapControllerRoute(endpoints,
+                    "landing",
                     "",
+                    "Landing", "Landing");
+
+                MapControllerRoute(endpoints,
+                    "home",
+                    "schemes",
                     "Schemes", "Home");
 
                 MapControllerRoute(endpoints,

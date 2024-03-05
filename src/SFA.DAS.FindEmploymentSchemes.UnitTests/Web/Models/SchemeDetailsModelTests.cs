@@ -2,6 +2,7 @@
 using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core.Models;
+using Contentful.Core.Models.Management;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
@@ -14,8 +15,13 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
         public Fixture Fixture { get; set; }
         public Scheme[] Schemes { get; set; }
 
+        private readonly BetaBanner BetaBanner;
+
         public SchemeDetailsModelTests()
         {
+
+            BetaBanner = new BetaBanner() { BetaBannerID = "BetaBannerID", BetaBannerTitle = "BetaBannerTitle", BetaBannerContent = null };
+
             Fixture = new Fixture();
 
             Fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
@@ -32,6 +38,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
                 typeof(IContent),
                 typeof(Document)));
 
+            Fixture.Customizations.Add(
+            new TypeRelay(
+            typeof(IFieldValidator),
+            typeof(Asset)));
+
             Schemes = Fixture.CreateMany<Scheme>(5).ToArray();
         }
 
@@ -43,7 +54,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
             var schemeUrl = Schemes[selectedScheme].Url;
 
             //Act
-            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes);
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes, [], BetaBanner, null);
 
             Assert.Equal(Schemes[2], schemeDetailsModel.Scheme);
         }
@@ -56,7 +67,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Models
             var schemeUrl = Schemes[0].Url;
 
             //Act
-            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes);
+            var schemeDetailsModel = new SchemeDetailsModel(schemeUrl, Schemes, [], BetaBanner, null);
 
             Assert.Equal(Schemes, schemeDetailsModel.Schemes);
         }

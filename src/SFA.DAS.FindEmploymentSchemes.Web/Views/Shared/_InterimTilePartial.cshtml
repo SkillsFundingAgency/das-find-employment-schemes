@@ -1,0 +1,39 @@
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
+@using SFA.DAS.FindEmploymentSchemes.Web.Services
+
+@model InterimTile
+
+<div class="das-tile">
+
+    @if(Model != null)
+    {
+
+        <div class="das-tile__img-container">
+
+            <img class="das-tile__img" src="@InterimComponentService.GetMediaImageSource(Model.InterimTileImage)" alt="" />
+
+        </div>
+
+        <div class="das-tile__body">
+
+            <div class="das-tile__body-heading">
+
+                <a id="link-@Model.InterimTileID" class="das-tile__tile-link" href="@Model.InterimTileSource" aria-labelledby="link-@Model.InterimTileID p-@Model.InterimTileID">@Model.InterimTileHeading</a>
+
+            </div>
+
+            <div id="p-@Model.InterimTileID" class="das-tile__body-text">
+
+                <div>
+
+                    @InterimComponentService.ToHtmlString(Model.InterimTileDescription)
+
+                </div>
+
+            </div>
+
+        </div>
+
+    }
+
+</div>

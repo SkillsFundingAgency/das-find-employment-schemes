@@ -5,6 +5,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using FakeItEasy;
 using Xunit;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 {
@@ -13,11 +14,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         public ILogger<ErrorController> Logger { get; set; }
         private ErrorController ErrorController { get; set; }
 
+        private IContentService IContentService { get; set; }
+
         public ErrorControllerTests()
         {
             Logger = A.Fake<ILogger<ErrorController>>();
 
-            ErrorController = new ErrorController(Logger)
+            IContentService = A.Fake<IContentService>();
+
+            ErrorController = new ErrorController(Logger, IContentService)
             {
                 ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() }
             };

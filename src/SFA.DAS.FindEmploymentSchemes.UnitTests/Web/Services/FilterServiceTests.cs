@@ -1,23 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using FakeItEasy;
-using Xunit;
+﻿using FakeItEasy;
+using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Routing;
-using System.ComponentModel;
-using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 {
     public class FilterServiceTests
     {
+
+        private readonly BetaBanner BetaBanner;
+
+        private static readonly string[] FilterAspects = new string[] { "aspect" };
+
+        private static readonly string recruitNewStaff = "motivation--recruit-new-staff";
+        
+        private static readonly string sixAndOneYear = "duration--between-6-months-and-1-year";
+        
+        private static readonly string longerThanOneYear = "duration--longer-than-1-year";
+        
+        private static readonly string free = "cost--free";
+
+        public FilterServiceTests()
+        {
+
+            BetaBanner = new BetaBanner() { BetaBannerID = "BetaBannerID", BetaBannerTitle = "BetaBannerTitle", BetaBannerContent = null };
+
+        }
+
         [Theory]
         [ClassData(typeof(FilterServiceTestData))]
         public void ApplyFilters_Result(IEnumerable<Scheme> expectedSchemes, SchemeFilterModel filters)
@@ -27,7 +45,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             ILogger<FilterService> filterServiceLogger = A.Fake<ILogger<FilterService>>();
 
             FilterService service = new FilterService(contentService, schemesModelService, filterServiceLogger);
-            HomeModel model = A.Fake<HomeModel>(x => x.WithArgumentsForConstructor(() => new HomeModel(null, expectedSchemes, null, false, "")));
+            HomeModel model = A.Fake<HomeModel>(x => x.WithArgumentsForConstructor(() => new HomeModel(expectedSchemes, Enumerable.Empty<FilterSectionModel>(), Enumerable.Empty<InterimMenuItem>(), null, null, BetaBanner, null, false, "")));
             A.CallTo(() => contentService.Content).Returns(new GeneratedContent());
 
             HomeModel result = service.ApplyFilter(filters);
@@ -54,107 +72,13 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             
                 {
 
-                    Pay = new string[1] { "Pay" },
-
-                    SchemeLength = new string[1] { "Duration" },
-
-                    Motivations = new string[1] { "Motivation" }
+                    FilterAspects = FilterAspects
 
                 }
             
             );
 
-            Assert.Equal("pay=Pay&duration=Duration&motivation=Motivation", result.SelectedFilters);
-
-        }
-
-        [Fact(DisplayName = "FilterService - ApplyFilters - Pay - returns correct filter URL")]
-        public void FilterService_ApplyFilters_Pay_Returns_Correct_Filter_URL()
-        {
-
-            IContentService contentService = A.Fake<IContentService>();
-
-            ISchemesModelService schemesModelService = A.Fake<ISchemesModelService>();
-
-            ILogger<FilterService> filterServiceLogger = A.Fake<ILogger<FilterService>>();
-
-            FilterService service = new FilterService(contentService, schemesModelService, filterServiceLogger);
-
-            A.CallTo(() => contentService.Content).Returns(new GeneratedContent());
-
-            HomeModel result = service.ApplyFilter(
-
-                new SchemeFilterModel()
-
-                {
-
-                    Pay = new string[1] { "Pay" }
-
-                }
-
-            );
-
-            Assert.Equal("pay=Pay", result.SelectedFilters);
-
-        }
-
-        [Fact(DisplayName = "FilterService - ApplyFilters - Duration - returns correct filter URL")]
-        public void FilterService_ApplyFilters_Duration_Returns_Correct_Filter_URL()
-        {
-
-            IContentService contentService = A.Fake<IContentService>();
-
-            ISchemesModelService schemesModelService = A.Fake<ISchemesModelService>();
-
-            ILogger<FilterService> filterServiceLogger = A.Fake<ILogger<FilterService>>();
-
-            FilterService service = new FilterService(contentService, schemesModelService, filterServiceLogger);
-
-            A.CallTo(() => contentService.Content).Returns(new GeneratedContent());
-
-            HomeModel result = service.ApplyFilter(
-
-                new SchemeFilterModel()
-
-                {
-
-                    SchemeLength = new string[1] { "Duration" }
-
-                }
-
-            );
-
-            Assert.Equal("duration=Duration", result.SelectedFilters);
-
-        }
-
-        [Fact(DisplayName = "FilterService - ApplyFilters - Motivation - returns correct filter URL")]
-        public void FilterService_ApplyFilters_Motivation_Returns_Correct_Filter_URL()
-        {
-
-            IContentService contentService = A.Fake<IContentService>();
-
-            ISchemesModelService schemesModelService = A.Fake<ISchemesModelService>();
-
-            ILogger<FilterService> filterServiceLogger = A.Fake<ILogger<FilterService>>();
-
-            FilterService service = new FilterService(contentService, schemesModelService, filterServiceLogger);
-
-            A.CallTo(() => contentService.Content).Returns(new GeneratedContent());
-
-            HomeModel result = service.ApplyFilter(
-
-                new SchemeFilterModel()
-
-                {
-
-                    Motivations = new string[1] { "Motivation" }
-
-                }
-
-            );
-
-            Assert.Equal("motivation=Motivation", result.SelectedFilters);
+            Assert.Equal("filters=aspect", result.SelectedFilters);
 
         }
 
@@ -162,9 +86,6 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
         {
             public IEnumerator<object[]> GetEnumerator()
             {
-                string fourToTwelveMonths = "scheme-length--4-months-to-12-months";
-                string yearOrMore = "scheme-length--a-year-or-more";
-                string unpaid = "pay--unpaid";
 
                 var generatedContent = new GeneratedContent();
 
@@ -173,24 +94,28 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
                     new SchemeFilterModel()
                 };
                 yield return new object[] {
-                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths)),
-                    new SchemeFilterModel { SchemeLength = new[] { fourToTwelveMonths }}
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(sixAndOneYear)),
+                    new SchemeFilterModel { FilterAspects = new[] { sixAndOneYear }}
                 };
                 yield return new object[] {
-                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore)),
-                    new SchemeFilterModel { SchemeLength = new[] { yearOrMore }}
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(longerThanOneYear)),
+                    new SchemeFilterModel { FilterAspects = new[] { longerThanOneYear }}
                 };
                 yield return new object[] {
-                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(unpaid)),
-                    new SchemeFilterModel { Pay = new[] { unpaid }}
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(free)),
+                    new SchemeFilterModel { FilterAspects = new[] { free }}
                 };
                 yield return new object[] {
-                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(yearOrMore) && s.FilterAspects.Contains(unpaid)),
-                    new SchemeFilterModel { SchemeLength = new[] { yearOrMore }, Pay = new[] { unpaid }}
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(longerThanOneYear) && s.FilterAspects.Contains(free)),
+                    new SchemeFilterModel { FilterAspects = new[] { longerThanOneYear, free }}
                 };
                 yield return new object[] {
-                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(fourToTwelveMonths) || s.FilterAspects.Contains(yearOrMore)),
-                    new SchemeFilterModel { SchemeLength = new[] { fourToTwelveMonths, yearOrMore }}
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(recruitNewStaff) && s.FilterAspects.Contains(free)),
+                    new SchemeFilterModel { FilterAspects = new[] { recruitNewStaff, free }}
+                };
+                yield return new object[] {
+                    generatedContent.Schemes.Where(s => s.FilterAspects.Contains(sixAndOneYear) || s.FilterAspects.Contains(longerThanOneYear)),
+                    new SchemeFilterModel { FilterAspects = new[] { sixAndOneYear, longerThanOneYear }}
                 };
             }
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

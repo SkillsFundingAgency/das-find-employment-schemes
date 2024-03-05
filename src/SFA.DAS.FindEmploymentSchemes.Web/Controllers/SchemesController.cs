@@ -8,24 +8,35 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
     public class SchemesController : Controller
     {
+
         private readonly ISchemesModelService _schemesModelService;
+
         private readonly IFilterService _filterService;
 
         public SchemesController(
+
             ISchemesModelService schemesModelService,
-            IFilterService filterService)
+
+            IFilterService filterService
+            
+        )
         {
+
             _schemesModelService = schemesModelService;
+
             _filterService = filterService;
+
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public IActionResult Home(string pay, string duration, string motivation)
+        public IActionResult Home(string filters)
         {
+
+            ViewData["Title"] = "Find training and employment schemes for your business - Scheme Home";
 
             return View(
                 
-                _filterService.RemapFilters(pay, duration, motivation)
+                _filterService.RemapFilters(filters)
                 
             );
 
@@ -35,17 +46,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [HttpPost]
         public IActionResult Home(string actionButton, SchemeFilterModel filters)
         {
-            
+
+            ViewData["Title"] = "Find training and employment schemes for your business - Scheme Home";
+
             if (actionButton == "Compare")
             {
 
-                string pay = string.Join(",", filters.Pay);
+                string aspects = string.Join(",", filters.FilterAspects);
 
-                string duration = string.Join(",", filters.SchemeLength);
-
-                string motivation = string.Join(",", filters.Motivations);
-
-                return RedirectToAction("Comparison", "Schemes", new { pay, duration, motivation });
+                return RedirectToAction("Comparison", "Schemes", new { filters = aspects });
 
             } 
 
@@ -57,33 +66,52 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         public async Task<IActionResult> HomePreview()
         {
+
             return View("home", await _schemesModelService.CreateHomeModelPreview());
+
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Details(string schemeUrl)
         {
+
             var schemeDetailsModel = _schemesModelService.GetSchemeDetailsModel(schemeUrl);
+
             if (schemeDetailsModel == null)
-                return NotFound();
+            {
+
+                return RedirectToAction("PageNotFound", "Error");
+
+            }
+                
+            ViewData["Title"] = $"Find training and employment schemes for your business - {schemeDetailsModel.Scheme.Name}";
 
             return View(schemeDetailsModel);
         }
 
         public async Task<IActionResult> DetailsPreview(string schemeUrl)
         {
+
             var schemeDetailsModel = await _schemesModelService.GetSchemeDetailsModelPreview(schemeUrl);
+
             if (schemeDetailsModel == null)
+            {
+
                 return NotFound();
 
+            }
+
             return View("Details", schemeDetailsModel);
+
         }
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public IActionResult Comparison(string pay, string duration, string motivation)
+        public IActionResult Comparison(string filters)
         {
 
-            SchemeFilterModel schemeFilterModel = _filterService.CreateFilterModel(pay, duration, motivation);
+            ViewData["Title"] = "Find training and employment schemes for your business - Scheme Comparison";
+
+            SchemeFilterModel schemeFilterModel = _filterService.CreateFilterModel(filters);
 
             HomeModel filteredModel = _filterService.ApplyFilter(schemeFilterModel);
 
@@ -99,10 +127,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         }
 
-        public async Task<IActionResult> ComparisonPreview(string pay, string duration, string motivation)
+        public async Task<IActionResult> ComparisonPreview(string filters)
         {
 
-            SchemeFilterModel schemeFilterModel = _filterService.CreateFilterModel(pay, duration, motivation);
+            SchemeFilterModel schemeFilterModel = _filterService.CreateFilterModel(filters);
 
             HomeModel filteredModel = _filterService.ApplyFilter(schemeFilterModel);
 
@@ -117,5 +145,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             return View("ComparisonResults", resultsModel);
 
         }
+
     }
+
 }

@@ -1,20 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoFixture;
+﻿using AutoFixture;
 using AutoFixture.Kernel;
 using Contentful.Core;
 using Contentful.Core.Models;
+using Contentful.Core.Models.Management;
 using FakeItEasy;
 using KellermanSoftware.CompareNetObjects;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
-using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
@@ -32,10 +34,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
         public ISchemeService SchemeService { get; set; }
         public IPageService PageService { get; set; }
         public ICaseStudyPageService CaseStudyPageService { get; set; }
-        public IMotivationFilterService MotivationFilterService { get; set; }
-        public IPayFilterService PayFilterService { get; set; }
-        public ISchemeLengthFilterService SchemeLengthFilterService { get; set; }
-
+        public ISchemeFilterService SchemeFilterService { get; set; }
+        public IInterimService InterimService { get; set; }
         public IContactService ContactService { get; set; }
 
         public ContentService ContentService { get; set; }
@@ -58,6 +58,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
                     typeof(IContent),
                     typeof(Paragraph)));
 
+            Fixture.Customizations.Add(
+            new TypeRelay(
+            typeof(IFieldValidator),
+            typeof(Asset)));
+
             ContentfulClientFactory = A.Fake<IContentfulClientFactory>();
             ContentfulClient = A.Fake<IContentfulClient>();
             PreviewContentfulClient = A.Fake<IContentfulClient>();
@@ -73,10 +78,9 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
             SchemeService = A.Fake<ISchemeService>();
             PageService = A.Fake<IPageService>();
             CaseStudyPageService = A.Fake<ICaseStudyPageService>();
-            MotivationFilterService = A.Fake<IMotivationFilterService>();
-            PayFilterService = A.Fake<IPayFilterService>();
-            SchemeLengthFilterService = A.Fake<ISchemeLengthFilterService>();
+            SchemeFilterService = A.Fake<ISchemeFilterService>();
             ContactService = A.Fake<IContactService>();
+            InterimService = A.Fake<IInterimService>();
 
             CreateContentService();
 
@@ -408,11 +412,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
                 SchemeService,
                 PageService,
                 CaseStudyPageService,
-                MotivationFilterService,
-                PayFilterService,
-                SchemeLengthFilterService,
+                SchemeFilterService,
                 ContactService,
+                InterimService,
                 Logger);
         }
+
     }
+
 }

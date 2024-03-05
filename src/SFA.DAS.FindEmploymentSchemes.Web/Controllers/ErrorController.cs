@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Infrastructure;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using System;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
@@ -13,16 +15,39 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         private static readonly LayoutModel LayoutModel = new LayoutModel();
 
-        public ErrorController(ILogger<ErrorController> logger)
+        private readonly IContentService _contentService;
+
+        public ErrorController(ILogger<ErrorController> logger, IContentService contentService)
         {
+
             _log = logger;
+
+            _contentService = contentService;
+
         }
 
         [Route("404", Name = RouteNames.Error404)]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult PageNotFound()
-        {            
-            return View(LayoutModel);
+        {
+
+            try
+            {
+
+                LayoutModel.InterimFooterLinks = _contentService.Content.InterimFooterLinks;
+
+                return View(LayoutModel);
+
+            }
+            catch(Exception _exception)
+            {
+
+                _log.LogError(_exception, "Unable to get model with populated footer");
+
+                return View(LayoutModel);
+
+            }
+
         }
 
         [Route("500", Name = RouteNames.Error500)]

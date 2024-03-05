@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Primitives;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Text;
 
@@ -9,22 +7,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
     public class SchemeFilterModel
     {
 
-        public string[] Motivations { get; set; }
-
-        public string[] SchemeLength { get; set; }
-
-        public string[] Pay { get; set; }
-
-        public IEnumerable<string> AllFilters => Motivations.Union(SchemeLength).Union(Pay);
+        public string[] FilterAspects { get; set; }
 
         public SchemeFilterModel()
         {
 
-            Motivations = Array.Empty<string>();
-
-            SchemeLength = Array.Empty<string>();
-
-            Pay = Array.Empty<string>();
+            FilterAspects = Array.Empty<string>();
 
         }
 
@@ -40,30 +28,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Models
 
                 StringBuilder queryBuilder = new StringBuilder();
 
-                if (Pay.Any())
+                if (FilterAspects.Any())
                 {
 
-                    queryBuilder.Append(string.IsNullOrWhiteSpace(queryBuilder.ToString()) ? "pay=" : "&pay=");
+                    queryBuilder.Append(string.IsNullOrWhiteSpace(queryBuilder.ToString()) ? "filters=" : "&filters=");
 
-                    queryBuilder.Append(Uri.EscapeDataString(string.Join(',', Pay)));
-
-                }
-
-                if (SchemeLength.Any())
-                {
-
-                    queryBuilder.Append(string.IsNullOrWhiteSpace(queryBuilder.ToString()) ? "duration=" : "&duration=");
-
-                    queryBuilder.Append(Uri.EscapeDataString(string.Join(',', SchemeLength)));
-
-                }
-
-                if (Motivations.Any())
-                {
-
-                    queryBuilder.Append(string.IsNullOrWhiteSpace(queryBuilder.ToString()) ? "motivation=" : "&motivation=");
-
-                    queryBuilder.Append(Uri.EscapeDataString(string.Join(',', Motivations)));
+                    queryBuilder.Append(Uri.EscapeDataString(string.Join(',', FilterAspects)));
 
                 }
 

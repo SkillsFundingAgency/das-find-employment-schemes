@@ -46,6 +46,13 @@
     <link href="/css/das_employment_schemes_rework.css" rel="stylesheet" no-cdn />
     <!--<![endif]-->
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
+
+    <a id="layout-main-content-link" href="#main-content" class="govuk-skip-link">Skip to main content</a>
+
+    @await Html.PartialAsync("_HomeMenuDesktopPartial", Model?.MenuItems)
+
+    @await Html.PartialAsync("_HomeMenuMobilePartial", Model?.MenuItems)
+
 </head>
 
 <body id="layout-body" class="govuk-template__body">
@@ -56,28 +63,7 @@
 
     @await Html.PartialAsync("_CookieBannerPartial", Model)
 
-    <a id="layout-main-content-link" href="#main-content" class="govuk-skip-link">Skip to main content</a>
-
-    @await Html.PartialAsync("_HomeMenuDesktopPartial")
-
-    @await Html.PartialAsync("_HomeMenuMobilePartial")
-
-    <div class="govuk-width-container">
-        <div class="das-grid">
-            <div class="govuk-phase-banner">
-                <p class="govuk-phase-banner__content">
-                    <strong class="govuk-tag govuk-phase-banner__content__tag">
-                        beta
-                    </strong>
-                    <span id="layout-main-content-banner-span" class="govuk-phase-banner__text">
-                        This is a new service – your <a id="layout-main-content-banner-link"
-                            href="https://dferesearch.fra1.qualtrics.com/jfe/form/SV_3geG7aDVWFuYTvo"
-                            role="link">feedback</a> will help us to improve it.
-                    </span>
-                </p>
-            </div>
-        </div>
-    </div>
+    @await Html.PartialAsync("_BetaBannerPartial", Model?.BetaBanner)
 
     @RenderSection("BreadCrumbs", required: false)
 
@@ -89,7 +75,7 @@
 
     </main>
 
-    @await Html.PartialAsync("_FooterPartial")
+    @await Html.PartialAsync("_FooterPartial", Model?.InterimFooterLinks)
 
     <script src="/libs/govuk-frontend/all.js"></script>
     <script src="/libs/jquery/jquery.min.js"></script>
@@ -99,9 +85,17 @@
     <script src="/js/interim-pages.js" no-cdn></script>
 
     <script asp-add-nonce>
-        //window.GOVUKFrontend.initAll();
+
         window.DASFrontend.initAll();
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            initMobileView();
+
+        });
+
     </script>
+
     <environment include="Development">
         <script src="/js/show_hide.js" no-cdn></script>
         <script src="/js/app.js" no-cdn></script>

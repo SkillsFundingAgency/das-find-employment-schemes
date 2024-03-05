@@ -1,0 +1,61 @@
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
+@using SFA.DAS.FindEmploymentSchemes.Web.Services
+@model (InterimTileSection, bool)
+
+<div class="govuk-grid-row">
+
+    @if(Model.Item2)
+    {
+
+        <div class="govuk-grid-column-full">
+
+            <hr class="govuk-grid-column-full das-hr" />
+
+        </div>
+
+    }
+
+    @if(!string.IsNullOrWhiteSpace(Model.Item1.InterimTileSectionHeading))
+    {
+
+        <div class="govuk-grid-column-full">
+
+            <h3 class="govuk-heading-m">@Model.Item1.InterimTileSectionHeading</h3>
+
+        </div>
+
+    }
+
+    @if(Model.Item1.InterimTileSectionDescription != null)
+    {
+
+        <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
+            
+            @InterimComponentService.ToHtmlString(Model.Item1.InterimTileSectionDescription)
+        
+        </div>
+
+    }
+
+    <div class="govuk-grid-column-full">
+
+        <div class="das-grid-two-columns">
+
+            @foreach (InterimTile tile in Model.Item1.InterimTiles.OrderBy(a => a.InterimTileOrder))
+            {
+
+                @await Html.PartialAsync(
+
+                    "_InterimTilePartial",
+
+                    tile
+
+                )
+
+            }
+
+        </div>
+
+    </div>
+
+</div>

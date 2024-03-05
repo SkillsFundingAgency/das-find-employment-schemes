@@ -1,4 +1,5 @@
-﻿@model ContactModel
+﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
+@model ContactPageModel
 
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
@@ -14,29 +15,13 @@
 
 }
 
-<div class="das-primary-banner govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-6 govuk-!-margin-right-0 govuk-!-margin-left-0">
+@await Html.PartialAsync(
 
-    <div class="govuk-width-container govuk-width-container-large">
+    "_InterimPreambleGeneralPartial",
 
-        <div class="govuk-grid-column-two-thirds govuk-!-padding-top-0 govuk-!-padding-left-0">
+    new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool>(Model.InterimPreamble, Model.InterimBreadcrumbs, false)
 
-            <a id="scheme-comparison-breadcrumb" asp-route="Home" class="govuk-back-link" role="link">Back</a>
-
-            <h1 id="comparison-results-h1" class="govuk-heading-l govuk-!-margin-top-4">Contact</h1>
-
-            <p>
-
-                A list of organisations you can contact if you have specific questions or want more details.
-
-                <a class="govuk-link" href="https://www.gov.uk/call-charges">Call charges and phone numbers - GOV.UK (www.gov.uk) </a>
-
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
+)
 
 <div class="govuk-width-container govuk-!-padding-top-6">
 
@@ -44,7 +29,7 @@
 
         <div class="govuk-grid-column-full">
 
-            @foreach(Contact contact in Model.ContactList)
+            @foreach(Contact contact in Model.Contacts.OrderBy(a => a.Order))
             {
 
                 <div class="govuk-inset-text govuk-details__text">

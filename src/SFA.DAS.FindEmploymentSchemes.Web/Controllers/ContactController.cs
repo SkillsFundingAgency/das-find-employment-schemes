@@ -21,7 +21,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         public IActionResult Index()
         {
 
-            return View(_contactService.GetContactModel());
+            ViewData["Title"] = "Find training and employment schemes for your business - Contacts";
+
+            return View(_contactService.GetContactPageModel());
 
         }
 

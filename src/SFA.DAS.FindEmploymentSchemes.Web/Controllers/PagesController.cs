@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
+using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
@@ -28,7 +30,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             var pageModel = _pageService.GetPageModel(pageUrl);
 
             if (pageModel == null)
+            {
+
                 return NotFound();
+
+            }
+                
+            ViewData["Title"] = $"Find training and employment schemes for your business - {pageModel.Page.Title}";
 
             return View(pageModel.ViewName, pageModel);
         }
@@ -52,6 +60,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         [Route("page/cookies")]
         public IActionResult Cookies(string AnalyticsCookies, string MarketingCookies)
         {
+
+            ViewData["Title"] = $"Find training and employment schemes for your business - Cookies";
+
             SetCookies(AnalyticsCookies, MarketingCookies);
 
             var cookiePageModel = _pageService.GetCookiePageModel(_contentService.Content, true);

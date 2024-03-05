@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.ViewModels
@@ -12,7 +12,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.ViewModels
         [ClassData(typeof(SchemeFilterViewModelTestData))]
         public void Constructor_AllFiltersCount(int expectedAllFiltersCount, SchemeFilterModel model)
         {
-            Assert.Equal(expectedAllFiltersCount, model.AllFilters.Count());
+            Assert.Equal(expectedAllFiltersCount, model.FilterAspects.Length);
         }
 
         public class SchemeFilterViewModelTestData : IEnumerable<object[]>
@@ -20,8 +20,8 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.ViewModels
             public IEnumerator<object[]> GetEnumerator()
             {
                 yield return new object[] {  0, new SchemeFilterModel() };
-                yield return new object[] {  4, new SchemeFilterModel { Motivations = new[] { "abc", "def" }, SchemeLength = new[] { "ghi" }, Pay = new[] { "xyz" }}};
-                yield return new object[] { 10, new SchemeFilterModel { Motivations = new[] { "abc", "def", "ghi" }, SchemeLength = new[] { "jk", "l", "mn" }, Pay = new[] { "o", "pqrs", "tuvw", "xyz" }}};
+                yield return new object[] {  4, new SchemeFilterModel { FilterAspects = new[] { "abc", "def", "ghi", "xyz" }}};
+                yield return new object[] { 10, new SchemeFilterModel { FilterAspects = new[] { "abc", "def", "ghi", "jk", "l", "mn", "o", "pqrs", "tuvw", "xyz" }}};
             }
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
