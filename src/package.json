@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@contentful/live-preview": "^2.17.3"
+  }
+}
