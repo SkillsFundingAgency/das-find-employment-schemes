@@ -177,7 +177,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                         }
                     })
                     .AddCustomHeader("X-Permitted-Cross-Domain-Policies", "none")
-                    .AddCustomHeader("", "")
+
                     // this is called in AddDefaultSecurityHeaders(), but without this, we get AddXssProtectionDisabled() instead
                     .AddXssProtectionBlock());
 #pragma warning restore S1075
