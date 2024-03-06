@@ -33,6 +33,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         public async Task<IActionResult> LandingPreview()
         {
 
+            Response.Headers["X-Frame-Options"] = "ALLOW-FROM https://app.contentful.com/";
+
             ViewData["Title"] = $"Find training and employment schemes for your business - Landing Page Preview";
 
             LandingModel? landingModel = await _interimModelService.GetLandingPreviewModel();
