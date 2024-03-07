@@ -215,10 +215,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     "scheme-comparison",
                     "Schemes", "Comparison");
 
+                // Preview Routes
+
                 MapControllerRoute(endpoints,
-                    "home-preview",
-                    "preview/",
-                    "Schemes", "HomePreview");
+                    "interim-preview",
+                    "preview/interim/{interimURL}",
+                    "InterimPage", "InterimPagePreview");
+
+                MapControllerRoute(endpoints,
+                    "landing-preview",
+                    "/preview",
+                    "Landing", "LandingPreview");
+
+                //MapControllerRoute(endpoints,
+                //    "home-preview",
+                //    "preview/",
+                //    "Schemes", "HomePreview");
 
                 MapControllerRoute(endpoints,
                     "page-preview",

@@ -162,6 +162,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://td.doubleclick.net"
                             });
 
+                        // Add frame-ancestors directive allowing embedding from specific domain(s)
+                        builder.AddFrameAncestors()
+                               .From("https://app.contentful.com");
+
                         if (env.IsDevelopment())
                         {
                             // open up for browserlink
@@ -172,7 +176,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                             connectSrc.From(new[] { "https://localhost:*", "ws://localhost:*", "wss://localhost:*" });
                         }
                     })
+                    .AddCustomHeader("X-Frame-Options", "ALLOW-FROM https://app.contentful.com/")
                     .AddCustomHeader("X-Permitted-Cross-Domain-Policies", "none")
+
                     // this is called in AddDefaultSecurityHeaders(), but without this, we get AddXssProtectionDisabled() instead
                     .AddXssProtectionBlock());
 #pragma warning restore S1075

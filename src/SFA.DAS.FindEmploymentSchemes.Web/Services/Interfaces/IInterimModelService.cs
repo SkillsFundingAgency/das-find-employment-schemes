@@ -1,4 +1,5 @@
 ﻿using SFA.DAS.FindEmploymentSchemes.Web.Models;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
 {
@@ -9,6 +10,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
         InterimPageModel? GetInterimPageModel(string interimURL);
 
         LandingModel? GetLandingModel();
+
+        Task<LandingModel?> GetLandingPreviewModel();
 
     }
 

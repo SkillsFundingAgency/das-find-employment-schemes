@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
@@ -24,6 +25,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             ViewData["Title"] = $"Find training and employment schemes for your business - Landing Page";
 
             LandingModel? landingModel = _interimModelService.GetLandingModel();
+
+            return View(nameof(Landing), landingModel);
+
+        }
+
+        public async Task<IActionResult> LandingPreview()
+        {
+
+            ViewData["Title"] = $"Find training and employment schemes for your business - Landing Page Preview";
+
+            LandingModel? landingModel = await _interimModelService.GetLandingPreviewModel();
 
             return View(nameof(Landing), landingModel);
 

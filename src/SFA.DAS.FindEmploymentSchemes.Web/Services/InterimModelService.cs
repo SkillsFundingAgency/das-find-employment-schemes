@@ -1,9 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Html;
+using Microsoft.Extensions.Logging;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using System;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
@@ -134,6 +139,56 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
             {
 
                 _logger.LogError(_exception, "Unable to get interim landing page.");
+
+                return null;
+
+            }
+
+        }
+
+        public async Task<LandingModel?> GetLandingPreviewModel()
+        {
+
+            try
+            {
+
+                IContent previewContent = await _contentService.UpdatePreview();
+
+                InterimLandingPage? landingPage = previewContent.InterimLandingPage;
+
+                if (landingPage == null)
+                {
+
+                    return null;
+
+                }
+
+                return new LandingModel()
+                {
+
+                    InterimLandingPageID = landingPage.InterimLandingPageID,
+
+                    InterimLandingPageTitle = landingPage.InterimLandingPageTitle,
+
+                    InterimLandingPagePreamble = landingPage.InterimLandingPagePreamble,
+
+                    InterimTileSections = landingPage.InterimTileSections,
+
+                    MenuItems = previewContent.MenuItems,
+
+                    BetaBanner = previewContent.BetaBanner,
+
+                    InterimFooterLinks = previewContent.InterimFooterLinks,
+
+                    Preview = new PreviewModel(Enumerable.Empty<HtmlString>())
+
+            };
+
+            }
+            catch (Exception _exception)
+            {
+
+                _logger.LogError(_exception, "Unable to get interim preview landing page.");
 
                 return null;
 
