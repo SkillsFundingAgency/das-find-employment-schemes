@@ -1,8 +1,8 @@
 ﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
 @using SFA.DAS.FindEmploymentSchemes.Web.Services
-@model Scheme?
+@model (Scheme?, bool)
 
-@if (Model != null)
+@if (Model.Item1 != null)
 {
 
     <div class="das-primary-banner govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-6 govuk-!-margin-right-0 govuk-!-margin-left-0">
@@ -11,7 +11,7 @@
 
             "_InterimBreadcrumbPartial",
 
-            Model.InterimBreadcrumbs
+            (Model.Item1.InterimBreadcrumbs, Model.Item2)
 
         )
 
@@ -19,12 +19,12 @@
 
             <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2 govuk-!-padding-left-0">
 
-                <h1 id="comparison-results-h1" class="govuk-heading-xl govuk-!-margin-top-4">@Model.Name</h1>
+                <h1 id="comparison-results-h1" class="govuk-heading-xl govuk-!-margin-top-4">@Model.Item1.Name</h1>
 
-                @if (Model.InterimPreamble?.PrimarySection != null)
+                @if (Model.Item1.InterimPreamble?.PrimarySection != null)
                 {
 
-                    @InterimComponentService.ToHtmlString(Model.InterimPreamble.PrimarySection)
+                    @InterimComponentService.ToHtmlString(Model.Item1.InterimPreamble.PrimarySection)
 
                 }
 
@@ -32,10 +32,10 @@
 
             <div class="govuk-grid-column-one-third govuk-!-padding-top-0">
 
-                @if (Model.InterimPreamble?.SecondarySection != null)
+                @if (Model.Item1.InterimPreamble?.SecondarySection != null)
                 {
 
-                    @InterimComponentService.ToHtmlString(Model.InterimPreamble.SecondarySection)
+                    @InterimComponentService.ToHtmlString(Model.Item1.InterimPreamble.SecondarySection)
 
                 }
 
