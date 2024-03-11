@@ -192,7 +192,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
                 MapControllerRoute(endpoints,
                     "contact",
-                    "",
+                    "contact/index",
                     "contact", "index");
 
                 MapControllerRoute(endpoints,
@@ -227,10 +227,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     "/preview",
                     "Landing", "LandingPreview");
 
-                //MapControllerRoute(endpoints,
-                //    "home-preview",
-                //    "preview/",
-                //    "Schemes", "HomePreview");
+                MapControllerRoute(endpoints,
+                    "scheme-home-preview",
+                    "preview/schemes",
+                    "Schemes", "HomePreview");
 
                 MapControllerRoute(endpoints,
                     "page-preview",
@@ -251,6 +251,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
                     "casestudypage-preview",
                     "preview/case-study/{pageUrl}",
                     "CaseStudies", "CaseStudyPagePreview");
+
+                MapControllerRoute(endpoints,
+                    "contact-preview",
+                    "preview/index",
+                    "Contact", "IndexPreview");
+
             });
         }
 
