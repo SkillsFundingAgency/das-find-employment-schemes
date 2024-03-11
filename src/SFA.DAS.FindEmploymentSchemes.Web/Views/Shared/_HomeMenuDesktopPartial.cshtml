@@ -1,5 +1,5 @@
 ﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
-@model IEnumerable<InterimMenuItem>
+@model (IEnumerable<InterimMenuItem>?, bool?)
 
 <header class="govuk-header das-header das-header__desktop js-enabled" data-module="govuk-header">
 
@@ -11,7 +11,7 @@
 
                 <div class="das-header__logo-container govuk-grid-column-three-quarters">
 
-                    <a href="/">
+                    <a href="@(Model.Item2.HasValue && Model.Item2.Value ? "/preview" : "/")">
                     
                         <image class="app-header__department-for-education-logo" alt="Department for education logo" src="/svg/department-for-education-desktop.svg" />
                     
@@ -39,15 +39,15 @@
 
                         <ul id="navigation" class="govuk-header__navigation-list">
 
-                            @if(Model.Any())
+                            @if (Model.Item1 != null && Model.Item1.Any())
                             {
 
-                                foreach(InterimMenuItem item in Model)
+                                foreach (InterimMenuItem item in Model.Item1)
                                 {
 
                                     <li class="govuk-header__navigation-item das-header-navigation-item-chevron-mobile govuk-header__navigation-item--active">
 
-                                        <a class="govuk-header__link" href="@item.InterimMenuItemSource" role="link">@item.InterimMenuItemText</a>
+                                        <a class="govuk-header__link" href="@(Model.Item2.HasValue && Model.Item2.Value ? $"/preview{item.InterimMenuItemSource}" : item.InterimMenuItemSource)" role="link">@item.InterimMenuItemText</a>
 
                                     </li>
 
@@ -87,8 +87,6 @@
 
             if (href === path) {
                
-
-
                 item.classList.add("govuk-header__navigation-item--active");
 
                 item.querySelector("a").setAttribute("tabindex", "-1");

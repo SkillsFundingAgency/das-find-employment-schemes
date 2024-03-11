@@ -36,8 +36,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
             }
                 
-            ViewData["Title"] = $"Find training and employment schemes for your business - {pageModel.Page.Title}";
-
             return View(pageModel.ViewName, pageModel);
         }
 

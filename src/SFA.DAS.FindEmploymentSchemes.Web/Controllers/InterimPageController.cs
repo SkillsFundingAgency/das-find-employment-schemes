@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
@@ -31,7 +32,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
             }
 
-            ViewData["Title"] = $"Find training and employment schemes for your business - {interimPageModel.InterimPageTitle}";
+            return View(nameof(InterimPage), interimPageModel);
+
+        }
+
+        public async Task<IActionResult> InterimPagePreview(string interimURL)
+        {
+
+            InterimPageModel? interimPageModel = await _interimModelService.GetInterimPagePreviewModel(interimURL);
+
+            if (interimPageModel == null)
+            {
+
+                return NotFound();
+
+            }
 
             return View(nameof(InterimPage), interimPageModel);
 

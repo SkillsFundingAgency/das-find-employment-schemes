@@ -10,6 +10,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
@@ -38,7 +39,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
         [Theory]
         [ClassData(typeof(FilterServiceTestData))]
-        public void ApplyFilters_Result(IEnumerable<Scheme> expectedSchemes, SchemeFilterModel filters)
+        public async Task ApplyFilters_Result(IEnumerable<Scheme> expectedSchemes, SchemeFilterModel filters)
         {
             IContentService contentService = A.Fake<IContentService>();
             ISchemesModelService schemesModelService = A.Fake<ISchemesModelService>();
@@ -48,12 +49,12 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
             HomeModel model = A.Fake<HomeModel>(x => x.WithArgumentsForConstructor(() => new HomeModel(expectedSchemes, Enumerable.Empty<FilterSectionModel>(), Enumerable.Empty<InterimMenuItem>(), null, null, BetaBanner, null, false, "")));
             A.CallTo(() => contentService.Content).Returns(new GeneratedContent());
 
-            HomeModel result = service.ApplyFilter(filters);
+            HomeModel result = await service.ApplyFilter(filters);
             Assert.True(expectedSchemes.Count() == result.Schemes.Count());
         }
 
         [Fact(DisplayName = "FilterService - ApplyFilters returns correct filter URL")]
-        public void FilterService_ApplyFilters_Returns_Correct_Filter_URL()
+        public async Task FilterService_ApplyFilters_Returns_Correct_Filter_URL()
         {
 
             IContentService contentService = A.Fake<IContentService>();
@@ -66,7 +67,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Services
 
             A.CallTo(() => contentService.Content).Returns(new GeneratedContent());
 
-            HomeModel result = service.ApplyFilter(
+            HomeModel result = await service.ApplyFilter(
                 
                 new SchemeFilterModel()
             

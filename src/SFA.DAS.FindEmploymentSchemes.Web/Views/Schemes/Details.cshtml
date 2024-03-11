@@ -8,7 +8,7 @@
     if (!string.IsNullOrWhiteSpace(Model.Scheme.Name))
     {
 
-        ViewData["Title"] = Model.Scheme.Name[..Math.Min(Model.Scheme.Name.Length, 64)];
+        ViewData["Title"] = $"Find training and employment schemes for your business - {Model.Scheme.Name[..Math.Min(Model.Scheme.Name.Length, 64)]}";
 
     }
 

@@ -178,6 +178,31 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services
 
         }
 
+        /// <summary>
+        /// Retrieves an interim page from the preview content by its URL.
+        /// </summary>
+        /// <param name="url">The URL of the interim page to retrieve.</param>
+        /// <returns>Returns the interim page with the specified URL if found, otherwise returns null.</returns>
+        public InterimPage? GetPreviewInterimPageByURL(string url)
+        {
+
+            try
+            {
+
+                return PreviewContent?.InterimPages.FirstOrDefault(a => a.InterimPageURL == url);
+
+            }
+            catch (Exception _exception)
+            {
+
+                _logger.LogError(_exception, "Unable to get preview interim page by url: {URL}", url);
+
+                return null;
+
+            }
+
+        }
+
     }
 
 }

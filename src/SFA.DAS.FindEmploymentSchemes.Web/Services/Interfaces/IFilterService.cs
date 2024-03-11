@@ -1,6 +1,7 @@
 ﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
 {
@@ -8,11 +9,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
     public interface IFilterService
     {
 
-        HomeModel ApplyFilter(SchemeFilterModel filters);
+        Task<HomeModel> ApplyFilter(SchemeFilterModel filters, bool isPreview = false);
 
         SchemeFilterModel CreateFilterModel(string filters);
 
-        HomeModel RemapFilters(string filters);
+        Task<HomeModel> RemapFilters(string filters, bool isPreview = false);
 
     }
 

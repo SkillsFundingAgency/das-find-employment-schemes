@@ -7,11 +7,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces
     public interface IInterimModelService
     {
 
-        InterimPageModel? GetInterimPageModel(string interimURL);
-
         LandingModel? GetLandingModel();
 
         Task<LandingModel?> GetLandingPreviewModel();
+
+        InterimPageModel? GetInterimPageModel(string interimURL);
+
+        Task<InterimPageModel?> GetInterimPagePreviewModel(string interimURL);
 
     }
 

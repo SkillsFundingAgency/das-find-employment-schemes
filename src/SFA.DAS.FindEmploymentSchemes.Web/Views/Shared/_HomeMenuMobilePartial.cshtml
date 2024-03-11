@@ -1,5 +1,5 @@
 ﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
-@model IEnumerable<InterimMenuItem>
+@model (IEnumerable<InterimMenuItem>?, bool?)
 
 <header class="das-header__mobile das-header js-enabled" data-module="govuk-header">
 
@@ -7,9 +7,10 @@
 
         <div class="das-header-mobile">
 
-            <div class="das-header-mobile__flex_column">
+            
+            <div class="das-header-mobile__flex_column">    
 
-                <a href="/">
+                <a href="@(Model.Item2.HasValue && Model.Item2.Value ? "/preview" : "/")">
 
                     <image class="app-header__department-for-education-logo" alt="Department for education logo" src="/svg/department-for-education-mobile.svg" />
 
@@ -61,29 +62,29 @@
 
                             <svg class="das-menu-item__open_section" style="display:none" fill="#000000" height="40px" width="40px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 900 900" xml:space="preserve">
 
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 
-                            <g id="SVGRepo_iconCarrier"> 
+                                <g id="SVGRepo_iconCarrier"> 
 
-                            <polygon points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "></polygon>
+                                <polygon points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "></polygon>
 
-                            </g>
+                                </g>
 
-                        </svg>
+                            </svg>
 
                         </button>
 
                     </li>
 
-                    @if (Model.Any())
+                    @if (Model.Item1 != null && Model.Item1.Any())
                     {
 
-                        foreach (InterimMenuItem item in Model)
+                        foreach (InterimMenuItem item in Model.Item1)
                         {
 
                             <li class="govuk-header__navigation-item das-header-navigation-item-chevron-mobile govuk-header__navigation-item--active" data-menu-section="content-in-this-section">
 
-                                <a class="govuk-header__link" href="@item.InterimMenuItemSource" role="link">@item.InterimMenuItemText</a>
+                                <a class="govuk-header__link" href="@(Model.Item2.HasValue && Model.Item2.Value ? $"/preview{item.InterimMenuItemSource}" : item.InterimMenuItemSource)" role="link">@item.InterimMenuItemText</a>
 
                             </li>
 

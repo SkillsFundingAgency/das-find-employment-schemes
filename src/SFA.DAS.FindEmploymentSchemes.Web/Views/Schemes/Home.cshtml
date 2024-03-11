@@ -4,6 +4,12 @@
 
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
+@{
+
+    ViewData["Title"] = "Find training and employment schemes for your business - Scheme Home";
+
+}
+
 @section PreviewErrors {
 
     @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
@@ -14,18 +20,22 @@
 
     "_InterimPreambleGeneralPartial",
 
-    new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool>(Model.InterimPreamble, Model.InterimPageBreadcrumbs, true)
+    new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool, bool>(Model.InterimPreamble, Model.InterimPageBreadcrumbs, true, Model.Preview.IsPreview)
 
 )
 
 
 @{
+
     string completeUrl = string.IsNullOrWhiteSpace(Model.SelectedFilters) 
-      ?  Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)! 
-      : $"{Url.Action("Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!}?{Model.SelectedFilters}";
+
+      ? Url.Action(Model.Preview.IsPreview ? "HomePreview" : "Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!
+
+      : $"{Url.Action(Model.Preview.IsPreview ? "HomePreview" : "Home", "Schemes", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!}?{Model.SelectedFilters}";
+
 }
 
-<form id="scheme-home-filter-form" action="/schemes" method="post">
+<form id="scheme-home-filter-form" action="@(Model.Preview.IsPreview ? "/preview/schemes" : "/schemes")" method="post">
 
     <div class="govuk-width-container govuk-!-padding-top-6 das-column__filters">
 

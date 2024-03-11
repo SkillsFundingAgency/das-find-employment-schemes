@@ -9,7 +9,7 @@
 
     ViewData["Title"] = "Cookies";
 
-    string completeUrl = Url.Action("Cookies", "Pages", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!;
+    string completeUrl = Url.Action(Model.Preview.IsPreview ? "CookiesPreview" : "Cookies", "Pages", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!;
 
 }
 
@@ -24,7 +24,7 @@
 
         "_InterimPreambleGeneralPartial",
 
-        new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool>(Model.Page.InterimPreamble, Model.Page.InterimBreadcrumbs, false)
+        new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool, bool>(Model.Page.InterimPreamble, Model.Page.InterimBreadcrumbs, false, Model.Preview.IsPreview)
 
     )
 
