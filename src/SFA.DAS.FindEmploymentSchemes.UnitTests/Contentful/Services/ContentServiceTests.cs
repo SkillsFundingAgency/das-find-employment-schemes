@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Exceptions;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
+using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces.Roots;
@@ -340,6 +341,54 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Services
 
             Assert.NotNull(content.Schemes);
             Assert.Equal(numberOfSchemes, content.Schemes.Count());
+        }
+
+        [Fact]
+        public async Task PreviewContent_GetInterimPageByURL()
+        {
+
+            var interimPages = Fixture.CreateMany<InterimPage>(3).ToArray();
+
+            A.CallTo(() => InterimService.GetInterimPages(PreviewContentfulClient))
+
+                .Returns(interimPages);
+
+            var content = await ContentService.UpdatePreview();
+
+            var interimPage = ContentService.GetPreviewInterimPageByURL(interimPages.First().InterimPageURL);
+
+            var actualInterimPage = content.InterimPages.FirstOrDefault();
+
+            Assert.NotNull(actualInterimPage);
+
+            Assert.Equal(interimPage.InterimPageTitle, actualInterimPage.InterimPageTitle);
+
+            Assert.Equal(interimPage.InterimPageURL, actualInterimPage.InterimPageURL);
+
+        }
+
+        [Fact]
+        public async Task Content_GetInterimPageByURL()
+        {
+
+            var interimPages = Fixture.CreateMany<InterimPage>(3).ToArray();
+
+            A.CallTo(() => InterimService.GetInterimPages(ContentfulClient))
+
+                .Returns(interimPages);
+
+            var content = await ContentService.Update();
+
+            var interimPage = ContentService.GetInterimPageByURL(interimPages.First().InterimPageURL);
+
+            var actualInterimPage = content.InterimPages.FirstOrDefault();
+
+            Assert.NotNull(actualInterimPage);
+
+            Assert.Equal(interimPage.InterimPageTitle, actualInterimPage.InterimPageTitle);
+
+            Assert.Equal(interimPage.InterimPageURL, actualInterimPage.InterimPageURL);
+
         }
 
         [Fact]
