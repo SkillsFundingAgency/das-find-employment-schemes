@@ -1,16 +1,16 @@
 ﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
 @using SFA.DAS.FindEmploymentSchemes.Web.Services
 
-@model InterimTile
+@model (InterimTile?, bool)
 
 <div class="das-tile">
 
-    @if(Model != null)
+    @if(Model.Item1 != null)
     {
 
         <div class="das-tile__img-container">
 
-            <img class="das-tile__img" src="@InterimComponentService.GetMediaImageSource(Model.InterimTileImage)" alt="" />
+            <img class="das-tile__img" src="@InterimComponentService.GetMediaImageSource(Model.Item1.InterimTileImage)" alt="@Model.Item1.InterimTileTitle" />
 
         </div>
 
@@ -18,15 +18,15 @@
 
             <div class="das-tile__body-heading">
 
-                <a id="link-@Model.InterimTileID" class="das-tile__tile-link" href="@Model.InterimTileSource" aria-labelledby="link-@Model.InterimTileID p-@Model.InterimTileID">@Model.InterimTileHeading</a>
+                <a id="link-@Model.Item1.InterimTileID" class="das-tile__tile-link" href="@(Model.Item2 ? $"/preview{Model.Item1.InterimTileSource}" : Model.Item1.InterimTileSource)" aria-labelledby="link-@Model.Item1.InterimTileID p-@Model.Item1.InterimTileID">@Model.Item1.InterimTileHeading</a>
 
             </div>
 
-            <div id="p-@Model.InterimTileID" class="das-tile__body-text">
+            <div id="p-@Model.Item1.InterimTileID" class="das-tile__body-text">
 
                 <div>
 
-                    @InterimComponentService.ToHtmlString(Model.InterimTileDescription)
+                    @InterimComponentService.ToHtmlString(Model.Item1.InterimTileDescription)
 
                 </div>
 

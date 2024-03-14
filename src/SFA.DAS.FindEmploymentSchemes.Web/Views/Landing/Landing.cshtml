@@ -4,6 +4,12 @@
 
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
+@{
+
+    ViewData["Title"] = $"Find training and employment schemes for your business - Landing Page{(Model.Preview.IsPreview ? " Preview" : "")}";
+
+}
+
 @section PreviewErrors {
 
     @await Html.PartialAsync("_PreviewErrorsPartial", Model.Preview)
@@ -14,13 +20,13 @@
 
     "_InterimPreambleGeneralPartial",
 
-    new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool>(Model.InterimLandingPagePreamble, null, true)
+    new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool, bool>(Model.InterimLandingPagePreamble, null, true, Model.Preview.IsPreview)
 
 )
 
 @{
 
-    string? completeUrl = Url.Action("Landing", "Landing", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!;
+    string? completeUrl = Url.Action(Model.Preview.IsPreview ? "LandingPreview" : "Landing", "Landing", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!;
 
 }
 
@@ -34,7 +40,7 @@
 
                 "_InterimTileSectionPartial",
 
-                (Model.InterimTileSections[i], i > 0)
+                (Model.InterimTileSections[i], i > 0, Model.Preview.IsPreview)
 
             )
 

@@ -1,6 +1,6 @@
 ﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
 @using SFA.DAS.FindEmploymentSchemes.Web.Services
-@model (InterimTileSection, bool)
+@model (InterimTileSection, bool, bool)
 
 <div class="govuk-grid-row">
 
@@ -48,7 +48,7 @@
 
                     "_InterimTilePartial",
 
-                    tile
+                    (tile, Model.Item3)
 
                 )
 

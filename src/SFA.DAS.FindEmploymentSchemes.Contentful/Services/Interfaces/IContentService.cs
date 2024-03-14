@@ -18,5 +18,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces
 
         InterimPage? GetInterimPageByURL(string url);
 
+        InterimPage? GetPreviewInterimPageByURL(string url);
+
     }
 }

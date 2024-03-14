@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 {
@@ -21,9 +22,21 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
         public IActionResult Index()
         {
 
-            ViewData["Title"] = "Find training and employment schemes for your business - Contacts";
-
             return View(_contactService.GetContactPageModel());
+
+        }
+
+        [Route("preview/index")]
+        public async Task<IActionResult> IndexPreview()
+        {
+
+            return View(
+
+                "Index",
+
+                await _contactService.GetContactPreviewPageModel()
+                
+            );
 
         }
 

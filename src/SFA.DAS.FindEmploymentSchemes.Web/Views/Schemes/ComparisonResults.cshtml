@@ -5,9 +5,15 @@
 
 @{
 
+    ViewData["Title"] = "Find training and employment schemes for your business - Scheme Comparison";
+
+}
+
+@{
+
     string filterQueryString = Model.Filters == null ? string.Empty : Model.Filters.BuildFilterQueryString();
 
-    string completeUrl = $"{Url.Action("Comparison", "Schemes", Model.Schemes, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!}?{filterQueryString}";
+    string completeUrl = $"{Url.Action(Model.Preview.IsPreview ? "ComparisonPreview" : "Comparison", "Schemes", Model.Schemes, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!}?{filterQueryString}";
 
 }
 
@@ -15,7 +21,7 @@
 
     "_InterimPreambleGeneralPartial",
 
-    new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool>(Model.SchemeComparison?.InterimPreamble, Model.SchemeComparison?.InterimBreadcrumbs, false)
+    new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool, bool>(Model.SchemeComparison?.InterimPreamble, Model.SchemeComparison?.InterimBreadcrumbs, false, Model.Preview.IsPreview)
 
 )
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Html;
+using Microsoft.Extensions.Logging;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Helpers;
@@ -7,6 +8,7 @@ using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
@@ -38,10 +40,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         }
 
-        public HomeModel ApplyFilter(SchemeFilterModel filters)
+        public async Task<HomeModel> ApplyFilter(SchemeFilterModel filters, bool isPreview = false)
         {
 
-            var content = _contentService.Content;
+            if(isPreview)
+            {
+
+                await _contentService.UpdatePreview();
+
+            }
+
+            var content = isPreview ? _contentService.PreviewContent ?? _contentService.Content : _contentService.Content;
 
             var filterSections = content.SchemeFilters;
 
@@ -164,13 +173,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
         }
 
         /// <summary>
-        /// Remap a string conact version of each filter aspect into a new HomeModel instance.
+        /// Remap a string concated version of each filter aspect into a new HomeModel instance.
         /// </summary>
         /// <param name="pay">The pay filter aspects concated into a comma separated string.</param>
         /// <param name="duration">The scheme length filter aspects concated into a comma separated string.</param>
         /// <param name="motivation">The motivation filter aspects concated into a comma separated string.</param>
         /// <returns>An instance of the SFA.DAS.FindEmploymentSchemes.Web.ModelsHomeModel class.</returns>
-        public HomeModel RemapFilters(string filters)
+        public async Task<HomeModel> RemapFilters(string filters, bool isPreview = false)
         {
 
             try
@@ -179,15 +188,35 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 if (string.IsNullOrWhiteSpace(filters))
                 {
 
-                    return _schemesModelService.HomeModel;
+                    if(isPreview)
+                    {
+
+                        return await _schemesModelService.CreateHomeModelPreview();
+
+                    }
+                    else
+                    {
+
+                        return _schemesModelService.HomeModel;
+
+                    }
 
                 }
 
-                HomeModel remappedHomeModel = ApplyFilter(
+                HomeModel remappedHomeModel = await ApplyFilter(
 
-                    CreateFilterModel(filters)
+                    CreateFilterModel(filters),
+
+                    isPreview
 
                 );
+
+                if(isPreview)
+                {
+
+                    remappedHomeModel.Preview = new PreviewModel(Enumerable.Empty<HtmlString>());
+
+                }
 
                 return remappedHomeModel;
 

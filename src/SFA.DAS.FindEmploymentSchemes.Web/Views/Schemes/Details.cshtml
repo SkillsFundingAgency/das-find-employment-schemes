@@ -8,7 +8,7 @@
     if (!string.IsNullOrWhiteSpace(Model.Scheme.Name))
     {
 
-        ViewData["Title"] = Model.Scheme.Name[..Math.Min(Model.Scheme.Name.Length, 64)];
+        ViewData["Title"] = $"Find training and employment schemes for your business - {Model.Scheme.Name[..Math.Min(Model.Scheme.Name.Length, 64)]}";
 
     }
 
@@ -26,7 +26,7 @@
 
     "_InterimPreambleSchemePartial",
 
-    Model.Scheme
+    (Model.Scheme, Model.Preview.IsPreview)
 
 )
 
@@ -87,7 +87,7 @@
 
                             "_InterimTileSectionPartial",
 
-                            (Model.Scheme.InterimTileSections[i], i > 0)
+                            (Model.Scheme.InterimTileSections[i], i > 0, Model.Preview.IsPreview)
 
                         )
 

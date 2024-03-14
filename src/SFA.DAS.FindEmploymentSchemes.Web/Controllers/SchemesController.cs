@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
+using NLog.Filters;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using System.Linq;
@@ -9,9 +11,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
     public class SchemesController : Controller
     {
 
+        #region Properties
+
         private readonly ISchemesModelService _schemesModelService;
 
         private readonly IFilterService _filterService;
+
+        #endregion
+
+        #region Constructors
 
         public SchemesController(
 
@@ -28,15 +36,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         }
 
-        [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public IActionResult Home(string filters)
-        {
+        #endregion
 
-            ViewData["Title"] = "Find training and employment schemes for your business - Scheme Home";
+        #region Scheme Home / Preview
+
+        [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
+        public async Task<IActionResult> Home(string filters)
+        {
 
             return View(
                 
-                _filterService.RemapFilters(filters)
+                await _filterService.RemapFilters(filters)
                 
             );
 
@@ -44,10 +54,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         // if we switched to post/redirect/get, we could cache the response, but hopefully the vast majority of our users will have javascript enabled
         [HttpPost]
-        public IActionResult Home(string actionButton, SchemeFilterModel filters)
+        public async Task<IActionResult> Home(string actionButton, SchemeFilterModel filters)
         {
-
-            ViewData["Title"] = "Find training and employment schemes for your business - Scheme Home";
 
             if (actionButton == "Compare")
             {
@@ -58,18 +66,51 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
             } 
 
-            HomeModel filteredModel = _filterService.ApplyFilter(filters);
+            HomeModel filteredModel = await _filterService.ApplyFilter(filters);
 
             return View("Home", filteredModel);
 
         }
 
-        public async Task<IActionResult> HomePreview()
+        public async Task<IActionResult> HomePreview(string filters)
         {
 
-            return View("home", await _schemesModelService.CreateHomeModelPreview());
+            HomeModel model = await _filterService.RemapFilters(filters, true);
+
+            return View(
+                
+                "home",
+
+                model
+
+            );
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> HomePreview(string actionButton, SchemeFilterModel filters)
+        {
+
+            if (actionButton == "Compare")
+            {
+
+                string aspects = string.Join(",", filters.FilterAspects);
+
+                return RedirectToAction("ComparisonPreview", "Schemes", new { filters = aspects });
+
+            }
+
+            HomeModel filteredModel = await _filterService.ApplyFilter(filters, true);
+
+            filteredModel.Preview = new PreviewModel(Enumerable.Empty<HtmlString>());
+
+            return View("Home", filteredModel);
+
+        }
+
+        #endregion
+
+        #region Scheme Details / Preview
 
         [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Details(string schemeUrl)
@@ -83,10 +124,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
                 return RedirectToAction("PageNotFound", "Error");
 
             }
-                
-            ViewData["Title"] = $"Find training and employment schemes for your business - {schemeDetailsModel.Scheme.Name}";
 
             return View(schemeDetailsModel);
+
         }
 
         public async Task<IActionResult> DetailsPreview(string schemeUrl)
@@ -105,15 +145,17 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
         }
 
-        [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public IActionResult Comparison(string filters)
-        {
+        #endregion
 
-            ViewData["Title"] = "Find training and employment schemes for your business - Scheme Comparison";
+        #region Scheme Comparion / Preview
+
+        [ResponseCache(Duration = 60 * 60, Location = ResponseCacheLocation.Any, NoStore = false)]
+        public async Task<IActionResult> Comparison(string filters)
+        {
 
             SchemeFilterModel schemeFilterModel = _filterService.CreateFilterModel(filters);
 
-            HomeModel filteredModel = _filterService.ApplyFilter(schemeFilterModel);
+            HomeModel filteredModel = await _filterService.ApplyFilter(schemeFilterModel);
 
             ComparisonResultsModel resultsModel = _schemesModelService.CreateComparisonResultsModel(
                 
@@ -132,7 +174,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
             SchemeFilterModel schemeFilterModel = _filterService.CreateFilterModel(filters);
 
-            HomeModel filteredModel = _filterService.ApplyFilter(schemeFilterModel);
+            HomeModel filteredModel = await _filterService.ApplyFilter(schemeFilterModel, true);
 
             ComparisonResultsModel resultsModel = await _schemesModelService.CreateComparisonResultsModelPreview(
 
@@ -145,6 +187,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
             return View("ComparisonResults", resultsModel);
 
         }
+
+        #endregion
 
     }
 

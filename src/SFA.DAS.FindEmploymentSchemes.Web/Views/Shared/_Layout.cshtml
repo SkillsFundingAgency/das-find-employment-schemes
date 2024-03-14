@@ -49,9 +49,9 @@
 
     <a id="layout-main-content-link" href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
-    @await Html.PartialAsync("_HomeMenuDesktopPartial", Model?.MenuItems)
+    @await Html.PartialAsync("_HomeMenuDesktopPartial", (Model?.MenuItems, Model?.Preview.IsPreview))
 
-    @await Html.PartialAsync("_HomeMenuMobilePartial", Model?.MenuItems)
+    @await Html.PartialAsync("_HomeMenuMobilePartial", (Model?.MenuItems, Model?.Preview.IsPreview))
 
 </head>
 

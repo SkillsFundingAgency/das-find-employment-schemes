@@ -9,6 +9,7 @@ using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
 using SFA.DAS.FindEmploymentSchemes.Web.Controllers;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -100,10 +101,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public void Home_DefaultViewTest()
+        public async Task Home_DefaultViewTest()
         {
             // act
-            IActionResult result = SchemesController.Home(string.Empty);
+            IActionResult result = await SchemesController.Home(string.Empty);
 
             Assert.IsType<ViewResult>(result);
             var viewResult = (ViewResult)result;
@@ -111,10 +112,10 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public void Home_HomeModelIsUsedTest()
+        public async Task Home_HomeModelIsUsedTest()
         {
             // act
-            IActionResult result = SchemesController.Home(string.Empty);
+            IActionResult result = await SchemesController.Home(string.Empty);
 
             Assert.IsType<ViewResult>(result);
             var viewResult = (ViewResult)result;
@@ -123,15 +124,15 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public void PostHome_FilteredHomeModelIsUsedTest()
+        public async Task PostHome_FilteredHomeModelIsUsedTest()
         {
             var filteredHomeModel = new HomeModel([], [], [], null, null!, BetaBanner, null);
 
-            A.CallTo(() => FilterService.ApplyFilter(SchemeFilterModel))
+            A.CallTo(() => FilterService.ApplyFilter(SchemeFilterModel, false))
                 .Returns(filteredHomeModel);
 
             // act
-            IActionResult result = SchemesController.Home("HomeAction", SchemeFilterModel);
+            IActionResult result = await SchemesController.Home("HomeAction", SchemeFilterModel);
 
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.NotNull(viewResult.Model);
@@ -143,24 +144,11 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         public async Task HomePreview_HomeViewTest()
         {
             // act
-            IActionResult result = await SchemesController.HomePreview();
+            IActionResult result = await SchemesController.HomePreview(string.Empty);
 
             Assert.IsType<ViewResult>(result);
             var viewResult = (ViewResult)result;
             Assert.Equal("home", viewResult.ViewName);
-        }
-
-        [Fact]
-        public async Task HomePreview_HomeModelIsUsedTest()
-        {
-            // act
-            IActionResult result = await SchemesController.HomePreview();
-
-            Assert.IsType<ViewResult>(result);
-            var viewResult = (ViewResult)result;
-            Assert.NotNull(viewResult.Model);
-            Assert.IsType<HomeModel>(viewResult.Model);
-            Assert.Equal(PreviewHomeModel, viewResult.Model);
         }
 
         [Fact]
@@ -274,7 +262,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
         }
 
         [Fact]
-        public void Comparison_ReturnsViewWithComparisonResultsModel()
+        public async Task Comparison_ReturnsViewWithComparisonResultsModel()
         {
 
             var filterServiceMock = A.Fake<IFilterService>();
@@ -296,7 +284,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             // Mock ApplyFilter method
 
-            A.CallTo(() => FilterService.ApplyFilter(schemeFilterModel))
+            A.CallTo(() => FilterService.ApplyFilter(schemeFilterModel, false))
                 .Returns(PreviewHomeModel);
 
             // Mock CreateComparisonResultsModel method
@@ -305,7 +293,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
                 .Returns(new ComparisonResultsModel(SchemeComparison, new List<Scheme>(), schemeFilterModel, [], BetaBanner, null));
 
             // Act
-            var result = controller.Comparison(filters) as ViewResult;
+            var result = await controller.Comparison(filters) as ViewResult;
 
             // Assert
             Assert.NotNull(result);
@@ -336,7 +324,7 @@ namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Web.Controllers
 
             // Mock ApplyFilter method
 
-            A.CallTo(() => FilterService.ApplyFilter(schemeFilterModel))
+            A.CallTo(() => FilterService.ApplyFilter(schemeFilterModel, false))
                 .Returns(PreviewHomeModel);
 
             // Mock CreateComparisonResultsModelPreview method

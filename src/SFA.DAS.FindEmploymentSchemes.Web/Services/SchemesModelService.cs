@@ -168,12 +168,15 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 
         public async Task<HomeModel> CreateHomeModelPreview()
         {
+
             IContent previewContent = await _contentService.UpdatePreview();
 
             var homeModel = CreateHomeModel(previewContent);
+
             homeModel.Preview = new PreviewModel(GetHomeErrors(homeModel));
 
             return homeModel;
+
         }
 
         public async Task<ComparisonModel> CreateComparisonModelPreview()

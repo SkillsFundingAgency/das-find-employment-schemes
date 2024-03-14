@@ -1,6 +1,7 @@
 ﻿using SFA.DAS.FindEmploymentSchemes.Contentful.Services.Interfaces;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FindEmploymentSchemes.Web.Services
 {
@@ -58,6 +59,41 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Services
                 BetaBanner = _contentService.Content.BetaBanner,
 
                 InterimFooterLinks = _contentService.Content.InterimFooterLinks
+
+            };
+
+        }
+
+        public async Task<ContactPageModel?> GetContactPreviewPageModel()
+        {
+
+            await _contentService.UpdatePreview();
+
+            var previewContent = _contentService.PreviewContent ?? _contentService.Content;
+
+            if (previewContent?.ContactPage == null)
+            {
+
+                return null;
+
+            }
+
+            return new ContactPageModel()
+            {
+
+                ContactPageTitle = previewContent.ContactPage.ContactPageTitle,
+
+                InterimBreadcrumbs = previewContent.ContactPage.InterimBreadcrumbs,
+
+                InterimPreamble = previewContent.ContactPage.InterimPreamble,
+
+                Contacts = previewContent.ContactPage.Contacts,
+
+                MenuItems = previewContent.MenuItems,
+
+                BetaBanner = previewContent.BetaBanner,
+
+                InterimFooterLinks = previewContent.InterimFooterLinks
 
             };
 

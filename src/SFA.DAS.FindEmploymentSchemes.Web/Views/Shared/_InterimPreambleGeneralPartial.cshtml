@@ -1,6 +1,6 @@
 ﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
 @using SFA.DAS.FindEmploymentSchemes.Web.Services
-@model Tuple<InterimPreamble?, InterimBreadcrumbs?, bool>
+@model Tuple<InterimPreamble?, InterimBreadcrumbs?, bool, bool>
 
 @if (Model.Item1 != null || Model.Item2 != null)
 {
@@ -14,7 +14,7 @@
 
                 "_InterimBreadcrumbPartial",
 
-                Model.Item2
+                (Model.Item2, Model.Item4)
 
             )
 
