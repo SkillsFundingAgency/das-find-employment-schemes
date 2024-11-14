@@ -60,8 +60,4 @@
     <None Include="wwwroot\images\department_for_education_logo.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Logging\" />
-  </ItemGroup>
-
 </Project>
