@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <WarningsNotAsErrors>S125</WarningsNotAsErrors>
     <NoWarn>S1135</NoWarn>
     <UserSecretsId>68dbab36-7541-498a-bff4-8cf5183624cb</UserSecretsId>
