@@ -59,9 +59,6 @@ Data:
   "ConnectionStrings": {
       "Redis": "localhost:6379"
   },
-  "NLog": {
-      "LogLevel": "Info"
-  },
   "Endpoints": {
     "BaseURL": "https://localhost:44318/"
   }
