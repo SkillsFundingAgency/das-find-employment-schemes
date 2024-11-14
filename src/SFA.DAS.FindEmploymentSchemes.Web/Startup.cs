@@ -56,12 +56,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             services.AddApplicationInsightsTelemetry();
             services.AddOpenTelemetryRegistration(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]!);
 
-            services.AddLogging(loggingBuilder =>
-            {
-                loggingBuilder.AddApplicationInsights();
-                loggingBuilder.SetMinimumLevel(LogLevel.Information); 
-            });
-
 
 #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
@@ -95,6 +89,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 #pragma warning disable ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
             var serviceProvider = services.BuildServiceProvider();
 #pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
+
+            services.AddLogging(builder => builder.AddConsole());
 
             var viewRenderService = serviceProvider.GetRequiredService<IViewRenderService>();
 
