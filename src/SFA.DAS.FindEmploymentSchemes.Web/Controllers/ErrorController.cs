@@ -33,13 +33,16 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
             try
             {
+                _log.LogInformation("Temp log info");
+                _log.LogWarning("Temp log warning");
+                _log.LogError("Temp log error");
 
                 LayoutModel.InterimFooterLinks = _contentService.Content.InterimFooterLinks;
 
                 return View(LayoutModel);
 
             }
-            catch(Exception _exception)
+            catch (Exception _exception)
             {
 
                 _log.LogError(_exception, "Unable to get model with populated footer");
