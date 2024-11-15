@@ -33,10 +33,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Controllers
 
             try
             {
-                _log.LogInformation("Temp log info");
-                _log.LogWarning("Temp log warning");
-                _log.LogError("Temp log error");
-
                 LayoutModel.InterimFooterLinks = _contentService.Content.InterimFooterLinks;
 
                 return View(LayoutModel);
