@@ -77,7 +77,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "cdn.linkedin.oribi.io",
                                 "*.clarity.ms",
                                 "https://td.doubleclick.net",
-                                "https://px.ads.linkedin.com/wa/"
+                                "https://px.ads.linkedin.com/wa/",
+                                "https://www.google.com/ccm/collect"
                             });
 
                         builder.AddFontSrc()
