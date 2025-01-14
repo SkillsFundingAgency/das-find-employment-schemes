@@ -78,6 +78,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "*.clarity.ms",
                                 "https://td.doubleclick.net",
                                 "https://px.ads.linkedin.com/wa/",
+                                "https://px.ads.linkedin.com/attribution_trigger",
+                                "https://ib.adnxs.com/pixie/up",
                                 "https://www.google.com/ccm/collect"
                             });
 
