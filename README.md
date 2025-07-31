@@ -58,7 +58,7 @@ Data:
 {
   "ConnectionStrings": {
       "Redis": "localhost:6379"
-  },
+  },  
   "Endpoints": {
     "BaseURL": "https://localhost:44318/"
   }
