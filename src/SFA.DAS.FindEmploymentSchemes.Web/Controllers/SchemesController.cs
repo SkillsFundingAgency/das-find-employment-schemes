@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
-using NLog.Filters;
 using SFA.DAS.FindEmploymentSchemes.Web.Models;
 using SFA.DAS.FindEmploymentSchemes.Web.Services.Interfaces;
 using System.Linq;
