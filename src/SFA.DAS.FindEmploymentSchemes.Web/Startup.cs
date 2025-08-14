@@ -50,9 +50,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {            
+        {
+            services.AddNLog(Configuration)
+                    .AddHealthChecks();
             services.AddApplicationInsightsTelemetry();
-            services.AddOpenTelemetryRegistration(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]!);
+
 
 
 #if DEBUG
@@ -155,7 +157,20 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             app.UseXMLSitemap(env.ContentRootPath);
             app.UseRouting();
-            app.UseAuthorization();         
+            app.UseAuthorization();
+
+            app.UseHealthChecks("/ping", new HealthCheckOptions
+            {
+                //By returning false to the Predicate option we ensure that none of the health checks registered in ConfigureServices are ran for this endpoint
+                Predicate = (_) => false,
+                ResponseWriter = (context, report) =>
+                {
+                    context.Response.ContentType = "application/json";
+                    return context.Response.WriteAsync("whiff-whaff");
+                }
+            });
+
+            app.UseHealthChecks("/health");
 
             app.UseEndpoints(endpoints =>
             {
