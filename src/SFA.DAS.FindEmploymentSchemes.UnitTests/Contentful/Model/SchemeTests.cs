@@ -4,7 +4,6 @@ using System.Linq;
 using Contentful.Core.Models;
 using Microsoft.AspNetCore.Html;
 using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Content;
-using SFA.DAS.NLog.Targets.Redis.DotNetCore;
 using Xunit;
 
 namespace SFA.DAS.FindEmploymentSchemes.UnitTests.Contentful.Model
