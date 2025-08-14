@@ -155,7 +155,20 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
 
             app.UseXMLSitemap(env.ContentRootPath);
             app.UseRouting();
-            app.UseAuthorization();            
+            app.UseAuthorization();
+
+            app.UseHealthChecks("/ping", new HealthCheckOptions
+            {
+                //By returning false to the Predicate option we ensure that none of the health checks registered in ConfigureServices are ran for this endpoint
+                Predicate = (_) => false,
+                ResponseWriter = (context, report) =>
+                {
+                    context.Response.ContentType = "application/json";
+                    return context.Response.WriteAsync("whiff-whaff");
+                }
+            });
+
+            app.UseHealthChecks("/health");
 
             app.UseEndpoints(endpoints =>
             {
