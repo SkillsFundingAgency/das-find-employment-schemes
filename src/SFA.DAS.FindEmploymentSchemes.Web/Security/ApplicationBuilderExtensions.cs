@@ -80,7 +80,13 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://px.ads.linkedin.com/wa/",
                                 "https://px.ads.linkedin.com/attribution_trigger",
                                 "https://ib.adnxs.com/pixie/up",
-                                "https://www.google.com/ccm/collect"
+                                "https://www.google.com/ccm/collect",
+                                // Added for Facebook and LinkedIn ad campaigns
+                                "https://connect.facebook.net",
+                                "https://www.facebook.com",
+                                "https://platform.linkedin.com",
+                                // Added based on console errors
+                                "https://ib.adnxs-simple.com"
                             });
 
                         builder.AddFontSrc()
@@ -97,13 +103,28 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.facebook.com",
                                 "*.qualtrics.com",
                                 "*.clarity.ms",
-                                "https://td.doubleclick.net"
+                                "https://td.doubleclick.net",
+                                // Added for LinkedIn
+                                "https://platform.linkedin.com"
                             });
 
                         builder.AddImgSrc()
                             .OverHttps()
                             .Self()
-                            .From(new[] { cdnUrl, "data:", "https://ssl.gstatic.com", "https://www.gstatic.com", "https://www.google-analytics.com" });
+                            .From(new[] { 
+                                cdnUrl, 
+                                "data:", 
+                                "https://ssl.gstatic.com", 
+                                "https://www.gstatic.com", 
+                                "https://www.google-analytics.com",
+                                // Added for Facebook, LinkedIn, and DoubleClick ad campaigns
+                                "https://www.facebook.com",
+                                "https://platform.linkedin.com",
+                                "https://www.doubleclick.net",
+                                "https://www.googleadservices.com",
+                                // Added based on console errors
+                                "https://px.ads.linkedin.com"
+                            });
 
                         var scriptSrc = builder.AddScriptSrc()
                             .Self()
@@ -125,7 +146,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://connect.facebook.net",
                                 "*.qualtrics.com",
                                 "*.clarity.ms",
-                                "https://td.doubleclick.net"
+                                "https://td.doubleclick.net",
+                                // Added for LinkedIn and additional DoubleClick domains
+                                "https://platform.linkedin.com",
+                                "https://www.doubleclick.net",
+                                // Added based on console errors - already included for clarity
+                                "https://scripts.clarity.ms"
                             })
                             // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
@@ -139,7 +165,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 cdnUrl,
                                 "https://www.googletagmanager.com",
                                 "https://tagmanager.google.com",
-                                "https://fonts.googleapis.com"
+                                "https://fonts.googleapis.com",
+                                // Added for LinkedIn
+                                "https://platform.linkedin.com"
                             })
                             .StrictDynamic()
                             .UnsafeInline();
@@ -162,7 +190,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.facebook.com",
                                 "*.qualtrics.com",
                                 "*.clarity.ms",
-                                "https://td.doubleclick.net"
+                                "https://td.doubleclick.net",
+                                // Added for LinkedIn
+                                "https://platform.linkedin.com"
                             });
 
                         // Add frame-ancestors directive allowing embedding from specific domain(s)
