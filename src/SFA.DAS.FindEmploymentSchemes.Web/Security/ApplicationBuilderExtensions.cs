@@ -9,42 +9,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
     [ExcludeFromCodeCoverage]
     public static class ApplicationBuilderExtensions
     {
-        /// <summary>
-        /// nuget documentation
-        /// https://github.com/andrewlock/NetEscapades.AspNetCore.SecurityHeaders
-        /// csp introduction
-        /// https://scotthelme.co.uk/content-security-policy-an-introduction/
-        /// google analytics tag manager required csp
-        /// https://developers.google.com/tag-platform/tag-manager/web/csp
-        /// jquery csp
-        /// https://content-security-policy.com/examples/jquery/
-        /// das ga
-        /// https://skillsfundingagency.atlassian.net/wiki/spaces/DAS/pages/3249700873/Adding+Google+Analytics
-        ///
-        /// Note: we _may_ need the other google domains from the das ga doc,
-        /// but there were no violations reported without them, so we leave them out for now
-        ///
-        /// Allowing unsafe-inline scripts
-        /// ------------------------------
-        /// Google's nonce-aware tag manager code has an issue with custom html tags (which we use).
-        /// https://stackoverflow.com/questions/65100704/gtm-not-propagating-nonce-to-custom-html-tags
-        /// https://dev.to/matijamrkaic/using-google-tag-manager-with-a-content-security-policy-9ai
-        ///
-        /// We tried the given solution (above), but the last piece of the puzzle to make it work,
-        /// would involve self hosting a modified version of google's gtm.js script.
-        ///
-        /// In gtm.js, where it's creating customScripts, we'd have to change...
-        /// var n = C.createElement("script");
-        /// to
-        /// var n=C.createElement("script");n.nonce=[get nonce from containing script block];
-        ///
-        /// The problems with self hosting a modified gtm.js are (from https://stackoverflow.com/questions/45615612/is-it-possible-to-host-google-tag-managers-script-locally)
-        /// * we wouldn't automatically pick up any new tags or triggers that Steve added
-        /// * we would need a version of the script that worked across all browsers and versions (and wouldn't have a browser optimised version)
-        /// * we wouldn't pick up new versions of the script
-        /// For these reasons, the only way to get the campaign tracking working, is to open up the CSP to allow unsafe-inline scripts.
-        /// This will make our site less secure, but is a trade-off between security and tracking functionality.
-        /// </summary>
         public static IApplicationBuilder UseAppSecurityHeaders(
             this IApplicationBuilder app,
             IWebHostEnvironment env,
@@ -55,6 +19,54 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 #pragma warning disable S1075
             app.UseSecurityHeaders(policies =>
                 policies.AddDefaultSecurityHeaders()
+                    // TEMPORARY: Very permissive CSP for ad campaign testing
+                    // Remove this and use proper CSP below after testing
+                    .AddContentSecurityPolicy(builder =>
+                    {
+                        builder.AddDefaultSrc()
+                            .Self()
+                            .From("*");
+                        
+                        builder.AddScriptSrc()
+                            .Self()
+                            .From("*")
+                            .UnsafeEval()
+                            .UnsafeInline();
+                        
+                        builder.AddStyleSrc()
+                            .Self()
+                            .From("*")
+                            .UnsafeInline();
+                        
+                        builder.AddImgSrc()
+                            .Self()
+                            .From("*")
+                            .Data();
+                        
+                        builder.AddFontSrc()
+                            .Self()
+                            .From("*");
+                        
+                        builder.AddConnectSrc()
+                            .Self()
+                            .From("*");
+                        
+                        builder.AddFrameSrc()
+                            .From("*");
+                        
+                        builder.AddObjectSrc()
+                            .From("*");
+                        
+                        builder.AddMediaSrc()
+                            .From("*");
+                        
+                        builder.AddFormAction()
+                            .Self()
+                            .From("*");
+                    })
+                    
+                    /*
+                    // ORIGINAL CSP - COMMENTED OUT FOR NOW
                     .AddContentSecurityPolicy(builder =>
                     {
                         builder.AddUpgradeInsecureRequests();
@@ -73,7 +85,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.google-analytics.com",
                                 "https://www.youtube-nocookie.com",
                                 "*.qualtrics.com",
-                                /* application insights*/ "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track",
+                                "https://dc.services.visualstudio.com/v2/track", "rt.services.visualstudio.com/v2/track",
                                 "cdn.linkedin.oribi.io",
                                 "*.clarity.ms",
                                 "https://td.doubleclick.net",
@@ -81,11 +93,9 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://px.ads.linkedin.com/attribution_trigger",
                                 "https://ib.adnxs.com/pixie/up",
                                 "https://www.google.com/ccm/collect",
-                                // Added for Facebook and LinkedIn ad campaigns
                                 "https://connect.facebook.net",
                                 "https://www.facebook.com",
                                 "https://platform.linkedin.com",
-                                // Added based on console errors
                                 "https://ib.adnxs-simple.com"
                             });
 
@@ -104,7 +114,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "*.qualtrics.com",
                                 "*.clarity.ms",
                                 "https://td.doubleclick.net",
-                                // Added for LinkedIn
                                 "https://platform.linkedin.com"
                             });
 
@@ -117,12 +126,10 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://ssl.gstatic.com", 
                                 "https://www.gstatic.com", 
                                 "https://www.google-analytics.com",
-                                // Added for Facebook, LinkedIn, and DoubleClick ad campaigns
                                 "https://www.facebook.com",
                                 "https://platform.linkedin.com",
                                 "https://www.doubleclick.net",
                                 "https://www.googleadservices.com",
-                                // Added based on console errors
                                 "https://px.ads.linkedin.com"
                             });
 
@@ -147,16 +154,12 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "*.qualtrics.com",
                                 "*.clarity.ms",
                                 "https://td.doubleclick.net",
-                                // Added for LinkedIn and additional DoubleClick domains
                                 "https://platform.linkedin.com",
                                 "https://www.doubleclick.net",
-                                // Added based on console errors - already included for clarity
                                 "https://scripts.clarity.ms"
                             })
-                            // this is needed for GTM and YouTube embedding
                             .UnsafeEval()
                             .UnsafeInline();
-                        // if we wanted the nonce back, we'd add `.WithNonce();` here
 
                         builder.AddStyleSrc()
                             .Self()
@@ -166,7 +169,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "https://www.googletagmanager.com",
                                 "https://tagmanager.google.com",
                                 "https://fonts.googleapis.com",
-                                // Added for LinkedIn
                                 "https://platform.linkedin.com"
                             })
                             .StrictDynamic()
@@ -191,28 +193,22 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
                                 "*.qualtrics.com",
                                 "*.clarity.ms",
                                 "https://td.doubleclick.net",
-                                // Added for LinkedIn
                                 "https://platform.linkedin.com"
                             });
 
-                        // Add frame-ancestors directive allowing embedding from specific domain(s)
                         builder.AddFrameAncestors()
                                .From("https://app.contentful.com");
 
                         if (env.IsDevelopment())
                         {
-                            // open up for browserlink
                             defaultSrc.From(new[] { "http://localhost:*", "ws://localhost:*" });
-
                             scriptSrc.From("http://localhost:*");
-
                             connectSrc.From(new[] { "https://localhost:*", "ws://localhost:*", "wss://localhost:*" });
                         }
                     })
+                    */
                     .AddCustomHeader("X-Frame-Options", "ALLOW-FROM https://app.contentful.com/")
                     .AddCustomHeader("X-Permitted-Cross-Domain-Policies", "none")
-
-                    // this is called in AddDefaultSecurityHeaders(), but without this, we get AddXssProtectionDisabled() instead
                     .AddXssProtectionBlock());
 #pragma warning restore S1075
 
