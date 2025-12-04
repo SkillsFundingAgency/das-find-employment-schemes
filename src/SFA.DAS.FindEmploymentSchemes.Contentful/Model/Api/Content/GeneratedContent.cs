@@ -85,11 +85,11 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Content
                 "Both",
                 "16 and over",
                 "Free or costed",
-                "Variable",
+                "Over 1 year",
                 "apprenticeships", 
                 403000,
                 new List<SchemeFilterAspect>(),
-             new string[] { "motivation--recruit-new-staff", "motivation--retrain-or-upskill-existing-staff", "duration--longer-than-1-year", "cost--may-require-employer-contribution" },
+             new string[] { "motivation--recruit-new-staff", "motivation--retrain-or-upskill-existing-staff", "duration--less-than-6-months", "duration--between-6-months-and-1-year", "duration--longer-than-1-year", "cost--may-require-employer-contribution" },
                 new CaseStudy[] {
                     new CaseStudy("Apprenticeships - government incentives",
                     "How businesses are using government incentives to hire apprentices",
