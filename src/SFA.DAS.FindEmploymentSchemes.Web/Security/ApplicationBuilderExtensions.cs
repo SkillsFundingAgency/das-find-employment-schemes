@@ -19,6 +19,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web.Security
 #pragma warning disable S1075
             app.UseSecurityHeaders(policies =>
                 policies.AddDefaultSecurityHeaders()
+                    
                     // TEMPORARY: Very permissive CSP for ad campaign testing
                     // Remove this and use proper CSP below after testing
                     .AddContentSecurityPolicy(builder =>
