@@ -11,6 +11,15 @@ var showHideElements = document.querySelectorAll('[data-module="app-show-hide"]'
 
 var showHideEls = {};
 
+var navigationLinks = document.querySelectorAll('.fes-header__navigation-link');
+var currentPath = window.location.pathname;
+
+nodeListForEach(navigationLinks, function (link) {
+    if (link.getAttribute('href') === currentPath) {
+        link.classList.add('fes-header__navigation-link--active');
+    }
+});
+
 nodeListForEach(showHideElements, function (showHideElement) {
     var showHideEl = new ShowHideElement(showHideElement);
     showHideEl.init();

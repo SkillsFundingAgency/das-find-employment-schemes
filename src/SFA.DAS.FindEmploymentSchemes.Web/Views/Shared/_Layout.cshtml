@@ -4,7 +4,7 @@
     string pageRoute = Model == null ? string.Empty : (Model.Preview.IsPreview ? "page-preview" : "page");
 }
 <!DOCTYPE html>
-<html lang="en" class="govuk-template">
+<html lang="en" class="govuk-template govuk-template--rebranded">
 
 <head>
     <partial name="_GoogleAnalytics" model="GoogleAnalyticsTag.Head" />
@@ -55,44 +55,45 @@
     <!--<![endif]-->
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
 
-    <a id="layout-main-content-link" href="#main-content" class="govuk-skip-link">Skip to main content</a>
+    
 
-    @await Html.PartialAsync("_HomeMenuDesktopPartial", (Model?.MenuItems, Model?.Preview.IsPreview))
 
-    @await Html.PartialAsync("_HomeMenuMobilePartial", (Model?.MenuItems, Model?.Preview.IsPreview))
 
 </head>
 
 <body id="layout-body" class="govuk-template__body">
-    <partial name="_GoogleAnalytics" model="GoogleAnalyticsTag.Body" />
-    <script asp-add-nonce>
+<a id="layout-main-content-link" href="#main-content" class="govuk-skip-link">Skip to main content</a>
+<partial name="_GoogleAnalytics" model="GoogleAnalyticsTag.Body"/>
+<script asp-add-nonce>
         document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
     </script>
 
-    @await Html.PartialAsync("_CookieBannerPartial", Model)
+@await Html.PartialAsync("_CookieBannerPartial", Model)
+@await Html.PartialAsync("_HomeMenuDesktopPartial", (Model?.MenuItems, Model?.Preview.IsPreview))
 
-    @await Html.PartialAsync("_BetaBannerPartial", Model?.BetaBanner)
+@await Html.PartialAsync("_HomeMenuMobilePartial", (Model?.MenuItems, Model?.Preview.IsPreview))
+@await Html.PartialAsync("_BetaBannerPartial", Model?.BetaBanner)
 
-    @RenderSection("BreadCrumbs", required: false)
+@RenderSection("BreadCrumbs", required: false)
 
-    @RenderSection("PreviewErrors", required: false)
+@RenderSection("PreviewErrors", required: false)
 
-    <main class="govuk-main-wrapper govuk-!-padding-top-0 govuk-!-padding-bottom-0" id="main-content">
+<main class="govuk-main-wrapper govuk-!-padding-top-0 govuk-!-padding-bottom-0" id="main-content">
 
-        @RenderBody()
+    @RenderBody()
 
-    </main>
+</main>
 
-    @await Html.PartialAsync("_FooterPartial", Model?.InterimFooterLinks)
+@await Html.PartialAsync("_FooterPartial", Model?.InterimFooterLinks)
 
-    <script src="/libs/govuk-frontend/all.js"></script>
-    <script src="/libs/jquery/jquery.min.js"></script>
+<script src="/libs/govuk-frontend/all.js"></script>
+<script src="/libs/jquery/jquery.min.js"></script>
 
-    <script src="/js/das-all.js"></script>
-    <script src="/js/app.min.js"></script>
-    <script src="/js/interim-pages.js" no-cdn></script>
+<script src="/js/das-all.js"></script>
+<script src="/js/app.min.js"></script>
+<script src="/js/interim-pages.js" no-cdn></script>
 
-    <script asp-add-nonce>
+<script asp-add-nonce>
 
         window.DASFrontend.initAll();
 
@@ -104,19 +105,19 @@
 
     </script>
 
-    <environment include="Development">
-        <script src="/js/show_hide.js" no-cdn></script>
-        <script src="/js/app.js" no-cdn></script>
-        <script src="/js/filter.js" no-cdn></script>
-        <script src="/js/interim-pages.js" no-cdn></script>
-        <script src="/js/cookies/utils.js" no-cdn></script>
-        <script src="/js/cookies/consent.js" no-cdn></script>
-        <script src="/js/cookies/cookie-banner.js" no-cdn></script>
-        <script src="/js/cookies/cookies-page.js" no-cdn></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="/js/site.js" no-cdn></script>
-    </environment>
+<environment include="Development">
+    <script src="/js/show_hide.js" no-cdn></script>
+    <script src="/js/app.js" no-cdn></script>
+    <script src="/js/filter.js" no-cdn></script>
+    <script src="/js/interim-pages.js" no-cdn></script>
+    <script src="/js/cookies/utils.js" no-cdn></script>
+    <script src="/js/cookies/consent.js" no-cdn></script>
+    <script src="/js/cookies/cookie-banner.js" no-cdn></script>
+    <script src="/js/cookies/cookies-page.js" no-cdn></script>
+</environment>
+<environment exclude="Development">
+    <script src="/js/site.js" no-cdn></script>
+</environment>
 </body>
 
 </html>
