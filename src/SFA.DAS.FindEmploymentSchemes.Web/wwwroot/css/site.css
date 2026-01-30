@@ -614,3 +614,84 @@ table#comparison-results-table th:first-child {
 [data-type="interim-container"] a {
     font-weight: bold;
 }
+
+
+
+.fes-header {
+    background: #001d35;
+    border-bottom: 10px solid #d30172;
+}
+
+@media (max-width: 769px) {
+    .fes-header {
+        display: none;
+    }
+}
+
+.fes-header__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fes-header__logo-wrapper a {
+    height: 30px;
+    display: block;
+}
+
+.fes-header__logo {
+    display: block;
+    max-height: 100%;
+}
+
+.fes-header__logo-wrapper a:focus {
+    background-image: url("/images/dfe-logo-alt.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.fes-header__logo-wrapper a:focus img {
+    visibility: hidden;
+}
+
+
+.fes-header__sfl-logo-wrapper {
+    margin: 20px 0;
+}
+
+.fes-header__navigation {
+    border-top: 1px solid #d30172;
+    width: 100%;
+    display: flex;
+}
+
+.fes-header__navigation-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.fes-header__navigation-link {
+    color: #fff;
+    padding: 15px;
+    font-weight: 400;
+    font-size: 1rem;
+    display: block;
+}
+
+.fes-header__navigation-link--active {
+    background: #d30172;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.fes-header__navigation-link:link, 
+.fes-header__navigation-link:visited {
+    color: #fff;
+}
+
+.fes-header__navigation-link:focus,
+.fes-header__navigation-link:active:focus {
+    color: #000;
+}
