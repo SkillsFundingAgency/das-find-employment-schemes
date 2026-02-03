@@ -50,6 +50,13 @@
         "sharedFrontEndSubnetResourceId": {
             "type": "string"
         },
+        "logAnalyticsSubscriptionId": {
+            "type": "string",
+            "defaultValue": "[subscription().subscriptionId]"
+        },
+        "logAnalyticsWorkspaceName": {
+            "type": "string"
+        },
         "frontEndAccessRestrictions": {
             "type": "array"
         },
@@ -122,6 +129,9 @@
                     },
                     "attachedService": {
                         "value": "[variables('appServiceName')]"
+                    },
+                    "logAnalyticsWorkspaceId": {
+                        "value": "[resourceId(parameters('logAnalyticsSubscriptionId'),parameters('sharedManagementResourceGroup'),'Microsoft.OperationalInsights/workspaces',parameters('logAnalyticsWorkspaceName'))]"
                     }
                 }
             },
