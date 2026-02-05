@@ -96,6 +96,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Web
             var htmlRenderer = serviceProvider.GetRequiredService<HtmlRenderer>();
 
             var logger = serviceProvider.GetRequiredService<ILogger<object>>();
+            logger.LogInformation("Starting application - Find Employment Schemes...");
 
             InterimComponentService.Initialize(logger, viewRenderService, htmlRenderer);
 

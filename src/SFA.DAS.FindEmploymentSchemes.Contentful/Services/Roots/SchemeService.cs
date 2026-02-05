@@ -30,6 +30,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 
             try
             {
+                _logger.LogInformation("Getting Contentful entries for content type: {ContentType}", "scheme");
 
                 var builder = QueryBuilder<ApiScheme>.New.ContentTypeIs("scheme").Include(3);
 
