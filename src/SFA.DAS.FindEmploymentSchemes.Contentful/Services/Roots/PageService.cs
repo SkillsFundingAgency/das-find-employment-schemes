@@ -26,6 +26,8 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 
         public async Task<IEnumerable<Page>> GetAll(IContentfulClient contentfulClient)
         {
+            _logger.LogInformation("Getting Contentful entries for content type: {ContentType}", "page");
+
             var builder = QueryBuilder<ApiPage>.New.ContentTypeIs("page").Include(3);
             var pages = await contentfulClient.GetEntries(builder);
             LogErrors(pages);

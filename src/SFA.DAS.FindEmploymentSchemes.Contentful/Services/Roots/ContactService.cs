@@ -54,6 +54,7 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Services.Roots
 
             try
             {
+                _logger?.LogInformation("Getting Contentful entries for content type: {ContentType}", "contactPage");
 
                 var query = new QueryBuilder<ContactPage>()
 
