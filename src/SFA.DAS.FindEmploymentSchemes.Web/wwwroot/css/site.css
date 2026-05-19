@@ -3,6 +3,35 @@
 body {
     background-color: #F8F8F8 !important;
 }
+html,
+body,
+.govuk-body,
+.govuk-heading-xl,
+.govuk-heading-l,
+.govuk-heading-m,
+.govuk-heading-s,
+.govuk-label,
+.govuk-link,
+.govuk-list,
+.govuk-button,
+h1,
+h2,
+h3,
+h4,
+p,
+span,
+legend,
+label,
+ul,
+li,
+a,
+button,
+input,
+select,
+textarea,
+strong {
+    font-family: "Inter", Arial, sans-serif !important;
+}
 .app-header {
     background-color: #007031;
 }
@@ -722,35 +751,7 @@ table#comparison-results-table th:first-child {
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
 }
-html,
-body,
-.govuk-body,
-.govuk-heading-xl,
-.govuk-heading-l,
-.govuk-heading-m,
-.govuk-heading-s,
-.govuk-label,
-.govuk-link,
-.govuk-list,
-.govuk-button,
-h1,
-h2,
-h3,
-h4,
-p,
-span,
-legend,
-label,
-ul,
-li,
-a,
-button,
-input,
-select,
-textarea,
-strong {
-    font-family: "Inter", Arial, sans-serif !important;
-}
+
 .govuk-header__navigation-item .govuk-header__link {
     position: relative;
     z-index: 2;
