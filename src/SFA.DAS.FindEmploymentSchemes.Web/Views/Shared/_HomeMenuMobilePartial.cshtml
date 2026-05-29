@@ -1,5 +1,5 @@
 ﻿@using SFA.DAS.FindEmploymentSchemes.Contentful.Model.Interim
-@model (IEnumerable<InterimMenuItem>?, bool?)
+@model (IEnumerable<InterimMenuItem>, bool?)
 
 <header class="das-header__mobile das-header js-enabled" data-module="govuk-header">
 
@@ -30,7 +30,7 @@
 
             <div class="das-header-mobile__flex_column" style="display: flex; justify-content: center; align-items: center;">
 
-                <button type="button" class="govuk-header__menu-button govuk-header__mobile-menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide menu" aria-expanded="false" style="/* Add additional styles here */">
+                <button type="button" class="govuk-header__menu-button govuk-header__mobile-menu-button govuk-js-header-toggle" aria-controls="mobile-navigation" aria-label="Show or hide menu" aria-expanded="false" style="/* Add additional styles here */">
 
                     Menu
 
@@ -78,20 +78,22 @@
 
                     @if (Model.Item1 != null && Model.Item1.Any())
                     {
+                        var currentPath = Context.Request.Path.Value?.TrimEnd('/').ToLowerInvariant() ?? string.Empty;
 
                         foreach (InterimMenuItem item in Model.Item1)
                         {
+                            var itemUrl = Model.Item2.HasValue && Model.Item2.Value
+                            ? $"/preview{item.InterimMenuItemSource}"
+                            : item.InterimMenuItemSource;
 
-                            <li class="govuk-header__navigation-item das-header-navigation-item-chevron-mobile govuk-header__navigation-item--active" data-menu-section="content-in-this-section">
+                            var normalisedItemUrl = itemUrl.TrimEnd('/').ToLowerInvariant();
+                            var isActive = currentPath == normalisedItemUrl;
 
-                                <a class="govuk-header__link" href="@(Model.Item2.HasValue && Model.Item2.Value ? $"/preview{item.InterimMenuItemSource}" : item.InterimMenuItemSource)" role="link">@item.InterimMenuItemText</a>
-
+                            <li class="govuk-header__navigation-item das-header-navigation-item-chevron-mobile @(isActive ? "govuk-header__navigation-item--active" : "")" data-menu-section="content-in-this-section">
+                                <a class="govuk-header__link" href="@itemUrl" role="link">@item.InterimMenuItemText</a>
                             </li>
-
                         }
-
                     }
-
                 </ul>
 
             </nav>
