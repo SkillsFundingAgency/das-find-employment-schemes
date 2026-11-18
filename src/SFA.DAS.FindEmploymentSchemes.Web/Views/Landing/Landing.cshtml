@@ -20,14 +20,11 @@
 
     "_InterimPreambleGeneralPartial",
 
-    new Tuple<InterimPreamble?, InterimBreadcrumbs?, bool, bool>(Model.InterimLandingPagePreamble, null, true, Model.Preview.IsPreview)
-
-)
+new Tuple<InterimPreamble, InterimBreadcrumbs, bool, bool>(Model.InterimLandingPagePreamble, null!, true, Model.Preview.IsPreview))
 
 @{
 
-    string? completeUrl = Url.Action(Model.Preview.IsPreview ? "LandingPreview" : "Landing", "Landing", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!;
-
+  string completeUrl = Url.Action(Model.Preview.IsPreview ? "LandingPreview" : "Landing", "Landing", null, protocol: HttpContextAccessor.HttpContext?.Request.Scheme)!;
 }
 
 <div class="govuk-width-container govuk-!-padding-left-2 govuk-!-padding-right-2">
