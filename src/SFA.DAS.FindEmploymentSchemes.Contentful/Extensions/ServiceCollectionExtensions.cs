@@ -43,7 +43,6 @@ namespace SFA.DAS.FindEmploymentSchemes.Contentful.Extensions
                         ManagementApiKey = configOptions.ManagementApiKey,
                         MaxNumberOfRateLimitRetries = configOptions.MaxNumberOfRateLimitRetries,
                         PreviewApiKey = configOptions.PreviewApiKey,
-                        ResolveEntriesSelectively = configOptions.ResolveEntriesSelectively,
                         SpaceId = configOptions.SpaceId,
                         UsePreviewApi = true
                     };
